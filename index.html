@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anirjan | Not Without People — Mindful Products, Software & Social Impact</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Anirjan: Not Without People. We engineer mindful software, sustainable daily essentials, and community-driven NGO initiatives to solve real-world chaos and build a safer, cleaner world.">
+  <meta name="keywords" content="Anirjan, Not Without People, mindful technology, sustainable water bottle, NGO initiatives, weekly thought essays, social impact, ethical software">
+  <meta name="author" content="Anirjan Collective">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Anirjan — Not Without People">
+  <meta property="og:description" content="The world is filled with complete mess. Let's clean the mess, and live in a better, safer world.">
+  <meta property="og:image" content="./assets/favicon.svg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/canvas.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+
+  <!-- Ambient Cosmic Background Overlays -->
+  <div class="ambient-background"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- =========================================================================
+       1. NAVIGATION BAR
+       ========================================================================= -->
+  <header>
+    <nav class="navbar" id="main-navbar">
+      <a href="#hero" class="brand-logo" aria-label="Anirjan Home">
+        <div class="logo-emblem">
+          <svg viewBox="0 0 100 100">
+            <ellipse cx="50" cy="50" rx="38" ry="16" fill="none" stroke="#05070c" stroke-width="3" transform="rotate(-20 50 50)"/>
+            <circle cx="50" cy="30" r="10" fill="#05070c"/>
+            <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="#05070c"/>
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-title">ANIRJAN</span>
+          <span class="brand-tagline">Not Without People</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Mobile Nav Menu -->
+      <ul class="nav-menu">
+        <li><a href="#philosophy" class="nav-link">Philosophy</a></li>
+        <li><a href="#ecosystem" class="nav-link">Products</a></li>
+        <li><a href="#impact" class="nav-link">Roadmap & Action</a></li>
+        <li><a href="#journal" class="nav-link">Weekly Journal</a></li>
+        <li><a href="#careers" class="nav-link">Careers</a></li>
+        <li><a href="#newsletter" class="nav-link">Sunday Letter</a></li>
+      </ul>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <button id="ambient-audio-toggle" class="btn btn-outline-gold btn-sm" aria-label="Toggle Zen Soundscape">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span>Soundscape</span>
+        </button>
+        <button class="mobile-toggle-btn" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         2. HERO SECTION & BUDDHA PARTICLE CANVAS
+         ========================================================================= -->
+    <section class="hero-section" id="hero">
+      <!-- Interactive 60FPS Buddha Point-Cloud Canvas Container -->
+      <div class="hero-canvas-container">
+        <canvas id="buddha-canvas"></canvas>
+      </div>
+      <div class="hero-vignette"></div>
+
+      <!-- Hero Text & Brand Manifesto -->
+      <div class="container hero-content">
+        <div class="hero-badge-container">
+          <div class="badge-glow-dot"></div>
+          <span class="badge-text">Genesis Phase • Day 1 • Building in Public</span>
+        </div>
+
+        <h1 class="hero-brand-name gradient-text-gold">ANIRJAN</h1>
+        <div class="hero-subname">Not Without People</div>
+
+        <!-- The Core Motto & 4 Soul Pillars -->
+        <div class="hero-motto-wrapper">
+          <div class="motto-statement">
+            <span class="motto-lead">The world is filled with complete mess.</span>
+            <span class="motto-punchline gradient-text-gold">Let's clean the mess — and build a better, safer world.</span>
+          </div>
+
+          <div class="hero-pillars-strip">
+            <div class="pillar-pill">
+              <span class="pillar-dot"></span>
+              <span class="pillar-title">Live Better Life</span>
+            </div>
+            <div class="pillar-pill">
+              <span class="pillar-dot"></span>
+              <span class="pillar-title">Solve Social Friction</span>
+            </div>
+            <div class="pillar-pill">
+              <span class="pillar-dot"></span>
+              <span class="pillar-title">Make People Safer</span>
+            </div>
+            <div class="pillar-pill">
+              <span class="pillar-dot"></span>
+              <span class="pillar-title">Create A Better World</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="hero-cta-group">
+          <a href="#ecosystem" class="btn btn-primary">
+            <span>Explore Products & Works</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#journal" class="btn btn-secondary">
+            <span>Read Weekly Journal</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </a>
+          <a href="#careers" class="btn btn-outline-gold">
+            <span>Join Our Mission</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Canvas Interactive HUD Controls -->
+      <div class="canvas-hud">
+        <button id="canvas-constellation-toggle" class="hud-btn active" aria-label="Toggle Sacred Constellation Web">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+          </svg>
+          <span>Sacred Aura</span>
+        </button>
+        <button id="canvas-pause-toggle" class="hud-btn" aria-label="Pause or Resume Cosmic Simulation">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+          </svg>
+          <span>Cosmos Orbiting</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         3. BRAND PHILOSOPHY & PROBLEM SOLVING SECTION
+         ========================================================================= -->
+    <section id="philosophy">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Our Philosophy</span>
+          <h2 class="section-title">Turning Real-World Chaos into Mindful Harmony</h2>
+          <p class="section-description">
+            Modern life is saturated with synthetic complexity, digital noise, environmental degradation, and isolated progress. 
+            Anirjan is dedicated to solving real problems with radical simplicity.
+          </p>
+        </div>
+
+        <div class="philosophy-grid">
+          <div class="philosophy-card">
+            <div class="card-icon-wrap">01</div>
+            <h3>Live Better Life</h3>
+            <p>We build calm, non-addictive digital tools and mindful essentials that remove synthetic friction, notification stress, and restore daily peace of mind.</p>
+          </div>
+
+          <div class="philosophy-card">
+            <div class="card-icon-wrap">02</div>
+            <h3>Solve Social Friction</h3>
+            <p>Human progress cannot happen in isolation. We create tools and grassroots hubs that untangle real-life community complexities and bring people together.</p>
+          </div>
+
+          <div class="philosophy-card">
+            <div class="card-icon-wrap">03</div>
+            <h3>Make People Safer</h3>
+            <p>From chemically inert zero-microplastic hydration to local-first financial diaries that protect your privacy from predatory debt, safety is our core standard.</p>
+          </div>
+
+          <div class="philosophy-card">
+            <div class="card-icon-wrap">04</div>
+            <h3>Create a Better World</h3>
+            <p>Direct ecological action cleaning polluted riverways, transparent non-profit stewardship, and creating dignified, fulfilling jobs for ethical creators.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         4. PRODUCTS & ECOSYSTEM SHOWCASE
+         ========================================================================= -->
+    <section id="ecosystem" style="background: rgba(9, 14, 23, 0.4);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">The Ecosystem</span>
+          <h2 class="section-title">Products Designed for Life, Health & Community</h2>
+          <p class="section-description">
+            Explore our expanding umbrella of mindful mobile software, sustainable physical hardware, and active social impact projects.
+          </p>
+        </div>
+
+        <div class="product-grid" id="products-grid-container">
+          <!-- Dynamic cards injected via js/app.js -->
+        </div>
+
+        <!-- Interactive Smart Simulators Block -->
+        <div style="margin-top: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px;">
+          <!-- Simulator 1: FinDiary Local Privacy Tester -->
+          <div class="philosophy-card" style="border-color: rgba(77, 238, 234, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+              <span class="badge badge-cyan">Interactive FinDiary Demo</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Offline SQLite Simulation</span>
+            </div>
+            <h3 style="font-size: 1.3rem;">Experience Calm Expense Logging</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 18px;">Test how FinDiary logs a spend with zero loan offers, zero notifications, and local-only storage.</p>
+            
+            <form onsubmit="handleDemoExpense(event)" style="display: flex; flex-direction: column; gap: 12px;">
+              <input type="text" id="demo-expense-text" class="input-glass" style="border-radius: 8px; font-size: 0.9rem;" placeholder="e.g. ₹ 150 — Books or Groceries" required>
+              <button type="submit" class="btn btn-outline-gold btn-sm" style="width: 100%;">
+                <span>Record with 100% Local Privacy</span>
+              </button>
+            </form>
+            <div id="demo-expense-result" style="margin-top: 14px; font-size: 0.85rem; color: var(--emerald-primary); display: none;"></div>
+          </div>
+
+          <!-- Simulator 2: Pure Water Microplastics Calculator -->
+          <div class="philosophy-card" style="border-color: rgba(243, 194, 118, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+              <span class="badge badge-gold">Health & Eco Calculator</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Anirjan Pure Vessel</span>
+            </div>
+            <h3 style="font-size: 1.3rem;">Your Microplastic Reduction</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 18px;">How many single-use plastic bottles & chemical nanoplastics you eliminate per year:</p>
+            
+            <div style="margin-bottom: 14px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                <span>Daily Water Bottles: <strong id="calc-bottle-count" style="color: var(--gold-primary);">2 Bottles</strong></span>
+              </div>
+              <input type="range" id="calc-bottle-slider" min="1" max="8" value="2" oninput="updatePlasticCalculator(this.value)" style="width: 100%; accent-color: var(--gold-primary);">
+            </div>
+            
+            <div style="background: rgba(5,7,12,0.6); padding: 14px; border-radius: 8px; display: flex; justify-content: space-around; text-align: center;">
+              <div>
+                <div id="calc-bottles-saved" style="font-size: 1.4rem; font-weight: 800; color: var(--gold-light);">730</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Plastics Saved / Yr</div>
+              </div>
+              <div style="border-left: 1px solid var(--border-subtle); padding-left: 14px;">
+                <div id="calc-nanoplastics-saved" style="font-size: 1.4rem; font-weight: 800; color: var(--cyan-primary);">1.8M</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Microplastics Avoided</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         5. GENESIS ROADMAP & 2026-2027 COMMITMENTS
+         ========================================================================= -->
+    <section id="impact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Genesis Phase • Day 1</span>
+          <h2 class="section-title">Our Public Commitments & 2026-2027 Roadmap</h2>
+          <p class="section-description">
+            We are just getting started. No vanity metrics or inflated claims. We are building in the open with radical honesty and transparent milestones.
+          </p>
+        </div>
+
+        <!-- The Day 1 Genesis Manifesto Box -->
+        <div class="genesis-manifesto-box">
+          <div class="genesis-quote">
+            "We are just getting started. No inflated corporate vanity, no fake metrics—just honest craftsmanship, radical simplicity, and deep commitment to people."
+          </div>
+          <div class="genesis-body">
+            The world around us feels increasingly cluttered: predatory algorithms stealing human attention, toxic plastics polluting our bodies and waterways, and economic systems that treat individuals as transaction data. <strong>Anirjan</strong>—meaning <em>'Not Without People'</em>—is our response. We are a small, focused collective building everyday digital tools, sustainable physical essentials, and grassroots environmental actions from the ground up. Every week, we document our progress, our challenges, and our blueprints right here in the open.
+          </div>
+        </div>
+
+        <!-- Live Genesis Roadmap Goals Grid -->
+        <div class="roadmap-grid" id="genesis-roadmap-container">
+          <!-- Dynamic cards injected via js/app.js -->
+        </div>
+
+        <!-- Impact Spotlight Card -->
+        <div class="newsletter-card" style="text-align: left; max-width: 100%;">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <span class="badge badge-emerald">Grassroots Pilot In Formation</span>
+            <h3 style="font-size: 1.8rem;" class="gradient-text-gold">Project Nirmal: Clean Waterways & Living Corridors</h3>
+            <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem;">
+              We are organizing our founding 100-volunteer cleanup drive along suburban canals. Target: divert our first 5 tons of discarded non-biodegradable plastics into verified circular recycling partners.
+            </p>
+            <div style="display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap;">
+              <button class="btn btn-primary" onclick="showToast('Thank you! Redirecting to Volunteer Registration...');">
+                <span>Join Founding Volunteer Cohort</span>
+              </button>
+              <button class="btn btn-secondary" onclick="showToast('Financial and impact ledgers will be published openly after every drive.');">
+                <span>Our 100% Open Ledger Commitment</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         6. WEEKLY JOURNAL & THOUGHT PROCESS
+         ========================================================================= -->
+    <section id="journal" style="background: rgba(9, 14, 23, 0.4);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Weekly Journal & Essays</span>
+          <h2 class="section-title">Our Thought Process, Published Every Week</h2>
+          <p class="section-description">
+            Every week we document what we build, the philosophical dilemmas we face, and how we are untangling the world's complexities.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="journal-filter-bar">
+          <button class="filter-tab journal-tab active" data-category="all">All Thoughts</button>
+          <button class="filter-tab journal-tab" data-category="Philosophy">Philosophy</button>
+          <button class="filter-tab journal-tab" data-category="Software">Software Ethics</button>
+          <button class="filter-tab journal-tab" data-category="Physical">Physical Engineering</button>
+          <button class="filter-tab journal-tab" data-category="NGO">NGO & Fieldwork</button>
+        </div>
+
+        <!-- Articles Grid -->
+        <div class="journal-grid" id="journal-grid-container">
+          <!-- Dynamic articles injected via js/app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         7. CAREERS & JOB CREATION SECTION
+         ========================================================================= -->
+    <section id="careers">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Join The Mission</span>
+          <h2 class="section-title">We Are Creating Jobs for Builders & Healers</h2>
+          <p class="section-description">
+            Want to work on technology that respects human consciousness, products that don't poison the earth, and social initiatives that change lives?
+          </p>
+        </div>
+
+        <!-- Career Department Filters -->
+        <div class="journal-filter-bar">
+          <button class="filter-tab career-tab active" data-dept="all">All Openings</button>
+          <button class="filter-tab career-tab" data-dept="Software">Software & Creative Web</button>
+          <button class="filter-tab career-tab" data-dept="Product">Industrial & Hardware</button>
+          <button class="filter-tab career-tab" data-dept="Community">NGO & Field Operations</button>
+          <button class="filter-tab career-tab" data-dept="Media">Editorial & Philosophy</button>
+        </div>
+
+        <!-- Careers Grid -->
+        <div class="career-grid" id="careers-grid-container">
+          <!-- Dynamic jobs injected via js/app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         8. WEEKLY NEWSLETTER DIGEST
+         ========================================================================= -->
+    <section id="newsletter">
+      <div class="container">
+        <div class="newsletter-card">
+          <span class="section-label">Sunday Thoughts</span>
+          <h2 style="font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 14px;" class="gradient-text-gold">
+            Receive Our Weekly Sunday Letter
+          </h2>
+          <p style="color: var(--text-secondary); max-width: 540px; margin: 0 auto; font-size: 1rem;">
+            One thoughtful essay every Sunday on mindfulness, clean engineering, and human-centric living. Zero spam, zero marketing noise.
+          </p>
+
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" class="input-glass" placeholder="Enter your email address..." required aria-label="Email address">
+            <button type="submit" class="btn btn-primary">
+              <span>Subscribe Free</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       9. FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="#hero" class="brand-logo" style="margin-bottom: 14px;">
+            <div class="logo-emblem">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="30" r="10" fill="#05070c"/>
+                <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="#05070c"/>
+              </svg>
+            </div>
+            <div class="brand-text-wrap">
+              <span class="brand-title">ANIRJAN</span>
+              <span class="brand-tagline">Not Without People</span>
+            </div>
+          </a>
+          <p class="footer-brand-bio">
+            The world is filled with complete mess. Let's clean the mess — and build a better, safer world for people.
+          </p>
+          <div style="font-size: 0.85rem; color: var(--gold-primary); font-weight: 600;">
+            Live Better • Solve Social Friction • Make People Safer • Create A Better World
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ecosystem</h4>
+          <ul class="footer-links">
+            <li><a href="#ecosystem">FinDiary (RupeeDiary)</a></li>
+            <li><a href="#ecosystem">Anirjan Pure Bottle</a></li>
+            <li><a href="#ecosystem">Anirjan Flow App</a></li>
+            <li><a href="#ecosystem">Anirjan Sanctuary</a></li>
+            <li><a href="#impact">Project Nirmal NGO</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Brand & Culture</h4>
+          <ul class="footer-links">
+            <li><a href="#philosophy">Our Philosophy</a></li>
+            <li><a href="#journal">Weekly Essays</a></li>
+            <li><a href="#careers">Careers & Jobs</a></li>
+            <li><a href="#impact">Impact Reports</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@anirjan.org">hello@anirjan.org</a></li>
+            <li><a href="#" onclick="showToast('Twitter / X: @AnirjanCollective'); return false;">Twitter / X</a></li>
+            <li><a href="#" onclick="showToast('LinkedIn: Anirjan Foundation'); return false;">LinkedIn</a></li>
+            <li><a href="#" onclick="showToast('GitHub: github.com/anirjan'); return false;">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Anirjan Collective. All rights reserved. Built for people.</div>
+        <div>Zero tracking • Static & Fast • Ready for Render</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       10. GLOBAL MODAL CONTAINER
+       ========================================================================= -->
+  <div class="modal-backdrop" id="global-modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">✕</button>
+      <h2 id="modal-title" style="font-size: 1.6rem; margin-bottom: 12px; color: var(--text-primary);">Details</h2>
+      <div id="modal-body">
+        <!-- Dynamic content injected -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-notice" id="global-toast"></div>
+
+  <!-- Scripts -->
+  <script src="./js/data-store.js"></script>
+  <script src="./js/buddha-canvas.js"></script>
+  <script src="./js/audio-ambient.js"></script>
+  <script src="./js/soul-companion.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

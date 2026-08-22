@@ -1,0 +1,111 @@
+/* ==========================================================================
+   RESPONSIVE & MOBILE ADAPTATIONS
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  :root {
+    --section-pad: 80px 0;
+  }
+  
+  .navbar {
+    width: calc(100% - 32px);
+    padding: 10px 18px;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 76px;
+    left: 16px;
+    right: 16px;
+    background: rgba(10, 14, 26, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-active);
+    border-radius: var(--radius-lg);
+    flex-direction: column;
+    padding: 30px 24px;
+    gap: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: var(--transition-smooth);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+  }
+
+  .nav-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .mobile-toggle-btn {
+    display: block;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .hero-section {
+    padding: 120px 0 60px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --section-pad: 60px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .hero-motto-wrapper {
+    padding: 18px 20px;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .product-grid, .journal-grid, .career-grid, .philosophy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-banner {
+    grid-template-columns: 1fr 1fr;
+    padding: 32px 20px;
+    gap: 24px;
+  }
+
+  .stat-number {
+    font-size: 2.2rem;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-container {
+    padding: 24px 18px;
+  }
+
+  .newsletter-card {
+    padding: 40px 20px;
+  }
+  
+  .canvas-hud {
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .hud-btn span {
+    display: none;
+  }
+}
