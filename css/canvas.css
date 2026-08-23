@@ -1,27 +1,47 @@
 /* ==========================================================================
    CANVAS & HERO PRESENTATION STYLES
-   Point-Cloud Buddha & Orbiting Planets Particle Cosmos
+   Top Cosmic Buddha Celestial Sanctuary + Radiant Brand Typography Below
    ========================================================================== */
 
 .hero-section {
   position: relative;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 140px 0 80px 0;
+  justify-content: flex-start;
+  padding: 110px 0 80px 0;
   overflow: hidden;
 }
 
-/* Canvas Container */
-.hero-canvas-container {
+/* Background Ambient Glow Behind Grid */
+.hero-ambient-glow {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  max-width: 90vw;
+  height: 600px;
+  background: radial-gradient(circle, rgba(243, 194, 118, 0.14) 0%, rgba(77, 238, 234, 0.05) 50%, transparent 75%);
+  pointer-events: none;
+  filter: blur(60px);
   z-index: 1;
-  pointer-events: auto;
+}
+
+/* Top Celestial Buddha Sanctuary Stage */
+.hero-top-celestial-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  height: 520px;
+  margin: 0 auto 32px auto;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(circle at center, rgba(16, 23, 38, 0.6) 0%, rgba(5, 7, 12, 0.85) 75%);
+  border: 1px solid rgba(243, 194, 118, 0.22);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), inset 0 0 50px rgba(243, 194, 118, 0.05);
+  overflow: hidden;
+  z-index: 3;
 }
 
 #buddha-canvas {
@@ -30,51 +50,66 @@
   display: block;
 }
 
-/* Radial Vignette Mask over canvas */
-.hero-vignette {
+/* Canvas Stage HUD Controls */
+.canvas-stage-hud {
   position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at center,
-    transparent 35%,
-    rgba(5, 7, 12, 0.4) 65%,
-    var(--bg-primary) 95%
-  );
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Hero Content */
-.hero-content {
+.hud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(10, 14, 26, 0.88);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  backdrop-filter: var(--blur-glass);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.hud-btn:hover {
+  border-color: var(--border-active);
+  color: var(--gold-primary);
+}
+
+.hud-btn.active {
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+  box-shadow: 0 0 14px var(--gold-glow);
+}
+
+/* Brand & Motto Content Container Beneath Buddha */
+.hero-bottom-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
   position: relative;
   z-index: 3;
-  text-align: center;
-  max-width: 960px;
-  margin: 0 auto;
-  pointer-events: none; /* Let canvas receive interactions except on active buttons */
-}
-
-.hero-content * {
-  pointer-events: auto;
 }
 
 .hero-badge-container {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 20px;
-  background: rgba(16, 23, 38, 0.75);
+  gap: 10px;
+  padding: 6px 20px;
+  background: rgba(16, 23, 38, 0.85);
   border: 1px solid var(--border-active);
   border-radius: var(--radius-full);
   backdrop-filter: var(--blur-glass);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  margin-bottom: 28px;
-  animation: floatBadge 4s ease-in-out infinite alternate;
-}
-
-@keyframes floatBadge {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-6px); }
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
 }
 
 .badge-glow-dot {
@@ -82,7 +117,7 @@
   height: 8px;
   border-radius: 50%;
   background: var(--gold-primary);
-  box-shadow: 0 0 12px var(--gold-primary);
+  box-shadow: 0 0 10px var(--gold-primary);
   animation: pulseDot 2s infinite ease-in-out;
 }
 
@@ -92,26 +127,26 @@
 }
 
 .badge-text {
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 2.5px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--gold-light);
 }
 
 .hero-brand-name {
-  font-size: clamp(3.2rem, 7.5vw, 6.5rem);
+  font-size: clamp(3.2rem, 6.5vw, 6.0rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  margin-bottom: 6px;
   text-transform: uppercase;
 }
 
 .hero-subname {
   display: block;
   font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
   font-weight: 400;
   letter-spacing: 0.25em;
   color: var(--gold-primary);
@@ -121,15 +156,16 @@
 
 /* Core Motto & Soul Architecture Callout */
 .hero-motto-wrapper {
-  background: rgba(10, 15, 28, 0.72);
-  border: 1px solid rgba(243, 194, 118, 0.3);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(10, 15, 28, 0.75);
+  border: 1px solid rgba(243, 194, 118, 0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-radius: var(--radius-lg);
-  padding: 32px 36px 28px 36px;
-  max-width: 840px;
-  margin: 0 auto 36px auto;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(243, 194, 118, 0.08);
+  padding: 30px 36px 24px 36px;
+  width: 100%;
+  max-width: 780px;
+  margin-bottom: 32px;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(243, 194, 118, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -154,19 +190,18 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .motto-lead {
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 400;
   color: #94a3b8;
-  letter-spacing: 0.5px;
 }
 
 .motto-punchline {
   font-family: var(--font-heading);
-  font-size: clamp(1.3rem, 2.4vw, 1.95rem);
+  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -179,7 +214,7 @@
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
-  padding-top: 18px;
+  padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -224,45 +259,31 @@
   flex-wrap: wrap;
 }
 
-/* Ambient Audio & Canvas Control HUD */
-.canvas-hud {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* Responsive Adaptations */
+@media (max-width: 1024px) {
+  .hero-top-celestial-stage {
+    height: 440px;
+    margin-bottom: 28px;
+  }
 }
 
-.hud-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background: rgba(16, 23, 38, 0.8);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  backdrop-filter: var(--blur-glass);
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: var(--transition-smooth);
-}
+@media (max-width: 640px) {
+  .hero-top-celestial-stage {
+    height: 360px;
+    margin-bottom: 24px;
+  }
 
-.hud-btn:hover {
-  border-color: var(--border-active);
-  color: var(--gold-primary);
-  transform: translateY(-2px);
-}
+  .hero-motto-wrapper {
+    padding: 20px 18px 18px 18px;
+  }
 
-.hud-btn.active {
-  border-color: var(--gold-primary);
-  color: var(--gold-primary);
-  box-shadow: 0 0 15px var(--gold-glow);
-}
+  .hero-pillars-strip {
+    flex-direction: column;
+    width: 100%;
+  }
 
-.hud-btn svg {
-  width: 16px;
-  height: 16px;
+  .pillar-pill {
+    width: 100%;
+    justify-content: center;
+  }
 }

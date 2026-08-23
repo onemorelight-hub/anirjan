@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact, Support & Feedback — FinDiary by Anirjan</title>
+  <meta name="description" content="Get help, contact customer support, or send product feedback for FinDiary by Anirjan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #070A12;
+      --card-bg: rgba(18, 24, 38, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #10B981;
+      --accent-glow: rgba(16, 185, 129, 0.25);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-muted);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 72px;
+      background: rgba(7, 10, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+    .brand-logo {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: bold; font-size: 18px;
+    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+
+    .container {
+      max-width: 860px;
+      margin: 120px auto 80px;
+      padding: 0 24px;
+    }
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    /* Channels Grid */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .channel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .channel-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(24, 32, 50, 0.85);
+    }
+    .channel-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+    .channel-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .channel-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* FAQ Section */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+    .faq-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s ease;
+    }
+    .faq-card:hover {
+      border-color: rgba(255,255,255,0.15);
+    }
+    .faq-q {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    .faq-a {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .footer {
+      border-top: 1px solid var(--card-border);
+      padding: 40px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #64748B;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="../index.html" class="brand">
+      <div class="brand-logo">💬</div>
+      <span>ANIRJAN <span style="font-weight:400; color:#94A3B8;">/ FinDiary</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html" class="active">Support</a>
+      <a href="../index.html">← Anirjan Home</a>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+    <div class="header-tag">💬 USER ASSISTANCE & HELP DESK</div>
+    <h1>Contact & Support</h1>
+    <p class="subtitle">Encountered an issue or have an idea to make FinDiary better? We're here to help.</p>
+
+    <!-- Support Channels -->
+    <div class="channels-grid">
+      <a href="mailto:support@anirjan.com?subject=FinDiary%20Support%20Request" class="channel-card">
+        <div class="channel-icon">✉️</div>
+        <div class="channel-title">Email Help Desk</div>
+        <div class="channel-desc"><span style="color:#10B981; font-weight:600;">support@anirjan.com</span><br>Direct response within 24 hours</div>
+      </a>
+
+      <a href="mailto:feedback@anirjan.com?subject=FinDiary%20Feature%20Feedback" class="channel-card">
+        <div class="channel-icon">💡</div>
+        <div class="channel-title">Product Feedback</div>
+        <div class="channel-desc"><span style="color:#3B82F6; font-weight:600;">feedback@anirjan.com</span><br>Request features & integrations</div>
+      </a>
+
+      <a href="https://github.com/anirjan" target="_blank" class="channel-card">
+        <div class="channel-icon">🛠️</div>
+        <div class="channel-title">Developer & Bugs</div>
+        <div class="channel-desc">GitHub Issue Tracker<br>Follow open updates</div>
+      </a>
+    </div>
+
+    <!-- FAQ -->
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-card">
+      <div class="faq-q">1. How does offline mode work?</div>
+      <div class="faq-a">FinDiary uses an offline-first architecture. Any transaction or note you log without connectivity is saved locally to your device immediately. Once your internet returns, it automatically syncs in the background with zero data loss.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">2. How do I switch my currency?</div>
+      <div class="faq-a">Go to <strong>Settings → Preferred Currency</strong>. FinDiary supports USD ($), EUR (€), GBP (£), INR (₹), JPY (¥), AED, SAR, AUD, CAD, and SGD with automatic formatting.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">3. How do Universal AI & Entry Credits work?</div>
+      <div class="faq-a">Free accounts enjoy 10 diary entries and 5 Arti AI queries daily. When you invite friends via <strong>Settings → Invite & Earn</strong>, you bank 50 Universal Credits (and your friend gets 25), automatically extending your daily quotas up to 10 extra credits per day.</div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q">4. How do I permanently delete my account and records?</div>
+      <div class="faq-a">Navigate to <strong>Settings → Danger Zone → Delete My Account</strong>. Confirming will permanently and irreversibly erase your profile, entries, and authentication tokens from our database.</div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 Anirjan. Not Without People. • <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></p>
+  </footer>
+
+</body>
+</html>

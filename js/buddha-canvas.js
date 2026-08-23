@@ -1,13 +1,16 @@
 /**
- * ANIRJAN HIGH-DEFINITION COSMIC BUDDHA & CELESTIAL ORBITS ENGINE
+ * ANIRJAN SACRED COSMIC BUDDHA & CELESTIAL ORBITS ENGINE
  * 
- * Features:
- * 1. Ultra-Crisp Meditating Buddha Point-Cloud (Aura, Ushnisha, Third Eye, Dhyana Mudra, Lotus Throne)
- * 2. Ethereal Constellation Light Webs (Golden thread links between contour points)
- * 3. 6 Concentric 3D Orbiting Planets with Glowing Particle Trails & Moons
- * 4. Responsive Viewport Positioning for 100% Visibility on Laptops, Tablets, and Mobile
- * 5. Interactive Mouse/Touch Repulsion & Restorative Spring Physics
- * 6. Harmonic Audio Breathing Pulse when Zen Soundscape is active
+ * An imaginative, transcendent 60FPS particle cosmos featuring:
+ * 1. High-Definition Meditating Buddha in Sacred Padmasana Posture
+ * 2. Radiant Aureole Rays & Golden Prabhavali Halo
+ * 3. Crown Ushnisha Wisdom Flame & Radiant Third Eye (Ajna)
+ * 4. Pulsating Heart Chakra Resonance Node (Anahata)
+ * 5. Intricate Dhyana Mudra (Meditative Folded Hands in Lap)
+ * 6. Blooming Multi-Petaled Lotus Throne Base
+ * 7. Sacred Geometric Constellation Light Web
+ * 8. 6 Multi-Tier 3D Orbiting Planets with Glowing Stardust Tails & Moons
+ * 9. Fluid Touch/Mouse Wave Ripples with Restorative Spring Relaxation
  */
 
 class BuddhaCosmicCanvas {
@@ -18,9 +21,10 @@ class BuddhaCosmicCanvas {
     this.ctx = this.canvas.getContext('2d');
     this.particles = [];
     this.contourParticles = [];
+    this.auraRays = [];
     this.planets = [];
     this.stars = [];
-    this.mouse = { x: null, y: null, radius: 140, active: false };
+    this.mouse = { x: null, y: null, radius: 150, active: false };
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.width = 0;
     this.height = 0;
@@ -31,15 +35,17 @@ class BuddhaCosmicCanvas {
     this.time = 0;
     this.isPaused = false;
     this.showConstellations = true;
-    this.tiltAngle = 0.32; // 3D Perspective Tilt
+    this.showAuraRays = true;
+    this.tiltAngle = 0.30; // 3D Perspective Tilt
 
     this.init();
   }
 
   init() {
     this.resize();
-    this.createStarfield(140);
-    this.generateHighDefBuddha();
+    this.createStarfield(150);
+    this.initAuraRays(36);
+    this.generateSacredBuddha();
     this.initPlanetarySystem();
     this.attachEventListeners();
     this.animate();
@@ -56,20 +62,22 @@ class BuddhaCosmicCanvas {
     this.ctx.scale(this.dpr, this.dpr);
 
     this.centerX = this.width / 2;
-    
-    // Position Buddha gracefully so it sits proud and visible above/around content
-    const isMobile = this.width < 768;
-    this.centerY = isMobile ? this.height * 0.32 : this.height * 0.38;
-    this.buddhaScale = isMobile ? Math.min(this.width, this.height) * 0.42 : Math.min(this.width, this.height) * 0.46;
+    this.centerY = this.height * 0.50; // Centered in the top celestial stage
+    this.buddhaScale = Math.min(this.width, this.height) * 0.52;
 
     if (this.particles.length > 0) {
-      this.generateHighDefBuddha();
+      this.generateSacredBuddha();
       this.initPlanetarySystem();
     }
   }
 
   attachEventListeners() {
     window.addEventListener('resize', () => this.resize());
+    
+    if (window.ResizeObserver && this.canvas.parentElement) {
+      const ro = new ResizeObserver(() => this.resize());
+      ro.observe(this.canvas.parentElement);
+    }
 
     window.addEventListener('mousemove', (e) => {
       const rect = this.canvas.getBoundingClientRect();
@@ -112,24 +120,36 @@ class BuddhaCosmicCanvas {
     }
   }
 
+  initAuraRays(count) {
+    this.auraRays = [];
+    for (let i = 0; i < count; i++) {
+      this.auraRays.push({
+        angle: (i / count) * Math.PI * 2,
+        length: Math.random() * 0.35 + 0.65,
+        speed: Math.random() * 0.005 + 0.002,
+        alpha: Math.random() * 0.4 + 0.2
+      });
+    }
+  }
+
   /**
-   * Generates high-density, anatomically serene Buddha point-cloud
+   * Generates high-definition, transcendent sacred Buddha point-cloud
    */
-  generateHighDefBuddha() {
+  generateSacredBuddha() {
     this.particles = [];
     this.contourParticles = [];
     const scale = this.buddhaScale;
     const isMobile = this.width < 768;
-    const totalPoints = isMobile ? 2200 : 4200;
+    const totalPoints = isMobile ? 2600 : 4800;
 
     for (let i = 0; i < totalPoints; i++) {
-      const pt = this.sampleBuddhaGeometry(scale);
+      const pt = this.sampleSacredGeometry(scale);
       if (pt) {
         const particle = {
           homeX: this.centerX + pt.x,
           homeY: this.centerY + pt.y,
-          x: this.centerX + pt.x + (Math.random() - 0.5) * 15,
-          y: this.centerY + pt.y + (Math.random() - 0.5) * 15,
+          x: this.centerX + pt.x + (Math.random() - 0.5) * 12,
+          y: this.centerY + pt.y + (Math.random() - 0.5) * 12,
           vx: 0,
           vy: 0,
           size: pt.size || (Math.random() * 1.5 + 0.8),
@@ -152,11 +172,11 @@ class BuddhaCosmicCanvas {
   getPointColor(region) {
     switch(region) {
       case 'haloRing': return '#ffea79'; // Luminous golden halo
-      case 'haloInner': return '#fef08a';
+      case 'haloRays': return '#fef08a';
       case 'thirdEye': return '#67e8f9'; // Ethereal Third Eye Cyan
       case 'ushnisha': return '#fde047'; // Crown of wisdom
       case 'head': return '#fbe6c2';
-      case 'heart': return '#4deeea'; // Heart Center
+      case 'heart': return '#4deeea'; // Heart Chakra Emerald/Cyan
       case 'dhyanaHands': return '#fed7aa'; // Meditative hands in lap
       case 'lotusPetals': return '#f472b6'; // Lotus pink stardust
       case 'base': return '#f3c276';
@@ -165,66 +185,66 @@ class BuddhaCosmicCanvas {
   }
 
   /**
-   * Precise geometric formulation of meditating Buddha in Padmasana
+   * Mathematical and artistic sampling of Meditating Buddha in Padmasana
    */
-  sampleBuddhaGeometry(scale) {
+  sampleSacredGeometry(scale) {
     const r = Math.random();
     const s = scale * 0.58;
 
-    // 1. Radiant Aura / Prabhavali Halo Ring (16% of points)
-    if (r < 0.16) {
+    // 1. Radiant Prabhavali Aureole (Golden Outer Halo Ring & Starlight Beams) (18%)
+    if (r < 0.18) {
       const angle = Math.random() * Math.PI * 2;
-      const ringWidth = Math.random() > 0.6 ? s * 0.48 : (s * 0.40 + Math.random() * s * 0.1);
+      const isBeam = Math.random() > 0.7;
+      const ringRadius = isBeam ? (s * 0.42 + Math.random() * s * 0.22) : (s * 0.40 + Math.random() * s * 0.08);
       return {
-        x: Math.cos(angle) * ringWidth,
-        y: Math.sin(angle) * ringWidth - s * 0.40,
-        region: 'haloRing',
-        size: Math.random() * 1.6 + 0.8,
+        x: Math.cos(angle) * ringRadius,
+        y: Math.sin(angle) * ringRadius - s * 0.40,
+        region: isBeam ? 'haloRays' : 'haloRing',
+        size: isBeam ? 1.8 : (Math.random() * 1.5 + 0.8),
         alpha: Math.random() * 0.6 + 0.4,
         isContour: true
       };
     }
 
-    // 2. Ushnisha (Wisdom Topknot Flame at the Crown) (6%)
-    if (r < 0.22) {
+    // 2. Ushnisha Wisdom Flame & Crown Stardust (7%)
+    if (r < 0.25) {
       const uAngle = Math.random() * Math.PI * 2;
       const uRad = Math.random() * (s * 0.08);
-      const flameRise = Math.pow(Math.random(), 2) * (s * 0.12);
+      const flameRise = Math.pow(Math.random(), 2) * (s * 0.14);
       return {
-        x: Math.cos(uAngle) * uRad * (1 - flameRise / (s * 0.15)),
+        x: Math.cos(uAngle) * uRad * (1 - flameRise / (s * 0.16)),
         y: -s * 0.82 - flameRise,
         region: 'ushnisha',
-        size: Math.random() * 1.8 + 0.9,
-        alpha: 0.9,
+        size: Math.random() * 1.9 + 0.9,
+        alpha: 0.92,
         isContour: true
       };
     }
 
-    // 3. Head & Third Eye (Urna Bindu) (14%)
-    if (r < 0.36) {
+    // 3. Head & Third Eye (Ajna Bindu) (14%)
+    if (r < 0.39) {
       const theta = Math.random() * Math.PI * 2;
       const hRadX = s * 0.18 * Math.sqrt(Math.random());
       const hRadY = s * 0.22 * Math.sqrt(Math.random());
       const yP = -s * 0.54 + Math.sin(theta) * hRadY;
       const xP = Math.cos(theta) * hRadX;
 
-      // Third Eye Accent
       const isThirdEye = Math.abs(xP) < s * 0.025 && Math.abs(yP - (-s * 0.58)) < s * 0.03;
 
       return {
         x: xP,
         y: yP,
         region: isThirdEye ? 'thirdEye' : 'head',
-        size: isThirdEye ? 2.4 : (Math.random() * 1.4 + 0.8),
-        alpha: isThirdEye ? 1.0 : (Math.random() * 0.7 + 0.3),
+        size: isThirdEye ? 2.6 : (Math.random() * 1.4 + 0.8),
+        alpha: isThirdEye ? 1.0 : (Math.random() * 0.7 + 0.35),
         isContour: Math.abs(xP) > s * 0.14
       };
     }
 
-    // 4. Meditative Torso, Shoulders & Robe Drapes (28%)
+    // 4. Meditative Torso, Shoulders & Robe Drapes (25%)
     if (r < 0.64) {
-      const tY = Math.random(); // 0 (neck) to 1 (waist)
-      const shoulderSpread = (0.20 + Math.sin(tY * Math.PI) * 0.36) * s;
+      const tY = Math.random();
+      const shoulderSpread = (0.20 + Math.sin(tY * Math.PI) * 0.38) * s;
       const xP = (Math.random() - 0.5) * 2 * shoulderSpread;
       const yP = -s * 0.32 + tY * (s * 0.54);
 
@@ -234,30 +254,30 @@ class BuddhaCosmicCanvas {
         x: xP,
         y: yP,
         region: isHeart ? 'heart' : 'torso',
-        size: isHeart ? 2.0 : (Math.random() * 1.3 + 0.7),
-        alpha: isHeart ? 0.95 : (Math.random() * 0.65 + 0.35),
+        size: isHeart ? 2.2 : (Math.random() * 1.3 + 0.7),
+        alpha: isHeart ? 1.0 : (Math.random() * 0.65 + 0.35),
         isContour: Math.abs(xP) > shoulderSpread * 0.85
       };
     }
 
     // 5. Folded Meditative Hands (Dhyana Mudra in Lap) (8%)
     if (r < 0.72) {
-      const hX = (Math.random() - 0.5) * s * 0.28;
+      const hX = (Math.random() - 0.5) * s * 0.30;
       const hY = s * 0.20 + Math.random() * (s * 0.08);
       return {
         x: hX,
         y: hY,
         region: 'dhyanaHands',
         size: Math.random() * 1.6 + 0.8,
-        alpha: 0.85,
+        alpha: 0.88,
         isContour: true
       };
     }
 
-    // 6. Seated Folded Legs (Padmasana Lotus Posture) (20%)
-    if (r < 0.92) {
+    // 6. Seated Folded Legs (Padmasana Lotus Base) (18%)
+    if (r < 0.90) {
       const legAngle = (Math.random() - 0.5) * Math.PI * 0.95;
-      const legSpread = s * (0.62 + Math.random() * 0.42);
+      const legSpread = s * (0.64 + Math.random() * 0.42);
       const legHeight = s * 0.25 * Math.random();
       const bX = Math.cos(legAngle) * legSpread * (Math.random() > 0.5 ? 1 : -1);
       const bY = s * 0.28 + legHeight + Math.sin(legAngle) * (s * 0.09);
@@ -272,16 +292,16 @@ class BuddhaCosmicCanvas {
       };
     }
 
-    // 7. Layered Lotus Petal Throne Base (8%)
-    const petalIdx = Math.floor(Math.random() * 8);
-    const pAngle = (petalIdx / 8) * Math.PI * 2;
-    const pRad = s * (0.75 + Math.random() * 0.25);
+    // 7. Blooming Lotus Petal Throne Base (10%)
+    const petalIdx = Math.floor(Math.random() * 10);
+    const pAngle = (petalIdx / 10) * Math.PI * 2;
+    const pRad = s * (0.78 + Math.random() * 0.28);
     return {
       x: Math.cos(pAngle) * pRad,
       y: s * 0.46 + Math.sin(pAngle) * (s * 0.14) + Math.random() * (s * 0.06),
       region: 'lotusPetals',
-      size: Math.random() * 1.5 + 0.6,
-      alpha: Math.random() * 0.6 + 0.3,
+      size: Math.random() * 1.6 + 0.7,
+      alpha: Math.random() * 0.7 + 0.3,
       isContour: true
     };
   }
@@ -290,16 +310,16 @@ class BuddhaCosmicCanvas {
    * Initializes Celestial Orbiting Planetary System
    */
   initPlanetarySystem() {
-    const baseRadius = this.buddhaScale * 0.85;
+    const baseRadius = this.buddhaScale * 0.88;
 
     this.planets = [
       {
         name: 'Mercury',
         radiusX: baseRadius * 0.72,
         radiusY: baseRadius * 0.72 * this.tiltAngle,
-        size: 4.0,
+        size: 4.2,
         color: '#e2e8f0',
-        glowColor: 'rgba(226, 232, 240, 0.7)',
+        glowColor: 'rgba(226, 232, 240, 0.75)',
         speed: 0.016,
         angle: 0.8,
         trail: [],
@@ -309,9 +329,9 @@ class BuddhaCosmicCanvas {
         name: 'Venus',
         radiusX: baseRadius * 1.05,
         radiusY: baseRadius * 1.05 * this.tiltAngle,
-        size: 5.2,
+        size: 5.4,
         color: '#f3c276',
-        glowColor: 'rgba(243, 194, 118, 0.85)',
+        glowColor: 'rgba(243, 194, 118, 0.88)',
         speed: 0.012,
         angle: 2.3,
         trail: [],
@@ -321,7 +341,7 @@ class BuddhaCosmicCanvas {
         name: 'Earth & Moon',
         radiusX: baseRadius * 1.45,
         radiusY: baseRadius * 1.45 * this.tiltAngle,
-        size: 6.5,
+        size: 6.8,
         color: '#4deeea',
         glowColor: 'rgba(77, 238, 234, 0.95)',
         speed: 0.009,
@@ -335,9 +355,9 @@ class BuddhaCosmicCanvas {
         name: 'Mars',
         radiusX: baseRadius * 1.85,
         radiusY: baseRadius * 1.85 * this.tiltAngle,
-        size: 4.8,
+        size: 5.0,
         color: '#f87171',
-        glowColor: 'rgba(248, 113, 113, 0.8)',
+        glowColor: 'rgba(248, 113, 113, 0.85)',
         speed: 0.007,
         angle: 1.4,
         trail: [],
@@ -347,9 +367,9 @@ class BuddhaCosmicCanvas {
         name: 'Jupiter (The King)',
         radiusX: baseRadius * 2.28,
         radiusY: baseRadius * 2.28 * this.tiltAngle,
-        size: 9.0,
+        size: 9.2,
         color: '#fed7aa',
-        glowColor: 'rgba(254, 215, 170, 0.9)',
+        glowColor: 'rgba(254, 215, 170, 0.92)',
         speed: 0.0045,
         angle: 3.7,
         trail: [],
@@ -359,9 +379,9 @@ class BuddhaCosmicCanvas {
         name: 'Saturn (Ringed Wonder)',
         radiusX: baseRadius * 2.70,
         radiusY: baseRadius * 2.70 * this.tiltAngle,
-        size: 7.8,
+        size: 8.0,
         color: '#fde047',
-        glowColor: 'rgba(253, 224, 71, 0.8)',
+        glowColor: 'rgba(253, 224, 71, 0.85)',
         speed: 0.003,
         angle: 5.8,
         hasWideRings: true,
@@ -377,6 +397,9 @@ class BuddhaCosmicCanvas {
       this.ctx.clearRect(0, 0, this.width, this.height);
 
       this.renderStarfield();
+      if (this.showAuraRays) {
+        this.renderAuraBeams();
+      }
       this.renderOrbitRings();
       if (this.showConstellations) {
         this.renderConstellationWebs();
@@ -401,6 +424,31 @@ class BuddhaCosmicCanvas {
     this.ctx.globalAlpha = 1;
   }
 
+  renderAuraBeams() {
+    const s = this.buddhaScale * 0.58;
+    const headY = this.centerY - s * 0.40;
+    this.ctx.save();
+
+    for (let ray of this.auraRays) {
+      ray.angle += ray.speed;
+      const len = s * (0.55 + Math.sin(this.time * 2 + ray.angle * 4) * 0.1) * ray.length;
+      const x2 = this.centerX + Math.cos(ray.angle) * len;
+      const y2 = headY + Math.sin(ray.angle) * len;
+
+      const grad = this.ctx.createLinearGradient(this.centerX, headY, x2, y2);
+      grad.addColorStop(0, 'rgba(243, 194, 118, 0.25)');
+      grad.addColorStop(1, 'transparent');
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.centerX, headY);
+      this.ctx.lineTo(x2, y2);
+      this.ctx.strokeStyle = grad;
+      this.ctx.lineWidth = 1.2;
+      this.ctx.stroke();
+    }
+    this.ctx.restore();
+  }
+
   renderOrbitRings() {
     this.ctx.save();
     for (let planet of this.planets) {
@@ -414,7 +462,7 @@ class BuddhaCosmicCanvas {
         0,
         Math.PI * 2
       );
-      this.ctx.strokeStyle = 'rgba(243, 194, 118, 0.07)';
+      this.ctx.strokeStyle = 'rgba(243, 194, 118, 0.08)';
       this.ctx.lineWidth = 1;
       this.ctx.setLineDash([4, 8]);
       this.ctx.stroke();
@@ -422,15 +470,12 @@ class BuddhaCosmicCanvas {
     this.ctx.restore();
   }
 
-  /**
-   * Renders sacred constellation lines between neighboring contour particles
-   */
   renderConstellationWebs() {
     const count = this.contourParticles.length;
-    const maxDist = 28;
+    const maxDist = 30;
     this.ctx.save();
-    this.ctx.strokeStyle = 'rgba(243, 194, 118, 0.08)';
-    this.ctx.lineWidth = 0.6;
+    this.ctx.strokeStyle = 'rgba(243, 194, 118, 0.09)';
+    this.ctx.lineWidth = 0.7;
 
     for (let i = 0; i < count; i += 2) {
       const p1 = this.contourParticles[i];
@@ -454,29 +499,29 @@ class BuddhaCosmicCanvas {
   updateAndRenderParticles() {
     const mouse = this.mouse;
     const isAudioActive = window.anirjanAudio && window.anirjanAudio.isPlaying;
-    const audioPulse = isAudioActive ? Math.sin(this.time * 3) * 1.8 : 0;
+    const audioPulse = isAudioActive ? Math.sin(this.time * 3) * 2.2 : 0;
 
     for (let p of this.particles) {
       const driftX = Math.cos(this.time + p.harmonicOffset) * 1.8;
       const driftY = Math.sin(this.time + p.harmonicOffset) * 2.4;
 
       const targetX = p.homeX + driftX;
-      const targetY = p.homeY + driftY + (p.region === 'haloRing' ? audioPulse : 0);
+      const targetY = p.homeY + driftY + (p.region === 'haloRing' || p.region === 'heart' ? audioPulse : 0);
 
-      // Mouse interactive repulsion
+      // Mouse interactive wave ripple repulsion
       if (mouse.active && mouse.x !== null && mouse.y !== null) {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < mouse.radius && dist > 0) {
-          const force = (1 - dist / mouse.radius) * 7;
+          const force = (1 - dist / mouse.radius) * 7.5;
           p.vx += (dx / dist) * force;
           p.vy += (dy / dist) * force;
         }
       }
 
-      // Restorative spring physics
+      // Restorative spring damping physics
       p.vx += (targetX - p.x) * 0.045;
       p.vy += (targetY - p.y) * 0.045;
 
@@ -486,7 +531,7 @@ class BuddhaCosmicCanvas {
       p.x += p.vx;
       p.y += p.vy;
 
-      // Glow rendering
+      // Glow flicker
       const flicker = Math.sin(this.time * 2.5 + p.harmonicOffset) * 0.18;
       const alpha = Math.max(0.2, Math.min(1, p.baseAlpha + flicker));
 
@@ -512,7 +557,7 @@ class BuddhaCosmicCanvas {
         planet.trail.shift();
       }
 
-      // Glowing stardust trail
+      // Stardust trail
       for (let i = 0; i < planet.trail.length; i++) {
         const pt = planet.trail[i];
         const progress = i / planet.trail.length;
@@ -537,7 +582,7 @@ class BuddhaCosmicCanvas {
       if (planet.hasWideRings) {
         this.ctx.beginPath();
         this.ctx.ellipse(px, py, planet.size * 2.6, planet.size * 0.85, 0.4, 0, Math.PI * 2);
-        this.ctx.strokeStyle = 'rgba(253, 224, 71, 0.7)';
+        this.ctx.strokeStyle = 'rgba(253, 224, 71, 0.75)';
         this.ctx.lineWidth = 2.0;
         this.ctx.stroke();
       }

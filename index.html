@@ -78,84 +78,87 @@
 
   <main>
     <!-- =========================================================================
-         2. HERO SECTION & BUDDHA PARTICLE CANVAS
+         2. HERO SECTION & TOP CELESTIAL BUDDHA SANCTUARY
          ========================================================================= -->
     <section class="hero-section" id="hero">
-      <!-- Interactive 60FPS Buddha Point-Cloud Canvas Container -->
-      <div class="hero-canvas-container">
-        <canvas id="buddha-canvas"></canvas>
-      </div>
-      <div class="hero-vignette"></div>
+      <div class="hero-ambient-glow"></div>
 
-      <!-- Hero Text & Brand Manifesto -->
-      <div class="container hero-content">
-        <div class="hero-badge-container">
-          <div class="badge-glow-dot"></div>
-          <span class="badge-text">Genesis Phase • Day 1 • Building in Public</span>
-        </div>
+      <div class="container" style="width: 100%;">
+        <!-- Top Section: Dedicated High-Definition Cosmic Buddha Sanctuary -->
+        <div class="hero-top-celestial-stage">
+          <canvas id="buddha-canvas"></canvas>
 
-        <h1 class="hero-brand-name gradient-text-gold">ANIRJAN</h1>
-        <div class="hero-subname">Not Without People</div>
-
-        <!-- The Core Motto & 4 Soul Pillars -->
-        <div class="hero-motto-wrapper">
-          <div class="motto-statement">
-            <span class="motto-lead">The world is filled with complete mess.</span>
-            <span class="motto-punchline gradient-text-gold">Let's clean the mess — and build a better, safer world.</span>
-          </div>
-
-          <div class="hero-pillars-strip">
-            <div class="pillar-pill">
-              <span class="pillar-dot"></span>
-              <span class="pillar-title">Live Better Life</span>
-            </div>
-            <div class="pillar-pill">
-              <span class="pillar-dot"></span>
-              <span class="pillar-title">Solve Social Friction</span>
-            </div>
-            <div class="pillar-pill">
-              <span class="pillar-dot"></span>
-              <span class="pillar-title">Make People Safer</span>
-            </div>
-            <div class="pillar-pill">
-              <span class="pillar-dot"></span>
-              <span class="pillar-title">Create A Better World</span>
-            </div>
+          <!-- Interactive Canvas Stage HUD Controls -->
+          <div class="canvas-stage-hud">
+            <button id="canvas-constellation-toggle" class="hud-btn active" aria-label="Toggle Sacred Constellation Web">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+              </svg>
+              <span>Sacred Aura</span>
+            </button>
+            <button id="canvas-pause-toggle" class="hud-btn" aria-label="Pause or Resume Cosmic Simulation">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+              <span>Cosmos Orbiting</span>
+            </button>
           </div>
         </div>
 
-        <!-- Action CTAs -->
-        <div class="hero-cta-group">
-          <a href="#ecosystem" class="btn btn-primary">
-            <span>Explore Products & Works</span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-          <a href="#journal" class="btn btn-secondary">
-            <span>Read Weekly Journal</span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-          </a>
-          <a href="#careers" class="btn btn-outline-gold">
-            <span>Join Our Mission</span>
-          </a>
-        </div>
-      </div>
+        <!-- Directly Beneath Buddha: Brand Manifesto, Motto & Actions -->
+        <div class="hero-bottom-content">
+          <div class="hero-badge-container">
+            <div class="badge-glow-dot"></div>
+            <span class="badge-text">Genesis Phase • Day 1 • Building in Public</span>
+          </div>
 
-      <!-- Canvas Interactive HUD Controls -->
-      <div class="canvas-hud">
-        <button id="canvas-constellation-toggle" class="hud-btn active" aria-label="Toggle Sacred Constellation Web">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
-          </svg>
-          <span>Sacred Aura</span>
-        </button>
-        <button id="canvas-pause-toggle" class="hud-btn" aria-label="Pause or Resume Cosmic Simulation">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polygon points="10 8 16 12 10 16 10 8"></polygon>
-          </svg>
-          <span>Cosmos Orbiting</span>
-        </button>
+          <h1 class="hero-brand-name gradient-text-gold">ANIRJAN</h1>
+          <div class="hero-subname">Not Without People</div>
+
+          <!-- The Core Motto & 4 Soul Pillars -->
+          <div class="hero-motto-wrapper">
+            <div class="motto-statement">
+              <span class="motto-lead">The world is filled with complete mess.</span>
+              <span class="motto-punchline gradient-text-gold">Let's clean the mess — and build a better, safer world.</span>
+            </div>
+
+            <div class="hero-pillars-strip">
+              <div class="pillar-pill">
+                <span class="pillar-dot"></span>
+                <span class="pillar-title">Live Better Life</span>
+              </div>
+              <div class="pillar-pill">
+                <span class="pillar-dot"></span>
+                <span class="pillar-title">Solve Social Friction</span>
+              </div>
+              <div class="pillar-pill">
+                <span class="pillar-dot"></span>
+                <span class="pillar-title">Make People Safer</span>
+              </div>
+              <div class="pillar-pill">
+                <span class="pillar-dot"></span>
+                <span class="pillar-title">Create A Better World</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action CTAs -->
+          <div class="hero-cta-group">
+            <a href="#ecosystem" class="btn btn-primary">
+              <span>Explore Products & Works</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#journal" class="btn btn-secondary">
+              <span>Read Weekly Journal</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </a>
+            <a href="#careers" class="btn btn-outline-gold">
+              <span>Join Our Mission</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -450,9 +453,18 @@
         </div>
 
         <div class="footer-col">
+          <h4>Legal & Support</h4>
+          <ul class="footer-links">
+            <li><a href="./findiary/privacy.html">Privacy Policy</a></li>
+            <li><a href="./findiary/terms.html">Terms of Service</a></li>
+            <li><a href="./findiary/support.html">Contact & Support</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
           <h4>Connect</h4>
           <ul class="footer-links">
-            <li><a href="mailto:hello@anirjan.org">hello@anirjan.org</a></li>
+            <li><a href="mailto:hello@anirjan.com">hello@anirjan.com</a></li>
             <li><a href="#" onclick="showToast('Twitter / X: @AnirjanCollective'); return false;">Twitter / X</a></li>
             <li><a href="#" onclick="showToast('LinkedIn: Anirjan Foundation'); return false;">LinkedIn</a></li>
             <li><a href="#" onclick="showToast('GitHub: github.com/anirjan'); return false;">GitHub</a></li>
