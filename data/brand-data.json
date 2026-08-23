@@ -34,7 +34,7 @@
       "status": "R&D & Material Testing",
       "progress": 35,
       "description": "Finalize titanium-316 vacuum tooling and cork-ceramic stoppers for our pilot zero-microplastic hydration batch.",
-      "quarter": "Q1 2027"
+      "quarter": "Q3 2027"
     },
     {
       "id": "goal-3",
@@ -51,80 +51,14 @@
       "category": "Careers & Livelihood",
       "status": "Hiring Now",
       "progress": 20,
-      "description": "Bring on founding engineers, industrial designers, and NGO coordinators with fair compensation and purpose.",
+      "description": "Bring on founding industrial designers and NGO coordinators with fair compensation and purpose.",
       "quarter": "2026 - 2027"
-    }
-  ],
-  "journal": [
-    {
-      "id": "wk-01-genesis-manifesto",
-      "weekNumber": "Week 01, Genesis",
-      "title": "Day 1 at Anirjan: Untangling the Modern Chaos Through Honest Action",
-      "category": "Philosophy",
-      "readTime": "4 min read",
-      "date": "Aug 22, 2026",
-      "author": {
-        "name": "Anirjan Founding Collective",
-        "role": "Builders & Organizers"
-      },
-      "summary": "Why we named this brand Anirjan ('Not Without People') and why we are committing to build every app, product, and NGO initiative in complete public transparency.",
-      "content": "Today marks the first official step of Anirjan. We are not launching with manufactured hype or artificial claims. We are starting with an honest observation: the world has become a chaotic, noisy place.\n\nFrom software that monetizes anxiety to single-use plastics choking our rivers, human well-being is constantly compromised in the name of quick profit. Anirjan is our lifelong commitment to reverse this friction. We are building three core pillars:\n\n1. Mindful Software: Starting with FinDiary (RupeeDiary), an offline-first personal financial sanctuary that eliminates loan spam.\n2. Sustainable Hardware: Engineering our titanium-fused thermal bottle with zero microplastics.\n3. Grassroots NGO Action: Project Nirmal, tackling waterway pollution on the ground.\n\nEvery week on Sunday, we will share what we built, what broke, and what we learned. Thank you for walking this path with us from Day 1.",
-      "featured": true,
-      "tags": ["Day 1", "Manifesto", "Philosophy", "Transparency"]
-    },
-    {
-      "id": "wk-02-why-findiary-flutter",
-      "weekNumber": "Week 02, Design",
-      "title": "Why We Are Building FinDiary with Flutter & Local-First Encryption",
-      "category": "Software",
-      "readTime": "5 min read",
-      "date": "Aug 22, 2026",
-      "author": {
-        "name": "FinDiary Engineering Lead",
-        "role": "Software Architecture"
-      },
-      "summary": "Why personal finance apps must never sell user data or push high-interest debt, and how we architected RupeeDiary with Flutter BLoC and local SQLite.",
-      "content": "When we looked at the existing landscape of budgeting apps, almost every single one had become a lead-generation funnel for personal loans and predatory credit cards. Your private spending data was being tracked, profiled, and monetized.\n\nWith FinDiary (RupeeDiary), our architectural principle is non-negotiable: Local-First. Your income, expenses, and recurring bills live encrypted on your own device. Zero cloud snooping, zero ads, zero synthetic friction. We are building this for people who simply want calm financial clarity.",
-      "featured": false,
-      "tags": ["FinDiary", "Flutter", "Privacy", "Ethics"]
-    },
-    {
-      "id": "wk-03-zero-microplastics-flask",
-      "weekNumber": "Week 03, Engineering",
-      "title": "The Chemistry of Clean Water: Designing the Anirjan Pure Vessel",
-      "category": "Physical Products",
-      "readTime": "6 min read",
-      "date": "Aug 22, 2026",
-      "author": {
-        "name": "Hardware Materials Lab",
-        "role": "Industrial R&D"
-      },
-      "summary": "Recent studies show standard water bottle liners shed millions of nanoplastic particles. Here is how we are prototyping a lifetime vessel using inert titanium-steel and natural ceramic stoppers.",
-      "content": "Hydration should heal the human body, not contaminate it. Most commercial vacuum bottles use silicone sealants that degrade under heat or chemical epoxy internal linings. We are currently prototyping our first 500-unit pilot run using medical-grade 316 titanium stainless steel and natural cork-ceramic mechanical seals. We will share the third-party lab assay reports publicly once testing is complete.",
-      "featured": false,
-      "tags": ["Hardware", "Sustainability", "Health", "Zero-Plastic"]
-    },
-    {
-      "id": "wk-04-project-nirmal-groundwork",
-      "weekNumber": "Week 04, Fieldwork",
-      "title": "Project Nirmal: Organizing Our First 100-Volunteer Waterway Drive",
-      "category": "NGO & Impact",
-      "readTime": "5 min read",
-      "date": "Aug 22, 2026",
-      "author": {
-        "name": "Community Coordinator",
-        "role": "Project Nirmal Lead"
-      },
-      "summary": "How we are setting up our first canal sorting hub and inviting local youth and neighborhood leaders to take ownership of local water health.",
-      "content": "Environmental action begins in our own neighborhoods. For Project Nirmal's pilot campaign, we have mapped a 3-kilometer canal stretch that has accumulated plastic runoff. Rather than waiting for complex bureaucratic cycles, we are pooling equipment, protective gear, and local sorting tables to divert waste into certified circular recyclers. We are inviting everyone in the area to join our founding weekend drive.",
-      "featured": false,
-      "tags": ["NGO", "Grassroots", "Environment", "Community"]
     }
   ],
   "products": [
     {
       "id": "findiary-app",
-      "name": "FinDiary (RupeeDiary)",
+      "name": "FinDiary",
       "category": "Mobile Application",
       "badge": "In Active Development",
       "tagline": "Calm, Private Daily Financial Journal & Smart Ledger",
@@ -185,64 +119,6 @@
       ],
       "status": "In Architecture",
       "icon": "smartphone"
-    }
-  ],
-  "careers": [
-    {
-      "id": "flutter-fintech-engineer",
-      "title": "Lead Flutter Engineer (FinDiary / RupeeDiary)",
-      "department": "Software Engineering",
-      "type": "Founding Role • Remote",
-      "location": "Global / Remote",
-      "salary": "Competitive + Founding Equity",
-      "description": "Help lead development on FinDiary (RupeeDiary), crafting smooth Flutter UI, BLoC architecture, offline SQLite synchronization, and private financial intelligence.",
-      "requirements": [
-        "Strong experience with Flutter/Dart, Flutter BLoC, and Local Persistence (SQLite / Drift)",
-        "Obsession with 60fps mobile fluidity and privacy-preserving local storage",
-        "Deep alignment with Anirjan's motto: 'Not Without People'"
-      ]
-    },
-    {
-      "id": "sustainable-industrial-designer",
-      "title": "Industrial Designer (Physical Products Lab)",
-      "department": "Product & Engineering",
-      "type": "Founding Role • Hybrid / Studio",
-      "location": "Hybrid / Studio",
-      "salary": "Competitive + Founding Stake",
-      "description": "Help design and prototype our zero-microplastic thermal hydration line and future sustainable life essentials.",
-      "requirements": [
-        "Experience in CAD, DFM, and sustainable materials (inert titanium, stainless steel, ceramic, natural cork)",
-        "Commitment to zero-plastic and cradle-to-cradle lifecycle design",
-        "Portfolio showcasing minimalist, functional elegance"
-      ]
-    },
-    {
-      "id": "social-impact-field-director",
-      "title": "Community & NGO Field Coordinator (Project Nirmal)",
-      "department": "Community & NGO",
-      "type": "Founding Role • Field / On-Site",
-      "location": "Field Hubs",
-      "salary": "Fair Mission Compensation",
-      "description": "Lead and organize our pilot canal cleanups, volunteer cohorts, and local community environmental partnerships.",
-      "requirements": [
-        "Experience leading grassroots community, environmental, or youth outreach programs",
-        "High empathy, grounded leadership, and logistical clarity",
-        "Commitment to absolute transparency and public accountability"
-      ]
-    },
-    {
-      "id": "editorial-thought-fellow",
-      "title": "Weekly Essayist & Philosophical Writer",
-      "department": "Media & Philosophy",
-      "type": "Part-Time / Contract",
-      "location": "Remote",
-      "salary": "Per Essay / Retainer",
-      "description": "Collaborate with the collective to craft our weekly public essays on mindfulness, technology ethics, and purposeful living.",
-      "requirements": [
-        "Lyrical clarity of thought and honest, unpretentious writing voice",
-        "Passion for distilling real-life engineering and human stories into soothing prose",
-        "Commitment to building in public without corporate buzzwords"
-      ]
     }
   ]
 }

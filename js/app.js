@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 2. Initialize UI Components
   renderGenesisRoadmap();
   renderProducts('all');
-  renderJournal('all');
-  renderCareers('all');
   setupNavScroll();
   setupMobileNav();
-  setupFilterTabs();
   setupModals();
   setupAudioControls();
   setupNewsletter();
   setupSmoothScroll();
+
+  // 3. Scroll Reveal Animations (runs last so elements are in DOM)
+  initScrollReveal();
 });
 
 /* --------------------------------------------------------------------------
@@ -37,164 +37,225 @@ const ICONS = {
 };
 
 /* --------------------------------------------------------------------------
-   RENDER PRODUCTS
+   RENDER PRODUCTS (Editorial Showcase Hierarchy)
    -------------------------------------------------------------------------- */
 function renderProducts(category = 'all') {
   const container = document.getElementById('products-grid-container');
   if (!container) return;
 
   const products = window.anirjanStore.getProducts(category);
-  container.innerHTML = products.map(prod => `
-    <div class="product-card">
-      <div>
-        <div class="product-head">
-          <div class="product-icon-box">
-            ${ICONS[prod.icon] || ICONS.lotus}
+
+  if (category === 'all' && products.length >= 2) {
+    const featured = products[0]; // FinDiary
+    const supporting = products.slice(1);
+
+    container.innerHTML = `
+      <div class="products-editorial-layout">
+        <!-- Featured Row: Hero Product (FinDiary) + Anirjan Pure -->
+        <div class="product-featured-row">
+          <!-- Main Hero Product Card -->
+          <div class="product-card-featured reveal">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div class="product-icon-box" style="width: 54px; height: 54px; font-size: 1.6rem; color: var(--gold-primary); background: rgba(243,194,118,0.1); border-color: rgba(243,194,118,0.3);">
+                  ${ICONS[featured.icon] || ICONS.finance}
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                  <span class="badge badge-gold">${featured.badge}</span>
+                  <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Flagship Release</span>
+                </div>
+              </div>
+              <div class="featured-label">✦ Core Ecosystem Launch</div>
+              <h3 style="font-size: 1.85rem; margin-bottom: 8px;">${featured.name}</h3>
+              <div class="product-tagline" style="font-size: 1.05rem; margin-bottom: 16px;">${featured.tagline}</div>
+              <p class="product-desc" style="font-size: 1rem; line-height: 1.7; margin-bottom: 24px;">${featured.description}</p>
+              <ul class="product-features-list" style="margin-bottom: 30px;">
+                ${featured.features.map(f => `<li>${ICONS.check} <span style="font-size: 0.92rem;">${f}</span></li>`).join('')}
+              </ul>
+            </div>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <button class="btn btn-primary btn-sm" onclick="openProductModal('${featured.id}')">
+                <span>View Architecture & Specs</span>
+                ${ICONS.arrowRight}
+              </button>
+              <a href="./findiary/privacy.html" class="btn btn-secondary btn-sm">
+                <span>100% Privacy Promise</span>
+              </a>
+            </div>
           </div>
-          <span class="badge ${prod.category.includes('NGO') ? 'badge-emerald' : 'badge-gold'}">${prod.badge}</span>
-        </div>
-        <h3>${prod.name}</h3>
-        <div class="product-tagline">${prod.tagline}</div>
-        <p class="product-desc">${prod.description}</p>
-        <ul class="product-features-list">
-          ${prod.features.map(f => `<li>${ICONS.check} <span>${f}</span></li>`).join('')}
-        </ul>
-      </div>
-      <div>
-        <button class="btn btn-secondary btn-sm w-full" onclick="openProductModal('${prod.id}')" style="width: 100%;">
-          <span>View Details & Specifications</span>
-          ${ICONS.arrowRight}
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
 
-/* --------------------------------------------------------------------------
-   RENDER JOURNAL / WEEKLY ESSAYS
-   -------------------------------------------------------------------------- */
-function renderJournal(category = 'all') {
-  const container = document.getElementById('journal-grid-container');
-  if (!container) return;
-
-  const articles = window.anirjanStore.getJournal(category);
-  container.innerHTML = articles.map(art => `
-    <div class="journal-card" onclick="openArticleModal('${art.id}')">
-      <div>
-        <div class="journal-meta">
-          <span class="badge badge-gold">${art.weekNumber}</span>
-          <span>${art.readTime}</span>
-        </div>
-        <h3>${art.title}</h3>
-        <p class="journal-snippet">${art.summary}</p>
-      </div>
-      <div class="journal-footer">
-        <div class="author-info">
-          <div class="author-avatar">${art.author.name.charAt(0)}</div>
-          <div>
-            <div class="author-name">${art.author.name}</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted);">${art.date}</div>
+          <!-- Supporting First Card (Anirjan Pure) -->
+          <div class="product-card reveal reveal-delay-1">
+            <div>
+              <div class="product-head">
+                <div class="product-icon-box">
+                  ${ICONS[supporting[0].icon] || ICONS.water}
+                </div>
+                <span class="badge ${supporting[0].category.includes('NGO') ? 'badge-emerald' : 'badge-gold'}">${supporting[0].badge}</span>
+              </div>
+              <h3>${supporting[0].name}</h3>
+              <div class="product-tagline">${supporting[0].tagline}</div>
+              <p class="product-desc">${supporting[0].description}</p>
+              <ul class="product-features-list">
+                ${supporting[0].features.map(f => `<li>${ICONS.check} <span>${f}</span></li>`).join('')}
+              </ul>
+            </div>
+            <div>
+              <button class="btn btn-secondary btn-sm" onclick="openProductModal('${supporting[0].id}')" style="width: 100%;">
+                <span>View Flask Engineering</span>
+                ${ICONS.arrowRight}
+              </button>
+            </div>
           </div>
         </div>
-        <span class="read-more-link">
-          <span>Read</span>
-          ${ICONS.arrowRight}
-        </span>
+
+        <!-- Remaining Supporting Row -->
+        <div class="product-supporting-row">
+          ${supporting.slice(1).map((prod, idx) => `
+            <div class="product-card reveal reveal-delay-${idx + 2}">
+              <div>
+                <div class="product-head">
+                  <div class="product-icon-box">
+                    ${ICONS[prod.icon] || ICONS.lotus}
+                  </div>
+                  <span class="badge ${prod.category.includes('NGO') ? 'badge-emerald' : 'badge-gold'}">${prod.badge}</span>
+                </div>
+                <h3>${prod.name}</h3>
+                <div class="product-tagline">${prod.tagline}</div>
+                <p class="product-desc">${prod.description}</p>
+                <ul class="product-features-list">
+                  ${prod.features.map(f => `<li>${ICONS.check} <span>${f}</span></li>`).join('')}
+                </ul>
+              </div>
+              <div>
+                <button class="btn btn-secondary btn-sm" onclick="openProductModal('${prod.id}')" style="width: 100%;">
+                  <span>View Details & Objectives</span>
+                  ${ICONS.arrowRight}
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  } else {
+    // Filtered mode
+    container.innerHTML = `
+      <div class="product-grid">
+        ${products.map(prod => `
+          <div class="product-card reveal">
+            <div>
+              <div class="product-head">
+                <div class="product-icon-box">
+                  ${ICONS[prod.icon] || ICONS.lotus}
+                </div>
+                <span class="badge ${prod.category.includes('NGO') ? 'badge-emerald' : 'badge-gold'}">${prod.badge}</span>
+              </div>
+              <h3>${prod.name}</h3>
+              <div class="product-tagline">${prod.tagline}</div>
+              <p class="product-desc">${prod.description}</p>
+              <ul class="product-features-list">
+                ${prod.features.map(f => `<li>${ICONS.check} <span>${f}</span></li>`).join('')}
+              </ul>
+            </div>
+            <div>
+              <button class="btn btn-secondary btn-sm" onclick="openProductModal('${prod.id}')" style="width: 100%;">
+                <span>View Details & Specifications</span>
+                ${ICONS.arrowRight}
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  if (window.initScrollReveal) initScrollReveal();
 }
 
-/* --------------------------------------------------------------------------
-   RENDER CAREERS / JOBS
-   -------------------------------------------------------------------------- */
-function renderCareers(dept = 'all') {
-  const container = document.getElementById('careers-grid-container');
-  if (!container) return;
 
-  const jobs = window.anirjanStore.getCareers(dept);
-  container.innerHTML = jobs.map(job => `
-    <div class="career-card">
-      <div>
-        <div class="career-header">
-          <span class="badge badge-cyan">${job.department}</span>
-          <span style="font-size: 0.8rem; color: var(--gold-primary); font-weight: 600;">${job.salary}</span>
-        </div>
-        <h3>${job.title}</h3>
-        <div class="career-meta">
-          <span style="display: flex; align-items: center; gap: 4px;">${ICONS.mapPin} ${job.location}</span>
-          <span style="display: flex; align-items: center; gap: 4px;">${ICONS.briefcase} ${job.type}</span>
-        </div>
-        <p class="career-desc">${job.description}</p>
-        <ul class="requirements-mini">
-          ${job.requirements.map(req => `<li>${req}</li>`).join('')}
-        </ul>
-      </div>
-      <div>
-        <button class="btn btn-primary btn-sm" onclick="openJobApplyModal('${job.id}')" style="width: 100%;">
-          <span>Apply for this Role</span>
-          ${ICONS.arrowRight}
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
+
+
 
 /* --------------------------------------------------------------------------
-   RENDER GENESIS ROADMAP & COMMITMENTS
+   RENDER GENESIS ROADMAP — Circular Ring Timeline
    -------------------------------------------------------------------------- */
 function renderGenesisRoadmap() {
   const container = document.getElementById('genesis-roadmap-container');
   if (!container) return;
 
+  // SVG ring math — circumference of circle r=44 = 2π*44 ≈ 276.46
+  const R = 44;
+  const CIRC = 2 * Math.PI * R;
+
   const goals = window.anirjanStore.getGenesisGoals();
-  container.innerHTML = goals.map(goal => `
-    <div class="roadmap-card">
-      <div>
-        <div class="roadmap-card-head">
-          <span class="badge ${goal.status.includes('Development') ? 'badge-cyan' : 'badge-gold'}">${goal.status}</span>
-          <span style="font-size: 0.78rem; color: var(--gold-light); font-weight: 700;">${goal.quarter}</span>
+  container.innerHTML = goals.map((goal, i) => {
+    const dashOffset = CIRC - (goal.progress / 100) * CIRC;
+    const badgeClass = goal.status.toLowerCase().includes('development') ? 'badge-cyan'
+                     : goal.status.toLowerCase().includes('hiring')     ? 'badge-emerald'
+                     : 'badge-gold';
+
+    return `
+      <div class="timeline-node reveal reveal-delay-${(i % 4) + 1}">
+        <!-- Circular Progress Ring -->
+        <div class="timeline-ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 104 104">
+            <circle class="ring-track" cx="52" cy="52" r="${R}"/>
+            <circle class="ring-fill"
+              cx="52" cy="52" r="${R}"
+              stroke-dasharray="${CIRC.toFixed(2)}"
+              stroke-dashoffset="${CIRC.toFixed(2)}"
+              data-target-offset="${dashOffset.toFixed(2)}"
+            />
+          </svg>
+          <div class="ring-center">
+            <div class="ring-percent">${goal.progress}%</div>
+            <div class="ring-label">done</div>
+          </div>
         </div>
-        <h3>${goal.target}</h3>
-        <p class="roadmap-desc">${goal.description}</p>
+
+        <!-- Timeline Card -->
+        <div class="timeline-card-content">
+          <div class="timeline-card-head">
+            <span class="badge ${badgeClass}">${goal.status}</span>
+            <span style="font-size: 0.78rem; color: var(--gold-light); font-weight: 700;">${goal.quarter}</span>
+          </div>
+          <h3>${goal.target}</h3>
+          <p>${goal.description}</p>
+        </div>
       </div>
-      <div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar-fill" style="width: ${goal.progress}%;"></div>
-        </div>
-        <div class="progress-meta">
-          <span>Target Progress</span>
-          <span>${goal.progress}%</span>
-        </div>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
+
+  // Animate rings when they scroll into view
+  animateRingsOnReveal();
+}
+
+/* --------------------------------------------------------------------------
+   CIRCULAR RING ANIMATION — triggers when element becomes visible
+   -------------------------------------------------------------------------- */
+function animateRingsOnReveal() {
+  const rings = document.querySelectorAll('.ring-fill[data-target-offset]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-target-offset'));
+        setTimeout(() => {
+          el.style.strokeDashoffset = target;
+          el.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        }, 200);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  rings.forEach(r => observer.observe(r));
 }
 
 /* --------------------------------------------------------------------------
    FILTER TABS HANDLERS
    -------------------------------------------------------------------------- */
-function setupFilterTabs() {
-  // Journal Tabs
-  const journalTabs = document.querySelectorAll('.journal-tab');
-  journalTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      journalTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderJournal(tab.dataset.category);
-    });
-  });
 
-  // Career Tabs
-  const careerTabs = document.querySelectorAll('.career-tab');
-  careerTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      careerTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderCareers(tab.dataset.dept);
-    });
-  });
-}
 
 /* --------------------------------------------------------------------------
    MODAL WINDOW CONTROLLERS
@@ -221,47 +282,8 @@ function closeModal() {
   if (modalBackdrop) modalBackdrop.classList.remove('open');
 }
 
-// Global window exposure for inline onclick handlers
-window.openArticleModal = function(id) {
-  const art = window.anirjanStore.getArticle(id);
-  if (!art) return;
-
-  const titleEl = document.getElementById('modal-title');
-  const bodyEl = document.getElementById('modal-body');
-  const modalBackdrop = document.getElementById('global-modal-backdrop');
-
-  titleEl.innerText = art.title;
-  bodyEl.innerHTML = `
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 0.85rem; color: var(--text-muted);">
-      <span class="badge badge-gold">${art.weekNumber}</span>
-      <span>${art.category}</span>
-      <span>•</span>
-      <span>${art.date}</span>
-      <span>•</span>
-      <span>${art.readTime}</span>
-    </div>
-    <div style="font-size: 1.15rem; color: var(--gold-light); font-style: italic; margin-bottom: 24px; line-height: 1.6; border-left: 3px solid var(--gold-primary); padding-left: 16px;">
-      "${art.summary}"
-    </div>
-    <div style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; white-space: pre-line; margin-bottom: 32px;">
-      ${art.content}
-    </div>
-    <div style="border-top: 1px solid var(--border-subtle); padding-top: 20px; display: flex; align-items: center; justify-content: space-between;">
-      <div>
-        <div style="font-weight: 700; color: var(--text-primary);">${art.author.name}</div>
-        <div style="font-size: 0.8rem; color: var(--text-muted);">${art.author.role}</div>
-      </div>
-      <button class="btn btn-outline-gold btn-sm" onclick="showToast('Article link copied to clipboard!'); closeModal();">
-        Share Thought
-      </button>
-    </div>
-  `;
-
-  modalBackdrop.classList.add('open');
-};
-
 window.openProductModal = function(id) {
-  const prod = window.anirjanStore.products.find(p => p.id === id);
+  const prod = window.anirjanStore.getProducts('all').find(p => p.id === id);
   if (!prod) return;
 
   const titleEl = document.getElementById('modal-title');
@@ -469,30 +491,59 @@ function setupSmoothScroll() {
   });
 }
 
+
 /* --------------------------------------------------------------------------
-   INTERACTIVE SIMULATORS (FinDiary Demo & Plastic Calculator)
+   SCROLL REVEAL — Intersection Observer
+   Activates .reveal elements with .is-visible as they enter viewport
    -------------------------------------------------------------------------- */
-window.handleDemoExpense = function(e) {
-  e.preventDefault();
-  const input = document.getElementById('demo-expense-text');
-  const result = document.getElementById('demo-expense-result');
-  if (!input || !result) return;
+let _scrollObserver = null;
+function initScrollReveal() {
+  const revealEls = document.querySelectorAll('.reveal');
+  if (!revealEls.length) return;
 
-  const val = input.value;
-  result.style.display = 'block';
-  result.innerHTML = `✓ Encrypted & Stored Locally on device: <strong>"${val}"</strong>. Zero Ads • Zero Cloud Snooping.`;
-  showToast('FinDiary local entry simulation recorded!');
-  if (window.anirjanAudio) window.anirjanAudio.playChime();
+  if (_scrollObserver) {
+    _scrollObserver.disconnect();
+  }
+
+  _scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -20px 0px'
+  });
+
+  revealEls.forEach(el => {
+    // Check if element is already in viewport
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+      el.classList.add('is-visible');
+    }
+    _scrollObserver.observe(el);
+  });
+}
+window.initScrollReveal = initScrollReveal;
+
+/* --------------------------------------------------------------------------
+   JOURNAL HERO CARD MODAL HANDLER
+   -------------------------------------------------------------------------- */
+window.openJournalModal = function(articleId) {
+  // Try to find in data store, or use a default
+  const articles = window.anirjanStore ? window.anirjanStore.getJournal('all') : [];
+  let art = articles.find(a => a.id === articleId);
+
+  // fallback for the week01 hardcoded featured article
+  if (!art && articleId === 'journal-week01') {
+    art = articles[0];
+  }
+
+  if (art) {
+    openArticleModal(art.id);
+  } else {
+    showToast('Full essay coming soon — Day 1 of building in public!');
+  }
 };
 
-window.updatePlasticCalculator = function(val) {
-  const countLabel = document.getElementById('calc-bottle-count');
-  const savedLabel = document.getElementById('calc-bottles-saved');
-  const nanoLabel = document.getElementById('calc-nanoplastics-saved');
-
-  if (countLabel) countLabel.innerText = `${val} Bottle${val > 1 ? 's' : ''}`;
-  const annualSaved = val * 365;
-  if (savedLabel) savedLabel.innerText = annualSaved.toLocaleString();
-  const nanoSaved = (val * 365 * 2400).toLocaleString();
-  if (nanoLabel) nanoLabel.innerText = `${(val * 0.9).toFixed(1)}M`;
-};

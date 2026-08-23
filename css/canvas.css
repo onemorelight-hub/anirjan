@@ -1,6 +1,6 @@
 /* ==========================================================================
-   CANVAS & HERO PRESENTATION STYLES
-   Top Cosmic Buddha Celestial Sanctuary + Radiant Brand Typography Below
+   CANVAS & HERO — FULL-BLEED CELESTIAL SANCTUARY
+   Buddha is the crown jewel. No borders, no boxes. Pure cosmic theatre.
    ========================================================================== */
 
 .hero-section {
@@ -10,38 +10,59 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 110px 0 80px 0;
+  padding: 80px 0 0 0;
   overflow: hidden;
 }
 
-/* Background Ambient Glow Behind Grid */
+/* Immersive ambient cosmic glow — radiates from behind the Buddha */
 .hero-ambient-glow {
   position: absolute;
-  top: 10%;
+  top: -80px;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  max-width: 90vw;
-  height: 600px;
-  background: radial-gradient(circle, rgba(243, 194, 118, 0.14) 0%, rgba(77, 238, 234, 0.05) 50%, transparent 75%);
+  width: 900px;
+  max-width: 100vw;
+  height: 700px;
+  background: radial-gradient(
+    circle at center,
+    rgba(243, 194, 118, 0.18) 0%,
+    rgba(243, 194, 118, 0.06) 30%,
+    rgba(77, 238, 234, 0.04) 55%,
+    transparent 75%
+  );
   pointer-events: none;
-  filter: blur(60px);
+  filter: blur(70px);
   z-index: 1;
+  animation: ambientPulse 8s ease-in-out infinite alternate;
 }
 
-/* Top Celestial Buddha Sanctuary Stage */
+@keyframes ambientPulse {
+  0%   { opacity: 0.7; transform: translateX(-50%) scale(1);    }
+  100% { opacity: 1.0; transform: translateX(-50%) scale(1.08); }
+}
+
+/* Full-bleed Top Buddha Stage — no border, bleeds edge-to-edge */
 .hero-top-celestial-stage {
   position: relative;
   width: 100%;
-  max-width: 1080px;
-  height: 520px;
-  margin: 0 auto 32px auto;
-  border-radius: var(--radius-lg);
-  background: radial-gradient(circle at center, rgba(16, 23, 38, 0.6) 0%, rgba(5, 7, 12, 0.85) 75%);
-  border: 1px solid rgba(243, 194, 118, 0.22);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), inset 0 0 50px rgba(243, 194, 118, 0.05);
-  overflow: hidden;
+  max-width: 1200px;
+  height: 540px;
+  margin: 0 auto 0 auto;
   z-index: 3;
+  overflow: hidden;
+}
+
+/* Gradient fade from canvas into brand area below */
+.hero-top-celestial-stage::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg-primary) 100%);
+  pointer-events: none;
+  z-index: 4;
 }
 
 #buddha-canvas {
@@ -50,11 +71,11 @@
   display: block;
 }
 
-/* Canvas Stage HUD Controls */
+/* Canvas Stage HUD — sits inside canvas, over the gradient fade */
 .canvas-stage-hud {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 20px;
+  right: 24px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -66,50 +87,56 @@
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
-  background: rgba(10, 14, 26, 0.88);
+  background: rgba(5, 7, 12, 0.75);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  backdrop-filter: var(--blur-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  letter-spacing: 0.3px;
   transition: var(--transition-smooth);
 }
 
 .hud-btn:hover {
   border-color: var(--border-active);
   color: var(--gold-primary);
+  background: rgba(5, 7, 12, 0.9);
 }
 
 .hud-btn.active {
   border-color: var(--gold-primary);
   color: var(--gold-primary);
-  box-shadow: 0 0 14px var(--gold-glow);
+  box-shadow: 0 0 14px var(--gold-glow), inset 0 0 14px rgba(243,194,118,0.05);
 }
 
-/* Brand & Motto Content Container Beneath Buddha */
+/* Brand Content directly beneath the Buddha, bleeding in */
 .hero-bottom-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 860px;
-  margin: 0 auto;
+  max-width: 900px;
+  margin: -60px auto 0 auto;
+  padding: 0 24px 80px 24px;
   position: relative;
-  z-index: 3;
+  z-index: 5;
 }
 
+/* Genesis Badge */
 .hero-badge-container {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 6px 20px;
-  background: rgba(16, 23, 38, 0.85);
-  border: 1px solid var(--border-active);
+  background: rgba(16, 23, 38, 0.9);
+  border: 1px solid rgba(243, 194, 118, 0.45);
   border-radius: var(--radius-full);
-  backdrop-filter: var(--blur-glass);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-  margin-bottom: 20px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow);
+  margin-bottom: 24px;
 }
 
 .badge-glow-dot {
@@ -117,122 +144,135 @@
   height: 8px;
   border-radius: 50%;
   background: var(--gold-primary);
-  box-shadow: 0 0 10px var(--gold-primary);
+  box-shadow: 0 0 12px var(--gold-primary);
   animation: pulseDot 2s infinite ease-in-out;
 }
 
 @keyframes pulseDot {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+  50%       { opacity: 0.35; transform: scale(0.78); }
 }
 
 .badge-text {
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 2.2px;
   text-transform: uppercase;
   color: var(--gold-light);
 }
 
+/* Brand Name — reveal animation */
 .hero-brand-name {
-  font-size: clamp(3.2rem, 6.5vw, 6.0rem);
+  font-size: clamp(4rem, 8vw, 7.2rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.02;
-  margin-bottom: 6px;
+  line-height: 0.95;
+  margin-bottom: 8px;
   text-transform: uppercase;
+  animation: brandReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+@keyframes brandReveal {
+  from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
 }
 
 .hero-subname {
   display: block;
   font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.0rem, 2vw, 1.5rem);
   font-weight: 400;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.28em;
   color: var(--gold-primary);
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
+  animation: brandReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
 }
 
-/* Core Motto & Soul Architecture Callout */
+/* Core Motto Card */
 .hero-motto-wrapper {
-  background: rgba(10, 15, 28, 0.75);
-  border: 1px solid rgba(243, 194, 118, 0.28);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: linear-gradient(135deg, rgba(16, 23, 38, 0.8) 0%, rgba(10, 15, 28, 0.9) 100%);
+  border: 1px solid rgba(243, 194, 118, 0.22);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-lg);
-  padding: 30px 36px 24px 36px;
+  padding: 32px 40px 26px 40px;
   width: 100%;
-  max-width: 780px;
-  margin-bottom: 32px;
-  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(243, 194, 118, 0.08);
+  max-width: 820px;
+  margin-bottom: 36px;
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(243, 194, 118, 0.06),
+    inset 0 1px 0 rgba(255,255,255,0.06);
   position: relative;
   overflow: hidden;
+  animation: brandReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
 }
 
+/* Shimmering top border light */
 .hero-motto-wrapper::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold-primary), var(--cyan-primary), transparent);
-  animation: shineLine 5s linear infinite;
+  top: 0; left: -100%; width: 300%; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold-primary) 40%, var(--cyan-primary) 60%, transparent 100%);
+  animation: shimmerLine 6s linear infinite;
 }
 
-@keyframes shineLine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+@keyframes shimmerLine {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(33.33%); }
 }
 
 .motto-statement {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 22px;
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
 .motto-lead {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
   font-weight: 400;
-  color: #94a3b8;
+  color: #7f8fa8;
+  letter-spacing: 0.01em;
 }
 
 .motto-punchline {
   font-family: var(--font-heading);
-  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.35rem, 2.4vw, 2.0rem);
   font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
-/* 4 Core Brand Promises Strip */
+/* 4 Brand Promises — horizontal flowing row */
 .hero-pillars-strip {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .pillar-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 7px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-full);
   transition: var(--transition-smooth);
+  cursor: default;
 }
 
 .pillar-pill:hover {
-  background: rgba(243, 194, 118, 0.08);
-  border-color: var(--border-active);
+  background: rgba(243, 194, 118, 0.1);
+  border-color: rgba(243, 194, 118, 0.4);
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(243, 194, 118, 0.12);
 }
 
 .pillar-dot {
@@ -241,49 +281,41 @@
   border-radius: 50%;
   background: var(--gold-primary);
   box-shadow: 0 0 8px var(--gold-primary);
+  flex-shrink: 0;
 }
 
 .pillar-title {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 
-/* Hero Actions */
+/* Hero CTA Buttons */
 .hero-cta-group {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
+  animation: brandReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both;
 }
 
-/* Responsive Adaptations */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
-  .hero-top-celestial-stage {
-    height: 440px;
-    margin-bottom: 28px;
-  }
+  .hero-top-celestial-stage { height: 480px; }
 }
 
-@media (max-width: 640px) {
-  .hero-top-celestial-stage {
-    height: 360px;
-    margin-bottom: 24px;
-  }
+@media (max-width: 768px) {
+  .hero-top-celestial-stage { height: 400px; }
+  .hero-bottom-content { margin-top: -40px; padding: 0 20px 60px; }
+  .hero-motto-wrapper { padding: 24px 22px 20px 22px; }
+}
 
-  .hero-motto-wrapper {
-    padding: 20px 18px 18px 18px;
-  }
-
-  .hero-pillars-strip {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .pillar-pill {
-    width: 100%;
-    justify-content: center;
-  }
+@media (max-width: 480px) {
+  .hero-top-celestial-stage { height: 340px; }
+  .hero-brand-name { font-size: clamp(3rem, 14vw, 4.5rem); }
+  .hero-pillars-strip { flex-direction: column; align-items: stretch; }
+  .pillar-pill { justify-content: center; }
 }
