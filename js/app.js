@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupMobileNav();
   setupModals();
   setupAudioControls();
-  setupNewsletter();
   setupSmoothScroll();
 
   // 3. Scroll Reveal Animations (runs last so elements are in DOM)
@@ -435,23 +434,6 @@ function setupAudioControls() {
   }
 }
 
-/* --------------------------------------------------------------------------
-   NEWSLETTER FORM
-   -------------------------------------------------------------------------- */
-function setupNewsletter() {
-  const form = document.getElementById('newsletter-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const input = form.querySelector('input[type="email"]');
-      if (input && input.value) {
-        showToast(`Subscribed! You will receive the weekly Sunday thought piece.`);
-        input.value = '';
-        if (window.anirjanAudio) window.anirjanAudio.playChime();
-      }
-    });
-  }
-}
 
 /* --------------------------------------------------------------------------
    TOAST NOTIFICATION

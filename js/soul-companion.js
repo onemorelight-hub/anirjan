@@ -33,9 +33,9 @@ class AnirjanSoulCompanion {
         keywords: ['job', 'career', 'hiring', 'work', 'apply', 'flutter engineer', 'designer', 'role'],
         reply: "We are currently hiring for <strong>Founding Roles</strong>: Lead Flutter Engineer for FinDiary, Industrial Product Designer for hardware, and NGO Field Coordinators. You can apply directly through our Careers portal below!"
       },
-      weekly: {
-        keywords: ['weekly', 'journal', 'essay', 'thought', 'sunday', 'letter', 'read'],
-        reply: "We publish a new philosophical essay every Sunday documenting our progress, design ethics, and blueprints in public. Check out <em>Week 01: Day 1 at Anirjan</em> in our Weekly Journal section!"
+      philosophy: {
+        keywords: ['philosophy', 'mission', 'about', 'motto', 'pillars', 'story'],
+        reply: "Anirjan stands for <strong>'Not Without People'</strong>. We exist to turn real-world chaos into mindful harmony through non-addictive software, sustainable hardware, and grassroots social action."
       }
     };
 
