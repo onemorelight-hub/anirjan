@@ -26,7 +26,7 @@ const ANIRJAN_DEFAULT_DATA = {
   genesisGoals: [
     {
       id: "goal-1",
-      target: "RupeeDiary v1.0 Production Launch",
+      target: "MoneyDiary v1.0 Production Launch",
       category: "Software",
       status: "In Active Development",
       progress: 65,
@@ -63,8 +63,8 @@ const ANIRJAN_DEFAULT_DATA = {
   ],
   products: [
     {
-      "id": "rupeediary-app",
-      "name": "RupeeDiary",
+      "id": "moneydiary-app",
+      "name": "MoneyDiary",
       "category": "Mobile Application",
       "badge": "v1.0 Production Launch",
       "tagline": "Private AI Financial Co-Pilot & Wealth Tracker",

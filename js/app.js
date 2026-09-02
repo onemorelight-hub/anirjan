@@ -73,11 +73,11 @@ function renderProducts(category = 'all') {
               </ul>
             </div>
             <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-              <a href="./rupeediary/" class="btn btn-primary btn-sm">
-                <span>Explore RupeeDiary App</span>
+              <a href="./moneydiary/" class="btn btn-primary btn-sm">
+                <span>Explore MoneyDiary App</span>
                 ${ICONS.arrowRight}
               </a>
-              <a href="./rupeediary/privacy.html" class="btn btn-secondary btn-sm">
+              <a href="./moneydiary/privacy.html" class="btn btn-secondary btn-sm">
                 <span>100% Privacy Promise</span>
               </a>
             </div>
@@ -307,9 +307,9 @@ window.openProductModal = function(id) {
       <div style="font-size: 0.9rem; color: var(--text-secondary);">Every release undergoes exhaustive testing for human health, digital calmness, zero planned obsolescence, and ecological stewardship.</div>
     </div>
     <div style="display: flex; gap: 12px;">
-      ${prod.id.includes('rupeediary') || prod.id.includes('findiary') ? `
-        <a href="./rupeediary/" class="btn btn-primary" style="flex: 1; text-align: center; text-decoration: none;">
-          Launch RupeeDiary Product Page →
+      ${prod.id.includes('moneydiary') || prod.id.includes('findiary') ? `
+        <a href="./moneydiary/" class="btn btn-primary" style="flex: 1; text-align: center; text-decoration: none;">
+          Launch MoneyDiary Product Page →
         </a>
       ` : `
         <button class="btn btn-primary" style="flex: 1;" onclick="showToast('Thank you! Notification registered for ${prod.name}'); closeModal();">

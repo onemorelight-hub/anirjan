@@ -20,7 +20,7 @@
   "genesisGoals": [
     {
       "id": "goal-1",
-      "target": "RupeeDiary v1.0 Production Launch",
+      "target": "MoneyDiary v1.0 Production Launch",
       "category": "Software",
       "status": "Launched & Active",
       "progress": 100,
@@ -57,8 +57,8 @@
   ],
   "products": [
     {
-      "id": "rupeediary-app",
-      "name": "RupeeDiary",
+      "id": "moneydiary-app",
+      "name": "MoneyDiary",
       "category": "Mobile Application",
       "badge": "v1.0 Production Launch",
       "tagline": "Private AI Financial Co-Pilot & Wealth Tracker",
@@ -69,11 +69,11 @@
         "50/30/20 Wealth Framework & Pacing Cockpit",
         "Recurring EMIs, Subscriptions & Bill Reminders",
         "My Circle: Shared Family Ledger & Split Groups",
-        "22 Native Indian & Global Languages (CSV Export)"
+        "22 Native Languages & 150+ Currencies (CSV Export)"
       ],
       "status": "Production Ready (iOS & Android)",
       "icon": "finance",
-      "url": "./rupeediary/"
+      "url": "./moneydiary/"
     },
     {
       "id": "anirjan-pure-bottle",
