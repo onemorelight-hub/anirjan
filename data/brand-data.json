@@ -2,29 +2,29 @@
   "brand": {
     "name": "Anirjan",
     "meaning": "Not Without People",
-    "motto": "The world is filled with complete mess. Let's clean the mess — and build a better, safer world.",
+    "motto": "The world is filled with complete mess. Let's clean the mess \u2014 and build a better, safer world.",
     "pillars": [
       "Live Better Life",
       "Solve Social Friction",
       "Make People Safer",
       "Create A Better World"
     ],
-    "stage": "Genesis Phase • Day 1",
+    "stage": "Genesis Phase \u2022 Day 1",
     "mission": "Anirjan is built on the belief that human progress cannot happen in isolation. We engineer mindful software, sustainable physical products, and community-driven NGO initiatives to bring clarity, peace, and tangible solutions to real-world chaos.",
     "genesisLetter": {
       "title": "A Note from Day 1: Why We Are Building in Public",
-      "quote": "We are just getting started. No inflated corporate vanity, no fake metrics—just honest craftsmanship, radical simplicity, and deep commitment to people.",
-      "body": "The world around us feels increasingly cluttered: predatory algorithms stealing human attention, toxic plastics polluting our bodies and waterways, and economic systems that treat individuals as transaction data. Anirjan—meaning 'Not Without People'—is our response. We are a small, focused collective building everyday digital tools, sustainable physical essentials, and grassroots environmental actions from the ground up. Every week, we will document our progress, our challenges, and our blueprints right here in the open."
+      "quote": "We are just getting started. No inflated corporate vanity, no fake metrics\u2014just honest craftsmanship, radical simplicity, and deep commitment to people.",
+      "body": "The world around us feels increasingly cluttered: predatory algorithms stealing human attention, toxic plastics polluting our bodies and waterways, and economic systems that treat individuals as transaction data. Anirjan\u2014meaning 'Not Without People'\u2014is our response. We are a small, focused collective building everyday digital tools, sustainable physical essentials, and grassroots environmental actions from the ground up. Every week, we will document our progress, our challenges, and our blueprints right here in the open."
     }
   },
   "genesisGoals": [
     {
       "id": "goal-1",
-      "target": "FinDiary v1.0 Launch",
+      "target": "RupeeDiary v1.0 Production Launch",
       "category": "Software",
-      "status": "In Active Development",
-      "progress": 65,
-      "description": "Release our Flutter-based daily financial diary with 100% offline encryption, zero loan spam, and zero ads.",
+      "status": "Launched & Active",
+      "progress": 100,
+      "description": "Release our Flutter-based AI financial diary with Privacy Shield, voice assistant Arti, and zero loan ads.",
       "quarter": "Q4 2026"
     },
     {
@@ -57,20 +57,23 @@
   ],
   "products": [
     {
-      "id": "findiary-app",
-      "name": "FinDiary",
+      "id": "rupeediary-app",
+      "name": "RupeeDiary",
       "category": "Mobile Application",
-      "badge": "In Active Development",
-      "tagline": "Calm, Private Daily Financial Journal & Smart Ledger",
-      "description": "An intelligent personal finance diary and expense companion built with Flutter and offline-first encryption. Track daily spends, recurring subscriptions, and financial health with zero loan spam, zero ads, and total data sovereignty.",
+      "badge": "v1.0 Production Launch",
+      "tagline": "Private AI Financial Co-Pilot & Wealth Tracker",
+      "description": "An institutional-grade personal finance companion featuring Arti conversational voice logging, Privacy Shield discreet masking, 50/30/20 wealth analytics, and recurring EMI auto-pilot across 22 native languages.",
       "features": [
-        "Daily Rupee & Multi-Currency Diary",
-        "Smart Analytics & Private Financial Assistant",
-        "Recurring Bills & Subscription Sentinel",
-        "100% Private, Local-First & Zero Ads"
+        "Arti AI Conversational Voice Logging",
+        "Privacy Shield & Biometric Discreet Masking",
+        "50/30/20 Wealth Framework & Pacing Cockpit",
+        "Recurring EMIs, Subscriptions & Bill Reminders",
+        "My Circle: Shared Family Ledger & Split Groups",
+        "22 Native Indian & Global Languages (CSV Export)"
       ],
-      "status": "In Development (Flutter)",
-      "icon": "finance"
+      "status": "Production Ready (iOS & Android)",
+      "icon": "finance",
+      "url": "./rupeediary/"
     },
     {
       "id": "anirjan-pure-bottle",

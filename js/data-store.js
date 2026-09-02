@@ -26,7 +26,7 @@ const ANIRJAN_DEFAULT_DATA = {
   genesisGoals: [
     {
       id: "goal-1",
-      target: "FinDiary v1.0 Launch",
+      target: "RupeeDiary v1.0 Production Launch",
       category: "Software",
       status: "In Active Development",
       progress: 65,
@@ -63,11 +63,11 @@ const ANIRJAN_DEFAULT_DATA = {
   ],
   products: [
     {
-      "id": "findiary-app",
-      "name": "FinDiary",
+      "id": "rupeediary-app",
+      "name": "RupeeDiary",
       "category": "Mobile Application",
-      "badge": "In Active Development",
-      "tagline": "Calm, Private Daily Financial Journal & Smart Ledger",
+      "badge": "v1.0 Production Launch",
+      "tagline": "Private AI Financial Co-Pilot & Wealth Tracker",
       "description": "An intelligent personal finance diary and expense companion built with Flutter and offline-first encryption. Track daily spends, recurring subscriptions, and financial health with zero loan spam, zero ads, and total data sovereignty.",
       "features": [
         "Daily Rupee & Multi-Currency Diary",

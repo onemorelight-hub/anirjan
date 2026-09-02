@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>RupeeDiary — Private AI Financial Co-Pilot & Wealth Tracker</title>
+  <meta name="description" content="Take command of your wealth with RupeeDiary. Featuring Arti AI conversational voice logging, Privacy Shield discreet masking, 50/30/20 analytics, and 22 native languages.">
+  <meta name="keywords" content="RupeeDiary, AI expense tracker, voice finance app, privacy shield expense manager, 50 30 20 budget, splitwise alternative, khata book, hisab kitab">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RupeeDiary — Master Your Wealth with Conversational AI">
+  <meta property="og:description" content="Speak naturally to log expenses, auto-pilot bills, and protect your financial privacy with institutional-grade encryption.">
+  <meta property="og:image" content="./assets/Showcase_1_AI_Copilot.jpg">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #070A12;
+      --bg-card: rgba(18, 24, 38, 0.75);
+      --bg-card-hover: rgba(28, 36, 56, 0.9);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-glow: rgba(16, 185, 129, 0.35);
+      --accent-emerald: #10B981;
+      --accent-teal: #14B8A6;
+      --accent-coral: #F43F5E;
+      --accent-gold: #F59E0B;
+      --accent-indigo: #6366F1;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-sub: #64748B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-muted);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Ambient Background Glows */
+    .glow-orb-1 {
+      position: fixed; top: -150px; left: -100px; width: min(600px, 90vw); height: min(600px, 90vw);
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(7, 10, 18, 0) 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .glow-orb-2 {
+      position: fixed; top: 40%; right: -150px; width: min(700px, 90vw); height: min(700px, 90vw);
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(7, 10, 18, 0) 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 74px;
+      background: rgba(7, 10, 18, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 max(20px, calc(env(safe-area-inset-left) + 20px));
+      z-index: 1000;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: var(--text-main); font-weight: 800; font-size: 1.25rem;
+    }
+    .brand-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--accent-emerald), #059669);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 20px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+      flex-shrink: 0;
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none; font-size: 0.92rem; font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--accent-emerald); }
+    .btn-nav-cta {
+      background: linear-gradient(135deg, var(--accent-emerald), #059669);
+      color: #fff !important; font-weight: 700; padding: 10px 20px; border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); }
+
+    /* Mobile Hamburger Menu Toggle */
+    .mobile-menu-btn {
+      display: none; background: transparent; border: none; color: var(--text-main);
+      font-size: 26px; cursor: pointer; padding: 8px; line-height: 1;
+    }
+
+    .mobile-nav-drawer {
+      display: none; position: fixed; top: 74px; left: 0; right: 0;
+      background: rgba(7, 10, 18, 0.98); border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(24px); padding: 24px 20px 32px; z-index: 999;
+      flex-direction: column; gap: 16px;
+    }
+    .mobile-nav-drawer.active { display: flex; }
+    .mobile-nav-drawer a {
+      color: var(--text-main); text-decoration: none; font-size: 1.1rem; font-weight: 600;
+      padding: 12px 16px; border-radius: 12px; background: rgba(255, 255, 255, 0.03);
+      display: block;
+    }
+    .mobile-nav-drawer a:hover, .mobile-nav-drawer a:active {
+      background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative; padding: clamp(110px, 14vw, 150px) 20px 60px; max-width: 1200px; margin: 0 auto;
+      text-align: center; z-index: 10;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--accent-emerald); padding: 6px 16px; border-radius: 30px;
+      font-size: clamp(0.75rem, 2vw, 0.85rem); font-weight: 700; margin-bottom: 20px; letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4.2rem); font-weight: 800; color: var(--text-main);
+      line-height: 1.15; margin-bottom: 20px; letter-spacing: -1px;
+    }
+    .hero h1 span.gradient-text {
+      background: linear-gradient(135deg, #10B981 0%, #38BDF8 50%, #818CF8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(0.98rem, 2.2vw, 1.25rem); color: var(--text-muted);
+      max-width: 760px; margin: 0 auto 32px; line-height: 1.65;
+    }
+    .hero-buttons {
+      display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 40px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg, var(--accent-emerald), #059669);
+      color: #fff; font-weight: 700; font-size: clamp(0.95rem, 2vw, 1.05rem); padding: 14px 28px;
+      border-radius: 12px; text-decoration: none; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+      transition: all 0.2s ease; min-height: 48px;
+    }
+    .btn-primary:hover, .btn-primary:active { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(16, 185, 129, 0.5); }
+    
+    .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border);
+      color: var(--text-main); font-weight: 600; font-size: clamp(0.95rem, 2vw, 1.05rem); padding: 14px 26px;
+      border-radius: 12px; text-decoration: none; backdrop-filter: blur(10px); transition: all 0.2s ease;
+      min-height: 48px;
+    }
+    .btn-secondary:hover, .btn-secondary:active { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+
+    /* Showcase Carousel & Grid */
+    .showcase-section { max-width: 1240px; margin: 0 auto 80px; padding: 0 20px; position: relative; z-index: 10; }
+    
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+    .showcase-card {
+      background: var(--bg-card); border: 1px solid var(--card-border);
+      border-radius: 20px; overflow: hidden; backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .showcase-card:hover {
+      transform: translateY(-6px); border-color: var(--card-border-glow);
+    }
+    .showcase-card img {
+      width: 100%; height: auto; display: block; border-bottom: 1px solid var(--card-border);
+    }
+    .showcase-info { padding: 18px; text-align: left; }
+    .showcase-info h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 4px; font-weight: 700; }
+    .showcase-info p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* Feature Pillars */
+    .features-section {
+      max-width: 1200px; margin: 0 auto; padding: 60px 20px 80px; position: relative; z-index: 10;
+    }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; color: var(--text-main);
+      margin-bottom: 14px; letter-spacing: -0.8px;
+    }
+    .section-header p { font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 650px; margin: 0 auto; }
+
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+    }
+    .pillar-card {
+      background: var(--bg-card); border: 1px solid var(--card-border);
+      border-radius: 22px; padding: clamp(24px, 4vw, 34px); backdrop-filter: blur(16px);
+      transition: all 0.3s ease; position: relative;
+    }
+    .pillar-card:hover {
+      background: var(--bg-card-hover); border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+    }
+    .pillar-icon {
+      width: 50px; height: 50px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
+      margin-bottom: 18px;
+    }
+    .icon-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .icon-coral { background: rgba(244, 63, 94, 0.15); color: var(--accent-coral); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .icon-indigo { background: rgba(99, 102, 241, 0.15); color: var(--accent-indigo); border: 1px solid rgba(99, 102, 241, 0.3); }
+    .icon-gold { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .pillar-card h3 { font-size: 1.25rem; color: var(--text-main); font-weight: 700; margin-bottom: 10px; }
+    .pillar-card p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
+    .pillar-list { list-style: none; }
+    .pillar-list li {
+      display: flex; align-items: flex-start; gap: 8px; font-size: 0.88rem; color: var(--text-main);
+      margin-bottom: 8px; line-height: 1.4;
+    }
+    .pillar-list li::before {
+      content: '✓'; color: var(--accent-emerald); font-weight: 800; font-size: 0.95rem; flex-shrink: 0;
+    }
+
+    /* Security & Privacy Banner */
+    .security-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(99, 102, 241, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 24px;
+      padding: clamp(30px, 5vw, 50px) clamp(20px, 4vw, 40px); margin: 60px 20px; text-align: center;
+    }
+    .security-banner h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--text-main); margin-bottom: 14px; }
+    .security-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 30px;
+    }
+    .sec-item {
+      background: rgba(18, 24, 38, 0.6); border: 1px solid var(--card-border);
+      border-radius: 14px; padding: 18px; text-align: left;
+    }
+    .sec-item h4 { color: var(--text-main); font-size: 0.98rem; margin-bottom: 4px; }
+    .sec-item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.45; }
+
+    /* FAQ Section */
+    .faq-section { max-width: 800px; margin: 60px auto 80px; padding: 0 20px; }
+    .faq-item {
+      background: var(--bg-card); border: 1px solid var(--card-border);
+      border-radius: 14px; margin-bottom: 14px; padding: 20px;
+    }
+    .faq-item h4 { color: var(--text-main); font-size: 1.05rem; margin-bottom: 8px; font-weight: 700; }
+    .faq-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Footer */
+    footer {
+      background: #04060B; border-top: 1px solid var(--card-border);
+      padding: 50px 20px 30px; color: var(--text-sub); font-size: 0.88rem;
+    }
+    .footer-container {
+      max-width: 1200px; margin: 0 auto; display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr); gap: 32px; margin-bottom: 40px;
+    }
+    .footer-brand p { margin-top: 10px; max-width: 320px; line-height: 1.6; }
+    .footer-col h4 { color: var(--text-main); font-size: 0.95rem; margin-bottom: 14px; font-weight: 700; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--accent-emerald); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto; padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+
+    /* Mobile Adaptations */
+    @media (max-width: 860px) {
+      .navbar { padding: 0 16px; height: 68px; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .hero { padding-top: 100px; }
+      .hero-buttons { flex-direction: column; width: 100%; max-width: 360px; margin: 0 auto 36px; }
+      .btn-primary, .btn-secondary { width: 100%; }
+      .footer-container { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .showcase-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <a href="#" class="brand">
+        <div class="brand-icon">₹</div>
+        <span>RupeeDiary</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#privacy">Privacy Shield</a></li>
+        <li><a href="#analytics">50/30/20 Analytics</a></li>
+        <li><a href="#languages">22 Languages</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="#download" class="btn-nav-cta">Get App</a></li>
+      </ul>
+      <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Menu">☰</button>
+    </nav>
+    
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-drawer">
+      <a href="#features" onclick="toggleMobileMenu()">✨ Core Features</a>
+      <a href="#privacy" onclick="toggleMobileMenu()">🛡️ Privacy Shield & Vault</a>
+      <a href="#analytics" onclick="toggleMobileMenu()">📊 50/30/20 Wealth Rules</a>
+      <a href="#languages" onclick="toggleMobileMenu()">🌍 22 Native Languages</a>
+      <a href="#faq" onclick="toggleMobileMenu()">❓ Frequently Asked Questions</a>
+      <a href="privacy.html">🔒 Privacy Policy</a>
+      <a href="terms.html">📜 Terms of Service</a>
+      <a href="support.html">💬 Help & Feedback</a>
+      <a href="#download" class="btn-primary" onclick="toggleMobileMenu()" style="text-align: center; margin-top: 8px;">📲 Download App</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+      <div class="hero-badge">✨ THE AI WEALTH & PRIVACY REVOLUTION</div>
+      <h1>Master Your Money.<br><span class="gradient-text">Guard Your Financial Privacy.</span></h1>
+      <p>
+        Speak naturally to log expenses in seconds, auto-pilot recurring EMIs, decode wealth with 50/30/20 rules, and protect sensitive figures with biometric Discreet Mode.
+      </p>
+      <div class="hero-buttons">
+        <a href="#download" class="btn-primary">
+          <span>📲 Download for iOS & Android</span>
+        </a>
+        <a href="#features" class="btn-secondary">
+          <span>Explore Architecture ↓</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- App Store Marketing Showcase Carousel Grid (Part 1) -->
+    <section class="showcase-section">
+      <div class="showcase-grid">
+        <div class="showcase-card">
+          <img src="./assets/Showcase_1_AI_Copilot.jpg" alt="Meet Arti AI Copilot" loading="lazy">
+          <div class="showcase-info">
+            <h3>Meet Arti: AI Copilot</h3>
+            <p>Conversational voice logging, multi-item receipt parsing & instant queries.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="./assets/Showcase_2_Privacy_Shield.jpg" alt="Privacy Shield & Discreet Mode" loading="lazy">
+          <div class="showcase-info">
+            <h3>100% Private & Encrypted</h3>
+            <p>Discreet masking, biometric 1-tap peek, and local cryptographic vault.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="./assets/Showcase_3_Analytics_50_30_20.jpg" alt="50/30/20 Wealth Intelligence" loading="lazy">
+          <div class="showcase-info">
+            <h3>Decode Your Wealth</h3>
+            <p>50/30/20 capital allocation, budget leak detector & spending heatmaps.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="./assets/Showcase_4_My_Finances.jpg" alt="Bills on Auto-Pilot" loading="lazy">
+          <div class="showcase-info">
+            <h3>Bills On Auto-Pilot</h3>
+            <p>Scheduled recurring EMIs, subscriptions, and zero late-fee reminders.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Feature Pillars -->
+    <section class="features-section" id="features">
+      <div class="section-header">
+        <h2>Engineered for Financial Clarity</h2>
+        <p>Institutional personal finance tools built for speed, privacy, and actionable wealth insights.</p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon icon-emerald">🎙️</div>
+          <h3>Conversational AI (Arti)</h3>
+          <p>Log complex receipts or ask financial questions in natural human speech. Arti categorizes, extracts amounts, and updates ledgers in real time.</p>
+          <ul class="pillar-list">
+            <li>Multi-item parsing ("Spent 1,200 on fuel, 400 on lunch")</li>
+            <li>Configurable speech speed (0.8x to 2.0x)</li>
+            <li>Mother tongue support across 22 native languages</li>
+          </ul>
+        </div>
+
+        <div class="pillar-card" id="privacy">
+          <div class="pillar-icon icon-coral">🛡️</div>
+          <h3>Privacy Shield & Discreet Mode</h3>
+          <p>Never worry about prying eyes when opening your diary in coffee shops or offices. Keep sensitive habits and account balances sealed.</p>
+          <ul class="pillar-list">
+            <li>Auto-blur balances, earnings, and sensitive categories</li>
+            <li>1-Tap Biometric reveal (Face ID / Fingerprint / PIN)</li>
+            <li>Zero commercial data monetization or ad tracking</li>
+          </ul>
+        </div>
+
+        <div class="pillar-card" id="analytics">
+          <div class="pillar-icon icon-indigo">📊</div>
+          <h3>50/30/20 Wealth Framework</h3>
+          <p>Adopt proven institutional wealth frameworks. Align your outflows automatically with Needs (50%), Wants (30%), and Investments (20%).</p>
+          <ul class="pillar-list">
+            <li>Real-time net surplus & savings rate calculator</li>
+            <li>Category leak detector & abnormal spike alerts</li>
+            <li>Calendar spend intensity heatmaps</li>
+          </ul>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon icon-gold">⚡</div>
+          <h3>Recurring Bills Auto-Pilot</h3>
+          <p>Never miss a payment deadline or pay a late fee again. Manage loans, rent, Netflix, and utility bills with automated logging.</p>
+          <ul class="pillar-list">
+            <li>Auto-log fixed monthly EMIs and subscriptions</li>
+            <li>Interactive billing day prompts for variable utility bills</li>
+            <li>EMI debt payoff progress tracking</li>
+          </ul>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon icon-emerald">👨‍👩‍👧</div>
+          <h3>My Circle: Family & Split Groups</h3>
+          <p>Manage shared household expenses, split cafe bills with friends, and maintain a clear ledger of who owes what without separate apps.</p>
+          <ul class="pillar-list">
+            <li>Shared Family Ledger with admin permissions</li>
+            <li>Split Groups for group trips and dinners</li>
+            <li>Lend & Borrow network wealth tracking</li>
+          </ul>
+        </div>
+
+        <div class="pillar-card" id="languages">
+          <div class="pillar-icon icon-indigo">🌍</div>
+          <h3>22 Native Languages & Export</h3>
+          <p>Experience complete data freedom with 1-tap CSV export and native translation in 22 regional Indian and global languages.</p>
+          <ul class="pillar-list">
+            <li>Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati & more</li>
+            <li>Sync cockpit with custom salary cycle start day</li>
+            <li>1-Tap CSV export for Excel, Sheets, or CA tax filing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Showcase Cards (Part 2) -->
+    <section class="showcase-section">
+      <div class="showcase-grid">
+        <div class="showcase-card">
+          <img src="./assets/Showcase_5_My_Circle.jpg" alt="Family & Social Finance" loading="lazy">
+          <div class="showcase-info">
+            <h3>Family & Social Finance</h3>
+            <p>Shared household budget, group split, and loan network ledger.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="./assets/Showcase_6_Intelligence_Search.jpg" alt="Instant Search & Patterns" loading="lazy">
+          <div class="showcase-info">
+            <h3>Instant Search & Patterns</h3>
+            <p>Lightning-fast filters, merchant tags, and live net balance calculation.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="./assets/Showcase_7_Languages_And_Config.jpg" alt="22 Languages & Global Config" loading="lazy">
+          <div class="showcase-info">
+            <h3>22 Languages & Config</h3>
+            <p>Salary cycle alignment, dark mode, and 1-tap CSV data export.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="./assets/Showcase_8_AI_Voice_Settings.jpg" alt="Custom AI Voice & Persona" loading="lazy">
+          <div class="showcase-info">
+            <h3>Custom AI Voice Engine</h3>
+            <p>Fine-tune speaking speed, realistic thinking audio, and smart speech tone.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security & Trust Banner -->
+    <section class="security-banner">
+      <h2>Your Data. Your Device. Your Privacy.</h2>
+      <p>We believe personal finance records are sacred. RupeeDiary is built on zero-knowledge architecture.</p>
+      <div class="security-grid">
+        <div class="sec-item">
+          <h4>🔒 AES-256 Equivalent Vault</h4>
+          <p>Encrypted data stores with isolated biometric authentication.</p>
+        </div>
+        <div class="sec-item">
+          <h4>🚫 Zero Commercial Ads</h4>
+          <p>We do not sell, rent, or monetize your transaction logs to third parties.</p>
+        </div>
+        <div class="sec-item">
+          <h4>📁 100% Data Sovereignty</h4>
+          <p>Export your complete diary anytime in CSV format with 1 tap.</p>
+        </div>
+        <div class="sec-item">
+          <h4>🛡️ DPDP & GDPR Compliant</h4>
+          <p>Full adherence to modern global and Indian data protection standards.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know about RupeeDiary.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>How does the AI Voice Assistant (Arti) work?</h4>
+        <p>Arti uses advanced natural language processing to listen to your voice and extract financial figures, merchant names, dates, and categories in real time. You can speak naturally like "Spent 1,500 on groceries at DMart" and Arti logs it instantly.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>What is Privacy Shield and how does it protect me?</h4>
+        <p>Privacy Shield is our discreet masking engine. When turned on, your account balances, earnings, and sensitive categories (e.g. tobacco, health, lifestyle) are automatically blurred. You can tap any figure to peek at it for 10 seconds using Face ID, Fingerprint, or your PIN.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Can I sync my budget with my actual salary date?</h4>
+        <p>Yes! Under Settings, you can configure your "Salary Cycle Start Day" to any day of the month (e.g., 1st, 5th, 25th) so your monthly budget cockpit perfectly aligns with your pay schedule.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Which languages are supported?</h4>
+        <p>RupeeDiary supports 22 languages natively: English, Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Odia, Assamese, Spanish, French, German, Portuguese, Arabic, Japanese, Korean, Chinese, Russian, and Italian.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Can I export my data for tax filing?</h4>
+        <p>Yes. You can download your complete transaction ledger in standard CSV format anytime from Settings > Data & Backup.</p>
+      </div>
+    </section>
+
+    <!-- Download CTA Section -->
+    <section class="hero" id="download" style="padding: 40px 20px 80px;">
+      <div class="hero-badge">🚀 GET STARTED TODAY</div>
+      <h2>Experience the Future of Personal Wealth</h2>
+      <p>Available on Google Play and Apple App Store. Start your journey toward financial freedom today.</p>
+      <div class="hero-buttons">
+        <a href="https://play.google.com/store/apps/details?id=com.anirjan.rupeediary" class="btn-primary">
+          <span>▶ Google Play Store</span>
+        </a>
+        <a href="https://apps.apple.com/app/rupeediary/id6470000000" class="btn-secondary">
+          <span> Apple App Store</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom: 8px;">
+          <div class="brand-icon">₹</div>
+          <span>RupeeDiary</span>
+        </div>
+        <p>Private, conversational AI financial diary and institutional wealth cockpit engineered by Anirjan.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#privacy">Privacy Shield</a></li>
+          <li><a href="#analytics">50/30/20 Rule</a></li>
+          <li><a href="#languages">22 Languages</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal & Privacy</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="support.html">Data Deletion</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support & Company</h4>
+        <ul>
+          <li><a href="support.html">Contact Support</a></li>
+          <li><a href="support.html#feedback">Give Feedback</a></li>
+          <li><a href="https://anirjan.com">Anirjan Collective</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 RupeeDiary • Built by Anirjan (Not Without People). All rights reserved.</p>
+      <p>Engineered for privacy, wealth & clarity.</p>
+    </div>
+  </footer>
+
+  <script>
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+
+    function toggleMobileMenu() {
+      if (mobileDrawer) {
+        mobileDrawer.classList.toggle('active');
+        mobileToggle.innerText = mobileDrawer.classList.contains('active') ? '✕' : '☰';
+      }
+    }
+
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', toggleMobileMenu);
+    }
+  </script>
+
+</body>
+</html>
