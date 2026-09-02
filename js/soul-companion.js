@@ -2,7 +2,7 @@
  * ANIRJAN SOUL COMPANION (Smart AI Guide & Brand Navigator)
  * 
  * An intelligent, serene floating guide that helps users:
- * 1. Understand the philosophy of Anirjan ("Not Without People")
+ * 1. Understand the philosophy of Anirjan ("Its about People")
  * 2. Explore FinDiary features and offline privacy architecture
  * 3. Discover Anirjan Pure bottle zero-microplastic engineering
  * 4. Get personalized Weekly Thought essay recommendations based on user's current mood
@@ -14,8 +14,8 @@ class AnirjanSoulCompanion {
     this.isOpen = false;
     this.knowledgeBase = {
       philosophy: {
-        keywords: ['anirjan', 'meaning', 'not without people', 'why', 'motto', 'mission', 'mess', 'clean'],
-        reply: "<strong>Anirjan</strong> means <em>'Not Without People'</em>. Our motto is: <blockquote>The world is filled with complete mess. Let's clean the mess — and build a better, safer world.</blockquote> We believe technology, physical tools, and community work must serve human dignity rather than consume it."
+        keywords: ['anirjan', 'meaning', 'its about people', 'why', 'motto', 'mission', 'mess', 'clean'],
+        reply: "<strong>Anirjan</strong> means <em>'Its about People'</em>. Our motto is: <blockquote>The world is filled with complete mess. Let's clean the mess — and build a better, safer world.</blockquote> We believe technology, physical tools, and community work must serve human dignity rather than consume it."
       },
       findiary: {
         keywords: ['findiary', 'rupeediary', 'finance', 'money', 'budget', 'expense', 'app', 'flutter'],
@@ -35,7 +35,7 @@ class AnirjanSoulCompanion {
       },
       philosophy: {
         keywords: ['philosophy', 'mission', 'about', 'motto', 'pillars', 'story'],
-        reply: "Anirjan stands for <strong>'Not Without People'</strong>. We exist to turn real-world chaos into mindful harmony through non-addictive software, sustainable hardware, and grassroots social action."
+        reply: "Anirjan stands for <strong>'Its about People'</strong>. We exist to turn real-world chaos into mindful harmony through non-addictive software, sustainable hardware, and grassroots social action."
       }
     };
 

@@ -1,4 +1,4 @@
-# Anirjan — Not Without People
+# Anirjan — Its about People
 
 > The world is filled with complete mess. Let's clean the mess — and build a better, safer world.
 

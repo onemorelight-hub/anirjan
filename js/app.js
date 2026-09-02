@@ -349,7 +349,7 @@ window.openJobApplyModal = function(id) {
         <input type="url" class="form-control" required placeholder="https://linkedin.com/in/...">
       </div>
       <div class="form-group">
-        <label class="form-label">Why do you want to build with Anirjan? (Not Without People) *</label>
+        <label class="form-label">Why do you want to build with Anirjan? (Its about People) *</label>
         <textarea class="form-control" required rows="3" placeholder="Tell us how you think about solving real-life mess and helping people..."></textarea>
       </div>
       <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">

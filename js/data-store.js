@@ -7,7 +7,7 @@
 const ANIRJAN_DEFAULT_DATA = {
   brand: {
     name: "Anirjan",
-    meaning: "Not Without People",
+    meaning: "Its about People",
     motto: "The world is filled with complete mess. Let's clean the mess — and build a better, safer world.",
     pillars: [
       "Live Better Life",
@@ -20,7 +20,7 @@ const ANIRJAN_DEFAULT_DATA = {
     genesisLetter: {
       title: "A Note from Day 1: Why We Are Building in Public",
       quote: "We are just getting started. No inflated corporate vanity, no fake metrics—just honest craftsmanship, radical simplicity, and deep commitment to people.",
-      body: "The world around us feels increasingly cluttered: predatory algorithms stealing human attention, toxic plastics polluting our bodies and waterways, and economic systems that treat individuals as transaction data. Anirjan—meaning 'Not Without People'—is our response. We are a small, focused collective building everyday digital tools, sustainable physical essentials, and grassroots environmental actions from the ground up. Every week, we will document our progress, our challenges, and our blueprints right here in the open."
+      body: "The world around us feels increasingly cluttered: predatory algorithms stealing human attention, toxic plastics polluting our bodies and waterways, and economic systems that treat individuals as transaction data. Anirjan—meaning 'Its about People'—is our response. We are a small, focused collective building everyday digital tools, sustainable physical essentials, and grassroots environmental actions from the ground up. Every week, we will document our progress, our challenges, and our blueprints right here in the open."
     }
   },
   genesisGoals: [
