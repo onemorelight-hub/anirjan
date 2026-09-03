@@ -259,26 +259,74 @@
 
     /* Footer */
     footer {
-      background: #04060B; border-top: 1px solid var(--card-border);
-      padding: 50px 20px 30px; color: var(--text-sub); font-size: 0.88rem;
+      background: #04060B;
+      border-top: 1px solid var(--card-border);
+      padding: 60px 20px 36px;
+      color: var(--text-sub);
+      font-size: 0.88rem;
     }
     .footer-container {
-      max-width: 1200px; margin: 0 auto; display: grid;
-      grid-template-columns: 2fr repeat(3, 1fr); gap: 32px; margin-bottom: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 48px;
     }
-    .footer-brand p { margin-top: 10px; max-width: 320px; line-height: 1.6; }
-    .footer-col h4 { color: var(--text-main); font-size: 0.95rem; margin-bottom: 14px; font-weight: 700; }
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .footer-col h4 {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
     .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 8px; }
-    .footer-col ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
     .footer-col ul li a:hover { color: var(--accent-emerald); }
     .footer-bottom {
-      max-width: 1200px; margin: 0 auto; padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: #64748B;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 860px) {
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+    @media (max-width: 520px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+      }
     }
 
-    /* Mobile Adaptations */
     @media (max-width: 860px) {
       .navbar { padding: 0 16px; height: 68px; }
       .nav-links { display: none; }
@@ -570,15 +618,14 @@
   <footer>
     <div class="footer-container">
       <div class="footer-brand">
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-            <img src="./assets/moneydiary_icon.png" alt="MoneyDiary" style="width:36px; height:36px; border-radius:10px; object-fit:cover;">
-            <span style="font-weight:800; font-size:1.2rem; color:#F8FAFC;">MoneyDiary</span>
-          </div>
-          <p style="color:#94A3B8; font-size:0.92rem; max-width:320px;">An institutional-grade AI financial co-pilot and wealth diary engineered by Anirjan Collective. Its about People.</p>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+          <img src="./assets/moneydiary_icon.png" alt="MoneyDiary" style="width:36px; height:36px; border-radius:10px; object-fit:cover; box-shadow:0 4px 12px rgba(16,185,129,0.3);">
+          <span style="font-weight:800; font-size:1.25rem; color:#F8FAFC; letter-spacing:-0.02em;">MoneyDiary</span>
         </div>
-          <p style="color:#94A3B8; font-size:0.92rem; max-width:320px;">An institutional-grade AI financial co-pilot and wealth diary engineered by Anirjan Collective. Its about People.</p>
+        <p style="color:#94A3B8; font-size:0.9rem; line-height:1.6; max-width:340px;">Institutional-grade AI financial co-pilot and private wealth diary. Engineered by Anirjan Collective.</p>
+        <div style="margin-top:14px; font-size:0.82rem; color:#10B981; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;">
+          ANIRJAN COLLECTIVE • ITS ABOUT PEOPLE
         </div>
-        <p>Private, conversational AI financial diary and institutional wealth cockpit engineered by Anirjan Collective.</p>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
@@ -598,7 +645,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Support & Company</h4>
+        <h4>Support & Studio</h4>
         <ul>
           <li><a href="support.html">Contact Support</a></li>
           <li><a href="support.html#feedback">Give Feedback</a></li>
@@ -607,8 +654,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 MoneyDiary • Built by Anirjan Collective (Its about People). All rights reserved.</p>
-      <p>Engineered for privacy, wealth & clarity.</p>
+      <p>© 2026 MoneyDiary • Built by Anirjan Collective. All rights reserved.</p>
+      <p>Zero commercial ads. 100% Zero-Knowledge encrypted vault.</p>
     </div>
   </footer>
 
