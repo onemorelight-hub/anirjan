@@ -342,7 +342,174 @@
         margin: 0 auto;
       }
     }
-  </style>
+  
+    /* Luxury Cinematic Video Popup Modal */
+    .video-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(2, 6, 12, 0.88);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+    }
+    .video-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .video-modal-container {
+      position: relative;
+      width: min(1080px, 94vw);
+      height: min(608px, 82vh);
+      background: #03070C;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95), 0 0 80px rgba(16, 185, 129, 0.25);
+      overflow: hidden;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .video-modal-overlay.active .video-modal-container {
+      transform: scale(1) translateY(0);
+    }
+    .video-modal-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .video-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: #FFF;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100000;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .video-modal-close:hover {
+      background: #EF4444;
+      border-color: #EF4444;
+      transform: scale(1.08);
+    }
+
+    /* Hero Video Play Card */
+    .hero-video-banner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 18px;
+      margin-top: 24px;
+      cursor: pointer;
+      width: fit-content;
+      transition: background 0.2s, transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .hero-video-banner:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+    }
+    .play-pulse-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFF;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+      position: relative;
+    }
+    .play-pulse-btn::after {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border-radius: 50%;
+      border: 2px solid #10B981;
+      animation: pulse-ring 2s infinite ease-out;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.9); opacity: 1; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+
+    .showcase-card {
+      position: relative;
+    }
+    .showcase-play-trigger {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(4, 8, 16, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #FFF;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+      z-index: 5;
+    }
+    .showcase-play-trigger:hover {
+      background: rgba(16, 185, 129, 0.9);
+      border-color: #10B981;
+      transform: scale(1.05);
+      color: #000;
+    }
+
+
+    /* Mobile Hero Button & Alignment Fixes */
+    @media (max-width: 768px) {
+      .hero-buttons {
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 24px auto 0 !important;
+        gap: 12px !important;
+      }
+      .hero-buttons .btn-primary,
+      .hero-buttons .btn-secondary {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+      }
+      .video-modal-container {
+        width: 96vw !important;
+        height: 75vh !important;
+        border-radius: 18px !important;
+      }
+    }
+
+</style>
 </head>
 <body>
 
@@ -354,6 +521,7 @@
     <nav class="navbar">
       <a href="#" class="brand"><img src="./assets/moneydiary_icon.png" alt="MoneyDiary" style="width:38px; height:38px; border-radius:10px; object-fit:cover; box-shadow:0 4px 14px rgba(16,185,129,0.35);"><span>MoneyDiary</span></a>
       <ul class="nav-links">
+        <li><a href="javascript:void(0)" onclick="openVideoModal()" style="color:#10B981; font-weight:700; display:flex; align-items:center; gap:6px;"><span style="font-size:12px;">▶</span> Watch Demo</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#privacy">Privacy Shield</a></li>
         <li><a href="#analytics">50/30/20 Analytics</a></li>
@@ -367,15 +535,16 @@
     
     <!-- Mobile Navigation Drawer -->
     <div class="mobile-nav-drawer" id="mobile-drawer">
+      <a href="javascript:void(0)" onclick="openVideoModal(); toggleMobileMenu();" style="color:#10B981; font-weight:800; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); border-radius:12px; padding:12px 18px; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+        <span>▶</span> Watch 1-Min Demo
+      </a>
       <a href="#features" onclick="toggleMobileMenu()">✨ Core Features</a>
       <a href="#privacy" onclick="toggleMobileMenu()">🛡️ Privacy Shield & Vault</a>
       <a href="#analytics" onclick="toggleMobileMenu()">📊 50/30/20 Wealth Rules</a>
       <a href="#languages" onclick="toggleMobileMenu()">🌍 22 Native Languages</a>
       <a href="#faq" onclick="toggleMobileMenu()">❓ Frequently Asked Questions</a>
-      <a href="privacy.html">🔒 Privacy Policy</a>
-      <a href="terms.html">📜 Terms of Service</a>
-      <a href="support.html">💬 Help & Feedback</a>
-      <a href="#download" class="btn-primary" onclick="toggleMobileMenu()" style="text-align: center; margin-top: 8px;">📲 Download App</a>
+      <a href="support.html">💬 Help & Support Desk</a>
+      <a href="#download" class="btn-primary" onclick="toggleMobileMenu()" style="margin-top:14px; text-align:center; display:flex; justify-content:center;">📲 Download MoneyDiary</a>
     </div>
   </header>
 
@@ -387,13 +556,13 @@
       <p>
         Speak naturally to log expenses in seconds, auto-pilot recurring EMIs, decode wealth with 50/30/20 rules, and protect sensitive figures with biometric Discreet Mode.
       </p>
-      <div class="hero-buttons">
-        <a href="#download" class="btn-primary">
+      <div class="hero-buttons" style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:28px;">
+        <a href="#download" class="btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
           <span>📲 Download for iOS & Android</span>
         </a>
-        <a href="#features" class="btn-secondary">
-          <span>Explore Architecture ↓</span>
-        </a>
+        <button onclick="openVideoModal()" class="btn-secondary" style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-family:inherit; border:1px solid rgba(16,185,129,0.4); background:rgba(16,185,129,0.1); color:#F8FAFC; padding:12px 24px; border-radius:12px; font-weight:700; transition:all 0.2s ease;">
+          <span style="color:#10B981; font-size:15px;">▶</span> Watch 1-Min Demo
+        </button>
       </div>
     </section>
 
@@ -630,7 +799,8 @@
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
-          <li><a href="#features">Features</a></li>
+          <li><a href="javascript:void(0)" onclick="openVideoModal()" style="color:#10B981; font-weight:700; display:flex; align-items:center; gap:6px;"><span style="font-size:12px;">▶</span> Watch Demo</a>
+      <a href="#features">Features</a></li>
           <li><a href="#privacy">Privacy Shield</a></li>
           <li><a href="#analytics">50/30/20 Rule</a></li>
           <li><a href="#languages">22 Languages</a></li>
@@ -675,5 +845,43 @@
     }
   </script>
 
+
+  <!-- Cinematic Video Popup Modal -->
+  <div class="video-modal-overlay" id="videoModal" onclick="handleModalBackdropClick(event)">
+    <div class="video-modal-container">
+      <button class="video-modal-close" onclick="closeVideoModal()" title="Close Film (Esc)">✕</button>
+      <iframe class="video-modal-iframe" id="videoModalIframe" src="" allow="autoplay"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function openVideoModal() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoModalIframe');
+      iframe.src = 'promo_video.html?autoplay=1';
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoModalIframe');
+      iframe.src = ''; // Stop video playback immediately
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function handleModalBackdropClick(e) {
+      if (e.target.id === 'videoModal') {
+        closeVideoModal();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeVideoModal();
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoneyDiary • 1-Minute Product Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #02060B;
+      --card-border: rgba(255, 255, 255, 0.1);
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.45);
+      --indigo: #6366F1;
+      --gold: #F59E0B;
+      --rose: #F43F5E;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    #ambient-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* 16:9 Cinematic Video Stage */
+    .video-stage {
+      position: relative;
+      width: min(1140px, 94vw);
+      height: min(640px, 82vh);
+      background: rgba(6, 11, 20, 0.92);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      box-shadow: 0 35px 100px rgba(0, 0, 0, 0.98), 0 0 80px rgba(16, 185, 129, 0.2);
+      backdrop-filter: blur(35px);
+      overflow: hidden;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scene-viewport {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 64px;
+      opacity: 0;
+      transform: scale(0.95) translateY(24px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .scene.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Scene 1: Introduction */
+    .scene-intro {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+    .intro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 22px;
+      background: rgba(16, 185, 129, 0.16);
+      border: 1px solid var(--emerald-glow);
+      border-radius: 99px;
+      color: var(--emerald);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    .intro-logo {
+      width: 104px; height: 104px;
+      border-radius: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px var(--emerald-glow);
+      margin-bottom: 24px;
+      animation: float 4s ease-in-out infinite;
+      object-fit: cover;
+    }
+    .intro-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #FFF 35%, #10B981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+    .intro-sub {
+      color: var(--text-muted);
+      font-size: 1.3rem;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+
+    /* General Layout */
+    .scene-content {
+      flex: 1;
+      max-width: 530px;
+      z-index: 2;
+    }
+    .scene-tag {
+      color: var(--emerald);
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .scene-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #FFF;
+      margin-bottom: 16px;
+    }
+    .scene-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .feature-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .f-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #E2E8F0;
+      backdrop-filter: blur(10px);
+    }
+    .f-pill .icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+
+    .scene-device {
+      position: relative;
+      width: 320px;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .device-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 45px rgba(0, 0, 0, 0.85));
+      transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
+      transition: transform 0.6s ease;
+    }
+    .scene:hover .device-img {
+      transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+    }
+
+    .waveform-box {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 38px;
+      margin-top: 14px;
+      padding: 8px 16px;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 12px;
+      width: fit-content;
+    }
+    .wave-bar {
+      width: 4px;
+      background: #818CF8;
+      border-radius: 2px;
+      animation: wave 1.2s ease-in-out infinite alternate;
+    }
+    .wave-bar:nth-child(2) { animation-delay: 0.2s; height: 24px; }
+    .wave-bar:nth-child(3) { animation-delay: 0.4s; height: 16px; }
+    .wave-bar:nth-child(4) { animation-delay: 0.1s; height: 28px; }
+    .wave-bar:nth-child(5) { animation-delay: 0.5s; height: 20px; }
+    .wave-bar:nth-child(6) { animation-delay: 0.3s; height: 12px; }
+
+    .scene-finale {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+    .finale-btns {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .btn-store {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      background: #FFF;
+      color: #000;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+      transition: transform 0.2s;
+    }
+    .btn-store:hover { transform: translateY(-3px); }
+    .btn-store-dark {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Video Controller Bar */
+    .video-controls {
+      height: 70px;
+      background: rgba(3, 7, 14, 0.96);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 20;
+    }
+    .controls-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-play {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--emerald);
+      color: #FFF;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px var(--emerald-glow);
+      transition: transform 0.2s;
+    }
+    .btn-play:hover { transform: scale(1.08); }
+    .time-display {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timeline-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+      margin: 0 24px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .timeline-progress {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--emerald), #38BDF8);
+      border-radius: 3px;
+      transition: width 0.05s linear;
+    }
+
+    .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .scene-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .scene-dot.active {
+      background: var(--emerald);
+      transform: scale(1.3);
+      box-shadow: 0 0 10px var(--emerald-glow);
+    }
+
+    .subtitles-bar {
+      position: absolute;
+      bottom: 86px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      padding: 10px 30px;
+      border-radius: 99px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #F8FAFC;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 15;
+      text-align: center;
+      max-width: 85%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sound-toggle {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .sound-toggle.active {
+      color: var(--emerald);
+      border-color: var(--emerald);
+    }
+
+    /* Start Overlay */
+    .start-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(2, 6, 12, 0.88);
+      backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      cursor: pointer;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+    .start-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .big-play-btn {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      display: flex; align-items: center; justify-content: center;
+      color: #FFF; font-size: 36px;
+      box-shadow: 0 16px 50px var(--emerald-glow);
+      margin-bottom: 20px;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .start-overlay:hover .big-play-btn {
+      transform: scale(1.12);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes wave {
+      0% { height: 6px; }
+      100% { height: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="ambient-canvas"></canvas>
+
+  <div class="video-stage">
+    
+    <!-- User Start Prompt Overlay -->
+    <div class="start-overlay" id="start-overlay">
+      <div class="big-play-btn">▶</div>
+      <h2 style="font-size:1.8rem; font-weight:800; color:#FFF; margin-bottom:8px;">MoneyDiary • 1-Minute Product Demo</h2>
+      <p style="color:#94A3B8; font-size:1.05rem;">Click to experience with continuous studio narration & high-energy music</p>
+    </div>
+
+    <div class="scene-viewport">
+      
+      <!-- SCENE 1: The Reveal -->
+      <div class="scene scene-intro active" id="scene-1">
+        <div class="intro-badge">✨ Anirjan Collective Presents</div>
+        <img src="./assets/moneydiary_icon.png" alt="MoneyDiary Icon" class="intro-logo">
+        <h1 class="intro-title">MoneyDiary</h1>
+        <p class="intro-sub">The Private AI Financial Co-Pilot & Institutional Wealth Tracker.</p>
+      </div>
+
+      <!-- SCENE 2: Arti AI Voice Logging -->
+      <div class="scene" id="scene-2">
+        <div class="scene-content">
+          <div class="scene-tag">🎙️ Natural Conversational AI</div>
+          <h2 class="scene-h1">Speak Naturally.<br>Log Instantly.</h2>
+          <p class="scene-desc">No more tedious manual forms. Simply speak or type your expenses in natural language. Arti auto-detects categories, intent, and splits.</p>
+          <div class="waveform-box">
+            <span style="font-size: 13px; font-weight: 700; color: #C7D2FE; margin-right: 8px;">"Spent $45 on gas & $12 on lunch"</span>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+          </div>
+          <div class="feature-pills" style="margin-top: 16px;">
+            <div class="f-pill"><div class="icon" style="background: rgba(99,102,241,0.2); color:#818CF8;">⚡</div> Multi-Item Real-time Receipt Parsing</div>
+            <div class="f-pill"><div class="icon" style="background: rgba(16,185,129,0.2); color:#34D399;">🧠</div> Customizable Speech Persona & Pace</div>
+          </div>
+        </div>
+        <div class="scene-device">
+          <img src="./assets/01_Hero3D_AI_Copilot_1080x1920.jpg" alt="Arti AI Assistant" class="device-img">
+        </div>
+      </div>
+
+      <!-- SCENE 3: 100% Privacy Shield -->
+      <div class="scene" id="scene-3">
+        <div class="scene-content">
+          <div class="scene-tag" style="color: var(--rose);">🛡️ Military-Grade Privacy Vault</div>
+          <h2 class="scene-h1">Your Money.<br>100% Private.</h2>
+          <p class="scene-desc">Zero commercial ads. Zero predatory lending trackers. Discreet Mode automatically blurs balances in public with 1-tap biometric peek.</p>
+          <div class="feature-pills">
+            <div class="f-pill"><div class="icon" style="background: rgba(244,63,94,0.2); color:#FB7185;">🔒</div> Discreet Mode Auto-Masks Balances</div>
+            <div class="f-pill"><div class="icon" style="background: rgba(16,185,129,0.2); color:#34D399;">👆</div> 1-Tap Face ID / Biometric Reveal</div>
+            <div class="f-pill"><div class="icon" style="background: rgba(99,102,241,0.2); color:#818CF8;">🛡️</div> Zero-Knowledge Encrypted Storage</div>
+          </div>
+        </div>
+        <div class="scene-device">
+          <img src="./assets/02_Hero3D_Privacy_Vault_1080x1920.jpg" alt="Privacy Vault" class="device-img">
+        </div>
+      </div>
+
+      <!-- SCENE 4: 50/30/20 Analytics & Bills on Auto-Pilot -->
+      <div class="scene" id="scene-4">
+        <div class="scene-content">
+          <div class="scene-tag" style="color: var(--gold);">📊 Wealth Framework & Auto-Pilot</div>
+          <h2 class="scene-h1">Decode Wealth.<br>Automate Bills.</h2>
+          <p class="scene-desc">Master the 50/30/20 wealth rule (Needs, Wants, Surplus). Put recurring EMIs, rent, and subscriptions on auto-pilot to grow net savings.</p>
+          <div class="feature-pills">
+            <div class="f-pill"><div class="icon" style="background: rgba(245,158,11,0.2); color:#FBBF24;">📈</div> +37% Average Net Savings Growth</div>
+            <div class="f-pill"><div class="icon" style="background: rgba(16,185,129,0.2); color:#34D399;">⚡</div> Smart EMI & Bill Recurring Sentinel</div>
+            <div class="f-pill"><div class="icon" style="background: rgba(99,102,241,0.2); color:#818CF8;">🔍</div> Real-time Spending Heatmap & Density</div>
+          </div>
+        </div>
+        <div class="scene-device">
+          <img src="./assets/03_Hero3D_Wealth_AutoPilot_1080x1920.jpg" alt="Wealth Cockpit" class="device-img">
+        </div>
+      </div>
+
+      <!-- SCENE 5: Family Hub & 22 Languages -->
+      <div class="scene" id="scene-5">
+        <div class="scene-content">
+          <div class="scene-tag">🌍 Global & Social Ledger</div>
+          <h2 class="scene-h1">Shared Finance.<br>22 Languages.</h2>
+          <p class="scene-desc">Coordinate household budgets with Shared Family Ledgers, split trips with friends, and enjoy native support across 22 languages and 150+ currencies.</p>
+          <div class="feature-pills">
+            <div class="f-pill"><div class="icon" style="background: rgba(16,185,129,0.2); color:#34D399;">👨‍👩‍👧</div> My Circle: Family Ledger & Split Groups</div>
+            <div class="f-pill"><div class="icon" style="background: rgba(56,189,248,0.2); color:#38BDF8;">🌐</div> 22 Native Global & Regional Languages</div>
+            <div class="f-pill"><div class="icon" style="background: rgba(245,158,11,0.2); color:#FBBF24;">📁</div> 1-Tap Complete CSV Export</div>
+          </div>
+        </div>
+        <div class="scene-device">
+          <img src="./assets/Showcase_5_My_Circle.jpg" alt="Family Hub" class="device-img">
+        </div>
+      </div>
+
+      <!-- SCENE 6: Grand Finale -->
+      <div class="scene scene-finale" id="scene-6">
+        <img src="./assets/moneydiary_icon.png" alt="MoneyDiary Icon" class="intro-logo" style="width:88px; height:88px;">
+        <h2 class="intro-title" style="font-size: 2.8rem; margin-bottom: 12px;">Take Control of Your Wealth Today</h2>
+        <p class="intro-sub" style="font-size: 1.1rem; max-width: 600px;">Available worldwide on Apple App Store & Google Play. Free, private, and zero loan ads.</p>
+        <div class="finale-btns">
+          <a href="#" class="btn-store"><span>▶</span> Google Play</a>
+          <a href="#" class="btn-store btn-store-dark"><span></span> App Store</a>
+        </div>
+        <div style="margin-top: 24px; font-size: 0.85rem; color: #10B981; font-weight: 700; letter-spacing: 0.05em;">
+          ENGINEERED BY ANIRJAN COLLECTIVE • ITS ABOUT PEOPLE
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Subtitle Display -->
+    <div class="subtitles-bar" id="subtitles">Managing your money shouldn't feel like a chore.</div>
+
+    <!-- Video Controller Bar -->
+    <div class="video-controls">
+      <div class="controls-left">
+        <button class="btn-play" id="play-btn" title="Play / Pause">▶</button>
+        <span class="time-display" id="time-display">0:00 / 0:55</span>
+      </div>
+
+      <div class="timeline-track" id="timeline-track">
+        <div class="timeline-progress" id="timeline-progress"></div>
+      </div>
+
+      <div class="controls-right">
+        <button class="sound-toggle active" id="sound-btn" title="Toggle Audio Narration">🔊 Voice & Music</button>
+        <div class="scene-dot active" data-scene="0"></div>
+        <div class="scene-dot" data-scene="1"></div>
+        <div class="scene-dot" data-scene="2"></div>
+        <div class="scene-dot" data-scene="3"></div>
+        <div class="scene-dot" data-scene="4"></div>
+        <div class="scene-dot" data-scene="5"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Particle Ambient Canvas
+    const canvas = document.getElementById('ambient-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random() - 0.5) * 0.4,
+        dy: (Math.random() - 0.5) * 0.4,
+        alpha: Math.random() * 0.5 + 0.1
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(16, 185, 129, ${p.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // High-Energy Startup Soundtrack Synthesizer (Web Audio API)
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+    let musicInterval = null;
+    let isMusicPlaying = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Modern Tech Startup Chord & Beat Engine
+    let beatStep = 0;
+    const chords = [
+      [220, 261.63, 329.63, 392], // Am7
+      [174.61, 220, 261.63, 329.63], // Fmaj7
+      [261.63, 329.63, 392, 493.88], // Cmaj7
+      [196, 246.94, 293.66, 349.23]  // G7
+    ];
+
+    function playKick(time) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.setValueAtTime(130, time);
+      osc.frequency.exponentialRampToValueAtTime(32, time + 0.12);
+      gain.gain.setValueAtTime(0.35, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.14);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(time);
+      osc.stop(time + 0.14);
+    }
+
+    function playHiHat(time) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'highpass';
+      osc.frequency.setValueAtTime(8000, time);
+      gain.gain.setValueAtTime(0.04, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(time);
+      osc.stop(time + 0.05);
+    }
+
+    function playSynthArp(freq, time) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq * 2, time);
+      gain.gain.setValueAtTime(0.06, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.25);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(time);
+      osc.stop(time + 0.25);
+    }
+
+    function playSynthChord(chord, time) {
+      chord.forEach(f => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, time);
+        gain.gain.setValueAtTime(0.045, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 1.8);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(time);
+        osc.stop(time + 1.8);
+      });
+    }
+
+    function startMusic() {
+      if (isMusicPlaying || !soundEnabled) return;
+      isMusicPlaying = true;
+      const bpm = 124;
+      const stepTime = (60 / bpm) / 4; // 16th notes
+
+      musicInterval = setInterval(() => {
+        if (!audioCtx || !isMusicPlaying) return;
+        const now = audioCtx.currentTime;
+        const currentMeasure = Math.floor(beatStep / 16) % chords.length;
+        const currentChord = chords[currentMeasure];
+
+        // 4 on the floor Kick drum
+        if (beatStep % 4 === 0) {
+          playKick(now);
+        }
+        // Hi-Hats on off-beats
+        if (beatStep % 2 === 1) {
+          playHiHat(now);
+        }
+        // Pluck Arpeggio
+        if (beatStep % 2 === 0) {
+          const noteIndex = (beatStep / 2) % currentChord.length;
+          playSynthArp(currentChord[noteIndex], now);
+        }
+        // Pad chord on downbeat
+        if (beatStep % 16 === 0) {
+          playSynthChord(currentChord, now);
+        }
+
+        beatStep++;
+      }, stepTime * 1000);
+    }
+
+    function stopMusic() {
+      isMusicPlaying = false;
+      if (musicInterval) {
+        clearInterval(musicInterval);
+        musicInterval = null;
+      }
+    }
+
+    // Continuous Master Audio Track
+    const masterAudio = new Audio('./assets/audio/master_voiceover.mp3');
+    masterAudio.volume = 1.0;
+
+    const totalDuration = 55.5; // Refined, fast & loud 55.5s continuous video
+    const scenes = [
+      { id: 'scene-1', start: 0.0, end: 7.0, subtitle: "Managing your money shouldn't feel like a chore. That's why we built MoneyDiary!" },
+      { id: 'scene-2', start: 7.0, end: 16.5, subtitle: "Meet Arti: Speak naturally. 'Spent $45 on fuel & $12 on lunch'. Auto-logged instantly." },
+      { id: 'scene-3', start: 16.5, end: 27.5, subtitle: "100% Private. Discreet Mode auto-masks balances with 1-tap biometric reveal." },
+      { id: 'scene-4', start: 27.5, end: 38.5, subtitle: "The proven 50/30/20 rule! Put bills on auto-pilot & grow net savings by +37%." },
+      { id: 'scene-5', start: 38.5, end: 48.0, subtitle: "Family Circle Ledger, split group dinners, and 22 native languages." },
+      { id: 'scene-6', start: 48.0, end: 55.5, subtitle: "Take control of your wealth. Download MoneyDiary on App Store & Google Play!" }
+    ];
+
+    let currentSceneIndex = 0;
+    let soundEnabled = true;
+
+    const playBtn = document.getElementById('play-btn');
+    const timeDisplay = document.getElementById('time-display');
+    const progress = document.getElementById('timeline-progress');
+    const subtitles = document.getElementById('subtitles');
+    const dots = document.querySelectorAll('.scene-dot');
+    const soundBtn = document.getElementById('sound-btn');
+    const startOverlay = document.getElementById('start-overlay');
+
+    function updateSceneByTime(time) {
+      let activeIndex = 0;
+      for (let i = 0; i < scenes.length; i++) {
+        if (time >= scenes[i].start && time < scenes[i].end) {
+          activeIndex = i;
+          break;
+        }
+      }
+      if (time >= scenes[scenes.length - 1].end) {
+        activeIndex = scenes.length - 1;
+      }
+
+      if (activeIndex !== currentSceneIndex) {
+        document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+
+        currentSceneIndex = activeIndex;
+        const targetScene = document.getElementById(scenes[activeIndex].id);
+        if (targetScene) targetScene.classList.add('active');
+        if (dots[activeIndex]) dots[activeIndex].classList.add('active');
+      }
+
+      subtitles.innerText = scenes[activeIndex].subtitle;
+    }
+
+    function syncPlayback() {
+      const curTime = masterAudio.currentTime;
+      const duration = masterAudio.duration || totalDuration;
+      
+      const pct = (curTime / duration) * 100;
+      progress.style.width = `${pct}%`;
+
+      const curSec = Math.floor(curTime);
+      const totalSec = Math.floor(duration);
+      timeDisplay.innerText = `0:${curSec < 10 ? '0' : ''}${curSec} / 0:${totalSec}`;
+
+      updateSceneByTime(curTime);
+
+      if (!masterAudio.paused) {
+        requestAnimationFrame(syncPlayback);
+      }
+    }
+
+    masterAudio.addEventListener('timeupdate', () => {
+      updateSceneByTime(masterAudio.currentTime);
+    });
+
+    masterAudio.addEventListener('ended', () => {
+      masterAudio.currentTime = 0;
+      masterAudio.play();
+    });
+
+    function startVideo() {
+      initAudio();
+      startOverlay.classList.add('hidden');
+      masterAudio.play().then(() => {
+        playBtn.innerText = '⏸';
+        startMusic();
+        requestAnimationFrame(syncPlayback);
+      }).catch(e => console.log('Playback error:', e));
+    }
+
+    startOverlay.addEventListener('click', startVideo);
+
+    playBtn.addEventListener('click', () => {
+      initAudio();
+      if (masterAudio.paused) {
+        masterAudio.play();
+        playBtn.innerText = '⏸';
+        startMusic();
+        requestAnimationFrame(syncPlayback);
+      } else {
+        masterAudio.pause();
+        playBtn.innerText = '▶';
+        stopMusic();
+      }
+    });
+
+    soundBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundBtn.classList.toggle('active', soundEnabled);
+      soundBtn.innerText = soundEnabled ? '🔊 Voice & Music' : '🔇 Muted';
+      masterAudio.muted = !soundEnabled;
+      if (soundEnabled && !masterAudio.paused) {
+        startMusic();
+      } else {
+        stopMusic();
+      }
+    });
+
+    document.getElementById('timeline-track').addEventListener('click', (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickPct = (e.clientX - rect.left) / rect.width;
+      const newTime = clickPct * (masterAudio.duration || totalDuration);
+      masterAudio.currentTime = newTime;
+      updateSceneByTime(newTime);
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        masterAudio.currentTime = scenes[idx].start + 0.1;
+        updateSceneByTime(masterAudio.currentTime);
+      });
+    });
+  
+    // Autoplay immediately when loaded inside modal iframe or ?autoplay=1
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isAutoplay = urlParams.get('autoplay') === '1' || window.self !== window.top;
+      
+      if (isAutoplay) {
+        // Automatically start video without requiring overlay click
+        setTimeout(() => {
+          startVideo();
+        }, 150);
+      }
+    });
+  </script>
+</body>
+
+</html>
