@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 1% Club — Core Team &amp; Strategic Advisory | Anirjan</title>
+  <meta name="description" content="Meet the leadership, strategic advisors, and builders behind Anirjan: Aparna Dey (Founder), Anjan Jana (Chief Guest &amp; Strategic Advisory), and Subhadeep Dey (Growth &amp; User Acquisition).">
+  <meta name="theme-color" content="#05070c">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="The 1% Club — Core Team &amp; Strategic Advisory | Anirjan">
+  <meta property="og:description" content="The minds building Anirjan: Leadership, strategic advisory, and growth driving our human-first ecosystem.">
+  <meta property="og:image" content="./assets/favicon.svg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@500;600;700;800&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/overhaul.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+
+  <style>
+    :root {
+      --font-display: 'Syne', sans-serif;
+    }
+
+    /* Page Hero */
+    .club-hero {
+      padding: 140px 0 70px 0;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .club-glow {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 750px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(243, 194, 118, 0.16) 0%, rgba(56, 189, 248, 0.08) 50%, transparent 75%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .club-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(243, 194, 118, 0.18), rgba(56, 189, 248, 0.08));
+      border: 1px solid rgba(243, 194, 118, 0.35);
+      color: var(--gold-light);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      box-shadow: 0 0 24px rgba(243, 194, 118, 0.12);
+    }
+
+    .club-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 25%, #f3c276 75%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .club-lead {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      max-width: 760px;
+      margin: 0 auto 36px auto;
+      line-height: 1.75;
+    }
+
+    /* Key Metrics Strip */
+    .club-metrics-row {
+      display: inline-grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 24px;
+      padding: 16px 36px;
+      background: rgba(12, 17, 32, 0.75);
+      border: 1px solid rgba(243, 194, 118, 0.22);
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      margin-bottom: 30px;
+    }
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 12px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .metric-item:last-child {
+      border-right: none;
+    }
+    .metric-val {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+    .metric-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    @media (max-width: 768px) {
+      .club-metrics-row {
+        grid-template-columns: repeat(2, 1fr);
+        border-radius: 20px;
+        gap: 16px;
+        padding: 18px;
+        width: 100%;
+        max-width: 440px;
+      }
+      .metric-item:nth-child(2) {
+        border-right: none;
+      }
+    }
+
+    /* =========================================================================
+       Team Bento Cards Grid
+       ========================================================================= */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin: 40px 0 80px 0;
+    }
+    @media (max-width: 1040px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .member-card {
+      background: linear-gradient(180deg, rgba(16, 22, 40, 0.88), rgba(9, 13, 24, 0.95));
+      border: 1px solid rgba(243, 194, 118, 0.22);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .member-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(243, 194, 118, 0.5);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(243, 194, 118, 0.12);
+    }
+
+    /* Top Photo Stage */
+    .member-photo-wrap {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: #060913;
+      overflow: hidden;
+    }
+    .member-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .member-card:hover .member-photo {
+      transform: scale(1.03);
+    }
+    .photo-overlay-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(9, 13, 24, 0.95) 98%);
+      pointer-events: none;
+    }
+
+    /* Badge Tag inside Photo */
+    .member-role-tag {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+      z-index: 2;
+    }
+    .tag-advisory {
+      background: rgba(243, 194, 118, 0.22);
+      border: 1px solid rgba(243, 194, 118, 0.5);
+      color: var(--gold-light);
+      box-shadow: 0 0 16px rgba(243, 194, 118, 0.2);
+    }
+    .tag-founder {
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: #bae6fd;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+    }
+    .tag-growth {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #a7f3d0;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Card Details Body */
+    .member-body {
+      padding: 24px 26px 30px 26px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      position: relative;
+      z-index: 2;
+    }
+    .member-name {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      line-height: 1.15;
+    }
+    .member-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    /* Focus Pills */
+    .focus-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .focus-pill {
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .member-bio {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.65;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .member-quote {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold-primary);
+      background: rgba(243, 194, 118, 0.06);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      color: #f1f5f9;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .member-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(243, 194, 118, 0.12);
+      border: 1px solid rgba(243, 194, 118, 0.35);
+      color: var(--gold-light);
+    }
+    .member-cta-btn:hover {
+      background: var(--gold-primary);
+      color: #05070c;
+      box-shadow: 0 0 20px rgba(243, 194, 118, 0.3);
+    }
+
+    /* =========================================================================
+       The 1% Philosophy Deep-Dive
+       ========================================================================= */
+    .philosophy-section {
+      background: rgba(11, 16, 30, 0.85);
+      border: 1px solid rgba(243, 194, 118, 0.25);
+      border-radius: 28px;
+      padding: 48px;
+      margin-bottom: 70px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .philosophy-section {
+        padding: 30px 20px;
+      }
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+    .phil-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .phil-step-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(243, 194, 118, 0.12);
+      border: 1px solid rgba(243, 194, 118, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .phil-step-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .phil-step-desc {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.55;
+    }
+
+    /* =========================================================================
+       Join The 1% Club Action Banner
+       ========================================================================= */
+    .join-club-banner {
+      background: linear-gradient(135deg, rgba(243, 194, 118, 0.12), rgba(56, 189, 248, 0.08));
+      border: 1px solid rgba(243, 194, 118, 0.35);
+      border-radius: 28px;
+      padding: 50px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      margin-bottom: 80px;
+    }
+    .join-club-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(243, 194, 118, 0.2) 0%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    /* Responsive Button label toggles */
+    @media (max-width: 600px) {
+      .btn-text-desktop { display: none; }
+      .btn-text-mobile { display: inline; }
+    }
+    @media (min-width: 601px) {
+      .btn-text-desktop { display: inline; }
+      .btn-text-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Cosmic Background Overlays -->
+  <div class="ambient-background"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- =========================================================================
+       1. NAVIGATION BAR
+       ========================================================================= -->
+  <header>
+    <nav class="navbar" id="main-navbar">
+      <a href="./index.html" class="brand-logo" aria-label="Anirjan Home">
+        <div class="logo-emblem">
+          <svg viewBox="0 0 100 100">
+            <ellipse cx="50" cy="50" rx="38" ry="16" fill="none" stroke="#05070c" stroke-width="3" transform="rotate(-20 50 50)"/>
+            <circle cx="50" cy="30" r="10" fill="#05070c"/>
+            <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="#05070c"/>
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-title">ANIRJAN</span>
+          <span class="brand-tagline">Its about People</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <ul class="nav-menu">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="./club.html" class="nav-link active" style="color: var(--gold-light); font-weight: 600;">1% Club ✦</a></li>
+        <li><a href="./founder.html" class="nav-link">Founder</a></li>
+        <li><a href="./anirjan-connect/" class="nav-link" style="color: var(--gold-primary);">Connect</a></li>
+        <li><a href="./services.html" class="nav-link">Services</a></li>
+        <li><a href="./support.html" class="nav-link">Support &amp; Feedback</a></li>
+      </ul>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <a href="./anirjan-connect/#register-form" class="btn btn-primary btn-sm">
+          <span class="btn-text-desktop">Join The Club ✦</span>
+          <span class="btn-text-mobile">Join ✦</span>
+        </a>
+        <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         2. HERO SECTION
+         ========================================================================= -->
+    <section class="club-hero">
+      <div class="club-glow"></div>
+      <div class="container">
+
+        <div class="club-badge">
+          <span>✦ THE 1% FOUNDING CIRCLE • COLLECTIVE STEWARDSHIP</span>
+        </div>
+
+        <h1 class="club-h1">The 1% Club</h1>
+
+        <p class="club-lead">
+          Meet the minds building, advising, and scaling Anirjan. We combine human-first philosophy with high-conviction strategic execution — sharing 40% of future collective economic surplus with those who build with us.
+        </p>
+
+        <!-- Key Metrics Strip -->
+        <div class="club-metrics-row">
+          <div class="metric-item">
+            <span class="metric-val">40%</span>
+            <span class="metric-lbl">Surplus Pool</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">3</span>
+            <span class="metric-lbl">Leadership Pillars</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">Digha &amp; Bengal</span>
+            <span class="metric-lbl">Genesis Hub</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">Day 1</span>
+            <span class="metric-lbl">Building In Public</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         3. CORE TEAM BENTO GRID
+         ========================================================================= -->
+    <section class="container">
+      <div class="team-grid">
+
+        <!-- Card 1: Anjan Jana -->
+        <article class="member-card">
+          <div class="member-photo-wrap">
+            <img src="./assets/anjan_jana.jpeg" alt="Anjan Jana — The Chief Guest for Strategy &amp; Advisory" class="member-photo" style="object-position: center 15%;">
+            <div class="photo-overlay-gradient"></div>
+            <span class="member-role-tag tag-advisory">⭐ Strategic Advisory Seat</span>
+          </div>
+          <div class="member-body">
+            <h2 class="member-name">Anjan Jana</h2>
+            <div class="member-title">The Chief Guest — Strategy &amp; Advisory</div>
+
+            <div class="focus-pills-row">
+              <span class="focus-pill">Ecosystem Strategy</span>
+              <span class="focus-pill">Governance</span>
+              <span class="focus-pill">System Scalability</span>
+              <span class="focus-pill">Value Architecture</span>
+            </div>
+
+            <p class="member-bio">
+              Guiding Anirjan’s overarching roadmap, corporate architecture, and multi-hub expansion. Anjan brings high-conviction strategic oversight to ensure the platform scales with mathematical rigor, legal integrity, and unwavering focus on human well-being.
+            </p>
+
+            <div class="member-quote">
+              “Build architectures that outlive transient hype, protect human dignity, and compound value transparently.”
+            </div>
+
+            <a href="https://wa.me/919933894458?text=Hello%20Anirjan,%20I%20would%20like%20to%20connect%20regarding%20Strategic%20Advisory." target="_blank" rel="noopener noreferrer" class="member-cta-btn">
+              <span>Connect on Strategy →</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 2: Aparna Dey -->
+        <article class="member-card">
+          <div class="member-photo-wrap">
+            <img src="./assets/aparna_dey_original_portrait.jpg" alt="Aparna Dey — Founder &amp; Chief Visionary" class="member-photo" style="object-position: center 20%;">
+            <div class="photo-overlay-gradient"></div>
+            <span class="member-role-tag tag-founder">👑 Founder Seat</span>
+          </div>
+          <div class="member-body">
+            <h2 class="member-name">Aparna Dey</h2>
+            <div class="member-title">Founder &amp; Chief Visionary</div>
+
+            <div class="focus-pills-row">
+              <span class="focus-pill">Mission Architecture</span>
+              <span class="focus-pill">Mindful Technology</span>
+              <span class="focus-pill">Soul Pillars</span>
+              <span class="focus-pill">Coastal Bengal Heritage</span>
+            </div>
+
+            <p class="member-bio">
+              The heart and founding steward of Anirjan. Born and rooted in Digha, West Bengal, Aparna established the collective to solve social friction, clean up everyday digital chaos, and build applications where peace of mind and personal sovereignty come first.
+            </p>
+
+            <div class="member-quote">
+              “The world is filled with complete mess. Let’s clean the mess — and build a better, safer, happier world.”
+            </div>
+
+            <a href="./founder.html" class="member-cta-btn">
+              <span>Read Founder's Story ✦</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 3: Subhadeep Dey -->
+        <article class="member-card">
+          <div class="member-photo-wrap">
+            <img src="./assets/subhadeep_dey.jpeg" alt="Subhadeep Dey — Growth &amp; User Acquisition, Business Development" class="member-photo" style="object-position: center 15%;">
+            <div class="photo-overlay-gradient"></div>
+            <span class="member-role-tag tag-growth">🚀 Growth &amp; BD Lead</span>
+          </div>
+          <div class="member-body">
+            <h2 class="member-name">Subhadeep Dey</h2>
+            <div class="member-title">Growth &amp; User Acquisition and Business Development</div>
+
+            <div class="focus-pills-row">
+              <span class="focus-pill">User Acquisition</span>
+              <span class="focus-pill">Viral Growth Loops</span>
+              <span class="focus-pill">Strategic BD</span>
+              <span class="focus-pill">Market Expansion</span>
+            </div>
+
+            <p class="member-bio">
+              Spearheading user acquisition, strategic distribution channels, and business development across Anirjan’s consumer and local concierge platforms. Subhadeep connects on-ground commercial partnerships with digital growth funnels to drive authentic organic adoption.
+            </p>
+
+            <div class="member-quote">
+              “Growth is not vanity metrics — it is acquiring real users by delivering undeniable 10x value and true economic ownership.”
+            </div>
+
+            <a href="https://wa.me/919933894458?text=Hello%20Anirjan,%20I%20would%20like%20to%20connect%20with%20Subhadeep%20regarding%20Growth%20and%20Business%20Development." target="_blank" rel="noopener noreferrer" class="member-cta-btn">
+              <span>Connect on Growth →</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         4. THE 1% PHILOSOPHY EXPLAINED
+         ========================================================================= -->
+    <section class="container">
+      <div class="philosophy-section">
+        <div class="philosophy-grid">
+          <div>
+            <span class="section-label">The Ownership Model</span>
+            <h2 style="font-family: var(--font-display); font-size: 2.1rem; font-weight: 800; color: #ffffff; margin: 10px 0 16px 0; line-height: 1.2;">
+              Why We Call It <span class="gradient-text-gold">The 1% Club</span>
+            </h2>
+            <p style="color: #cbd5e1; font-size: 0.98rem; line-height: 1.7; margin-bottom: 20px;">
+              Most tech companies hoard equity in closed boardrooms while treating community contributors as disposable users. Anirjan was built on an opposite, sacred premise: <strong>economic surplus belongs to those who build, distribute, and protect the network.</strong>
+            </p>
+            <p style="color: #94a3b8; font-size: 0.92rem; line-height: 1.65;">
+              Under our verified Connect model, <strong>40% of all future platform surplus</strong> is legally allocated to reference unit holders. Members of The 1% Club earn reference units by contributing exceptional technological, operational, or strategic value.
+            </p>
+          </div>
+
+          <div>
+            <div class="phil-step-item">
+              <div class="phil-step-icon">💡</div>
+              <div>
+                <div class="phil-step-title">Pillar 1: Conviction &amp; Mission Alignment</div>
+                <div class="phil-step-desc">
+                  Zero room for mercenary opportunism. We invite thinkers who genuinely believe in creating a safer, calmer, and freer world.
+                </div>
+              </div>
+            </div>
+
+            <div class="phil-step-item">
+              <div class="phil-step-icon">⚡</div>
+              <div>
+                <div class="phil-step-title">Pillar 2: Tangible Craft &amp; High Impact</div>
+                <div class="phil-step-desc">
+                  Whether architecting code, executing growth loops, or advising on governance — 1% seats are earned through demonstrable, measurable excellence.
+                </div>
+              </div>
+            </div>
+
+            <div class="phil-step-item">
+              <div class="phil-step-icon">🤝</div>
+              <div>
+                <div class="phil-step-title">Pillar 3: Transparent Pro-Rata Surplus</div>
+                <div class="phil-step-desc">
+                  Reference units entitle contributors to verifiable shares of the 40% surplus pool with zero middlemen fees or predatory dilutions.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         5. JOIN THE 1% CLUB CTA BANNER
+         ========================================================================= -->
+    <section class="container">
+      <div class="join-club-banner">
+        <span class="section-label">Genesis Cohort Openings</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 3.8vw, 2.8rem); font-weight: 800; color: #ffffff; margin: 12px 0 16px 0;">
+          Do You Belong in <span class="gradient-text-gold">The 1% Club?</span>
+        </h2>
+        <p style="color: #cbd5e1; font-size: 1.05rem; max-width: 680px; margin: 0 auto 30px auto; line-height: 1.7;">
+          We are actively evaluating visionary engineers, growth strategists, local community builders, and ethical advisors. If you want to build enduring value and own a stake in the outcome, let’s talk.
+        </p>
+
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="./anirjan-connect/#register-form" class="btn btn-primary" style="padding: 14px 28px; font-size: 1rem;">
+            <span>Apply for a 1% Reference Seat ✦</span>
+          </a>
+          <a href="https://wa.me/919933894458?text=Hello%20Aparna%20and%20Anirjan%20Team,%20I%20would%20like%20to%20apply%20for%20The%201%25%20Club." target="_blank" rel="noopener noreferrer" class="btn btn-outline-gold" style="padding: 14px 28px; font-size: 1rem;">
+            <span>Speak with Founding Team →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       6. FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="brand-logo" style="margin-bottom: 14px;">
+            <div class="logo-emblem">
+              <svg viewBox="0 0 100 100">
+                <ellipse cx="50" cy="50" rx="38" ry="16" fill="none" stroke="#05070c" stroke-width="3" transform="rotate(-20 50 50)"/>
+                <circle cx="50" cy="30" r="10" fill="#05070c"/>
+                <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="#05070c"/>
+              </svg>
+            </div>
+            <div class="brand-text-wrap">
+              <span class="brand-title">ANIRJAN</span>
+              <span class="brand-tagline">Its about People</span>
+            </div>
+          </div>
+          <p class="footer-mission" style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; max-width: 320px;">
+            A mindful collective founded in Digha, West Bengal by Aparna Dey. Building technology, community solutions, and local services designed for freedom, happiness, and peace of mind.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Leadership &amp; Team</h4>
+          <ul class="footer-links">
+            <li><a href="./club.html">The 1% Club Overview</a></li>
+            <li><a href="./founder.html">Founder Aparna Dey</a></li>
+            <li><a href="./club.html">Anjan Jana (Strategy)</a></li>
+            <li><a href="./club.html">Subhadeep Dey (Growth)</a></li>
+            <li><a href="./anirjan-connect/">Anirjan Connect (Co-Ownership)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ecosystem &amp; Services</h4>
+          <ul class="footer-links">
+            <li><a href="./index.html">Anirjan Home</a></li>
+            <li><a href="./services.html">Digha Services &amp; Concierge</a></li>
+            <li><a href="./services.html#unsupported-activities">Zero-Tolerance Ethical Policy</a></li>
+            <li><a href="./support.html">Help &amp; Support Desk</a></li>
+            <li><a href="./founder.html#authentic-digha">Digha Coastal Heritage</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Direct Connect</h4>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/919933894458" target="_blank" rel="noopener noreferrer">WhatsApp: +91 99338 94458</a></li>
+            <li><a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer">Telegram: @anirjan_collective</a></li>
+            <li><span style="color: var(--text-muted); font-size: 0.82rem;">Headquarters: Jagadishpur, Digha, PIN - 721428</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Anirjan Collective. Founded by Aparna Dey. Built for people.</div>
+        <div>Active Hub: Digha, West Bengal • PIN 721428</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    (function() {
+      // Mobile Navigation Menu Toggle
+      const mobileToggle = document.getElementById('mobile-toggle-btn');
+      const navMenu = document.querySelector('.nav-menu');
+      if (mobileToggle && navMenu) {
+        mobileToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          navMenu.classList.toggle('open');
+          mobileToggle.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            mobileToggle.classList.remove('active');
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+            navMenu.classList.remove('open');
+            mobileToggle.classList.remove('active');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
