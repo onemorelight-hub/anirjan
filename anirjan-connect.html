@@ -59,6 +59,7 @@
       <!-- Navigation Links -->
       <ul class="nav-menu">
         <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="./founder.html" class="nav-link" style="color: var(--gold-light);">Founder ✦</a></li>
         <li><a href="#overview" class="nav-link">Overview</a></li>
         <li><a href="#valuation" class="nav-link">Valuation &amp; Shares</a></li>
         <li><a href="#profit-model" class="nav-link">Profit Sharing</a></li>
@@ -74,8 +75,12 @@
         <a href="#register-form" class="btn btn-primary btn-sm" id="nav-cta-primary">
           <span>Join Anirjan Connect</span>
         </a>
-        <button class="mobile-toggle-btn" aria-label="Toggle Menu">
-          ☰
+        <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
     </nav>
@@ -894,7 +899,7 @@
 
           <!-- Active Form -->
           <form id="connect-interest-form" novalidate>
-            <!-- 2-Col Grid: Name & Email -->
+            <!-- 2-Col Grid: Name & City -->
             <div class="form-grid-2">
               <div class="form-group">
                 <label for="full-name" class="form-label">
@@ -905,31 +910,53 @@
               </div>
 
               <div class="form-group">
-                <label for="email-address" class="form-label">
-                  <span>Email Address</span>
-                  <span class="req">*Required</span>
-                </label>
-                <input type="email" id="email-address" class="form-control" placeholder="Enter your email" required>
-              </div>
-            </div>
-
-            <!-- 2-Col Grid: Mobile & City -->
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label for="mobile-number" class="form-label">
-                  <span>Mobile Number</span>
-                  <span class="req">*Required</span>
-                </label>
-                <input type="tel" id="mobile-number" class="form-control" placeholder="Enter your mobile number" required>
-              </div>
-
-              <div class="form-group">
                 <label for="city-location" class="form-label">
-                  <span>City</span>
+                  <span>City / Location</span>
                   <span class="req">*Required</span>
                 </label>
                 <input type="text" id="city-location" class="form-control" placeholder="Enter your city" required>
               </div>
+            </div>
+
+            <!-- Contact Channels: WhatsApp or Telegram is Mandatory -->
+            <div style="background: rgba(20, 28, 48, 0.6); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; padding: 16px 18px; margin-bottom: 20px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 600; color: var(--cyan-primary); display: flex; align-items: center; gap: 6px;">
+                  📱 Primary Contact Channel
+                </span>
+                <span class="req" style="font-size: 0.8rem; background: rgba(56, 189, 248, 0.15); padding: 2px 8px; border-radius: 4px;">
+                  *Must provide WhatsApp OR Telegram
+                </span>
+              </div>
+
+              <div class="form-grid-2" style="margin-bottom: 0;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label for="whatsapp-number" class="form-label">
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                      <span style="color: #22c55e;">💬</span> WhatsApp Number
+                    </span>
+                  </label>
+                  <input type="tel" id="whatsapp-number" class="form-control" placeholder="+91 98765 43210 (with country code)">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label for="telegram-handle" class="form-label">
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                      <span style="color: #38bdf8;">✈️</span> Telegram Username or Number
+                    </span>
+                  </label>
+                  <input type="text" id="telegram-handle" class="form-control" placeholder="@username or mobile number">
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Address (Optional) -->
+            <div class="form-group">
+              <label for="email-address" class="form-label">
+                <span>Email Address</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">(Optional)</span>
+              </label>
+              <input type="email" id="email-address" class="form-control" placeholder="name@example.com (optional)">
             </div>
 
             <!-- Checkbox Group: How would you like to participate? -->
@@ -1109,8 +1136,8 @@
     <div class="container">
       <div class="footer-manifesto">
         <p class="footer-manifesto-text">
-          Every product we build. Every canal we clean.<br>
-          Every essay we publish. Every partnership we form.<br>
+          Every product we build. Every idea we nurture.<br>
+          Every collaboration we form. Every life we touch.<br>
           <strong>We do it for people. Its about people.</strong>
         </p>
         <div class="footer-manifesto-sig">— Anirjan Collective • 2026</div>
@@ -1119,10 +1146,11 @@
 
     <div class="container">
       <div class="footer-top">
-        <div>
+        <div class="footer-brand-col">
           <a href="./index.html" class="brand-logo" style="margin-bottom: 14px;">
             <div class="logo-emblem">
               <svg viewBox="0 0 100 100">
+                <ellipse cx="50" cy="50" rx="38" ry="16" fill="none" stroke="#05070c" stroke-width="3" transform="rotate(-20 50 50)"/>
                 <circle cx="50" cy="30" r="10" fill="#05070c"/>
                 <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="#05070c"/>
               </svg>
@@ -1133,7 +1161,7 @@
             </div>
           </a>
           <p class="footer-brand-bio">
-            Anirjan Connect brings together visionary contributors, creators, and supporters to build a mindful, cleaner world together under a transparent 60/40 participation model.
+            An initiative founded by Aparna Dey to solve everyday social friction, make people safer, and build a cleaner, happier world together.
           </p>
           <div style="font-size: 0.85rem; color: var(--gold-primary); font-weight: 600;">
             Live Better • Solve Social Friction • Make People Safer • Create A Better World
@@ -1141,20 +1169,19 @@
         </div>
 
         <div class="footer-col">
-          <h4>Anirjan Connect</h4>
+          <h4>Brand &amp; Leadership</h4>
           <ul class="footer-links">
-            <li><a href="#overview">What is Connect?</a></li>
-            <li><a href="#valuation">Valuation (₹40 Lakhs)</a></li>
-            <li><a href="#profit-model">60/40 Profit Model</a></li>
-            <li><a href="#opportunities">Contribution Pillars</a></li>
-            <li><a href="#register-form">Join Anirjan Connect</a></li>
+            <li><a href="./founder.html">Founder: Aparna Dey</a></li>
+            <li><a href="#overview">Anirjan Connect Model</a></li>
+            <li><a href="./index.html#philosophy">Our Philosophy</a></li>
+            <li><a href="./index.html#impact">Roadmap &amp; Purpose</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Ecosystem</h4>
           <ul class="footer-links">
-            <li><a href="../moneydiary/">MoneyDiary (App)</a></li>
+            <li><a href="./moneydiary/">MoneyDiary (App)</a></li>
             <li><a href="./index.html#ecosystem">Anirjan Pure Bottle</a></li>
             <li><a href="./index.html#ecosystem">Anirjan Flow App</a></li>
             <li><a href="./index.html#ecosystem">Project Nirmal NGO</a></li>
@@ -1162,23 +1189,25 @@
         </div>
 
         <div class="footer-col">
-          <h4>Legal &amp; Policies</h4>
+          <h4>Care &amp; Support</h4>
           <ul class="footer-links">
-            <li><a href="../moneydiary/privacy.html">Privacy Policy</a></li>
-            <li><a href="../moneydiary/terms.html">Terms of Service</a></li>
-            <li><a href="../moneydiary/support.html">Contact &amp; Support</a></li>
+            <li><a href="./support.html">Help &amp; Support Desk</a></li>
+            <li><a href="./support.html#tab-feedback">Share Community Feedback</a></li>
+            <li><a href="./founder.html#send-note">Personal Note to Aparna</a></li>
+            <li><span style="color: var(--text-muted); font-size: 0.82rem;">Jagadishpur, Digha, PIN - 721428</span></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div>© 2026 Anirjan Collective. All rights reserved. Built for people.</div>
+        <div>© 2026 Anirjan Collective. Founded by Aparna Dey. Built for people.</div>
         <div>Reference Valuation: ₹40,00,000 • 60/40 Participation Pool</div>
       </div>
     </div>
   </footer>
 
   <!-- Scripts -->
+  <script src="./js/notifier.js"></script>
   <script src="./js/connect.js"></script>
 </body>
 </html>

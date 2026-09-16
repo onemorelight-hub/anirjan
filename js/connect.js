@@ -63,14 +63,24 @@ function initNavbarScroll() {
     }
   });
 
-  mobileToggle?.addEventListener('click', () => {
+  mobileToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
     navMenu?.classList.toggle('open');
+    mobileToggle?.classList.toggle('active');
   });
 
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
       navMenu?.classList.remove('open');
+      mobileToggle?.classList.remove('active');
     });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navMenu?.contains(e.target) && !mobileToggle?.contains(e.target)) {
+      navMenu?.classList.remove('open');
+      mobileToggle?.classList.remove('active');
+    }
   });
 }
 
@@ -215,15 +225,17 @@ function initRegistrationForm() {
 
     // 1. Validate Text Fields
     const fullNameInput = form.querySelector('#full-name');
-    const emailInput = form.querySelector('#email-address');
-    const mobileInput = form.querySelector('#mobile-number');
     const cityInput = form.querySelector('#city-location');
+    const whatsappInput = form.querySelector('#whatsapp-number');
+    const telegramInput = form.querySelector('#telegram-handle');
+    const emailInput = form.querySelector('#email-address');
     const bioInput = form.querySelector('#about-yourself');
 
     const fullName = fullNameInput?.value.trim() || '';
-    const email = emailInput?.value.trim() || '';
-    const mobile = mobileInput?.value.trim() || '';
     const city = cityInput?.value.trim() || '';
+    const whatsapp = whatsappInput?.value.trim() || '';
+    const telegram = telegramInput?.value.trim() || '';
+    const email = emailInput?.value.trim() || '';
     const bio = bioInput?.value.trim() || '';
 
     if (!fullName) {
@@ -231,20 +243,24 @@ function initRegistrationForm() {
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      showError('Please enter a valid email address.', emailInput);
-      return;
-    }
-
-    if (!mobile || mobile.length < 6) {
-      showError('Please enter a valid mobile number.', mobileInput);
-      return;
-    }
-
     if (!city) {
       showError('Please enter your city.', cityInput);
       return;
+    }
+
+    // WhatsApp OR Telegram is MANDATORY (must provide at least one)
+    if (!whatsapp && !telegram) {
+      showError('Please provide at least one primary contact channel: WhatsApp or Telegram.', whatsappInput || telegramInput);
+      return;
+    }
+
+    // Email is OPTIONAL; if provided, validate format
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showError('Please enter a valid email address or leave it blank.', emailInput);
+        return;
+      }
     }
 
     // 2. Validate Checkboxes (At least one participation avenue selected)
@@ -279,11 +295,17 @@ function initRegistrationForm() {
       return;
     }
 
-    // 5. Collect Form Data
+    // 5. Generate Unique Reference Number
+    const randomHex = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const refId = `AC-2026-${randomHex}`;
+
+    // 6. Collect Form Data
     const formData = {
+      referenceId: refId,
       fullName,
-      email,
-      mobile,
+      whatsapp: whatsapp || 'Not provided',
+      telegram: telegram || 'Not provided',
+      email: email || 'Not provided',
       city,
       participationAvenues: checkedAvenues,
       timeCommitment: timeRadio.value,
@@ -294,11 +316,6 @@ function initRegistrationForm() {
       submittedAt: new Date().toISOString()
     };
 
-    // 6. Generate Unique Reference Number
-    const randomHex = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const refId = `AC-2026-${randomHex}`;
-    formData.referenceId = refId;
-
     // 7. Save in LocalStorage
     try {
       const existing = JSON.parse(localStorage.getItem('anirjan_connect_submissions') || '[]');
@@ -308,7 +325,29 @@ function initRegistrationForm() {
       console.warn('LocalStorage save failed:', err);
     }
 
-    // 8. Transition to Thank You Card
+    // 8. Dispatch to Multi-Channel Backend (Telegram, WhatsApp, Email, Google Sheets)
+    if (window.AnirjanNotifier) {
+      window.AnirjanNotifier.dispatch({
+        formType: 'ANIRJAN_CONNECT',
+        refId: refId,
+        name: fullName,
+        whatsapp: formData.whatsapp,
+        telegram: formData.telegram,
+        email: formData.email,
+        city: city,
+        category: 'Connect Partner',
+        details: bio,
+        meta: {
+          participation: checkedAvenues,
+          timeCommitment: timeRadio.value,
+          investment: investRadio.value,
+          audience: formData.networkAudience,
+          profileUrl: formData.profileUrl
+        }
+      });
+    }
+
+    // 9. Transition to Thank You Card
     form.style.display = 'none';
     if (refCodeBadge) {
       refCodeBadge.textContent = `Reference ID: ${refId}`;
