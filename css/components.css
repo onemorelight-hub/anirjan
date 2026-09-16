@@ -40,6 +40,8 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 20px;
 }
 
 .logo-emblem {
@@ -96,6 +98,7 @@
   position: relative;
   padding: 6px 2px;
   transition: var(--transition-smooth);
+  white-space: nowrap;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -122,6 +125,18 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.nav-actions .btn {
+  white-space: nowrap;
+}
+
+.nav-item-mobile-only {
+  display: none !important;
+}
+
+.btn-text-mobile {
+  display: none !important;
 }
 
 .mobile-toggle-btn {

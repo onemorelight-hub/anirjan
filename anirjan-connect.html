@@ -30,6 +30,74 @@
   <link rel="stylesheet" href="./css/overhaul.css">
   <link rel="stylesheet" href="./css/responsive.css">
   <link rel="stylesheet" href="./css/connect.css">
+
+  <style>
+    /* Navbar Precision Fixes for Desktop & Mobile */
+    .brand-logo {
+      margin-right: 20px !important;
+      flex-shrink: 0 !important;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-link {
+      white-space: nowrap !important;
+    }
+    .nav-actions .btn {
+      white-space: nowrap !important;
+    }
+
+    /* By default on desktop, hide mobile-only links and mobile-only button text */
+    li.nav-item-mobile-only {
+      display: none !important;
+    }
+    .btn-text-mobile {
+      display: none !important;
+    }
+    .btn-text-desktop {
+      display: inline !important;
+    }
+
+    /* Intermediate laptop/tablet viewports (993px - 1200px) */
+    @media (max-width: 1200px) and (min-width: 993px) {
+      .nav-menu {
+        gap: 14px !important;
+      }
+      .nav-link {
+        font-size: 0.86rem !important;
+      }
+      .navbar {
+        padding: 10px 18px !important;
+      }
+    }
+
+    /* Mobile viewports (<= 992px) */
+    @media (max-width: 992px) {
+      li.nav-item-mobile-only {
+        display: block !important;
+      }
+      .brand-logo {
+        margin-right: 0 !important;
+      }
+      .nav-actions .btn-sm {
+        padding: 7px 12px !important;
+        font-size: 0.8rem !important;
+      }
+    }
+
+    /* Phone viewports (<= 640px) */
+    @media (max-width: 640px) {
+      .btn-text-desktop {
+        display: none !important;
+      }
+      .btn-text-mobile {
+        display: inline !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -60,20 +128,19 @@
       <ul class="nav-menu">
         <li><a href="./index.html" class="nav-link">Home</a></li>
         <li><a href="./founder.html" class="nav-link" style="color: var(--gold-light);">Founder ✦</a></li>
-        <li><a href="#overview" class="nav-link">Overview</a></li>
-        <li><a href="#valuation" class="nav-link">Valuation &amp; Shares</a></li>
-        <li><a href="#profit-model" class="nav-link">Profit Sharing</a></li>
-        <li><a href="#opportunities" class="nav-link">Participate</a></li>
+        <li class="nav-item-mobile-only"><a href="#overview" class="nav-link">Overview</a></li>
+        <li><a href="#valuation" class="nav-link">Valuation</a></li>
+        <li><a href="#profit-model" class="nav-link">Profit Model</a></li>
+        <li class="nav-item-mobile-only"><a href="#opportunities" class="nav-link">Opportunities</a></li>
         <li><a href="#calculator" class="nav-link">Calculator</a></li>
+        <li class="nav-item-mobile-only"><a href="#register-form" class="nav-link" style="color: var(--gold-primary); font-weight: 600;">Apply to Join ✦</a></li>
       </ul>
 
-      <!-- Nav Actions (Primary & Secondary CTAs) -->
+      <!-- Nav Actions -->
       <div class="nav-actions">
-        <a href="#register-form" class="btn btn-outline-gold btn-sm" id="nav-cta-secondary">
-          <span>Express Interest</span>
-        </a>
         <a href="#register-form" class="btn btn-primary btn-sm" id="nav-cta-primary">
-          <span>Join Anirjan Connect</span>
+          <span class="btn-text-desktop">Join Connect ✦</span>
+          <span class="btn-text-mobile">Join ✦</span>
         </a>
         <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Navigation Menu">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
