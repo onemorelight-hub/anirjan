@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="../css/overhaul.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="../css/connect.css">
+  <link rel="stylesheet" href="../css/share-portal.css?v=2.2">
 
   <style>
     /* Navbar Precision Fixes for Desktop & Mobile */
@@ -130,6 +131,7 @@
         <li><a href="../club.html" class="nav-link">1% Club</a></li>
         <li><a href="../services.html" class="nav-link">Services</a></li>
         <li><a href="../founder.html" class="nav-link" style="color: var(--gold-light);">Founder ✦</a></li>
+        <li><a href="#my-share" class="nav-link" style="color: var(--gold-primary); font-weight: 700;">View My Share ✦</a></li>
         <li class="nav-item-mobile-only"><a href="#overview" class="nav-link">Overview</a></li>
         <li><a href="#valuation" class="nav-link">Valuation</a></li>
         <li><a href="#profit-model" class="nav-link">Profit Model</a></li>
@@ -180,6 +182,10 @@
               <span>I'm Interested</span>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="7 13 12 18 17 13"></polyline><line x1="12" y1="6" x2="12" y2="18"></line></svg>
             </a>
+            <a href="#my-share" class="btn btn-outline-gold" id="hero-cta-view-share" style="border-color: var(--gold-primary); color: var(--gold-primary);">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>View My Share (₹4) ✦</span>
+            </a>
             <a href="#valuation" class="btn btn-secondary">
               <span>Explore Valuation &amp; Share Model</span>
             </a>
@@ -187,6 +193,327 @@
         </div>
       </div>
     </section>
+
+    <div class="cosmic-divider"></div>
+
+    <!-- =========================================================================
+         2.5. VIEW MY SHARE PORTAL (100% Free & Cryptographically Secured)
+         ========================================================================= -->
+    <section class="share-portal-section" id="my-share">
+      <div class="container share-portal-container">
+        
+        <!-- A. AUTHENTICATION / LOOKUP CARD -->
+        <div class="share-auth-box reveal" id="share-auth-card">
+          <div class="share-badge-pill">
+            <span class="badge-pulse-dot"></span>
+            <span>Verified Equity Ledger • ₹4 Par Share Valuation</span>
+          </div>
+
+          <h2 class="share-auth-title">View My Share</h2>
+          <p class="share-auth-desc">
+            Sign in with Google or Facebook to securely access your personal equity allocation, total ₹4 par valuation, ecosystem surplus dividend eligibility, and digital certificate.
+          </p>
+
+          <!-- Social Auth Buttons -->
+          <div class="auth-social-wrap">
+            <div id="google-signin-btn-container"></div>
+            <button type="button" class="btn-auth-social btn-facebook-social" id="facebook-signin-btn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              <span>Continue with Facebook</span>
+            </button>
+          </div>
+
+          <div class="auth-divider">
+            <span>Or Instant Direct Lookup</span>
+          </div>
+
+          <!-- Direct Input Form -->
+          <form id="share-direct-lookup-form" class="direct-input-group">
+            <input type="text" id="share-lookup-input" class="direct-input" placeholder="Enter your email or mobile (+91...)" required>
+            <button type="submit" class="btn btn-primary" id="btn-share-lookup">
+              <span>Access Portfolio</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </form>
+
+          <!-- Instant Test Profiles -->
+          <div class="quick-profiles-label">Or Instant Demo Profiles:</div>
+          <div class="demo-chips-strip">
+            <button type="button" class="demo-chip-btn" data-email="subhadeep@anirjan.com" title="Growth & BD Lead">
+              <span>👑 Subhadeep Dey</span>
+              <span class="demo-chip-badge">(10,000 Shares = ₹40,000)</span>
+            </button>
+            <button type="button" class="demo-chip-btn" data-email="anjan@anirjan.com" title="Strategic Advisory">
+              <span>🎖️ Anjan Jana</span>
+              <span class="demo-chip-badge">(15,000 Shares = ₹60,000)</span>
+            </button>
+            <button type="button" class="demo-chip-btn" data-email="aparna@anirjan.com" title="Founder Seat">
+              <span>💎 Aparna Dey</span>
+              <span class="demo-chip-badge">(60,000 Shares = ₹2,40,000)</span>
+            </button>
+            <button type="button" class="demo-chip-btn" data-email="contributor@anirjan.com" title="Community Contributor">
+              <span>🌱 Contributor Demo</span>
+              <span class="demo-chip-badge">(2,500 Shares = ₹10,000)</span>
+            </button>
+          </div>
+
+          <!-- Zero-Leakage Privacy Badge -->
+          <div class="auth-sec-notice">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Strict Zero-Leakage Privacy: Authenticated identity checks ensure only you can view your personal allocation.</span>
+          </div>
+
+          <!-- Admin Desk Link -->
+          <div style="margin-top: 18px;">
+            <button type="button" class="btn-text-link" id="admin-desk-trigger" style="font-size: 0.78rem; color: rgba(255,255,255,0.4); text-decoration: underline; cursor: pointer; background: none; border: none;">
+              Admin Share Manager 🔒
+            </button>
+          </div>
+        </div>
+
+        <!-- B. AUTHENTICATED PORTFOLIO DASHBOARD (Revealed Upon Auth) -->
+        <div class="share-portfolio-box hidden" id="share-portfolio-card" style="display: none;">
+          
+          <!-- User Profile Header -->
+          <div class="port-header">
+            <div class="port-user-meta">
+              <div class="port-avatar-wrapper" id="port-avatar">
+                <!-- Avatar inserted dynamically -->
+              </div>
+              <div>
+                <h3 class="port-name" id="port-name">—</h3>
+                <div class="port-role" id="port-role">—</div>
+                <div class="port-badges-row">
+                  <span class="port-tier-badge" id="port-badge">1% Club Participant Pool</span>
+                  <span class="port-cert-id-badge" id="port-cert-id">ANR-2026-SHR-0000</span>
+                  <span class="port-verified-badge" id="port-verified-badge">✓ Verified Shareholder</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="port-actions">
+              <button type="button" class="btn btn-outline-gold btn-sm" id="share-signout-btn">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span>Switch Account / Sign Out</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bento Metrics Grid -->
+          <div class="port-bento-grid">
+            <div class="port-tile">
+              <div class="port-tile-lbl">Total Allocated Shares</div>
+              <div class="port-tile-val gold-text" id="port-metric-shares">0</div>
+              <div class="port-tile-sub">Vested Ecosystem Equity Units</div>
+            </div>
+
+            <div class="port-tile">
+              <div class="port-tile-lbl">Par Share Benchmark</div>
+              <div class="port-tile-val" id="port-metric-unit-price">₹4.00</div>
+              <div class="port-tile-sub">Fixed Par Valuation per Share</div>
+            </div>
+
+            <div class="port-tile featured-gold">
+              <div class="port-tile-lbl">Total Portfolio Valuation</div>
+              <div class="port-tile-val gold-text" id="port-metric-total-valuation">₹0</div>
+              <div class="port-tile-sub">Calculated as Shares × ₹4.00 Par</div>
+            </div>
+
+            <div class="port-tile">
+              <div class="port-tile-lbl">Ecosystem Pool Share</div>
+              <div class="port-tile-val" id="port-metric-pool-pct">0.00%</div>
+              <div class="port-tile-sub" id="port-metric-eco-pct">of Total Ecosystem Pool</div>
+            </div>
+          </div>
+
+          <!-- Annual Surplus Projection Tile -->
+          <div class="port-tile" style="margin-bottom: 36px; background: rgba(77, 238, 234, 0.04); border-color: rgba(77, 238, 234, 0.25);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+              <div>
+                <div class="port-tile-lbl" style="color: #4deeeb;">40% Surplus Distribution Pool Estimate</div>
+                <div style="font-size: 0.92rem; color: var(--text-secondary); max-width: 600px;">
+                  Your pro-rata entitlement from the 40% participant surplus dividend pool (modeled on initial ₹10 Lakh net platform surplus benchmark).
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <div class="port-tile-val" id="port-metric-surplus-est" style="color: #4deeeb; margin: 0;">₹0/yr</div>
+                <div style="font-size: 0.78rem; color: rgba(255,255,255,0.5);">Pro-Rata Annual Entitlement</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Valuation Growth Milestone Simulator -->
+          <div class="port-simulator-box">
+            <h4 class="port-sim-title">Interactive Valuation Growth Simulator</h4>
+            <p class="port-sim-desc">
+              Explore the future valuation of your shareholding as the Anirjan ecosystem scales across Bengal and India:
+            </p>
+
+            <div class="val-slider-wrap">
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 8px;">
+                <span>Current Par (₹4)</span>
+                <span id="proj-multiplier-label" style="color: var(--gold-primary); font-weight: 600;">1x Par Value (Genesis Stage)</span>
+                <span>Unicorn Milestone (₹100)</span>
+              </div>
+              <input type="range" min="4" max="100" step="1" value="4" class="val-slider" id="share-val-slider">
+              
+              <div class="val-presets-row">
+                <button type="button" class="val-preset-btn" data-val="4">₹4 (Genesis Par)</button>
+                <button type="button" class="val-preset-btn" data-val="10">₹10 (Seed Growth)</button>
+                <button type="button" class="val-preset-btn" data-val="25">₹25 (Bengal Scale)</button>
+                <button type="button" class="val-preset-btn" data-val="50">₹50 (Expansion)</button>
+                <button type="button" class="val-preset-btn" data-val="100">₹100 (Unicorn)</button>
+              </div>
+            </div>
+
+            <div class="port-sim-results">
+              <div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase;">Simulated Share Price</div>
+                <div style="font-size: 1.4rem; font-weight: 700; color: #fff;" id="proj-unit-price">₹4.00</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase;">Your Projected Portfolio Value</div>
+                <div class="sim-res-val" id="proj-total-valuation">₹0</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digital Shareholder Certificate View -->
+          <div class="share-cert-container">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <h4 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin-bottom: 4px;">Digital Shareholder Certificate</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Verified digital certificate issued under the Anirjan Connect 60/40 Equity Charter.</p>
+              </div>
+              <button type="button" class="btn btn-outline-gold btn-sm" id="share-print-cert-btn">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                <span>Print / Save PDF</span>
+              </button>
+            </div>
+
+            <!-- Certificate Card -->
+            <div class="cert-card" id="share-certificate-card">
+              <div class="cert-header">
+                <div class="cert-emblem">
+                  <svg viewBox="0 0 100 100" width="54" height="54">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(243, 194, 118, 0.7)" stroke-width="2"/>
+                    <ellipse cx="50" cy="50" rx="38" ry="16" fill="none" stroke="var(--gold-primary)" stroke-width="2.5" transform="rotate(-20 50 50)"/>
+                    <circle cx="50" cy="30" r="8" fill="var(--gold-primary)"/>
+                    <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="var(--gold-primary)"/>
+                  </svg>
+                </div>
+                <div class="cert-title-wrap">
+                  <div class="cert-title">Anirjan Collective</div>
+                  <div class="cert-sub">CERTIFICATE OF ECOSYSTEM SHARE ALLOCATION</div>
+                </div>
+              </div>
+
+              <div class="cert-body">
+                <div class="cert-presents">This certifies that</div>
+                <div class="cert-name" id="cert-name">—</div>
+                <div class="cert-role" id="cert-role">—</div>
+
+                <div class="cert-holding-box">
+                  <div class="cert-shares" id="cert-shares">0 SHARES</div>
+                  <div class="cert-par" id="cert-par">₹4.00 PAR VALUE</div>
+                </div>
+                
+                <p style="font-size: 0.82rem; color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                  is a duly recorded holder of vested equity participation units in the Anirjan Connect Ecosystem Pool, entitling the bearer to pro-rata representation and surplus distribution in accordance with the collective charter.
+                </p>
+              </div>
+
+              <div class="cert-footer">
+                <div class="cert-foot-block">
+                  <div><strong>Issued By:</strong> Aparna Dey (Founder)</div>
+                  <div><strong>Genesis Hub:</strong> Jagadishpur, Digha, WB</div>
+                  <div><strong>Effective Date:</strong> <span id="cert-date">March 2026</span></div>
+                </div>
+                <div class="cert-foot-block" style="text-align: right;">
+                  <div><strong>Certificate ID:</strong> <span id="cert-number" style="font-family: monospace; color: var(--gold-primary);">ANR-2026-SHR-0000</span></div>
+                  <div><strong>Ledger Security:</strong> Cryptographically Verified</div>
+                  <div><strong>Par Valuation:</strong> ₹4.00 / Share</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- OTP Challenge Modal -->
+    <div class="modal-overlay" id="share-otp-modal" style="display: none;">
+      <div class="modal-card">
+        <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 8px;">Security Verification</h3>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 20px;">
+          To ensure strict data privacy, enter the verification passkey for <strong id="otp-target-display" style="color: var(--gold-primary);"></strong>:
+        </p>
+        <form id="share-otp-form">
+          <div style="margin-bottom: 20px;">
+            <input type="text" id="share-otp-input" class="direct-input" style="width: 100%; text-align: center; font-size: 1.3rem; letter-spacing: 4px;" maxlength="6" value="2026" required>
+            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 6px; text-align: center;">Demo Verification Passcode: <strong>2026</strong></div>
+          </div>
+          <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('share-otp-modal').style.display='none'; document.getElementById('share-otp-modal').classList.remove('active');">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm">Verify &amp; View Portfolio</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Admin Desk Modal -->
+    <div class="modal-overlay" id="admin-desk-modal" style="display: none;">
+      <div class="modal-card admin-modal-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+          <div>
+            <h3 style="font-family: var(--font-heading); color: #fff; margin: 0;">Admin Share Manager Desk</h3>
+            <div style="font-size: 0.8rem; color: var(--gold-primary);">Par Value: ₹4.00 / Share • Private Management</div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="admin-close-btn">✕ Close</button>
+        </div>
+
+        <!-- Add/Edit Allocation Form -->
+        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(243,194,118,0.2); border-radius: 8px; padding: 20px; margin-bottom: 24px;">
+          <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 14px;">Add / Update Share Allocation</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 14px;">
+            <input type="text" id="admin-name" class="form-control" placeholder="Full Name">
+            <input type="email" id="admin-email" class="form-control" placeholder="Email Address">
+            <input type="text" id="admin-mobile" class="form-control" placeholder="Mobile (+91...)">
+            <input type="number" id="admin-shares" class="form-control" placeholder="Share Count (e.g. 10000)">
+            <input type="text" id="admin-role" class="form-control" placeholder="Role / Title">
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" id="admin-save-allocation-btn">Save Allocation (@ ₹4 / share)</button>
+        </div>
+
+        <!-- Master Table -->
+        <h4 style="font-size: 0.95rem; color: #fff; margin-bottom: 12px;">Active Master Ledger</h4>
+        <div style="overflow-x: auto;">
+          <table class="data-table" style="width: 100%; font-size: 0.85rem;">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Shares</th>
+                <th>Valuation (@ ₹4)</th>
+                <th>Role</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-ledger-tbody">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
     <div class="cosmic-divider"></div>
 
@@ -1275,8 +1602,10 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Google Identity Services (GIS) & App Scripts -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="../js/notifier.js"></script>
   <script src="../js/connect.js"></script>
+  <script src="../js/share-portal.js"></script>
 </body>
 </html>

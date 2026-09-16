@@ -1,0 +1,66 @@
+{
+  "par_share_value_inr": 4.0,
+  "total_authorized_shares": 100000,
+  "founder_pool_shares": 60000,
+  "participant_pool_shares": 40000,
+  "surplus_pool_percentage": 40,
+  "last_updated": "2026-09-17T03:30:00Z",
+  "shareholders": [
+    {
+      "name": "Subhadeep Dey",
+      "email": "subhadeep@anirjan.com",
+      "mobile": "+919933894458",
+      "role": "Growth & User Acquisition and Business Development",
+      "tier": "1% Club Founding Seat",
+      "shares": 10000,
+      "share_value_inr": 4.0,
+      "total_valuation_inr": 40000,
+      "member_since": "March 2026",
+      "certificate_id": "ANR-2026-SHR-1001",
+      "status": "Active & Vested",
+      "avatar": "./assets/subhadeep_dey.jpeg"
+    },
+    {
+      "name": "Anjan Jana",
+      "email": "anjan@anirjan.com",
+      "mobile": "+919800000001",
+      "role": "The Chief Guest — Strategy & Advisory",
+      "tier": "Strategic Advisory Seat",
+      "shares": 15000,
+      "share_value_inr": 4.0,
+      "total_valuation_inr": 60000,
+      "member_since": "March 2026",
+      "certificate_id": "ANR-2026-SHR-1002",
+      "status": "Active & Vested",
+      "avatar": "./assets/anjan_jana.jpeg"
+    },
+    {
+      "name": "Aparna Dey",
+      "email": "aparna@anirjan.com",
+      "mobile": "+919933894450",
+      "role": "Founder & Chief Visionary",
+      "tier": "Founder Principal Seat",
+      "shares": 60000,
+      "share_value_inr": 4.0,
+      "total_valuation_inr": 240000,
+      "member_since": "January 2026",
+      "certificate_id": "ANR-2026-SHR-1000",
+      "status": "Founder Pool (60%)",
+      "avatar": "./assets/aparna_dey_original_portrait.jpg"
+    },
+    {
+      "name": "Ecosystem Contributor Demo",
+      "email": "contributor@anirjan.com",
+      "mobile": "+919876543210",
+      "role": "Ecosystem Builder & Community Partner",
+      "tier": "Participant Pool",
+      "shares": 2500,
+      "share_value_inr": 4.0,
+      "total_valuation_inr": 10000,
+      "member_since": "April 2026",
+      "certificate_id": "ANR-2026-SHR-1005",
+      "status": "Active & Vested",
+      "avatar": ""
+    }
+  ]
+}

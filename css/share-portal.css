@@ -1,0 +1,705 @@
+/* ==========================================================================
+   ANIRJAN CONNECT — "View My Share" Specialized Equity Portal Styles
+   Theme: Cosmic Zen, Obsidian Glass, Radiant Gold (#f3c276) & Mint (#4deeeb)
+   ========================================================================== */
+
+/* Universal Utility for Hidden State */
+.hidden {
+  display: none !important;
+}
+
+/* Section Wrapper */
+.share-portal-section {
+  position: relative;
+  padding: 80px 0 100px 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 25%, rgba(243, 194, 118, 0.07) 0%, rgba(5, 7, 12, 0.95) 70%);
+}
+
+.share-portal-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   1. AUTHENTICATION & LOOKUP CARD (Default Active View)
+   ========================================================================== */
+.share-auth-box {
+  background: rgba(18, 22, 34, 0.85) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
+  border: 1px solid rgba(243, 194, 118, 0.3) !important;
+  border-radius: 20px !important;
+  padding: 48px 36px !important;
+  max-width: 680px !important;
+  margin: 0 auto !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(243, 194, 118, 0.1) !important;
+  text-align: center !important;
+  position: relative;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.share-auth-box.hidden {
+  display: none !important;
+}
+
+.share-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(243, 194, 118, 0.12);
+  border: 1px solid rgba(243, 194, 118, 0.35);
+  padding: 6px 18px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f3c276;
+  margin-bottom: 22px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.share-auth-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.share-auth-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #a0aec0;
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 auto 30px auto;
+}
+
+/* Social Buttons */
+.auth-social-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.btn-auth-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+}
+
+.btn-google-social {
+  background: #ffffff !important;
+  color: #1f1f1f !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+}
+
+.btn-google-social:hover {
+  background: #f1f3f4 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25) !important;
+}
+
+.btn-facebook-social {
+  background: #1877F2 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(24, 119, 242, 0.35) !important;
+}
+
+.btn-facebook-social:hover {
+  background: #166fe5 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.5) !important;
+}
+
+/* Auth Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 26px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.auth-divider span {
+  padding: 0 16px;
+}
+
+/* Direct Input Group */
+.direct-input-group {
+  display: flex;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto 24px auto;
+}
+
+.direct-input {
+  flex: 1;
+  background: rgba(5, 7, 12, 0.75) !important;
+  border: 1px solid rgba(243, 194, 118, 0.35) !important;
+  border-radius: 9999px !important;
+  padding: 14px 22px !important;
+  color: #ffffff !important;
+  font-size: 0.95rem !important;
+  outline: none !important;
+  transition: all 0.25s ease;
+}
+
+.direct-input:focus {
+  border-color: #f3c276 !important;
+  box-shadow: 0 0 16px rgba(243, 194, 118, 0.3) !important;
+  background: rgba(5, 7, 12, 0.9) !important;
+}
+
+/* Quick Test Profile Chips */
+.quick-profiles-label {
+  font-size: 0.8rem;
+  color: #f3c276;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.demo-chips-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.demo-chip-btn {
+  background: rgba(243, 194, 118, 0.08) !important;
+  border: 1px solid rgba(243, 194, 118, 0.3) !important;
+  border-radius: 9999px !important;
+  padding: 8px 18px !important;
+  color: #e2e8f0 !important;
+  font-size: 0.84rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.demo-chip-btn:hover {
+  background: rgba(243, 194, 118, 0.22) !important;
+  border-color: #f3c276 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.demo-chip-badge {
+  color: #f3c276;
+  font-weight: 700;
+}
+
+/* Security Notice Box */
+.auth-sec-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 14px;
+}
+
+/* ==========================================================================
+   2. PORTFOLIO DASHBOARD (Revealed Upon Authentication)
+   ========================================================================== */
+.share-portfolio-box {
+  background: rgba(18, 22, 34, 0.9) !important;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  border: 1px solid rgba(243, 194, 118, 0.35) !important;
+  border-radius: 20px !important;
+  padding: 44px !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(243, 194, 118, 0.12) !important;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.share-portfolio-box.hidden {
+  display: none !important;
+}
+
+/* Header */
+.port-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 36px;
+}
+
+.port-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.port-avatar-wrapper {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px solid #f3c276;
+  box-shadow: 0 0 20px rgba(243, 194, 118, 0.4);
+  overflow: hidden;
+  background: #0d111a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.port-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
+.port-avatar-fallback {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #f3c276;
+}
+
+.port-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.port-role {
+  font-size: 0.92rem;
+  color: #a0aec0;
+  margin-bottom: 8px;
+}
+
+.port-badges-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.port-tier-badge {
+  background: rgba(243, 194, 118, 0.15);
+  border: 1px solid #f3c276;
+  color: #f3c276;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.port-cert-id-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #c9d1d9;
+  font-family: monospace;
+  font-size: 0.78rem;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.port-verified-badge {
+  background: rgba(77, 238, 234, 0.12);
+  border: 1px solid rgba(77, 238, 234, 0.35);
+  color: #4deeeb;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+/* Bento Metrics Grid */
+.port-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 36px;
+}
+
+.port-tile {
+  background: rgba(10, 14, 23, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 24px 20px !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.port-tile:hover {
+  border-color: rgba(243, 194, 118, 0.4) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.port-tile.featured-gold {
+  background: linear-gradient(145deg, rgba(243, 194, 118, 0.15) 0%, rgba(10, 14, 23, 0.85) 100%) !important;
+  border: 1px solid rgba(243, 194, 118, 0.45) !important;
+}
+
+.port-tile-lbl {
+  font-size: 0.78rem;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.port-tile-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.port-tile-val.gold-text {
+  color: #f3c276 !important;
+  text-shadow: 0 0 20px rgba(243, 194, 118, 0.35);
+}
+
+.port-tile-sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Milestone Growth Simulator */
+.port-simulator-box {
+  background: rgba(10, 14, 23, 0.6) !important;
+  border: 1px solid rgba(243, 194, 118, 0.25) !important;
+  border-radius: 14px !important;
+  padding: 28px !important;
+  margin-bottom: 36px;
+}
+
+.port-sim-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.port-sim-desc {
+  font-size: 0.88rem;
+  color: #a0aec0;
+  margin-bottom: 22px;
+}
+
+.val-slider-wrap {
+  margin-bottom: 20px;
+}
+
+.val-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.18) !important;
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.val-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f3c276;
+  box-shadow: 0 0 14px #f3c276;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.val-presets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.val-preset-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 9999px !important;
+  padding: 6px 16px !important;
+  color: #d1d5db !important;
+  font-size: 0.82rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s;
+}
+
+.val-preset-btn:hover {
+  border-color: #f3c276 !important;
+  color: #ffffff !important;
+  background: rgba(243, 194, 118, 0.18) !important;
+}
+
+.port-sim-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sim-res-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f3c276;
+}
+
+/* Digital Shareholder Certificate */
+.share-cert-container {
+  margin-top: 36px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.cert-card {
+  position: relative;
+  background: linear-gradient(135deg, #0f1422 0%, #07090e 100%) !important;
+  border: 2px solid rgba(243, 194, 118, 0.55) !important;
+  border-radius: 14px !important;
+  padding: 44px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 0 50px rgba(243, 194, 118, 0.06) !important;
+  overflow: hidden;
+}
+
+.cert-card::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border: 1px dashed rgba(243, 194, 118, 0.35);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.cert-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.cert-emblem {
+  width: 54px;
+  height: 54px;
+}
+
+.cert-title-wrap {
+  text-align: right;
+}
+
+.cert-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  color: #f3c276;
+  text-transform: uppercase;
+}
+
+.cert-sub {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 1px;
+}
+
+.cert-body {
+  text-align: center;
+  margin: 36px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.cert-presents {
+  font-size: 0.88rem;
+  color: #a0aec0;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.cert-name {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px rgba(243, 194, 118, 0.35);
+}
+
+.cert-role {
+  font-size: 0.95rem;
+  color: #f3c276;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.cert-holding-box {
+  display: inline-block;
+  background: rgba(243, 194, 118, 0.1);
+  border: 1px solid rgba(243, 194, 118, 0.35);
+  padding: 14px 32px;
+  border-radius: 8px;
+  margin-bottom: 22px;
+}
+
+.cert-shares {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #f3c276;
+  letter-spacing: 1px;
+}
+
+.cert-par {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 4px;
+}
+
+.cert-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  z-index: 2;
+}
+
+.cert-foot-block {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+}
+
+.cert-foot-block strong {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   3. MODALS & POPUPS (Hidden by Default!)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.82) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  z-index: 99999 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+}
+
+.modal-overlay.active {
+  display: flex !important;
+}
+
+.modal-card {
+  background: #111522 !important;
+  border: 1px solid rgba(243, 194, 118, 0.45) !important;
+  border-radius: 16px !important;
+  padding: 36px !important;
+  max-width: 520px !important;
+  width: 100% !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8) !important;
+  position: relative !important;
+}
+
+.admin-modal-card {
+  max-width: 900px !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+}
+
+/* Responsive Rules */
+@media (max-width: 992px) {
+  .port-bento-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .port-bento-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .direct-input-group {
+    flex-direction: column !important;
+  }
+  .port-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .cert-card {
+    padding: 24px !important;
+  }
+  .cert-header, .cert-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+  .cert-title-wrap {
+    text-align: left !important;
+  }
+}
