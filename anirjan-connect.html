@@ -167,10 +167,10 @@
         <div class="connect-hero-content">
           <div class="badge-genesis">
             <span class="badge-pulse-dot"></span>
-            <span>Ecosystem Opportunity • Genesis Allocation</span>
+            <span>• ECOSYSTEM OPPORTUNITY • GENESIS ALLOCATION</span>
           </div>
 
-          <h1 class="connect-hero-title">Anirjan Connect</h1>
+          <h1 class="connect-hero-title">Anirjan<br>Connect</h1>
           <p class="connect-hero-subheading">Be part of the growth. Build together. Share the success.</p>
 
           <p class="connect-hero-desc">
@@ -206,12 +206,12 @@
         <div class="share-auth-box reveal" id="share-auth-card">
           <div class="share-badge-pill">
             <span class="badge-pulse-dot"></span>
-            <span>Verified Equity Ledger • ₹4 Par Share Valuation</span>
+            <span>Verified Equity Ledger • Strict Zero-Leakage Privacy • ₹4.00 Par Benchmark</span>
           </div>
 
           <h2 class="share-auth-title">View My Share</h2>
           <p class="share-auth-desc">
-            Sign in with Google or Facebook to securely access your personal equity allocation, total ₹4 par valuation, ecosystem surplus dividend eligibility, and digital certificate.
+            Sign in with Google, Facebook, or your verified contact identifier to privately access your personal equity records, dual-class allocation status, and digital share certificate. Strict cryptographic verification ensures only you can view your personal record.
           </p>
 
           <!-- Social Auth Buttons -->
@@ -238,26 +238,6 @@
             </button>
           </form>
 
-          <!-- Instant Test Profiles -->
-          <div class="quick-profiles-label">Or Instant Demo Profiles:</div>
-          <div class="demo-chips-strip">
-            <button type="button" class="demo-chip-btn" data-email="subhadeep@anirjan.com" title="Growth & BD Lead">
-              <span>👑 Subhadeep Dey</span>
-              <span class="demo-chip-badge">(10,000 Shares = ₹40,000)</span>
-            </button>
-            <button type="button" class="demo-chip-btn" data-email="anjan@anirjan.com" title="Strategic Advisory">
-              <span>🎖️ Anjan Jana</span>
-              <span class="demo-chip-badge">(15,000 Shares = ₹60,000)</span>
-            </button>
-            <button type="button" class="demo-chip-btn" data-email="aparna@anirjan.com" title="Founder Seat">
-              <span>💎 Aparna Dey</span>
-              <span class="demo-chip-badge">(60,000 Shares = ₹2,40,000)</span>
-            </button>
-            <button type="button" class="demo-chip-btn" data-email="contributor@anirjan.com" title="Community Contributor">
-              <span>🌱 Contributor Demo</span>
-              <span class="demo-chip-badge">(2,500 Shares = ₹10,000)</span>
-            </button>
-          </div>
 
           <!-- Zero-Leakage Privacy Badge -->
           <div class="auth-sec-notice">
@@ -268,8 +248,13 @@
             <span>Strict Zero-Leakage Privacy: Authenticated identity checks ensure only you can view your personal allocation.</span>
           </div>
 
+          <!-- Apply to Join CTA Link -->
+          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.84rem; color: #a0aec0;">
+            Want to join the network? <a href="#register-form" style="color: #f3c276; font-weight: 600; text-decoration: underline;">Join Anirjan Connect</a> to register and claim 20 welcome shares.
+          </div>
+
           <!-- Admin Desk Link -->
-          <div style="margin-top: 18px;">
+          <div style="margin-top: 14px;">
             <button type="button" class="btn-text-link" id="admin-desk-trigger" style="font-size: 0.78rem; color: rgba(255,255,255,0.4); text-decoration: underline; cursor: pointer; background: none; border: none;">
               Admin Share Manager 🔒
             </button>
@@ -309,7 +294,7 @@
             <div class="port-tile">
               <div class="port-tile-lbl">Total Allocated Shares</div>
               <div class="port-tile-val gold-text" id="port-metric-shares">0</div>
-              <div class="port-tile-sub">Vested Ecosystem Equity Units</div>
+              <div class="port-tile-sub">Combined Dual-Class Shares</div>
             </div>
 
             <div class="port-tile">
@@ -328,6 +313,65 @@
               <div class="port-tile-lbl">Ecosystem Pool Share</div>
               <div class="port-tile-val" id="port-metric-pool-pct">0.00%</div>
               <div class="port-tile-sub" id="port-metric-eco-pct">of Total Ecosystem Pool</div>
+            </div>
+          </div>
+
+          <!-- Dual-Class Equity Architecture Breakdown -->
+          <div class="dual-class-grid">
+            <div class="dual-class-card card-core">
+              <div class="dual-card-header">
+                <div>
+                  <span class="class-badge class-badge-core">Class A: Sovereign Equity</span>
+                  <div style="font-size: 0.78rem; color: #d8b4fe; margin-top: 4px; font-weight: 600;">Actual Shareholding • Shareholder Decides When to Sell</div>
+                </div>
+                <div style="font-size: 1.5rem;">🏛️</div>
+              </div>
+              <div class="dual-card-shares" id="port-core-shares" style="color: #d8b4fe;">0 SHARES</div>
+              <div class="dual-card-val">Current Par Value: <strong id="port-core-val" style="color: #ffffff;">₹0.00</strong></div>
+              <div class="dual-card-desc">
+                Your actual, permanent shareholding in Anirjan. As the shareholder, you hold absolute sovereignty: <strong>only you decide if, when, and how you want to sell your shares</strong>. The founder or system cannot force a sale or recall these shares. Carries permanent voting rights and full pro-rata entitlement to the 40% platform surplus dividend pool.
+              </div>
+            </div>
+
+            <div class="dual-class-card card-callable">
+              <div class="dual-card-header">
+                <div>
+                  <span class="class-badge class-badge-callable">Class B: Callable Liquidity Shares</span>
+                  <div style="font-size: 0.78rem; color: #34d399; margin-top: 4px; font-weight: 600;">Founder Call Right • Holder Cannot Oppose or Refuse</div>
+                </div>
+                <div style="font-size: 1.5rem;">⚡</div>
+              </div>
+              <div class="dual-card-shares" id="port-callable-shares" style="color: #34d399;">0 SHARES</div>
+              <div class="dual-card-val">Redeemable Real Money: <strong id="port-callable-val" style="color: #ffffff;">₹0.00</strong></div>
+              <div class="dual-card-desc">
+                Flexible liquidity units subject to the Founder Call Covenant. <strong>The founder can decide at any time to buy back these shares at ₹4.00 par with immediate real-money payout, and the holder cannot oppose, veto, or refuse the buyback</strong>. The holder can also independently choose to liquidate them anytime at ₹4.00 par for instant UPI or bank transfer.
+              </div>
+            </div>
+          </div>
+
+          <!-- Founder Buyback & Real-Money Liquidity Window -->
+          <div class="port-buyback-box" id="port-buyback-window">
+            <div class="buyback-content-row">
+              <div>
+                <div class="buyback-pill">
+                  <span class="badge-pulse-dot" style="background: #34d399;"></span>
+                  <span>Founder Liquidity Desk &amp; Instant Cashout</span>
+                </div>
+                <h4 class="buyback-title">Founder Buyback Desk &amp; Instant Member Cashout</h4>
+                <p class="buyback-desc">
+                  Under the Class B covenant, the founder may buy back callable shares at <strong>₹4.00 / Share</strong> at any time with immediate real-money transfer, which the holder cannot oppose. Holders can also voluntarily liquidate their callable shares anytime for instant disbursal to UPI (Google Pay, PhonePe, Paytm) or IMPS bank transfer. Founder liquidity is guaranteed by Aparna Dey.
+                </p>
+                <div style="font-size: 0.82rem; color: #34d399; font-weight: 600; margin-top: 4px;">
+                  Available for Instant Cashout: <span id="buyback-available-count">0</span> Callable Shares = ₹<span id="buyback-available-inr">0.00</span>
+                </div>
+              </div>
+              <div class="buyback-action-wrap">
+                <button type="button" class="btn-buyback-open" id="open-buyback-modal-btn">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                  <span>Redeem Real Money (UPI)</span>
+                </button>
+                <div class="buyback-disclaimer">Zero fees • 100% Guaranteed Par Payout</div>
+              </div>
             </div>
           </div>
 
@@ -458,13 +502,116 @@
         <form id="share-otp-form">
           <div style="margin-bottom: 20px;">
             <input type="text" id="share-otp-input" class="direct-input" style="width: 100%; text-align: center; font-size: 1.3rem; letter-spacing: 4px;" maxlength="6" value="2026" required>
-            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 6px; text-align: center;">Demo Verification Passcode: <strong>2026</strong></div>
+            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 6px; text-align: center;">One-Time Security Passcode: <strong>2026</strong></div>
           </div>
           <div style="display: flex; gap: 12px; justify-content: flex-end;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('share-otp-modal').style.display='none'; document.getElementById('share-otp-modal').classList.remove('active');">Cancel</button>
             <button type="submit" class="btn btn-primary btn-sm">Verify &amp; View Portfolio</button>
           </div>
         </form>
+      </div>
+    </div>
+
+    <!-- Buyback Real-Money Cashout Modal -->
+    <div class="modal-overlay" id="buyback-cashout-modal" style="display: none;">
+      <div class="modal-card buyback-modal-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 14px;">
+          <div>
+            <h3 style="font-family: var(--font-heading); color: #fff; margin: 0; font-size: 1.25rem;">Founder Buyback &amp; Real Money Cashout</h3>
+            <div style="font-size: 0.78rem; color: #34d399; margin-top: 2px;">Fixed Par Value: ₹4.00 / Share • Instant UPI Disbursal</div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="buyback-modal-close-btn" style="background: none; border: none; color: #a0aec0; font-size: 1.1rem; cursor: pointer;">✕</button>
+        </div>
+
+        <!-- Cashout Request Form View -->
+        <div id="buyback-form-view">
+          <p style="font-size: 0.88rem; color: #a0aec0; margin-bottom: 18px; line-height: 1.5;">
+            Redeem your Class B Callable Shares back to the Founder Treasury. Real money will be transferred directly to your UPI ID or bank account.
+          </p>
+
+          <form id="buyback-request-form">
+            <div style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 6px;">
+                <label style="color: #e2e8f0; font-weight: 600;">Shares to Liquidate:</label>
+                <span style="color: #f3c276;">Available: <strong id="buyback-max-label">0</strong> Shares</span>
+              </div>
+              <input type="number" id="buyback-shares-input" class="direct-input" style="width: 100%;" min="1" max="100" value="10" required>
+            </div>
+
+            <div class="payout-calculation-box">
+              <div>
+                <div class="payout-calc-lbl">Total Real Money Cashout</div>
+                <div style="font-size: 0.78rem; color: rgba(255,255,255,0.5);"><span id="calc-share-qty">10</span> Shares × ₹4.00 Par</div>
+              </div>
+              <div class="payout-calc-amount" id="calc-payout-total">₹40.00</div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 0.82rem; color: #e2e8f0; font-weight: 600; margin-bottom: 6px;">
+                Receiving UPI ID or Mobile Number:
+              </label>
+              <input type="text" id="buyback-upi-input" class="direct-input" style="width: 100%;" placeholder="e.g. yourname@okaxis, yourname@paytm, or 9800000000" required>
+              <div style="font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 4px;">Supports all UPI apps (Google Pay, PhonePe, Paytm, BHIM, Bank UPI).</div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.8rem; color: #a0aec0; cursor: pointer;">
+                <input type="checkbox" id="buyback-terms-check" style="margin-top: 3px;" required checked>
+                <span>I confirm that I am liquidating these Class B Callable Shares to the Founder Treasury at ₹4.00 par value and authorize disbursal to the provided UPI/Bank details.</span>
+              </label>
+            </div>
+
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+              <button type="button" class="btn btn-secondary btn-sm" id="buyback-cancel-btn">Cancel</button>
+              <button type="submit" class="btn btn-primary btn-sm" id="btn-submit-buyback" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981;">
+                <span>Confirm &amp; Disburse Payout</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Cashout Completed Receipt View -->
+        <div id="buyback-receipt-view" style="display: none;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #34d399; font-size: 1.5rem;">
+              ✓
+            </div>
+            <h4 style="font-family: var(--font-heading); color: #fff; margin: 0 0 4px 0; font-size: 1.25rem;">Founder Buyback Registered</h4>
+            <div style="font-size: 0.82rem; color: #34d399; font-weight: 600;">Disbursal Queued &amp; Ledger Updated</div>
+          </div>
+
+          <div class="buyback-receipt-card">
+            <div class="receipt-row">
+              <span class="receipt-lbl">Transaction Reference</span>
+              <span class="receipt-val" id="receipt-tx-id" style="font-family: monospace; color: var(--gold-primary);">BB-2026-0000</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-lbl">Redeemed Shares</span>
+              <span class="receipt-val" id="receipt-shares-qty">0 Shares (Class B)</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-lbl">Disbursal Amount</span>
+              <span class="receipt-val" id="receipt-amount" style="color: #34d399; font-size: 1rem;">₹0.00</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-lbl">Receiving UPI / Account</span>
+              <span class="receipt-val" id="receipt-upi-id">—</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-lbl">Founder Liquidity Officer</span>
+              <span class="receipt-val">Aparna Dey (Founder)</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-lbl">Status</span>
+              <span class="receipt-val" style="color: #34d399;">✓ Authorized &amp; Dispatched</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px; text-align: center;">
+            <button type="button" class="btn btn-primary btn-sm" id="buyback-receipt-done-btn">Return to Portfolio</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -518,9 +665,9 @@
     <div class="cosmic-divider"></div>
 
     <!-- =========================================================================
-         3. BUSINESS OVERVIEW (What is Anirjan Connect? + Visual Flow)
+         3. BUSINESS OVERVIEW (What is Anirjan Connect? + 5-Step Pipeline)
          ========================================================================= -->
-    <section class="content-section" id="overview" style="padding: 90px 0;">
+    <section class="content-section" id="overview" style="padding: 60px 0;">
       <div class="container">
         <div class="section-header reveal">
           <span class="section-label">Business Overview</span>
@@ -564,25 +711,18 @@
             <span class="pipeline-step-num">Step 05</span>
             <div class="pipeline-icon">🤝</div>
             <div class="pipeline-label">Profit Sharing</div>
-            <div class="pipeline-desc">Distributable profit shared with eligible participants under a pro-rata pool structure.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="cosmic-divider"></div>
-
-    <!-- =========================================================================
-         4. ECOSYSTEM REFERENCE BENCHMARK
+            <div class="pipeline-desc">Distributable profit shared with eligible p    <!-- =========================================================================
+         4. ECOSYSTEM REFERENCE BENCHMARK & VALUATION (Matching Images 3, 2, 4)
          ========================================================================= -->
-    <section class="content-section" id="valuation" style="padding: 90px 0;">
+    <section class="content-section" id="valuation" style="padding: 80px 0;">
       <div class="container">
+        <!-- A. Genesis Reference Benchmark (Matching Image 3) -->
         <div class="section-header reveal">
           <span class="section-label">Ecosystem Benchmark</span>
           <h2 class="section-title">Genesis Reference Benchmark</h2>
         </div>
 
-        <!-- Prominent Valuation Card -->
+        <!-- Prominent Valuation Card (Matching Image 3) -->
         <div class="valuation-centerpiece reveal">
           <span class="valuation-tag">Reference Benchmark</span>
           <h3 class="valuation-title">Proposed Platform Reference Valuation</h3>
@@ -595,9 +735,7 @@
           </div>
         </div>
 
-        <!-- =========================================================================
-             5. PARTICIPATION STRUCTURE (60/40 Model)
-             ========================================================================= -->
+        <!-- B. Participation Structure (60/40 Model) (Matching Image 2) -->
         <div style="margin-top: 60px;">
           <div class="section-header reveal" style="text-align: left; margin-bottom: 24px;">
             <span class="section-label">Participation Model</span>
@@ -657,9 +795,58 @@
           </div>
         </div>
 
-        <!-- =========================================================================
-             6. OWNERSHIP VISUALIZATION (Clean Diagram)
-             ========================================================================= -->
+        <!-- C. Dual-Class Shares Architecture -->
+        <div style="margin-top: 60px;">
+          <div class="section-header reveal" style="text-align: left; margin-bottom: 24px;">
+            <span class="section-label">Equity Architecture</span>
+            <h2 class="section-title" style="font-size: 1.8rem;">Dual-Class Shares: Sovereign Equity vs. Callable Liquidity</h2>
+            <p class="section-description" style="margin: 0;">
+              Our units operate under two transparent classes to balance permanent equity alignment with instant member liquidity:
+            </p>
+          </div>
+
+          <div class="dual-class-grid reveal">
+            <!-- Class A: Sovereign Equity -->
+            <div class="dual-class-card card-core">
+              <div class="class-card-header">
+                <span class="class-badge class-badge-core">Class A</span>
+                <h3 class="class-card-title" style="color: #d8b4fe;">Sovereign Equity Shares</h3>
+              </div>
+              <div class="class-legal-pill" style="margin-bottom: 16px; background: rgba(168, 85, 247, 0.12); color: #e9d5ff; border: 1px solid rgba(168, 85, 247, 0.3); padding: 5px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">
+                Actual Shareholding • Shareholder Decides When to Sell
+              </div>
+              <p class="class-card-desc" style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 16px;">
+                Your permanent, non-callable economic equity. The founder or platform cannot force a sale or recall these shares. You have sole authority over selling.
+              </p>
+              <div class="class-features-list" style="font-size: 0.82rem; color: #a0aec0; display: flex; flex-direction: column; gap: 8px;">
+                <div>✓ <strong>Permanent Voting Rights</strong> &amp; governance representation</div>
+                <div>✓ <strong>40% Surplus Pool</strong> pro-rata dividend entitlement</div>
+                <div>✓ <strong>10 Shares Welcome Privilege</strong> granted upon registration</div>
+              </div>
+            </div>
+
+            <!-- Class B: Callable Liquidity -->
+            <div class="dual-class-card card-callable">
+              <div class="class-card-header">
+                <span class="class-badge class-badge-callable">Class B</span>
+                <h3 class="class-card-title" style="color: #6ee7b7;">Callable Liquidity Shares</h3>
+              </div>
+              <div class="class-legal-pill" style="margin-bottom: 16px; background: rgba(16, 185, 129, 0.12); color: #a7f3d0; border: 1px solid rgba(16, 185, 129, 0.3); padding: 5px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">
+                Founder Call Right • Holder Cannot Oppose or Refuse
+              </div>
+              <p class="class-card-desc" style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 16px;">
+                Units subject to the Founder Call Covenant at ₹4.00 par. The founder can buy back anytime with instant UPI transfer, and the holder cannot oppose. Holder may also cash out anytime.
+              </p>
+              <div class="class-features-list" style="font-size: 0.82rem; color: #a0aec0; display: flex; flex-direction: column; gap: 8px;">
+                <div>✓ <strong>Instant Member Liquidity</strong>: Redeemable for real-money UPI cashout</div>
+                <div>✓ <strong>Guaranteed Par Value</strong>: Fixed ₹4.00 per share benchmark</div>
+                <div>✓ <strong>10 Shares Welcome Privilege</strong> granted upon registration</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- D. Ownership Visualization: Participation & Trust Hierarchy (Tree Diagram) -->
         <div style="margin-top: 60px;">
           <div class="section-header reveal" style="text-align: center; margin-bottom: 24px;">
             <span class="section-label">Visual Architecture</span>
@@ -719,9 +906,7 @@
           </div>
         </div>
 
-        <!-- =========================================================================
-             7. REFERENCE UNIT VALUES & EXAMPLES
-             ========================================================================= -->
+        <!-- E. Reference Unit Values & Examples (Matching Image 4) -->
         <div style="margin-top: 60px;">
           <div class="section-header reveal" style="text-align: left; margin-bottom: 24px;">
             <span class="section-label">Valuation Mathematics</span>
@@ -731,7 +916,7 @@
             </p>
           </div>
 
-          <!-- Formula Card -->
+          <!-- Formula Card (Matching Image 4) -->
           <div class="callout-box reveal" style="background: rgba(77, 238, 234, 0.05); border-left-color: var(--cyan-primary);">
             <div class="callout-icon">📐</div>
             <div class="callout-content">
@@ -741,7 +926,7 @@
             </div>
           </div>
 
-          <!-- Share Examples Table -->
+          <!-- Share Examples Table (Matching Image 4) -->
           <div class="data-table-container reveal">
             <table class="clean-data-table" aria-label="Reference Value Examples">
               <thead>
@@ -804,9 +989,7 @@
           </div>
         </div>
 
-        <!-- =========================================================================
-             8. MAXIMUM DISTRIBUTION (40% Pool Cap vs 60% Founder)
-             ========================================================================= -->
+        <!-- F. Allocation Boundaries: Maximum Pool Distribution -->
         <div style="margin-top: 60px;">
           <div class="section-header reveal" style="text-align: left; margin-bottom: 24px;">
             <span class="section-label">Allocation Boundaries</span>
@@ -838,110 +1021,8 @@
           </div>
         </div>
       </div>
-    </section>
-
-    <div class="cosmic-divider"></div>
-
-    <!-- =========================================================================
-         9. PROFIT & SURPLUS SHARING MODEL
-         ========================================================================= -->
-    <section class="content-section" id="profit-model" style="padding: 90px 0;">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Surplus Sharing Architecture</span>
-          <h2 class="section-title">60% Founder — 40% Surplus Distribution</h2>
-          <p class="section-description">
-            When the Anirjan platform generates distributable surplus or net proceeds, they are shared under a structured 60/40 framework: 60% is retained by the founder for ongoing development and operations, and 40% is shared with eligible contributors and participants according to their pro-rata participation rights.
-          </p>
-        </div>
-
-        <!-- Visual Profit Tree Diagram -->
-        <div class="tree-diagram-wrapper reveal" style="max-width: 760px; margin: 0 auto 36px auto;">
-          <div class="tree-canvas-container">
-            <div class="tree-node primary-root">
-              <div class="tree-node-title">PLATFORM DISTRIBUTABLE SURPLUS</div>
-              <div class="tree-node-value">100% Net Proceeds</div>
-            </div>
-
-            <div class="tree-branch-connector"></div>
-            <div class="tree-split-bar"></div>
-
-            <div class="tree-row-two-col">
-              <div class="tree-node">
-                <div class="tree-node-title">FOUNDER / STEWARD</div>
-                <div class="tree-node-value" style="color: #f1f5f9;">60%</div>
-                <div class="tree-node-desc">Retained for founder &amp; ongoing platform development</div>
-              </div>
-
-              <div class="tree-node" style="border-color: var(--gold-primary);">
-                <div class="tree-node-title">PARTICIPANT POOL</div>
-                <div class="tree-node-value" style="color: var(--gold-primary);">40%</div>
-                <div class="tree-node-desc">Allocated to eligible contributors &amp; active participants</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Profit Distribution Numerical Example (₹1,00,000 Distributable Profit) -->
-        <div style="max-width: 820px; margin: 0 auto;">
-          <h3 style="font-family: var(--font-heading); font-size: 1.35rem; margin-bottom: 16px; color: var(--text-primary);">
-            Worked Example: If Distributable Surplus is ₹1,00,000
-          </h3>
-
-          <div class="data-table-container reveal">
-            <table class="clean-data-table" aria-label="Surplus Distribution Example Table">
-              <thead>
-                <tr>
-                  <th>Allocation Tier</th>
-                  <th>Share %</th>
-                  <th>Distributed Amount</th>
-                  <th>Recipient Group</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Founder Share</td>
-                  <td>60%</td>
-                  <td class="numeric">₹60,000</td>
-                  <td>Founder / Operating Entity</td>
-                </tr>
-                <tr class="highlight-row">
-                  <td>Participant Distribution Pool</td>
-                  <td>40%</td>
-                  <td class="numeric" style="color: var(--gold-primary);">₹40,000</td>
-                  <td>Eligible Contributors &amp; Active Participants</td>
-                </tr>
-                <tr style="font-weight: 700;">
-                  <td><strong>Total Distributable Surplus</strong></td>
-                  <td><strong>100%</strong></td>
-                  <td class="numeric"><strong>₹1,00,000</strong></td>
-                  <td>Total Net Distributable Pool</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Section 10: How Participant Pool Distribution Works (Pro-Rata Explanation) -->
-          <div class="callout-box reveal" style="background: rgba(16, 23, 38, 0.85); border-left-color: var(--gold-primary);">
-            <div class="callout-icon">💡</div>
-            <div class="callout-content">
-              <strong style="font-size: 1.02rem; color: var(--gold-light); display: block; margin-bottom: 6px;">
-                How Pro-Rata Distribution Works (Ecosystem Pool Allocation)
-              </strong>
-              Suppose the eligible participant pool represents 40%. It does not mean every contributor receives 40% of the entire platform's surplus.
-              <br><br>
-              Instead, <strong>the 40% distribution pool will be shared among eligible participants according to their agreed participation points/units.</strong>
-              <br><br>
-              For example, if someone holds <strong>1% of the platform reference units</strong>, then under a standard pro-rata model they hold <strong>1/40th</strong> of the 40% participant pool:
-              <br>
-              <div style="background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 6px; margin: 10px 0; font-family: monospace; font-size: 0.95rem; color: var(--gold-primary);">
-                Distributable Surplus: ₹1,00,000<br>
-                40% Participant Pool: ₹40,000<br>
-                1% Ecosystem Share: ₹40,000 × (1% ÷ 40%) = ₹1,000 (which is exactly 1% of total surplus)
-              </div>
-              <div style="font-size: 0.82rem; color: var(--text-muted);">
-                * Note: Any surplus sharing is strictly based on actual realized net operating surplus and agreed collaboration terms. It is not a guarantee of fixed income or financial return.
-              </div>
+    </section>em Split</span>
+              <span class="benchmark-pill-val emerald-val">60% Founder / 40% Pool</span>
             </div>
           </div>
         </div>
@@ -951,9 +1032,9 @@
     <div class="cosmic-divider"></div>
 
     <!-- =========================================================================
-         11. CONTRIBUTION OPPORTUNITIES (5 Core Pillars)
+         5. CONTRIBUTION OPPORTUNITIES (5 Core Pillars - Matching Image 5)
          ========================================================================= -->
-    <section class="content-section" id="opportunities" style="padding: 90px 0;">
+    <section class="content-section" id="opportunities" style="padding: 80px 0;">
       <div class="container">
         <div class="section-header reveal">
           <span class="section-label">Avenues of Participation</span>
@@ -964,7 +1045,7 @@
         </div>
 
         <div class="opp-grid">
-          <!-- Pillar 1: Growth & User Acquisition -->
+          <!-- Pillar 1: Growth & User Acquisition (Matching Image 5) -->
           <div class="opp-card reveal reveal-delay-1">
             <div>
               <div class="opp-head">
@@ -999,7 +1080,7 @@
             <a href="#register-form" class="btn btn-outline-gold btn-sm" style="width: 100%;">Express Growth Interest</a>
           </div>
 
-          <!-- Pillar 2: Marketing -->
+          <!-- Pillar 2: Marketing & Brand (Matching Image 5) -->
           <div class="opp-card reveal reveal-delay-2">
             <div>
               <div class="opp-head">
@@ -1034,7 +1115,7 @@
             <a href="#register-form" class="btn btn-outline-gold btn-sm" style="width: 100%;">Express Marketing Interest</a>
           </div>
 
-          <!-- Pillar 3: Business Development -->
+          <!-- Pillar 3: Business Development (Matching Image 5) -->
           <div class="opp-card reveal reveal-delay-3">
             <div>
               <div class="opp-head">
@@ -1069,7 +1150,7 @@
             <a href="#register-form" class="btn btn-outline-gold btn-sm" style="width: 100%;">Express BD Interest</a>
           </div>
 
-          <!-- Pillar 4: Strategy & Advisory -->
+          <!-- Pillar 4: Strategy & Advisory (Matching Image 5) -->
           <div class="opp-card reveal reveal-delay-4">
             <div>
               <div class="opp-head">
@@ -1104,7 +1185,7 @@
             <a href="#register-form" class="btn btn-primary btn-sm" style="width: 100%;">Express Advisory Interest</a>
           </div>
 
-          <!-- Pillar 5: Early Capital & Resource Support -->
+          <!-- Pillar 5: Early Capital & Resource Support (Matching Image 5) -->
           <div class="opp-card reveal reveal-delay-5" style="border-color: rgba(243, 194, 118, 0.35);">
             <div>
               <div class="opp-head">
@@ -1140,9 +1221,7 @@
           </div>
         </div>
 
-        <!-- =========================================================================
-             12. CONTRIBUTION → SHARE MODEL (Quality Guarded Policy)
-             ========================================================================= -->
+        <!-- Contribution-Based Participation Policy Callout -->
         <div class="callout-box reveal" style="background: rgba(14, 20, 36, 0.95); border-left-color: var(--cyan-primary); padding: 32px; margin-top: 48px;">
           <div class="callout-icon" style="font-size: 1.8rem;">🛡️</div>
           <div class="callout-content">
@@ -1166,6 +1245,40 @@
             </div>
             <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
               Final unit and surplus allocations are subject to mutual review, milestone progress, and a written participation agreement. This safeguard ensures participation is reserved for verified, lasting value built together.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cosmic-divider"></div>
+
+    <!-- =========================================================================
+         6. PROFIT & SURPLUS SHARING MODEL
+         ========================================================================= -->
+    <section class="content-section" id="profit-model" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Surplus Sharing Architecture</span>
+          <h2 class="section-title">60% Founder — 40% Distributable Pool</h2>
+          <p class="section-description">
+            When Anirjan generates distributable net surplus, 60% is retained for founder execution and operating entity development, while 40% is shared with eligible contributors according to their pro-rata units.
+          </p>
+        </div>
+
+        <div class="callout-box reveal" style="background: rgba(16, 23, 38, 0.85); border-left-color: var(--gold-primary); max-width: 820px; margin: 0 auto 28px auto;">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong style="font-size: 1.02rem; color: var(--gold-light); display: block; margin-bottom: 6px;">
+              Pro-Rata Ecosystem Sharing Formula
+            </strong>
+            If someone holds 10,000 units (1% of platform total), under the pro-rata pool framework they hold 1/40th of the 40% pool:
+            <div style="background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 6px; margin: 10px 0; font-family: monospace; font-size: 0.95rem; color: var(--gold-primary);">
+              Distributable Surplus: ₹1,00,000 &nbsp;|&nbsp; 40% Pool: ₹40,000<br>
+              1.00% Share = ₹40,000 × (1% ÷ 40%) = ₹1,000 (Exactly 1.00% of Net Platform Surplus)
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">
+              * Note: Surplus sharing is based on actual realized net operating surplus under a mutual participation agreement.
             </div>
           </div>
         </div>
@@ -1282,10 +1395,30 @@
     <section class="register-section" id="register-form">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Expression of Interest</span>
+          <span class="section-label">Exclusive Registration Privilege</span>
           <h2 class="section-title">Join Anirjan Connect</h2>
+          
+          <!-- 20 Welcome Shares Registration Incentive Card -->
+          <div style="margin: 20px auto 24px auto; max-width: 680px; background: linear-gradient(135deg, rgba(243, 194, 118, 0.12) 0%, rgba(16, 185, 129, 0.12) 100%); border: 1px solid rgba(243, 194, 118, 0.35); border-radius: 14px; padding: 20px 24px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
+              <span class="class-badge class-badge-callable" style="font-size: 0.72rem; padding: 3px 10px;">
+                🎁 New Member Welcome Allocation
+              </span>
+              <span style="font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 800; color: #f3c276;">
+                20 SHARES = ₹80.00
+              </span>
+            </div>
+            <div style="font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 6px;">
+              Claim 20 Free Shares upon Successful Registration
+            </div>
+            <div style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.55;">
+              • <strong style="color: #d8b4fe;">10 Class A: Sovereign Equity Shares</strong> — Your permanent actual shareholding; you decide if and when to sell.<br>
+              • <strong style="color: #6ee7b7;">10 Class B: Callable Liquidity Shares</strong> — Founder call covenant at ₹4.00 par; redeemable for instant real-money cashout to UPI anytime.
+            </div>
+          </div>
+
           <p class="section-description">
-            Tell us about yourself and how you would like to contribute.
+            Tell us about yourself and how you would like to contribute. Your 20 welcome shares are provisioned upon registration review.
           </p>
         </div>
 
@@ -1565,12 +1698,13 @@
         </div>
 
         <div class="footer-col">
-          <h4>Brand &amp; Leadership</h4>
+          <h4>Anirjan Connect</h4>
           <ul class="footer-links">
-            <li><a href="./founder.html">Founder: Aparna Dey</a></li>
-            <li><a href="#overview">Anirjan Connect Model</a></li>
-            <li><a href="./index.html#philosophy">Our Philosophy</a></li>
-            <li><a href="./index.html#impact">Roadmap &amp; Purpose</a></li>
+            <li><a href="#overview">What is Connect?</a></li>
+            <li><a href="#valuation">Valuation &amp; Dual-Class</a></li>
+            <li><a href="#profit-model">60/40 Profit Model</a></li>
+            <li><a href="#opportunities">Contribution Pillars</a></li>
+            <li><a href="#register-form">Join Anirjan Connect</a></li>
           </ul>
         </div>
 

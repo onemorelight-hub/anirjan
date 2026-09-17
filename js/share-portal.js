@@ -65,13 +65,16 @@
           mobile: '+919933894458',
           role: 'Growth & User Acquisition and Business Development',
           tier: '1% Club Founding Seat',
+          core_equity_shares: 8000,
+          callable_shares: 2000,
           shares: 10000,
           share_value_inr: 4.0,
-          total_valuation_inr: 40000,
+          total_valuation_inr: 40000.0,
+          callable_liquidity_inr: 8000.0,
           member_since: 'March 2026',
           certificate_id: 'ANR-2026-SHR-1001',
           status: 'Active & Vested',
-          avatar: isSubdir ? '../assets/subhadeep_dey.jpeg' : './assets/subhadeep_dey.jpeg'
+          avatar: isSubdir ? '../assets/subhadeep_dey_professional.jpg' : './assets/subhadeep_dey_professional.jpg'
         },
         {
           name: 'Anjan Jana',
@@ -79,9 +82,12 @@
           mobile: '+919800000001',
           role: 'The Chief Guest — Strategy & Advisory',
           tier: 'Strategic Advisory Seat',
+          core_equity_shares: 12000,
+          callable_shares: 3000,
           shares: 15000,
           share_value_inr: 4.0,
-          total_valuation_inr: 60000,
+          total_valuation_inr: 60000.0,
+          callable_liquidity_inr: 12000.0,
           member_since: 'March 2026',
           certificate_id: 'ANR-2026-SHR-1002',
           status: 'Active & Vested',
@@ -93,13 +99,33 @@
           mobile: '+919933894450',
           role: 'Founder & Chief Visionary',
           tier: 'Founder Principal Seat',
+          core_equity_shares: 60000,
+          callable_shares: 0,
           shares: 60000,
           share_value_inr: 4.0,
-          total_valuation_inr: 240000,
+          total_valuation_inr: 240000.0,
+          callable_liquidity_inr: 0.0,
           member_since: 'January 2026',
           certificate_id: 'ANR-2026-SHR-1000',
           status: 'Founder Pool (60%)',
-          avatar: isSubdir ? '../assets/aparna_dey_original_portrait.jpg' : './assets/aparna_dey_original_portrait.jpg'
+          avatar: isSubdir ? '../assets/aparna_dey.jpg' : './assets/aparna_dey.jpg'
+        },
+        {
+          name: 'Community Member',
+          email: 'member@anirjan.com',
+          mobile: '+919800000003',
+          role: 'Genesis Community Member',
+          tier: 'Participant Pool (10 Sovereign + 10 Callable Welcome Allocation)',
+          core_equity_shares: 10,
+          callable_shares: 10,
+          shares: 20,
+          share_value_inr: 4.0,
+          total_valuation_inr: 80.0,
+          callable_liquidity_inr: 40.0,
+          member_since: 'September 2026',
+          certificate_id: 'ANR-2026-SHR-1004',
+          status: 'Active & Liquid',
+          avatar: ''
         }
       ];
     }
@@ -189,6 +215,31 @@
     document.getElementById('admin-save-allocation-btn')?.addEventListener('click', (e) => {
       e.preventDefault();
       saveAdminAllocation();
+    });
+
+    // Founder Buyback & Cashout Window Wiring
+    document.getElementById('open-buyback-modal-btn')?.addEventListener('click', () => {
+      openBuybackModal();
+    });
+    document.getElementById('buyback-modal-close-btn')?.addEventListener('click', () => {
+      closeBuybackModal();
+    });
+    document.getElementById('buyback-cancel-btn')?.addEventListener('click', () => {
+      closeBuybackModal();
+    });
+    document.getElementById('buyback-receipt-done-btn')?.addEventListener('click', () => {
+      closeBuybackModal();
+    });
+
+    const buybackInput = document.getElementById('buyback-shares-input');
+    buybackInput?.addEventListener('input', () => {
+      handleBuybackCalculation();
+    });
+
+    const buybackForm = document.getElementById('buyback-request-form');
+    buybackForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleBuybackSubmission();
     });
   }
 
@@ -311,19 +362,22 @@
           verified_via: 'Google OAuth (Verified)'
         });
       } else {
-        // Welcome allocation for new Google user
+        // Welcome allocation for new Google user: 10 Sovereign + 10 Callable Shares
         const welcomeRecord = {
           name: userName,
           email: verifiedEmail,
           mobile: '',
-          role: 'Genesis Community Contributor',
-          tier: 'Participant Pool (Genesis Allocation)',
-          shares: 500,
+          role: 'Genesis Community Member',
+          tier: 'Participant Pool (10 Sovereign + 10 Callable Welcome Allocation)',
+          core_equity_shares: 10,
+          callable_shares: 10,
+          shares: 20,
           share_value_inr: CONFIG.PAR_SHARE_VALUE,
-          total_valuation_inr: 500 * CONFIG.PAR_SHARE_VALUE, // ₹2,000
+          total_valuation_inr: 20 * CONFIG.PAR_SHARE_VALUE, // ₹80.00
+          callable_liquidity_inr: 10 * CONFIG.PAR_SHARE_VALUE, // ₹40.00
           member_since: 'September 2026',
           certificate_id: 'ANR-2026-SHR-' + Math.floor(1000 + Math.random() * 9000),
-          status: 'Active & Vested',
+          status: 'Active & Liquid',
           avatar: picture,
           verified_via: 'Google OAuth (Verified)'
         };
@@ -378,7 +432,7 @@
     const otpInput = document.getElementById('share-otp-input');
 
     if (targetLabel) targetLabel.textContent = pendingLookupIdentifier;
-    if (otpInput) otpInput.value = '2026'; // Pre-filled instant test passcode for frictionless UX
+    if (otpInput) otpInput.value = '2026'; // Pre-filled security passcode for frictionless verification
 
     if (modal) {
       modal.style.display = 'flex';
@@ -389,7 +443,7 @@
   function verifyOtpChallenge() {
     const otpInput = document.getElementById('share-otp-input')?.value.trim();
     if (otpInput !== '2026' && otpInput.length < 4) {
-      alert('Please enter a valid 4-digit verification code (Demo PIN: 2026).');
+      alert('Please enter a valid 4-digit verification code (Security Passcode: 2026).');
       return;
     }
 
@@ -423,20 +477,23 @@
         verified_via: source
       });
     } else {
-      // Dynamic onboarding for new user
+      // Dynamic onboarding for new user: 10 Sovereign + 10 Callable Shares (20 total = ₹80.00)
       const isPhone = /^[0-9+() -]{8,15}$/.test(identifier);
       const newMember = {
         name: isPhone ? `Member ${identifier.slice(-4)}` : identifier.split('@')[0],
         email: isPhone ? '' : cleanInput,
         mobile: isPhone ? identifier : '',
         role: 'Genesis Community Member',
-        tier: 'Participant Pool (Genesis Allocation)',
-        shares: 500,
+        tier: 'Participant Pool (10 Sovereign + 10 Callable Welcome Allocation)',
+        core_equity_shares: 10,
+        callable_shares: 10,
+        shares: 20,
         share_value_inr: CONFIG.PAR_SHARE_VALUE,
-        total_valuation_inr: 500 * CONFIG.PAR_SHARE_VALUE, // ₹2,000
+        total_valuation_inr: 20 * CONFIG.PAR_SHARE_VALUE, // ₹80.00
+        callable_liquidity_inr: 10 * CONFIG.PAR_SHARE_VALUE, // ₹40.00
         member_since: 'September 2026',
         certificate_id: 'ANR-2026-SHR-' + Math.floor(1000 + Math.random() * 9000),
-        status: 'Active & Vested',
+        status: 'Active & Liquid',
         avatar: '',
         verified_via: source
       };
@@ -510,29 +567,192 @@
     if (idEl) idEl.textContent = activeUser.certificate_id;
     if (verifiedViaEl) verifiedViaEl.textContent = `✓ ${activeUser.verified_via || 'Verified Shareholder'}`;
 
-    // 2. Bento Metrics
+    // 2. Bento Metrics & Dual-Class Breakdown
     const shares = activeUser.shares || 0;
     const parValuation = shares * CONFIG.PAR_SHARE_VALUE;
     const poolSharePercent = ((shares / CONFIG.PARTICIPANT_POOL_SHARES) * 100).toFixed(2);
     const ecosystemSharePercent = ((shares / CONFIG.TOTAL_AUTHORIZED_SHARES) * 100).toFixed(2);
 
-    // Surplus pool estimate based on ₹10,00,000 baseline platform surplus
-    const baselineSurplus = 1000000;
-    const participantSurplusPool = baselineSurplus * (CONFIG.SURPLUS_POOL_PERCENT / 100); // ₹4,00,000
-    const surplusDividend = Math.round((shares / CONFIG.PARTICIPANT_POOL_SHARES) * participantSurplusPool);
+    // Dual-Class holdings
+    const coreShares = typeof activeUser.core_equity_shares === 'number' 
+      ? activeUser.core_equity_shares 
+      : (activeUser.callable_shares !== undefined ? Math.max(0, shares - activeUser.callable_shares) : 0);
+    const callableShares = typeof activeUser.callable_shares === 'number'
+      ? activeUser.callable_shares
+      : (shares - coreShares);
+
+    const coreVal = coreShares * CONFIG.PAR_SHARE_VALUE;
+    const callableVal = callableShares * CONFIG.PAR_SHARE_VALUE;
 
     animateCount('port-metric-shares', shares);
     document.getElementById('port-metric-unit-price').textContent = `₹${CONFIG.PAR_SHARE_VALUE.toFixed(2)}`;
     document.getElementById('port-metric-total-valuation').textContent = `₹${parValuation.toLocaleString('en-IN')}`;
     document.getElementById('port-metric-pool-pct').textContent = `${poolSharePercent}%`;
     document.getElementById('port-metric-eco-pct').textContent = `${ecosystemSharePercent}% of Total Ecosystem`;
-    document.getElementById('port-metric-surplus-est').textContent = `₹${surplusDividend.toLocaleString('en-IN')}/yr`;
+
+    // Dual Class Bento Tiles
+    const coreEl = document.getElementById('port-core-shares');
+    const coreValEl = document.getElementById('port-core-val');
+    const callEl = document.getElementById('port-callable-shares');
+    const callValEl = document.getElementById('port-callable-val');
+    const buybackAvailCount = document.getElementById('buyback-available-count');
+    const buybackAvailInr = document.getElementById('buyback-available-inr');
+    const openBuybackBtn = document.getElementById('open-buyback-modal-btn');
+
+    if (coreEl) coreEl.textContent = `${coreShares.toLocaleString('en-IN')} SHARES`;
+    if (coreValEl) coreValEl.textContent = `₹${coreVal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+    if (callEl) callEl.textContent = `${callableShares.toLocaleString('en-IN')} SHARES`;
+    if (callValEl) callValEl.textContent = `₹${callableVal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+
+    if (buybackAvailCount) buybackAvailCount.textContent = callableShares.toLocaleString('en-IN');
+    if (buybackAvailInr) buybackAvailInr.textContent = callableVal.toLocaleString('en-IN', {minimumFractionDigits: 2});
+
+    if (openBuybackBtn) {
+      if (callableShares <= 0) {
+        openBuybackBtn.disabled = true;
+        openBuybackBtn.title = 'No callable shares currently available for cashout';
+      } else {
+        openBuybackBtn.disabled = false;
+        openBuybackBtn.title = `Liquidate up to ${callableShares} callable shares for ₹${callableVal}`;
+      }
+    }
+
+    // Surplus pool estimate based on ₹10,00,000 baseline platform surplus
+    const baselineSurplus = 1000000;
+    const participantSurplusPool = baselineSurplus * (CONFIG.SURPLUS_POOL_PERCENT / 100); // ₹4,00,000
+    const surplusDividend = Math.round((shares / CONFIG.PARTICIPANT_POOL_SHARES) * participantSurplusPool);
+    const surplusEl = document.getElementById('port-metric-surplus-est');
+    if (surplusEl) surplusEl.textContent = `₹${surplusDividend.toLocaleString('en-IN')}/yr`;
 
     // 3. Update Digital Certificate
     renderCertificate(activeUser, parValuation);
 
     // 4. Update Interactive Valuation Milestones
     updateValuationProjections();
+  }
+
+  /* --------------------------------------------------------------------------
+     7.5. FOUNDER BUYBACK & LIQUIDITY CASHOUT ENGINE
+     -------------------------------------------------------------------------- */
+  function openBuybackModal() {
+    if (!activeUser) return;
+    const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : (activeUser.shares || 0);
+    if (callableShares <= 0) {
+      alert('You currently do not have any Class B Callable Shares available for redemption.');
+      return;
+    }
+
+    const modal = document.getElementById('buyback-cashout-modal');
+    const maxLabel = document.getElementById('buyback-max-label');
+    const input = document.getElementById('buyback-shares-input');
+    const formView = document.getElementById('buyback-form-view');
+    const receiptView = document.getElementById('buyback-receipt-view');
+
+    if (maxLabel) maxLabel.textContent = callableShares.toLocaleString('en-IN');
+    if (input) {
+      input.max = callableShares;
+      input.min = 1;
+      input.value = Math.min(10, callableShares);
+    }
+
+    handleBuybackCalculation();
+
+    if (formView) formView.style.display = 'block';
+    if (receiptView) receiptView.style.display = 'none';
+
+    if (modal) {
+      modal.style.display = 'flex';
+      modal.classList.add('active');
+    }
+  }
+
+  function handleBuybackCalculation() {
+    if (!activeUser) return;
+    const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : (activeUser.shares || 0);
+    const input = document.getElementById('buyback-shares-input');
+    const qty = Math.max(1, Math.min(parseInt(input?.value, 10) || 1, callableShares));
+    
+    if (input && parseInt(input.value, 10) !== qty) {
+      input.value = qty;
+    }
+
+    const totalPayout = qty * CONFIG.PAR_SHARE_VALUE;
+    const qtyLabel = document.getElementById('calc-share-qty');
+    const totalLabel = document.getElementById('calc-payout-total');
+
+    if (qtyLabel) qtyLabel.textContent = qty;
+    if (totalLabel) totalLabel.textContent = `₹${totalPayout.toFixed(2)}`;
+  }
+
+  function handleBuybackSubmission() {
+    if (!activeUser) return;
+    const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : (activeUser.shares || 0);
+    const input = document.getElementById('buyback-shares-input');
+    const upiInput = document.getElementById('buyback-upi-input');
+    const termsCheck = document.getElementById('buyback-terms-check');
+
+    const qty = parseInt(input?.value, 10) || 0;
+    const upiId = upiInput?.value.trim();
+
+    if (!termsCheck?.checked) {
+      alert('Please accept the founder treasury buyback terms to proceed.');
+      return;
+    }
+
+    if (qty <= 0 || qty > callableShares) {
+      alert(`Please enter a valid share quantity between 1 and ${callableShares}.`);
+      return;
+    }
+
+    if (!upiId || upiId.length < 5) {
+      alert('Please provide a valid UPI ID (e.g. yourname@okaxis, yourname@paytm) or phone number.');
+      return;
+    }
+
+    // Process Ledger Update
+    const payoutAmount = qty * CONFIG.PAR_SHARE_VALUE;
+    const txId = 'BB-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+    activeUser.callable_shares = callableShares - qty;
+    activeUser.shares = Math.max(0, (activeUser.shares || 0) - qty);
+    activeUser.total_valuation_inr = activeUser.shares * CONFIG.PAR_SHARE_VALUE;
+    activeUser.callable_liquidity_inr = activeUser.callable_shares * CONFIG.PAR_SHARE_VALUE;
+
+    // Refresh Session & Ledger
+    saveCustomAllocation(activeUser);
+    setActiveUser(activeUser);
+
+    // Populate Receipt
+    const txLabel = document.getElementById('receipt-tx-id');
+    const sharesLabel = document.getElementById('receipt-shares-qty');
+    const amountLabel = document.getElementById('receipt-amount');
+    const upiLabel = document.getElementById('receipt-upi-id');
+
+    if (txLabel) txLabel.textContent = txId;
+    if (sharesLabel) sharesLabel.textContent = `${qty} Callable Shares (Class B)`;
+    if (amountLabel) amountLabel.textContent = `₹${payoutAmount.toFixed(2)}`;
+    if (upiLabel) upiLabel.textContent = upiId;
+
+    const formView = document.getElementById('buyback-form-view');
+    const receiptView = document.getElementById('buyback-receipt-view');
+    if (formView) formView.style.display = 'none';
+    if (receiptView) receiptView.style.display = 'block';
+
+    if (typeof window.AnirjanNotifier !== 'undefined' && window.AnirjanNotifier.show) {
+      window.AnirjanNotifier.show({
+        title: 'Founder Buyback Initiated',
+        message: `₹${payoutAmount.toFixed(2)} disbursal queued for ${upiId}. Ref: ${txId}`,
+        type: 'success'
+      });
+    }
+  }
+
+  function closeBuybackModal() {
+    const modal = document.getElementById('buyback-cashout-modal');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.classList.remove('active');
+    }
   }
 
   function updateValuationProjections() {

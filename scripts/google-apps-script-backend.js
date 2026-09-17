@@ -90,6 +90,8 @@ function handleGoogleVerification(idToken, output) {
   var record = queryPrivateSheetByEmail(verifiedEmail);
 
   if (record) {
+    var coreShares = record.core_equity_shares || (record.shares - (record.callable_shares || 0));
+    var callableShares = record.callable_shares || 0;
     return jsonResponse(output, {
       success: true,
       authenticated_as: verifiedEmail,
@@ -97,6 +99,8 @@ function handleGoogleVerification(idToken, output) {
         name: record.name || userName,
         email: verifiedEmail,
         mobile: record.mobile || '',
+        core_equity_shares: coreShares,
+        callable_shares: callableShares,
         shares: record.shares,
         share_value_inr: SHARE_PAR_VALUE,
         total_valuation_inr: record.shares * SHARE_PAR_VALUE,
@@ -108,9 +112,10 @@ function handleGoogleVerification(idToken, output) {
       }
     });
   } else {
-    // Verified Google user, but not yet allocated custom shares
-    // Auto-provision 500 Genesis Community Shares
-    var defaultShares = 500;
+    // Verified Google user - Auto-provision 10 Sovereign + 10 Callable Shares on joining!
+    var welcomeCore = 10;
+    var welcomeCallable = 10;
+    var welcomeShares = welcomeCore + welcomeCallable;
     return jsonResponse(output, {
       success: true,
       authenticated_as: verifiedEmail,
@@ -119,13 +124,15 @@ function handleGoogleVerification(idToken, output) {
         name: userName,
         email: verifiedEmail,
         mobile: '',
-        shares: defaultShares,
+        core_equity_shares: welcomeCore,
+        callable_shares: welcomeCallable,
+        shares: welcomeShares,
         share_value_inr: SHARE_PAR_VALUE,
-        total_valuation_inr: defaultShares * SHARE_PAR_VALUE,
+        total_valuation_inr: welcomeShares * SHARE_PAR_VALUE,
         role: 'Genesis Community Member',
-        member_since: '2026',
-        certificate_id: generateCertificateId(defaultShares),
-        status: 'Genesis Welcome Allocation',
+        member_since: 'September 2026',
+        certificate_id: generateCertificateId(welcomeShares),
+        status: 'Active • 10 Sovereign + 10 Callable Welcome Shares',
         avatar: picture
       }
     });
@@ -152,7 +159,9 @@ function handleFacebookVerification(accessToken, output) {
   var userName = fbUser.name || 'Facebook Member';
 
   var record = queryPrivateSheetByEmail(verifiedEmail);
-  var shares = record ? record.shares : 500;
+  var coreShares = record ? (record.core_equity_shares || 0) : 10;
+  var callableShares = record ? (record.callable_shares || 0) : 10;
+  var shares = record ? record.shares : (coreShares + callableShares);
 
   return jsonResponse(output, {
     success: true,
@@ -161,6 +170,8 @@ function handleFacebookVerification(accessToken, output) {
       name: record ? record.name : userName,
       email: verifiedEmail,
       mobile: record ? record.mobile : '',
+      core_equity_shares: coreShares,
+      callable_shares: callableShares,
       shares: shares,
       share_value_inr: SHARE_PAR_VALUE,
       total_valuation_inr: shares * SHARE_PAR_VALUE,
