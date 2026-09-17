@@ -10,7 +10,7 @@
  */
 
 // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE:
-const GOOGLE_APPS_SCRIPT_URL = ""; 
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_AmMaqTZV7oRqhUo5vkDOm_MyKD_LEA1EnpPpA1sfRWuujEaiuUCQYMc3qYqmCR9l/exec";
 // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
 
 const AnirjanNotifier = {
