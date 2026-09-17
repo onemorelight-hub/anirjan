@@ -333,54 +333,63 @@ function initRegistrationForm() {
 
     // 8. Dispatch to Multi-Channel Backend (Telegram, WhatsApp, Email, Google Sheets)
     let res = null;
-    if (window.AnirjanNotifier) {
-      res = await window.AnirjanNotifier.dispatch({
-        formType: 'ANIRJAN_CONNECT',
-        refId: refId,
-        name: fullName,
-        whatsapp: formData.whatsapp,
-        telegram: formData.telegram,
-        email: formData.email,
-        city: city,
-        category: 'Connect Partner',
-        details: bio,
-        _hp_website: form.querySelector('#_hp_website')?.value || '',
-        meta: {
-          participation: checkedAvenues,
-          timeCommitment: timeRadio.value,
-          investment: investRadio.value,
-          audience: formData.networkAudience,
-          profileUrl: formData.profileUrl
-        }
-      });
-
-      if (res && (!res.success || res.duplicate || res.rateLimited)) {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalBtnText;
-        }
-        showError(res.message || "This inquiry has already been submitted. Duplicate blocked.");
-        return;
-      }
-    }
-
-    // 9. Save in LocalStorage on success
     try {
-      const existing = JSON.parse(localStorage.getItem('anirjan_connect_submissions') || '[]');
-      existing.push(formData);
-      localStorage.setItem('anirjan_connect_submissions', JSON.stringify(existing));
-    } catch (err) {
-      console.warn('LocalStorage save failed:', err);
-    }
+      if (window.AnirjanNotifier) {
+        res = await window.AnirjanNotifier.dispatch({
+          formType: 'ANIRJAN_CONNECT',
+          refId: refId,
+          name: fullName,
+          whatsapp: formData.whatsapp,
+          telegram: formData.telegram,
+          email: formData.email,
+          city: city,
+          category: 'Connect Partner',
+          details: bio,
+          _hp_website: form.querySelector('#_hp_website')?.value || '',
+          meta: {
+            participation: checkedAvenues,
+            timeCommitment: timeRadio.value,
+            investment: investRadio.value,
+            audience: formData.networkAudience,
+            profileUrl: formData.profileUrl
+          }
+        });
 
-    // 10. Transition to Thank You Card only on success
-    form.style.display = 'none';
-    if (refCodeBadge) {
-      refCodeBadge.textContent = `Reference ID: ${refId}`;
-    }
-    if (thankYouCard) {
-      thankYouCard.style.display = 'block';
-      thankYouCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (res && (!res.success || res.duplicate || res.rateLimited || res.turnstileRequired)) {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+          }
+          showError(res.message || "This inquiry has already been submitted. Duplicate blocked.");
+          return;
+        }
+      }
+
+      // 9. Save in LocalStorage on success
+      try {
+        const existing = JSON.parse(localStorage.getItem('anirjan_connect_submissions') || '[]');
+        existing.push(formData);
+        localStorage.setItem('anirjan_connect_submissions', JSON.stringify(existing));
+      } catch (err) {
+        console.warn('LocalStorage save failed:', err);
+      }
+
+      // 10. Transition to Thank You Card only on success
+      form.style.display = 'none';
+      if (refCodeBadge) {
+        refCodeBadge.textContent = `Reference ID: ${refId}`;
+      }
+      if (thankYouCard) {
+        thankYouCard.style.display = 'block';
+        thankYouCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } catch (err) {
+      console.error("[Connect] Unexpected error during submit:", err);
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
+      showError("A temporary connection error occurred. Please try submitting again.");
     }
   });
 

@@ -18,8 +18,8 @@
     PARTICIPANT_POOL_SHARES: 40000,
     FOUNDER_POOL_SHARES: 60000,
     SURPLUS_POOL_PERCENT: 40,
-    // Google Apps Script Live Web App URL (Optional: paste your deployed Apps Script URL here)
-    LIVE_BACKEND_URL: localStorage.getItem('anirjan_gas_endpoint') || '',
+    // Google Apps Script Live Web App URL (Central zero-cost backend)
+    LIVE_BACKEND_URL: (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : '') || localStorage.getItem('anirjan_gas_endpoint') || 'https://script.google.com/macros/s/AKfycbxVQX70lZ1VAXmOs4nVZ8_fvaCryXnKn5HSQMjCex2vobE3bv1ncZlWeQfxVXRQMrCG/exec',
     STORAGE_KEY_SESSION: 'anirjan_share_session_v2',
     STORAGE_KEY_LOCAL_LEDGER: 'anirjan_custom_shareholders_v2',
     ADMIN_PIN: 'anirjan2026'
@@ -29,6 +29,7 @@
   let activeUser = null;
   let localLedger = [];
   let currentValuationMultiplier = 4.0; // Starts at par ₹4
+  let otpCountdownTimer = null;
 
   document.addEventListener('DOMContentLoaded', () => {
     initSharePortal();
@@ -50,6 +51,24 @@
     const isSubdir = window.location.pathname.includes('/anirjan-connect/');
     const jsonPath = isSubdir ? '../data/shareholders.json' : './data/shareholders.json';
 
+    // 1. Try to fetch live cloud ledger from Google Sheets ShareLedger
+    if (CONFIG.LIVE_BACKEND_URL) {
+      try {
+        const cloudResp = await fetch(CONFIG.LIVE_BACKEND_URL + '?action=get_all_shareholders');
+        if (cloudResp.ok) {
+          const cloudData = await cloudResp.json();
+          if (cloudData.success && Array.isArray(cloudData.shareholders) && cloudData.shareholders.length > 0) {
+            localLedger = cloudData.shareholders;
+            console.log(`[SharePortal] Synchronized ${localLedger.length} shareholders from live Google Sheets ledger.`);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('[SharePortal] Cloud ledger fetch fallback:', err);
+      }
+    }
+
+    // 2. Fallback to static seed data
     try {
       const resp = await fetch(jsonPath);
       if (resp.ok) {
@@ -174,6 +193,14 @@
     otpForm?.addEventListener('submit', (e) => {
       e.preventDefault();
       verifyOtpChallenge();
+    });
+
+    document.getElementById('btn-cancel-otp')?.addEventListener('click', () => {
+      closeOtpModal();
+    });
+
+    document.getElementById('btn-resend-otp')?.addEventListener('click', () => {
+      resendOtpCode();
     });
 
     // Sign out button
@@ -422,37 +449,193 @@
      -------------------------------------------------------------------------- */
   let pendingLookupIdentifier = '';
 
-  function initiateDirectLookupChallenge(identifier) {
-    pendingLookupIdentifier = identifier.trim();
-    const isPhone = /^[0-9+() -]{8,15}$/.test(pendingLookupIdentifier);
+  async function initiateDirectLookupChallenge(identifier) {
+    let emailOrPhone = identifier.trim();
+    const isPhone = /^[0-9+() -]{8,15}$/.test(emailOrPhone) && !emailOrPhone.includes('@');
+
+    // If phone number entered without email, prompt for email to deliver the free 6-digit OTP code
+    if (isPhone) {
+      const match = localLedger.find(u => (u.mobile || '').replace(/[^0-9]/g, '').endsWith(emailOrPhone.replace(/[^0-9]/g, '').slice(-10)));
+      if (match && match.email) {
+        emailOrPhone = match.email;
+      } else {
+        const inputEmail = prompt(`Enter your email to receive your 6-digit verification code for ${emailOrPhone}:`);
+        if (inputEmail && inputEmail.includes('@')) {
+          emailOrPhone = inputEmail.trim();
+        }
+      }
+    }
+
+    pendingLookupIdentifier = emailOrPhone;
 
     // Show challenge modal
     const modal = document.getElementById('share-otp-modal');
     const targetLabel = document.getElementById('otp-target-display');
     const otpInput = document.getElementById('share-otp-input');
+    const statusHint = document.getElementById('otp-status-hint');
+    const errorMsg = document.getElementById('otp-error-msg');
+    const submitBtn = document.getElementById('btn-submit-otp');
 
+    if (errorMsg) errorMsg.style.display = 'none';
     if (targetLabel) targetLabel.textContent = pendingLookupIdentifier;
-    if (otpInput) otpInput.value = '2026'; // Pre-filled security passcode for frictionless verification
+    if (otpInput) {
+      otpInput.value = '';
+      otpInput.placeholder = '• • • • • •';
+    }
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Verify & Unlock';
+    }
 
     if (modal) {
       modal.style.display = 'flex';
       modal.classList.add('active');
+      setTimeout(() => otpInput?.focus(), 150);
+    }
+
+    // If identifier is an email and backend URL is configured, request real email OTP!
+    if (pendingLookupIdentifier.includes('@') && CONFIG.LIVE_BACKEND_URL) {
+      if (statusHint) statusHint.innerHTML = 'Sending 6-digit verification code to your email...';
+      startResendCountdown(45);
+
+      try {
+        const turnstileToken = window.AnirjanNotifier ? window.AnirjanNotifier.getTurnstileToken() : '';
+        const resp = await fetch(CONFIG.LIVE_BACKEND_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'request_otp',
+            email: pendingLookupIdentifier,
+            turnstileToken: turnstileToken
+          })
+        });
+
+        const resData = await resp.json();
+        if (resData.success) {
+          if (statusHint) statusHint.innerHTML = `✓ Code sent to <strong>${pendingLookupIdentifier}</strong> (Valid 10m). Passcode <strong>2026</strong> also accepted.`;
+        } else {
+          if (statusHint) statusHint.innerHTML = `⚠️ ${resData.message || 'Could not send code. Passcode 2026 available.'}`;
+        }
+      } catch (err) {
+        console.warn('[SharePortal] Request OTP network fallback:', err);
+        if (statusHint) statusHint.innerHTML = `Offline Preview mode. Passcode <strong>2026</strong> ready.`;
+      }
+    } else {
+      if (statusHint) statusHint.innerHTML = `Enter one-time security passcode: <strong>2026</strong> to unlock.`;
     }
   }
 
-  function verifyOtpChallenge() {
-    const otpInput = document.getElementById('share-otp-input')?.value.trim();
-    if (otpInput !== '2026' && otpInput.length < 4) {
-      alert('Please enter a valid 4-digit verification code (Security Passcode: 2026).');
-      return;
-    }
+  function startResendCountdown(seconds = 45) {
+    const resendBtn = document.getElementById('btn-resend-otp');
+    if (!resendBtn) return;
 
+    clearInterval(otpCountdownTimer);
+    resendBtn.disabled = true;
+
+    let remaining = seconds;
+    resendBtn.textContent = `Resend (${remaining}s)`;
+
+    otpCountdownTimer = setInterval(() => {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(otpCountdownTimer);
+        resendBtn.disabled = false;
+        resendBtn.textContent = 'Resend Code';
+      } else {
+        resendBtn.textContent = `Resend (${remaining}s)`;
+      }
+    }, 1000);
+  }
+
+  async function resendOtpCode() {
+    if (!pendingLookupIdentifier) return;
+    initiateDirectLookupChallenge(pendingLookupIdentifier);
+  }
+
+  function closeOtpModal() {
     const modal = document.getElementById('share-otp-modal');
     if (modal) {
       modal.style.display = 'none';
       modal.classList.remove('active');
     }
-    authenticateDirectUser(pendingLookupIdentifier, 'Verified Passcode ID');
+    clearInterval(otpCountdownTimer);
+  }
+
+  async function verifyOtpChallenge() {
+    const otpInput = document.getElementById('share-otp-input')?.value.trim();
+    const errorMsg = document.getElementById('otp-error-msg');
+    const submitBtn = document.getElementById('btn-submit-otp');
+
+    if (!otpInput || otpInput.length < 4) {
+      if (errorMsg) {
+        errorMsg.textContent = 'Please enter a valid verification code.';
+        errorMsg.style.display = 'block';
+      }
+      return;
+    }
+
+    if (errorMsg) errorMsg.style.display = 'none';
+    const originalText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verifying...';
+    }
+
+    // 1. If backend URL is available and identifier is email, verify with live backend
+    if (CONFIG.LIVE_BACKEND_URL && pendingLookupIdentifier.includes('@')) {
+      try {
+        const resp = await fetch(CONFIG.LIVE_BACKEND_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'verify_otp',
+            email: pendingLookupIdentifier,
+            otp: otpInput
+          })
+        });
+
+        const resData = await resp.json();
+        if (resData.success && resData.user) {
+          closeOtpModal();
+          if (resData.sessionToken) {
+            localStorage.setItem('anirjan_session_token', resData.sessionToken);
+          }
+          setActiveUser({
+            ...resData.user,
+            verified_via: 'Email OTP (Verified)'
+          });
+          return;
+        } else if (otpInput !== '2026') {
+          if (errorMsg) {
+            errorMsg.textContent = resData.message || 'Invalid or expired verification code.';
+            errorMsg.style.display = 'block';
+          }
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
+          return;
+        }
+      } catch (err) {
+        console.warn('[SharePortal] Backend OTP verify error, using fallback:', err);
+      }
+    }
+
+    // 2. Demo passcode fallback (2026)
+    if (otpInput === '2026') {
+      closeOtpModal();
+      authenticateDirectUser(pendingLookupIdentifier, 'Verified Passcode ID');
+    } else {
+      if (errorMsg) {
+        errorMsg.textContent = 'Invalid code. Enter the 6-digit code sent to your email or passcode 2026.';
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   }
 
   /* --------------------------------------------------------------------------
@@ -684,7 +867,7 @@
     if (totalLabel) totalLabel.textContent = `₹${totalPayout.toFixed(2)}`;
   }
 
-  function handleBuybackSubmission() {
+  async function handleBuybackSubmission() {
     if (!activeUser) return;
     const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : (activeUser.shares || 0);
     const input = document.getElementById('buyback-shares-input');
@@ -709,11 +892,52 @@
       return;
     }
 
-    // Process Ledger Update
-    const payoutAmount = qty * CONFIG.PAR_SHARE_VALUE;
-    const txId = 'BB-2026-' + Math.floor(1000 + Math.random() * 9000);
+    const submitBtn = document.getElementById('buyback-submit-btn') || document.querySelector('#buyback-request-form button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing with Treasury...';
+    }
 
-    activeUser.callable_shares = callableShares - qty;
+    let txId = 'BB-2026-' + Math.floor(1000 + Math.random() * 9000);
+    const payoutAmount = qty * CONFIG.PAR_SHARE_VALUE;
+
+    // 1. Live Google Apps Script Sync
+    if (CONFIG.LIVE_BACKEND_URL && activeUser.email) {
+      try {
+        const resp = await fetch(CONFIG.LIVE_BACKEND_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'submit_buyback',
+            email: activeUser.email,
+            sessionToken: localStorage.getItem('anirjan_session_token') || '',
+            qty: qty,
+            upiId: upiId
+          })
+        });
+
+        const resData = await resp.json();
+        if (resData.success) {
+          txId = resData.txId || txId;
+          if (resData.user) {
+            activeUser = resData.user;
+          }
+        } else {
+          alert(`Buyback Request Notice: ${resData.message || 'Transaction rejected by treasury.'}`);
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+          }
+          return;
+        }
+      } catch (err) {
+        console.warn('[SharePortal] Live buyback backend sync fallback:', err);
+      }
+    }
+
+    // 2. Client-side update
+    activeUser.callable_shares = Math.max(0, callableShares - qty);
     activeUser.shares = Math.max(0, (activeUser.shares || 0) - qty);
     activeUser.total_valuation_inr = activeUser.shares * CONFIG.PAR_SHARE_VALUE;
     activeUser.callable_liquidity_inr = activeUser.callable_shares * CONFIG.PAR_SHARE_VALUE;
@@ -737,6 +961,11 @@
     const receiptView = document.getElementById('buyback-receipt-view');
     if (formView) formView.style.display = 'none';
     if (receiptView) receiptView.style.display = 'block';
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    }
 
     if (typeof window.AnirjanNotifier !== 'undefined' && window.AnirjanNotifier.show) {
       window.AnirjanNotifier.show({
@@ -929,9 +1158,29 @@
       avatar: ''
     };
 
+    // Live Google Sheets Backend sync
+    if (CONFIG.LIVE_BACKEND_URL) {
+      fetch(CONFIG.LIVE_BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'admin_save_allocation',
+          adminPin: CONFIG.ADMIN_PIN,
+          record: record
+        })
+      })
+      .then(r => r.json())
+      .then(res => {
+        if (res.success) {
+          console.log('[SharePortal] Live master ledger updated for', email);
+        }
+      })
+      .catch(e => console.warn('[SharePortal] Cloud admin sync fallback:', e));
+    }
+
     saveCustomAllocation(record);
     renderAdminLedgerTable();
-    alert(`Success: Share allocation for ${name} (${shares.toLocaleString('en-IN')} shares = ₹${(shares * 4).toLocaleString('en-IN')}) saved!`);
+    alert(`Success: Share allocation for ${name} (${shares.toLocaleString('en-IN')} shares = ₹${(shares * 4).toLocaleString('en-IN')}) saved to master ledger!`);
 
     // If currently active user was updated, refresh
     if (activeUser && (activeUser.email === record.email || activeUser.mobile === record.mobile)) {

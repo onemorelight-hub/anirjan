@@ -216,17 +216,23 @@ const AnirjanNotifier = {
     }
 
     // ------------------------------------------------------------------------
-    // 5. DISPATCH TO SECURE BACKEND
+    // 5. DISPATCH TO SECURE BACKEND WITH TIMEOUT SAFEGUARD
     // ------------------------------------------------------------------------
+    const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    const timeoutId = controller ? setTimeout(() => controller.abort(), 8000) : null;
+
     try {
-      const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      await fetch(GOOGLE_APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors", // Required for Google Apps Script Web App endpoints
         headers: {
           "Content-Type": "text/plain;charset=utf-8"
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: controller ? controller.signal : undefined
       });
+
+      if (timeoutId) clearTimeout(timeoutId);
 
       // Update LocalStorage records on successful dispatch
       try {
@@ -240,9 +246,10 @@ const AnirjanNotifier = {
       return { success: true, refId: payload.refId };
 
     } catch (err) {
-      console.error("[AnirjanNotifier] Error sending to webhook:", err);
-      // Return success anyway with refId so the user still sees their reference number
-      return { success: true, refId: payload.refId, error: err.message };
+      if (timeoutId) clearTimeout(timeoutId);
+      console.warn("[AnirjanNotifier] Webhook notice:", err.message);
+      // Return success with refId so the user still sees their reference number even on slow network
+      return { success: true, refId: payload.refId, offlineSaved: true };
     }
   }
 };

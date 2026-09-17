@@ -499,17 +499,23 @@
     <div class="modal-overlay" id="share-otp-modal" style="display: none;">
       <div class="modal-card">
         <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 8px;">Security Verification</h3>
-        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 20px;">
-          To ensure strict data privacy, enter the verification passkey for <strong id="otp-target-display" style="color: var(--gold-primary);"></strong>:
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+          Enter the 6-digit verification code sent to <strong id="otp-target-display" style="color: var(--gold-primary);"></strong>:
         </p>
         <form id="share-otp-form">
-          <div style="margin-bottom: 20px;">
-            <input type="text" id="share-otp-input" class="direct-input" style="width: 100%; text-align: center; font-size: 1.3rem; letter-spacing: 4px;" maxlength="6" value="2026" required>
-            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 6px; text-align: center;">One-Time Security Passcode: <strong>2026</strong></div>
+          <div style="margin-bottom: 16px;">
+            <input type="text" id="share-otp-input" class="direct-input" style="width: 100%; text-align: center; font-size: 1.4rem; letter-spacing: 6px; font-weight: 700; color: #f3c276;" maxlength="6" placeholder="• • • • • •" required autocomplete="one-time-code">
+            <div id="otp-status-hint" style="font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 8px; text-align: center;">
+              Code valid for 10 minutes. (Passcode <strong>2026</strong> also accepted)
+            </div>
+            <div id="otp-error-msg" style="display:none; color:#ef4444; font-size:0.82rem; margin-top:8px; text-align:center;"></div>
           </div>
-          <div style="display: flex; gap: 12px; justify-content: flex-end;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('share-otp-modal').style.display='none'; document.getElementById('share-otp-modal').classList.remove('active');">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-sm">Verify &amp; View Portfolio</button>
+          <div style="display: flex; gap: 10px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-outline-gold btn-sm" id="btn-resend-otp" style="font-size:0.8rem; padding:6px 14px;">Resend Code</button>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-otp">Cancel</button>
+              <button type="submit" class="btn btn-primary btn-sm" id="btn-submit-otp">Verify &amp; Unlock</button>
+            </div>
           </div>
         </form>
       </div>

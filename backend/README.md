@@ -87,3 +87,35 @@ and replace with your actual Cloudflare Site Key.
 - Submit a normal test inquiry -> You will receive the alert!
 - Try submitting the exact same message again immediately -> The system prevents the duplicate and warns you gently without spamming your inbox.
 - Try submitting multiple times quickly -> The 60-second cooldown activates.
+
+---
+
+## 📈 View My Share: Free End-to-End Ledger & Buyback Engine
+
+The backend includes a **100% free-forever equity ledger and buyback processing engine** running entirely on your Google Apps Script and Google Sheets.
+
+### 🌟 Features & Free Architecture
+1. **Google Sheets as Master Ledger**:
+   - `ShareLedger`: Automatically created on first run. Stores Shareholder ID, Name, Email, Class A Sovereign Shares, Class B Callable Shares, Cumulative Dividends, Certificates, and Lockup Expiries. Founding shares (Aparna Dey: 60,000, Subhadeep Dey: 10,000, Anjan Jana: 15,000) are seeded automatically.
+   - `BuybackRequests`: Automatically records all cashout/redemption requests, UPI ID/account details, shares liquidated, payout amount (INR), transaction references, and approval statuses.
+   - `AuditLog`: Immutable append-only log of every OTP sent, authentication success, share reallocation, and buyback execution.
+2. **Zero-Cost Authentication**:
+   - **Apps Script `MailApp`**: Sends secure 6-digit verification codes directly to shareholder emails at ₹0 cost (using your standard Google account quota: 100/day for free Gmail, 1,500/day for Workspace).
+   - **`CacheService` OTP Store**: 6-digit OTPs are stored with a 10-minute TTL, 45-second resend cooldown, and maximum 3 attempts before code invalidation.
+   - **Google One-Tap / OAuth Support**: Token verification endpoint (`verify_google_token`) validates Google OAuth JWTs via `https://oauth2.googleapis.com/tokeninfo`.
+   - **Auto-Onboarding**: New verified users instantly receive 20 welcome shares (10 Class A + 10 Class B = ₹80.00 value) added directly to `ShareLedger`.
+3. **Double-Spend & Concurrency Protection**:
+   - Apps Script `LockService.getScriptLock()` prevents race conditions during share buybacks.
+   - Deductions from `ShareLedger` happen synchronously inside a critical section before a signed digital redemption receipt is returned.
+   - Automated instant Telegram notification is dispatched to the founder whenever a buyback is submitted.
+
+### Backend Endpoints (`doPost` / `doGet`)
+All endpoints respond to `POST` with `Content-Type: text/plain` (CORS-friendly):
+- `action: "request_otp"`: Sends 6-digit OTP to the provided email.
+- `action: "verify_otp"`: Validates the 6-digit OTP, creates an onboarding grant if new user, and returns portfolio data + signed session token.
+- `action: "verify_google_token"`: Authenticates via Google Sign-In credential token.
+- `action: "get_portfolio"`: Fetches current share balances, NAV value (₹4.00), dividends, and lockup dates.
+- `action: "submit_buyback"`: Concurrency-locked redemption of Class B shares; updates sheet, creates payout request, and notifies founder via Telegram.
+- `action: "get_all_shareholders"`: Public anonymized ledger of all shareholders for the transparency board.
+- `action: "admin_save_allocation"`: Founder/Admin endpoint to update shareholder equity allocations.
+

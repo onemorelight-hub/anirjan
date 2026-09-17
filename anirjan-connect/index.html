@@ -32,6 +32,9 @@
   <link rel="stylesheet" href="../css/connect.css">
   <link rel="stylesheet" href="../css/share-portal.css?v=2.2">
 
+  <!-- Cloudflare Turnstile Anti-Bot Security -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
     /* Navbar Precision Fixes for Desktop & Mobile */
     .brand-logo {
@@ -490,17 +493,23 @@
     <div class="modal-overlay" id="share-otp-modal" style="display: none;">
       <div class="modal-card">
         <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 8px;">Security Verification</h3>
-        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 20px;">
-          To ensure strict data privacy, enter the verification passkey for <strong id="otp-target-display" style="color: var(--gold-primary);"></strong>:
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+          Enter the 6-digit verification code sent to <strong id="otp-target-display" style="color: var(--gold-primary);"></strong>:
         </p>
         <form id="share-otp-form">
-          <div style="margin-bottom: 20px;">
-            <input type="text" id="share-otp-input" class="direct-input" style="width: 100%; text-align: center; font-size: 1.3rem; letter-spacing: 4px;" maxlength="6" value="2026" required>
-            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 6px; text-align: center;">One-Time Security Passcode: <strong>2026</strong></div>
+          <div style="margin-bottom: 16px;">
+            <input type="text" id="share-otp-input" class="direct-input" style="width: 100%; text-align: center; font-size: 1.4rem; letter-spacing: 6px; font-weight: 700; color: #f3c276;" maxlength="6" placeholder="• • • • • •" required autocomplete="one-time-code">
+            <div id="otp-status-hint" style="font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 8px; text-align: center;">
+              Code valid for 10 minutes. (Passcode <strong>2026</strong> also accepted)
+            </div>
+            <div id="otp-error-msg" style="display:none; color:#ef4444; font-size:0.82rem; margin-top:8px; text-align:center;"></div>
           </div>
-          <div style="display: flex; gap: 12px; justify-content: flex-end;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('share-otp-modal').style.display='none'; document.getElementById('share-otp-modal').classList.remove('active');">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-sm">Verify &amp; View Portfolio</button>
+          <div style="display: flex; gap: 10px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-outline-gold btn-sm" id="btn-resend-otp" style="font-size:0.8rem; padding:6px 14px;">Resend Code</button>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-otp">Cancel</button>
+              <button type="submit" class="btn btn-primary btn-sm" id="btn-submit-otp">Verify &amp; Unlock</button>
+            </div>
           </div>
         </form>
       </div>
@@ -1628,6 +1637,17 @@
               <label for="consent-check" class="consent-text">
                 I understand that submitting this form expresses my interest to collaborate and build together with Anirjan, based on mutual trust and shared contribution. It does not constitute a legal partnership, allotment of corporate shares, or guarantee of profit.
               </label>
+            </div>
+
+            <!-- Anti-Bot Invisible Honeypot Trap (Silently catches bots) -->
+            <div style="position: absolute !important; left: -9999px !important; top: -9999px !important; opacity: 0 !important; pointer-events: none !important;" aria-hidden="true">
+              <label for="_hp_website">Leave empty</label>
+              <input type="text" id="_hp_website" name="_hp_website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Cloudflare Turnstile Widget (Domain Locked) -->
+            <div style="display: flex; justify-content: center; margin: 16px 0;">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible" data-callback="onTurnstileConnectSuccess"></div>
             </div>
 
             <div style="text-align: center;">
