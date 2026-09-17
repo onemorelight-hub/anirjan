@@ -555,6 +555,14 @@
           return;
         }
 
+        // Validate Cloudflare Turnstile Security Verification
+        const turnstileWidget = form.querySelector('.cf-turnstile');
+        const turnstileToken = window.AnirjanNotifier ? window.AnirjanNotifier.getTurnstileToken() : (form.querySelector('input[name="cf-turnstile-response"]')?.value || '');
+        if (turnstileWidget && !turnstileToken) {
+          showError('Please complete the Cloudflare security verification before submitting.');
+          return;
+        }
+
         // Generate Ticket / Ref ID
         const prefix = currentMode === 'SUPPORT_REQUEST' ? 'SPT' : 'FDB';
         const hex = Math.random().toString(36).substring(2, 8).toUpperCase();

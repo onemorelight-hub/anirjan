@@ -124,7 +124,22 @@ const AnirjanNotifier = {
     }
 
     // ------------------------------------------------------------------------
-    // 2. CLIENT-SIDE RATE LIMITING & COOLDOWN (45 Seconds between NEW messages)
+    // 2. CLOUDFLARE TURNSTILE CHECK (Mandatory if widget exists on page)
+    // ------------------------------------------------------------------------
+    const turnstileWidget = (typeof document !== "undefined") ? document.querySelector('.cf-turnstile') : null;
+    const turnstileToken = data.turnstileToken || this.getTurnstileToken();
+
+    if (turnstileWidget && !turnstileToken) {
+      console.warn("[AnirjanNotifier] Blocked: Cloudflare Turnstile verification missing or incomplete.");
+      return {
+        success: false,
+        turnstileRequired: true,
+        message: "Security check required: Please complete the Cloudflare Turnstile verification before submitting."
+      };
+    }
+
+    // ------------------------------------------------------------------------
+    // 3. CLIENT-SIDE RATE LIMITING & COOLDOWN (45 Seconds between NEW messages)
     // ------------------------------------------------------------------------
     try {
       const lastSubmit = parseInt(localStorage.getItem(STORAGE_LAST_SUBMIT_KEY) || "0", 10);
@@ -150,7 +165,7 @@ const AnirjanNotifier = {
     } catch (e) { }
 
     // ------------------------------------------------------------------------
-    // 3. HONEYPOT & TURNSTILE EXTRACTION
+    // 4. HONEYPOT EXTRACTION
     // ------------------------------------------------------------------------
     // Look for any honeypot input on current page
     let honeypotValue = data._hp_website || "";
@@ -158,9 +173,6 @@ const AnirjanNotifier = {
       const hpEl = document.querySelector('input[name="_hp_website"], input[id="_hp_website"]');
       if (hpEl) honeypotValue = hpEl.value;
     }
-
-    // Get Turnstile Token
-    const turnstileToken = data.turnstileToken || this.getTurnstileToken();
 
     // ------------------------------------------------------------------------
     // 4. PREPARE ENRICHED SECURE PAYLOAD

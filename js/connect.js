@@ -295,11 +295,19 @@ function initRegistrationForm() {
       return;
     }
 
-    // 5. Generate Unique Reference Number
+    // 5. Validate Cloudflare Turnstile Security Verification
+    const turnstileWidget = form.querySelector('.cf-turnstile');
+    const turnstileToken = window.AnirjanNotifier ? window.AnirjanNotifier.getTurnstileToken() : (form.querySelector('input[name="cf-turnstile-response"]')?.value || '');
+    if (turnstileWidget && !turnstileToken) {
+      showError('Please complete the Cloudflare security verification before submitting.', turnstileWidget);
+      return;
+    }
+
+    // 6. Generate Unique Reference Number
     const randomHex = Math.random().toString(36).substring(2, 8).toUpperCase();
     const refId = `AC-2026-${randomHex}`;
 
-    // 6. Collect Form Data
+    // 7. Collect Form Data
     const formData = {
       referenceId: refId,
       fullName,
@@ -323,18 +331,10 @@ function initRegistrationForm() {
       submitBtn.innerHTML = '<span>Verifying & Sending...</span>';
     }
 
-    // 7. Save in LocalStorage
-    try {
-      const existing = JSON.parse(localStorage.getItem('anirjan_connect_submissions') || '[]');
-      existing.push(formData);
-      localStorage.setItem('anirjan_connect_submissions', JSON.stringify(existing));
-    } catch (err) {
-      console.warn('LocalStorage save failed:', err);
-    }
-
     // 8. Dispatch to Multi-Channel Backend (Telegram, WhatsApp, Email, Google Sheets)
+    let res = null;
     if (window.AnirjanNotifier) {
-      const res = await window.AnirjanNotifier.dispatch({
+      res = await window.AnirjanNotifier.dispatch({
         formType: 'ANIRJAN_CONNECT',
         refId: refId,
         name: fullName,
@@ -364,7 +364,16 @@ function initRegistrationForm() {
       }
     }
 
-    // 9. Transition to Thank You Card only on success
+    // 9. Save in LocalStorage on success
+    try {
+      const existing = JSON.parse(localStorage.getItem('anirjan_connect_submissions') || '[]');
+      existing.push(formData);
+      localStorage.setItem('anirjan_connect_submissions', JSON.stringify(existing));
+    } catch (err) {
+      console.warn('LocalStorage save failed:', err);
+    }
+
+    // 10. Transition to Thank You Card only on success
     form.style.display = 'none';
     if (refCodeBadge) {
       refCodeBadge.textContent = `Reference ID: ${refId}`;
@@ -384,9 +393,23 @@ function initRegistrationForm() {
       alert(msg);
     }
     if (focusEl) {
-      focusEl.focus();
+      if (typeof focusEl.focus === 'function' && focusEl.tagName !== 'DIV') {
+        focusEl.focus();
+      } else {
+        focusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        focusEl.style.outline = '2px solid #EF4444';
+        focusEl.style.borderRadius = '8px';
+        setTimeout(() => {
+          focusEl.style.outline = 'none';
+        }, 3500);
+      }
     }
   }
+
+  // Clear error on Turnstile success
+  window.onTurnstileConnectSuccess = function () {
+    if (formError) formError.style.display = 'none';
+  };
 
   // Clear error on input interaction
   form.querySelectorAll('input, textarea, select').forEach(input => {
