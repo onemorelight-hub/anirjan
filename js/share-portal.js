@@ -20,6 +20,9 @@
     SURPLUS_POOL_PERCENT: 40,
     // Google Apps Script Live Web App URL (Central zero-cost backend)
     LIVE_BACKEND_URL: (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : '') || localStorage.getItem('anirjan_gas_endpoint') || 'https://script.google.com/macros/s/AKfycbxVQX70lZ1VAXmOs4nVZ8_fvaCryXnKn5HSQMjCex2vobE3bv1ncZlWeQfxVXRQMrCG/exec',
+    // Real OAuth Provider Credentials (can be configured in code or via localStorage)
+    GOOGLE_CLIENT_ID: localStorage.getItem('anirjan_google_client_id') || '',
+    FACEBOOK_APP_ID: localStorage.getItem('anirjan_facebook_app_id') || '',
     STORAGE_KEY_SESSION: 'anirjan_share_session_v2',
     STORAGE_KEY_LOCAL_LEDGER: 'anirjan_custom_shareholders_v2',
     ADMIN_PIN: 'anirjan2026'
@@ -277,16 +280,14 @@
     const btnContainer = document.getElementById('google-signin-btn-container');
     if (!btnContainer) return;
 
-    // Check if Google GIS library is loaded
-    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+    if (CONFIG.GOOGLE_CLIENT_ID && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
       renderGoogleButton();
     } else {
-      // Retry once library loads
+      showGoogleFallbackButton();
+      // Retry once GIS library loads if client ID is set
       window.addEventListener('load', () => {
-        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        if (CONFIG.GOOGLE_CLIENT_ID && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
           renderGoogleButton();
-        } else {
-          showGoogleFallbackButton();
         }
       });
     }
@@ -294,9 +295,13 @@
 
   function renderGoogleButton() {
     try {
-      const clientId = localStorage.getItem('anirjan_google_client_id') || '458066601449-demoanirjanconnectclientid.apps.googleusercontent.com';
+      if (!CONFIG.GOOGLE_CLIENT_ID) {
+        showGoogleFallbackButton();
+        return;
+      }
+
       google.accounts.id.initialize({
-        client_id: clientId,
+        client_id: CONFIG.GOOGLE_CLIENT_ID,
         callback: handleGoogleCredentialResponse,
         auto_select: false,
         cancel_on_tap_outside: true
@@ -316,7 +321,7 @@
         });
       }
     } catch (e) {
-      console.warn('Google GIS button render fallback:', e);
+      console.warn('[SharePortal] Google GIS button render fallback:', e);
       showGoogleFallbackButton();
     }
   }
@@ -335,13 +340,37 @@
         <span>Sign In with Google</span>
       </button>
     `;
-    document.getElementById('btn-google-trigger')?.addEventListener('click', promptGoogleInteractiveSign);
+    document.getElementById('btn-google-trigger')?.addEventListener('click', handleGoogleTriggerClick);
   }
 
-  function promptGoogleInteractiveSign() {
-    const inputEmail = prompt('Enter your Google Account email (e.g. subhadeep@anirjan.com, anjan@anirjan.com, or your personal Gmail):', 'subhadeep@anirjan.com');
-    if (inputEmail && inputEmail.trim()) {
-      authenticateDirectUser(inputEmail.trim(), 'Google OAuth (Verified)');
+  function handleGoogleTriggerClick() {
+    if (CONFIG.GOOGLE_CLIENT_ID && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+      google.accounts.id.prompt();
+      return;
+    }
+
+    // Interactive developer setup & simulation
+    const input = prompt(
+      "Google Sign-In Setup:\n\n" +
+      "To test real Google Sign-In, paste your Google Cloud OAuth Client ID below (e.g. 123...apps.googleusercontent.com).\n\n" +
+      "Or, enter your email address to simulate a verified Google login:",
+      CONFIG.GOOGLE_CLIENT_ID || "subhadeep@anirjan.com"
+    );
+
+    if (!input || !input.trim()) return;
+
+    const trimmed = input.trim();
+    if (trimmed.includes(".apps.googleusercontent.com")) {
+      // User entered a real Client ID
+      localStorage.setItem("anirjan_google_client_id", trimmed);
+      CONFIG.GOOGLE_CLIENT_ID = trimmed;
+      alert("✅ Google Client ID saved! Initializing Google Identity Services...");
+      renderGoogleButton();
+    } else if (trimmed.includes("@")) {
+      // User entered an email to simulate
+      authenticateDirectUser(trimmed, "Google OAuth (Verified)");
+    } else {
+      alert("Please enter a valid Google Client ID or email address.");
     }
   }
 
@@ -422,26 +451,105 @@
   /* --------------------------------------------------------------------------
      4. FACEBOOK SDK INTEGRATION (100% Free)
      -------------------------------------------------------------------------- */
+  // Auto-initialize Facebook SDK when Meta script loads
+  window.fbAsyncInit = function() {
+    const fbAppId = CONFIG.FACEBOOK_APP_ID || localStorage.getItem('anirjan_facebook_app_id');
+    if (fbAppId && typeof FB !== 'undefined') {
+      try {
+        FB.init({
+          appId: fbAppId,
+          cookie: true,
+          xfbml: true,
+          version: 'v20.0'
+        });
+        console.log('[SharePortal] Meta Facebook SDK initialized successfully with App ID:', fbAppId);
+      } catch (e) {
+        console.warn('[SharePortal] FB.init error:', e);
+      }
+    }
+  };
+
   function initFacebookSDK() {
     const fbBtn = document.getElementById('facebook-signin-btn');
-    fbBtn?.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (typeof FB !== 'undefined') {
-        FB.login((response) => {
-          if (response.authResponse) {
-            FB.api('/me', { fields: 'name, email, picture' }, (profile) => {
-              const fbEmail = profile.email || `${profile.id}@facebook.anirjan.com`;
-              authenticateDirectUser(fbEmail, 'Facebook Verified ID');
-            });
+    fbBtn?.addEventListener('click', handleFacebookClick);
+  }
+
+  function handleFacebookClick(e) {
+    if (e) e.preventDefault();
+
+    const fbAppId = CONFIG.FACEBOOK_APP_ID || localStorage.getItem('anirjan_facebook_app_id');
+
+    // If real Facebook SDK and App ID are ready, trigger real Facebook Login
+    if (typeof FB !== 'undefined' && fbAppId) {
+      try {
+        FB.login(async (response) => {
+          if (response.authResponse && response.authResponse.accessToken) {
+            showLoadingState(true);
+            try {
+              // Verify token on Google Apps Script live backend
+              if (CONFIG.LIVE_BACKEND_URL) {
+                const res = await fetch(CONFIG.LIVE_BACKEND_URL, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    action: 'verify_facebook_token',
+                    access_token: response.authResponse.accessToken
+                  })
+                });
+                const backendData = await res.json();
+                if (backendData.success && backendData.user) {
+                  setActiveUser(backendData.user);
+                  showLoadingState(false);
+                  return;
+                }
+              }
+
+              // Fallback client query via FB Graph API
+              FB.api('/me', { fields: 'id,name,email,picture' }, (profile) => {
+                const fbEmail = profile.email || `${profile.id}@facebook.anirjan.com`;
+                authenticateDirectUser(fbEmail, 'Facebook Verified ID');
+              });
+            } catch (fbErr) {
+              console.error('Facebook verification error:', fbErr);
+              alert('Could not verify Facebook login. Please try again.');
+            } finally {
+              showLoadingState(false);
+            }
+          } else {
+            console.log('User cancelled Facebook login or did not fully authorize.');
           }
         }, { scope: 'public_profile,email' });
-      } else {
-        const inputEmail = prompt('Enter your Facebook registered email or mobile number:', 'subhadeep@anirjan.com');
-        if (inputEmail && inputEmail.trim()) {
-          authenticateDirectUser(inputEmail.trim(), 'Facebook Verified ID');
-        }
+        return;
+      } catch (err) {
+        console.warn('FB.login failed:', err);
       }
-    });
+    }
+
+    // Developer setup & simulation prompt
+    const input = prompt(
+      "Meta Facebook Login Setup:\n\n" +
+      "To test real Facebook Login, enter your Meta App ID from developers.facebook.com (Settings > Basic > App ID).\n\n" +
+      "Or, enter your email address to simulate a verified Facebook login:",
+      fbAppId || "subhadeep@anirjan.com"
+    );
+
+    if (!input || !input.trim()) return;
+
+    const trimmed = input.trim();
+    if (/^[0-9]{10,20}$/.test(trimmed)) {
+      // User entered a numeric Meta App ID
+      localStorage.setItem("anirjan_facebook_app_id", trimmed);
+      CONFIG.FACEBOOK_APP_ID = trimmed;
+      alert("✅ Facebook App ID saved! Initializing Meta SDK...");
+      if (typeof FB !== 'undefined') {
+        window.fbAsyncInit();
+      }
+    } else if (trimmed.includes("@")) {
+      // User entered an email to simulate
+      authenticateDirectUser(trimmed, "Facebook Verified ID");
+    } else {
+      alert("Please enter a valid Meta App ID or email address.");
+    }
   }
 
   /* --------------------------------------------------------------------------
@@ -791,12 +899,18 @@
     if (buybackAvailInr) buybackAvailInr.textContent = callableVal.toLocaleString('en-IN', {minimumFractionDigits: 2});
 
     if (openBuybackBtn) {
-      if (callableShares <= 0) {
+      if (shares <= 100) {
+        openBuybackBtn.disabled = true;
+        openBuybackBtn.title = `Cashout unlocked when holding > 100 shares (Current: ${shares} shares)`;
+        openBuybackBtn.innerHTML = '<span>🔒 Min 100+ Shares Required</span>';
+      } else if (callableShares <= 0) {
         openBuybackBtn.disabled = true;
         openBuybackBtn.title = 'No callable shares currently available for cashout';
+        openBuybackBtn.innerHTML = '<span>No Callable Shares</span>';
       } else {
         openBuybackBtn.disabled = false;
         openBuybackBtn.title = `Liquidate up to ${callableShares} callable shares for ₹${callableVal}`;
+        openBuybackBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span>Redeem Real Money (UPI)</span>';
       }
     }
 
@@ -819,7 +933,15 @@
      -------------------------------------------------------------------------- */
   function openBuybackModal() {
     if (!activeUser) return;
-    const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : (activeUser.shares || 0);
+    const totalShares = typeof activeUser.shares === 'number' ? activeUser.shares : 0;
+    const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : 0;
+
+    // Rule: User can withdraw cash ONLY if holding MORE THAN 100 shares
+    if (totalShares <= 100) {
+      alert(`Treasury Liquidity Rule: Cash withdrawal is only permitted if you hold more than 100 shares. Your current holding is ${totalShares} shares.`);
+      return;
+    }
+
     if (callableShares <= 0) {
       alert('You currently do not have any Class B Callable Shares available for redemption.');
       return;
@@ -869,7 +991,14 @@
 
   async function handleBuybackSubmission() {
     if (!activeUser) return;
+    const totalShares = typeof activeUser.shares === 'number' ? activeUser.shares : 0;
     const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : (activeUser.shares || 0);
+
+    if (totalShares <= 100) {
+      alert(`Treasury Withdrawal Policy: You can only withdraw cash if your total shareholding is more than 100 shares. Current: ${totalShares} shares.`);
+      return;
+    }
+
     const input = document.getElementById('buyback-shares-input');
     const upiInput = document.getElementById('buyback-upi-input');
     const termsCheck = document.getElementById('buyback-terms-check');
@@ -1227,5 +1356,36 @@
     }
     requestAnimationFrame(step);
   }
+
+  // Developer / Admin Auth Configuration Utilities
+  window.AnirjanAuth = {
+    setGoogleClientId: (clientId) => {
+      localStorage.setItem('anirjan_google_client_id', clientId.trim());
+      CONFIG.GOOGLE_CLIENT_ID = clientId.trim();
+      renderGoogleButton();
+      console.log('✅ Google Client ID updated:', clientId.trim());
+    },
+    setFacebookAppId: (appId) => {
+      localStorage.setItem('anirjan_facebook_app_id', appId.trim());
+      CONFIG.FACEBOOK_APP_ID = appId.trim();
+      if (typeof FB !== 'undefined') window.fbAsyncInit();
+      console.log('✅ Meta Facebook App ID updated:', appId.trim());
+    },
+    getStatus: () => ({
+      googleClientIdConfigured: Boolean(CONFIG.GOOGLE_CLIENT_ID),
+      googleClientId: CONFIG.GOOGLE_CLIENT_ID || 'Not set',
+      facebookAppIdConfigured: Boolean(CONFIG.FACEBOOK_APP_ID),
+      facebookAppId: CONFIG.FACEBOOK_APP_ID || 'Not set',
+      backendUrl: CONFIG.LIVE_BACKEND_URL
+    }),
+    clearCredentials: () => {
+      localStorage.removeItem('anirjan_google_client_id');
+      localStorage.removeItem('anirjan_facebook_app_id');
+      CONFIG.GOOGLE_CLIENT_ID = '';
+      CONFIG.FACEBOOK_APP_ID = '';
+      showGoogleFallbackButton();
+      console.log('Auth credentials cleared from localStorage.');
+    }
+  };
 
 })();

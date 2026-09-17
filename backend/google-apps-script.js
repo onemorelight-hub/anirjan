@@ -567,6 +567,8 @@ function handleSharePortalAction(data) {
         return actionVerifyOtp(data);
       case "verify_google_token":
         return actionVerifyGoogleToken(data);
+      case "verify_facebook_token":
+        return actionVerifyFacebookToken(data);
       case "get_portfolio":
         return actionGetPortfolio(data);
       case "submit_buyback":
@@ -732,6 +734,45 @@ function actionVerifyGoogleToken(data) {
 }
 
 /**
+ * Action: Validates Facebook User Access Token via Meta Graph API, returns shareholder record.
+ */
+function actionVerifyFacebookToken(data) {
+  const accessToken = data.access_token;
+  if (!accessToken) {
+    return createJsonResponse({ success: false, message: "Missing Facebook access token." });
+  }
+
+  try {
+    const graphUrl = "https://graph.facebook.com/me?fields=id,name,email,picture.width(200).height(200)&access_token=" + encodeURIComponent(accessToken);
+    const resp = UrlFetchApp.fetch(graphUrl, { muteHttpExceptions: true });
+    if (resp.getResponseCode() !== 200) {
+      return createJsonResponse({ success: false, message: "Facebook authentication verification failed." });
+    }
+
+    const profile = JSON.parse(resp.getContentText());
+    const verifiedEmail = (profile.email || (profile.id + "@facebook.anirjan.com")).toLowerCase().trim();
+    const avatarUrl = (profile.picture && profile.picture.data && profile.picture.data.url) ? profile.picture.data.url : "";
+
+    const cache = CacheService.getScriptCache();
+    const sessionToken = "ST_" + Utilities.getUuid().replace(/-/g, "");
+    cache.put(sessionToken, verifiedEmail, 86400);
+
+    const user = getOrCreateShareholder(verifiedEmail, profile.name || "", "", avatarUrl);
+    logAudit(verifiedEmail, "LOGIN_FACEBOOK", "User authenticated via Facebook Login", sessionToken);
+
+    return createJsonResponse({
+      success: true,
+      user: user,
+      sessionToken: sessionToken,
+      message: "Facebook authentication successful."
+    });
+  } catch (e) {
+    Logger.log("Facebook token verification error: " + e.toString());
+    return createJsonResponse({ success: false, message: "Could not verify Facebook credential." });
+  }
+}
+
+/**
  * Action 4: Fetches real-time portfolio metrics from Google Sheets ShareLedger.
  */
 function actionGetPortfolio(data) {
@@ -805,6 +846,15 @@ function actionSubmitBuyback(data) {
     if (!currentUser || userRowIndex === -1) {
       lock.releaseLock();
       return createJsonResponse({ success: false, message: "Shareholder record not found in master ledger." });
+    }
+
+    // Treasury Policy: Cashout / withdrawal only permitted if user holds MORE THAN 100 shares
+    if (currentUser.shares <= 100) {
+      lock.releaseLock();
+      return createJsonResponse({ 
+        success: false, 
+        message: `Treasury Policy: Share withdrawal is only permitted for shareholders holding more than 100 shares. Your current holding is ${currentUser.shares} shares.` 
+      });
     }
 
     if (currentUser.callable_shares < qty) {
