@@ -32,6 +32,11 @@
 // 1. CONFIGURATION & SECURITY POLICY
 // ============================================================================
 const CONFIG = {
+  // --- GOOGLE SPREADSHEET CONFIGURATION ---
+  // If script is opened from Google Sheets > Extensions > Apps Script, leave blank ("").
+  // If script is standalone (from script.google.com), paste your Spreadsheet ID:
+  SPREADSHEET_ID: "",
+
   // --- CLOUDFLARE TURNSTILE (Cryptographic Domain Lock) ---
   // Get free keys at: https://dash.cloudflare.com/?to=/:account/turnstile
   TURNSTILE_ENABLED: true,
@@ -577,6 +582,8 @@ function handleSharePortalAction(data) {
         return actionAdminSaveAllocation(data);
       case "get_all_shareholders":
         return actionGetAllShareholders(data);
+      case "setup_database":
+        return createJsonResponse({ success: true, message: setupDatabase() });
       default:
         return createJsonResponse({ success: false, message: "Unknown action: " + action });
     }
@@ -1126,8 +1133,49 @@ function getOrCreateShareholder(email, name, mobile, avatar) {
   return parseShareholderRow(newRow);
 }
 
+function getActiveSpreadsheetSafe() {
+  let ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss && CONFIG.SPREADSHEET_ID && CONFIG.SPREADSHEET_ID !== "YOUR_SPREADSHEET_ID_HERE") {
+    try {
+      ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+    } catch (e) {
+      Logger.log("Failed to open spreadsheet by ID: " + e.toString());
+    }
+  }
+  if (!ss) {
+    throw new Error(
+      "No Google Spreadsheet found! Either:\n" +
+      "1. Open your Google Sheet and click Extensions -> Apps Script, OR\n" +
+      "2. Paste your Google Sheet ID into CONFIG.SPREADSHEET_ID (from your sheet URL)."
+    );
+  }
+  return ss;
+}
+
+/**
+ * ONE-CLICK SETUP & DATABASE INITIALIZATION
+ * Select 'setupDatabase' from the function dropdown in Apps Script and click Run.
+ * It immediately creates and formats the 'ShareLedger', 'BuybackRequests', and 'AuditLog' tabs!
+ */
+function setupDatabase() {
+  const ss = getActiveSpreadsheetSafe();
+  const ledger = getShareLedgerSheet();
+  const buyback = getBuybackSheet();
+  const audit = getAuditSheet();
+
+  Logger.log("==================================================");
+  Logger.log("✅ ANIRJAN CONNECT DATABASE INITIALIZATION COMPLETE");
+  Logger.log("Spreadsheet: " + ss.getName() + " (" + ss.getId() + ")");
+  Logger.log("1. ShareLedger: READY (Contains founding seats)");
+  Logger.log("2. BuybackRequests: READY");
+  Logger.log("3. AuditLog: READY");
+  Logger.log("==================================================");
+
+  return "Success! ShareLedger, BuybackRequests, and AuditLog tabs are fully initialized.";
+}
+
 function getShareLedgerSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getActiveSpreadsheetSafe();
   let sheet = ss.getSheetByName("ShareLedger");
 
   if (!sheet) {
@@ -1164,7 +1212,7 @@ function getShareLedgerSheet() {
 }
 
 function getBuybackSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getActiveSpreadsheetSafe();
   let sheet = ss.getSheetByName("BuybackRequests");
   if (!sheet) {
     sheet = ss.insertSheet("BuybackRequests");
@@ -1180,7 +1228,7 @@ function getBuybackSheet() {
 }
 
 function getAuditSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getActiveSpreadsheetSafe();
   let sheet = ss.getSheetByName("AuditLog");
   if (!sheet) {
     sheet = ss.insertSheet("AuditLog");

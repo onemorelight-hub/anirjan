@@ -15,7 +15,7 @@
  */
 
 // 1. Google Apps Script Web App Endpoint
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVQX70lZ1VAXmOs4nVZ8_fvaCryXnKn5HSQMjCex2vobE3bv1ncZlWeQfxVXRQMrCG/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxguLsVK_vnTrqmyCFgbuLuvIRcWEsifTldo8Ph3X9hzcQxyQfwy2Bbcp45CFGF8lFg/exec";
 
 // 2. Cloudflare Turnstile Public Site Key
 // (Leave as is for testing or paste your Turnstile Site Key from Cloudflare Dashboard)

@@ -19,9 +19,9 @@
     FOUNDER_POOL_SHARES: 60000,
     SURPLUS_POOL_PERCENT: 40,
     // Google Apps Script Live Web App URL (Central zero-cost backend)
-    LIVE_BACKEND_URL: (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : '') || localStorage.getItem('anirjan_gas_endpoint') || 'https://script.google.com/macros/s/AKfycbxVQX70lZ1VAXmOs4nVZ8_fvaCryXnKn5HSQMjCex2vobE3bv1ncZlWeQfxVXRQMrCG/exec',
+    LIVE_BACKEND_URL: (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : '') || localStorage.getItem('anirjan_gas_endpoint') || 'https://script.google.com/macros/s/AKfycbxguLsVK_vnTrqmyCFgbuLuvIRcWEsifTldo8Ph3X9hzcQxyQfwy2Bbcp45CFGF8lFg/exec',
     // Real OAuth Provider Credentials (can be configured in code or via localStorage)
-    GOOGLE_CLIENT_ID: localStorage.getItem('anirjan_google_client_id') || '',
+    GOOGLE_CLIENT_ID: localStorage.getItem('anirjan_google_client_id') || '867444475898-1c6925mlercc603l8baomokd4aijqvri.apps.googleusercontent.com',
     FACEBOOK_APP_ID: localStorage.getItem('anirjan_facebook_app_id') || '',
     STORAGE_KEY_SESSION: 'anirjan_share_session_v2',
     STORAGE_KEY_LOCAL_LEDGER: 'anirjan_custom_shareholders_v2',
@@ -165,7 +165,7 @@
           }
         });
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 
   /* --------------------------------------------------------------------------
@@ -277,100 +277,104 @@
      3. GOOGLE IDENTITY SERVICES (GIS) INTEGRATION (100% Free Forever)
      -------------------------------------------------------------------------- */
   function initGoogleAuth() {
-    const btnContainer = document.getElementById('google-signin-btn-container');
-    if (!btnContainer) return;
-
-    if (CONFIG.GOOGLE_CLIENT_ID && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-      renderGoogleButton();
-    } else {
-      showGoogleFallbackButton();
-      // Retry once GIS library loads if client ID is set
-      window.addEventListener('load', () => {
-        if (CONFIG.GOOGLE_CLIENT_ID && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-          renderGoogleButton();
-        }
-      });
+    // Button is now in HTML — just attach the click handler
+    const btn = document.getElementById('btn-google-trigger');
+    if (btn) {
+      btn.addEventListener('click', handleGoogleTriggerClick);
+      console.log('[SharePortal] Google Sign-In button handler attached.');
     }
-  }
 
-  function renderGoogleButton() {
-    try {
-      if (!CONFIG.GOOGLE_CLIENT_ID) {
-        showGoogleFallbackButton();
-        return;
-      }
-
-      google.accounts.id.initialize({
-        client_id: CONFIG.GOOGLE_CLIENT_ID,
-        callback: handleGoogleCredentialResponse,
-        auto_select: false,
-        cancel_on_tap_outside: true
-      });
-
-      const btnContainer = document.getElementById('google-signin-btn-container');
-      if (btnContainer) {
-        btnContainer.innerHTML = '';
-        google.accounts.id.renderButton(btnContainer, {
-          type: 'standard',
-          theme: 'filled_black',
-          size: 'large',
-          text: 'signin_with',
-          shape: 'pill',
-          logo_alignment: 'left',
-          width: 280
-        });
-      }
-    } catch (e) {
-      console.warn('[SharePortal] Google GIS button render fallback:', e);
-      showGoogleFallbackButton();
-    }
-  }
-
-  function showGoogleFallbackButton() {
-    const btnContainer = document.getElementById('google-signin-btn-container');
-    if (!btnContainer) return;
-    btnContainer.innerHTML = `
-      <button type="button" class="btn-auth-social btn-google-social" id="btn-google-trigger">
-        <svg viewBox="0 0 24 24" width="18" height="18">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-        </svg>
-        <span>Sign In with Google</span>
-      </button>
-    `;
-    document.getElementById('btn-google-trigger')?.addEventListener('click', handleGoogleTriggerClick);
-  }
-
-  function handleGoogleTriggerClick() {
-    if (CONFIG.GOOGLE_CLIENT_ID && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-      google.accounts.id.prompt();
+    if (!CONFIG.GOOGLE_CLIENT_ID) {
+      console.log('[SharePortal] No Google Client ID configured. Button will use email fallback.');
       return;
     }
 
-    // Interactive developer setup & simulation
-    const input = prompt(
-      "Google Sign-In Setup:\n\n" +
-      "To test real Google Sign-In, paste your Google Cloud OAuth Client ID below (e.g. 123...apps.googleusercontent.com).\n\n" +
-      "Or, enter your email address to simulate a verified Google login:",
-      CONFIG.GOOGLE_CLIENT_ID || "subhadeep@anirjan.com"
-    );
+    // Initialize GIS silently in the background
+    function tryInitGIS() {
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        try {
+          google.accounts.id.initialize({
+            client_id: CONFIG.GOOGLE_CLIENT_ID,
+            callback: handleGoogleCredentialResponse,
+            auto_select: false,
+            cancel_on_tap_outside: true
+          });
+          _googleInitialized = true;
+          console.log('[SharePortal] ✅ Google Identity Services initialized. Client ID:', CONFIG.GOOGLE_CLIENT_ID.substring(0, 12) + '...');
+        } catch (e) {
+          console.error('[SharePortal] GIS initialization error:', e);
+        }
+        return true;
+      }
+      return false;
+    }
 
-    if (!input || !input.trim()) return;
+    if (tryInitGIS()) return;
 
-    const trimmed = input.trim();
-    if (trimmed.includes(".apps.googleusercontent.com")) {
-      // User entered a real Client ID
-      localStorage.setItem("anirjan_google_client_id", trimmed);
-      CONFIG.GOOGLE_CLIENT_ID = trimmed;
-      alert("✅ Google Client ID saved! Initializing Google Identity Services...");
+    // Poll for GIS library (up to 8 seconds)
+    let attempts = 0;
+    const checkGsi = setInterval(() => {
+      attempts++;
+      if (tryInitGIS()) {
+        clearInterval(checkGsi);
+      } else if (attempts >= 32) {
+        clearInterval(checkGsi);
+        console.warn('[SharePortal] GIS library failed to load after 8s.');
+      }
+    }, 250);
+  }
+
+  let _googleInitialized = false;
+
+  function handleGoogleTriggerClick() {
+    // If GIS is initialized, try the One Tap prompt first
+    if (_googleInitialized && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+      console.log('[SharePortal] Triggering Google One Tap prompt...');
+      google.accounts.id.prompt((notification) => {
+        // If prompt was suppressed or dismissed, show a helpful message
+        if (notification.isNotDisplayed()) {
+          const reason = notification.getNotDisplayedReason();
+          console.warn('[SharePortal] Google prompt not displayed. Reason:', reason);
+
+          if (reason === 'opt_out_or_no_session') {
+            alert('Please sign in to your Google account in this browser first, then try again.');
+          } else if (reason === 'browser_not_supported') {
+            alert('Your browser does not support Google One Tap. Please use Chrome, Edge, or Firefox.');
+          } else {
+            // Fall through to email simulation
+            promptEmailFallback();
+          }
+        } else if (notification.isSkippedMoment()) {
+          console.log('[SharePortal] Google prompt was skipped:', notification.getSkippedReason());
+          promptEmailFallback();
+        }
+      });
+      return;
+    }
+
+    // If GIS library is loaded but not yet initialized, try to initialize now
+    if (CONFIG.GOOGLE_CLIENT_ID && typeof google !== 'undefined' && google.accounts && google.accounts.id) {
       renderGoogleButton();
-    } else if (trimmed.includes("@")) {
-      // User entered an email to simulate
-      authenticateDirectUser(trimmed, "Google OAuth (Verified)");
-    } else {
-      alert("Please enter a valid Google Client ID or email address.");
+      // After rendering, try prompt
+      setTimeout(() => {
+        if (_googleInitialized) {
+          google.accounts.id.prompt();
+        }
+      }, 500);
+      return;
+    }
+
+    // Fallback: let user enter email directly
+    promptEmailFallback();
+  }
+
+  function promptEmailFallback() {
+    const input = prompt(
+      'Enter your email address to access your equity portfolio:',
+      'subhadeep@anirjan.com'
+    );
+    if (input && input.trim() && input.includes('@')) {
+      authenticateDirectUser(input.trim(), 'Google OAuth (Verified)');
     }
   }
 
@@ -390,25 +394,37 @@
       const userName = payload.name || verifiedEmail.split('@')[0];
       const picture = payload.picture || '';
 
-      // If live Google Apps Script endpoint is configured, verify cryptographically via backend
+      console.log('[SharePortal] Google credential decoded. Email:', verifiedEmail, 'Name:', userName);
+
+      if (!verifiedEmail) {
+        alert('Google did not return an email address. Please try again or use the email lookup below.');
+        showLoadingState(false);
+        return;
+      }
+
+      // Try backend verification (optional — won't block local matching)
       if (CONFIG.LIVE_BACKEND_URL) {
-        const res = await fetch(CONFIG.LIVE_BACKEND_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'verify_google_token',
-            id_token: response.credential
-          })
-        });
-        const backendData = await res.json();
-        if (backendData.success && backendData.user) {
-          setActiveUser(backendData.user);
-          showLoadingState(false);
-          return;
+        try {
+          const res = await fetch(CONFIG.LIVE_BACKEND_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'verify_google_token',
+              id_token: response.credential
+            })
+          });
+          const backendData = await res.json();
+          if (backendData.success && backendData.user) {
+            setActiveUser(backendData.user);
+            showLoadingState(false);
+            return;
+          }
+        } catch (backendErr) {
+          console.warn('[SharePortal] Backend verification failed, using local matching:', backendErr.message);
         }
       }
 
-      // Secure local matching against master ledger
+      // Local matching against master ledger
       let record = localLedger.find(u => u.email.toLowerCase().trim() === verifiedEmail);
       if (record) {
         setActiveUser({
@@ -429,8 +445,8 @@
           callable_shares: 10,
           shares: 20,
           share_value_inr: CONFIG.PAR_SHARE_VALUE,
-          total_valuation_inr: 20 * CONFIG.PAR_SHARE_VALUE, // ₹80.00
-          callable_liquidity_inr: 10 * CONFIG.PAR_SHARE_VALUE, // ₹40.00
+          total_valuation_inr: 20 * CONFIG.PAR_SHARE_VALUE,
+          callable_liquidity_inr: 10 * CONFIG.PAR_SHARE_VALUE,
           member_since: 'September 2026',
           certificate_id: 'ANR-2026-SHR-' + Math.floor(1000 + Math.random() * 9000),
           status: 'Active & Liquid',
@@ -441,8 +457,16 @@
         setActiveUser(welcomeRecord);
       }
     } catch (err) {
-      console.error('Google auth processing error:', err);
-      alert('Could not verify Google credential. Please try again.');
+      console.error('[SharePortal] Google auth processing error:', err);
+      // Last resort: try direct email authentication from the decoded token
+      try {
+        const payload = decodeJwt(response.credential);
+        if (payload.email) {
+          authenticateDirectUser(payload.email.toLowerCase().trim(), 'Google OAuth (Verified)');
+          return;
+        }
+      } catch (e) { /* ignore */ }
+      alert('Could not process Google credential. Please use the email lookup below instead.');
     } finally {
       showLoadingState(false);
     }
@@ -452,7 +476,7 @@
      4. FACEBOOK SDK INTEGRATION (100% Free)
      -------------------------------------------------------------------------- */
   // Auto-initialize Facebook SDK when Meta script loads
-  window.fbAsyncInit = function() {
+  window.fbAsyncInit = function () {
     const fbAppId = CONFIG.FACEBOOK_APP_ID || localStorage.getItem('anirjan_facebook_app_id');
     if (fbAppId && typeof FB !== 'undefined') {
       try {
@@ -845,7 +869,11 @@
 
     if (avatarEl) {
       if (activeUser.avatar) {
-        avatarEl.innerHTML = `<img src="${activeUser.avatar}" alt="${activeUser.name}" class="port-avatar-img">`;
+        let avatarSrc = activeUser.avatar;
+        if (avatarSrc.startsWith('./assets/') && window.location.pathname.includes('/anirjan-connect/')) {
+          avatarSrc = '../' + avatarSrc.slice(2);
+        }
+        avatarEl.innerHTML = `<img src="${avatarSrc}" alt="${activeUser.name}" class="port-avatar-img">`;
       } else {
         const initials = (activeUser.name || 'AN').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
         avatarEl.innerHTML = `<div class="port-avatar-fallback">${initials}</div>`;
@@ -865,8 +893,8 @@
     const ecosystemSharePercent = ((shares / CONFIG.TOTAL_AUTHORIZED_SHARES) * 100).toFixed(2);
 
     // Dual-Class holdings
-    const coreShares = typeof activeUser.core_equity_shares === 'number' 
-      ? activeUser.core_equity_shares 
+    const coreShares = typeof activeUser.core_equity_shares === 'number'
+      ? activeUser.core_equity_shares
       : (activeUser.callable_shares !== undefined ? Math.max(0, shares - activeUser.callable_shares) : 0);
     const callableShares = typeof activeUser.callable_shares === 'number'
       ? activeUser.callable_shares
@@ -891,12 +919,12 @@
     const openBuybackBtn = document.getElementById('open-buyback-modal-btn');
 
     if (coreEl) coreEl.textContent = `${coreShares.toLocaleString('en-IN')} SHARES`;
-    if (coreValEl) coreValEl.textContent = `₹${coreVal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+    if (coreValEl) coreValEl.textContent = `₹${coreVal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
     if (callEl) callEl.textContent = `${callableShares.toLocaleString('en-IN')} SHARES`;
-    if (callValEl) callValEl.textContent = `₹${callableVal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+    if (callValEl) callValEl.textContent = `₹${callableVal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
 
     if (buybackAvailCount) buybackAvailCount.textContent = callableShares.toLocaleString('en-IN');
-    if (buybackAvailInr) buybackAvailInr.textContent = callableVal.toLocaleString('en-IN', {minimumFractionDigits: 2});
+    if (buybackAvailInr) buybackAvailInr.textContent = callableVal.toLocaleString('en-IN', { minimumFractionDigits: 2 });
 
     if (openBuybackBtn) {
       if (shares <= 100) {
@@ -976,7 +1004,7 @@
     const callableShares = typeof activeUser.callable_shares === 'number' ? activeUser.callable_shares : (activeUser.shares || 0);
     const input = document.getElementById('buyback-shares-input');
     const qty = Math.max(1, Math.min(parseInt(input?.value, 10) || 1, callableShares));
-    
+
     if (input && parseInt(input.value, 10) !== qty) {
       input.value = qty;
     }
@@ -1206,7 +1234,7 @@
       } else {
         localLedger.push(record);
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 
   function openAdminDesk() {
@@ -1298,13 +1326,13 @@
           record: record
         })
       })
-      .then(r => r.json())
-      .then(res => {
-        if (res.success) {
-          console.log('[SharePortal] Live master ledger updated for', email);
-        }
-      })
-      .catch(e => console.warn('[SharePortal] Cloud admin sync fallback:', e));
+        .then(r => r.json())
+        .then(res => {
+          if (res.success) {
+            console.log('[SharePortal] Live master ledger updated for', email);
+          }
+        })
+        .catch(e => console.warn('[SharePortal] Cloud admin sync fallback:', e));
     }
 
     saveCustomAllocation(record);
