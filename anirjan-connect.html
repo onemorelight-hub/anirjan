@@ -32,6 +32,9 @@
   <link rel="stylesheet" href="./css/connect.css">
   <link rel="stylesheet" href="./css/share-portal.css?v=2.2">
 
+  <!-- Cloudflare Turnstile Anti-Bot Security -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
     /* Navbar Precision Fixes for Desktop & Mobile */
     .brand-logo {
@@ -1623,6 +1626,17 @@
               <label for="consent-check" class="consent-text">
                 I understand that submitting this form expresses my interest to collaborate and build together with Anirjan, based on mutual trust and shared contribution. It does not constitute a legal partnership, allotment of corporate shares, or guarantee of profit.
               </label>
+            </div>
+
+            <!-- Anti-Bot Invisible Honeypot Trap (Silently catches bots) -->
+            <div style="position: absolute !important; left: -9999px !important; top: -9999px !important; opacity: 0 !important; pointer-events: none !important;" aria-hidden="true">
+              <label for="_hp_website">Leave empty</label>
+              <input type="text" id="_hp_website" name="_hp_website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Cloudflare Turnstile Widget (Domain Locked) -->
+            <div style="display: flex; justify-content: center; margin: 16px 0;">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible"></div>
             </div>
 
             <div style="text-align: center;">

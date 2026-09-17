@@ -27,6 +27,9 @@
   <link rel="stylesheet" href="./css/overhaul.css">
   <link rel="stylesheet" href="./css/responsive.css">
 
+  <!-- Cloudflare Turnstile Anti-Bot Security -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
     :root {
       --font-display: 'Syne', sans-serif;
@@ -1362,7 +1365,18 @@
 
           <div id="service-form-error" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.88rem;"></div>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 1.05rem;">
+          <!-- Anti-Bot Invisible Honeypot Trap (Silently catches bots) -->
+          <div style="position: absolute !important; left: -9999px !important; top: -9999px !important; opacity: 0 !important; pointer-events: none !important;" aria-hidden="true">
+            <label for="_hp_website">Leave empty</label>
+            <input type="text" id="_hp_website" name="_hp_website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <!-- Cloudflare Turnstile Widget (Domain Locked) -->
+          <div style="display: flex; justify-content: center; margin: 16px 0 10px 0;">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible"></div>
+          </div>
+
+          <button type="submit" id="btn-submit-service-req" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 1.05rem;">
             <span>Submit Service Request ✦</span>
           </button>
         </form>
@@ -1550,7 +1564,7 @@
       const refBadge = document.getElementById('srv-ref-badge');
 
       if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
           e.preventDefault();
           if (errBox) errBox.style.display = 'none';
 
@@ -1582,8 +1596,15 @@
           const hex = Math.random().toString(36).substring(2, 8).toUpperCase();
           const refId = `SRV-2026-${hex}`;
 
+          const submitBtn = document.getElementById('btn-submit-service-req') || form.querySelector('button[type="submit"]');
+          const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Verifying & Sending...</span>';
+          }
+
           if (window.AnirjanNotifier) {
-            window.AnirjanNotifier.dispatch({
+            const res = await window.AnirjanNotifier.dispatch({
               formType: 'SERVICE_BOOKING_REQUEST',
               refId: refId,
               name: name,
@@ -1591,13 +1612,24 @@
               city: 'Digha, West Bengal',
               category: category,
               details: `Dates: ${dates}\nNotes: ${notes || 'None provided'}`,
+              _hp_website: document.getElementById('_hp_website')?.value || '',
               meta: {
                 dates: dates,
                 category: category
               }
             });
+
+            if (res && (!res.success || res.duplicate || res.rateLimited)) {
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+              }
+              showError(res.message || "This booking request has already been submitted. Duplicate blocked.");
+              return;
+            }
           }
 
+          // Transition only on success
           form.style.display = 'none';
           if (refBadge) refBadge.textContent = `Request ID: ${refId}`;
           if (thankyouCard) {

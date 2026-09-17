@@ -75,6 +75,40 @@
       display: flex; align-items: center; gap: 12px;
       text-decoration: none; color: var(--text-main); font-weight: 800; font-size: 1.25rem;
     }
+    .brand-container {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .brand-divider {
+      color: rgba(255, 255, 255, 0.18); font-size: 14px; user-select: none;
+    }
+    .brand-parent-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 600;
+      padding: 5px 12px; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); white-space: nowrap;
+    }
+    .brand-parent-badge:hover {
+      color: var(--text-main); background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.45); transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
+    }
+    .brand-parent-badge .pulse-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-emerald); box-shadow: 0 0 8px var(--accent-emerald);
+      display: inline-block;
+    }
+    @media (max-width: 640px) {
+      .brand-parent-badge .parent-full { display: none; }
+      .brand-parent-badge .parent-short { display: inline; }
+    }
+    @media (min-width: 641px) {
+      .brand-parent-badge .parent-short { display: none; }
+      .brand-parent-badge .parent-full { display: inline; }
+    }
+    @media (max-width: 440px) {
+      .brand-parent-badge, .brand-divider { display: none !important; }
+    }
     .brand-icon {
       width: 38px; height: 38px;
       background: linear-gradient(135deg, var(--accent-emerald), #059669);
@@ -519,7 +553,19 @@
   <!-- Navigation -->
   <header>
     <nav class="navbar">
-      <a href="#" class="brand"><img src="./assets/moneydiary_icon.png" alt="MoneyDiary" style="width:38px; height:38px; border-radius:10px; object-fit:cover; box-shadow:0 4px 14px rgba(16,185,129,0.35);"><span>MoneyDiary</span></a>
+      <div class="brand-container">
+        <a href="#" class="brand">
+          <img src="./assets/moneydiary_icon.png" alt="MoneyDiary" style="width:38px; height:38px; border-radius:10px; object-fit:cover; box-shadow:0 4px 14px rgba(16,185,129,0.35);">
+          <span>MoneyDiary</span>
+        </a>
+        <span class="brand-divider">|</span>
+        <a href="../index.html" class="brand-parent-badge" title="Visit Anirjan Collective Main Homepage">
+          <span class="pulse-dot"></span>
+          <span class="parent-full">Anirjan Collective</span>
+          <span class="parent-short">Anirjan</span>
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </a>
+      </div>
       <ul class="nav-links">
         <li><a href="javascript:void(0)" onclick="openVideoModal()" style="color:#10B981; font-weight:700; display:flex; align-items:center; gap:6px;"><span style="font-size:12px;">▶</span> Watch Demo</a></li>
         <li><a href="#features">Features</a></li>
@@ -527,7 +573,6 @@
         <li><a href="#analytics">50/30/20 Analytics</a></li>
         <li><a href="#languages">22 Languages</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="support.html">Support</a></li>
         <li><a href="#download" class="btn-nav-cta">Get App</a></li>
       </ul>
       <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Menu">☰</button>
@@ -543,15 +588,30 @@
       <a href="#analytics" onclick="toggleMobileMenu()">📊 50/30/20 Wealth Rules</a>
       <a href="#languages" onclick="toggleMobileMenu()">🌍 22 Native Languages</a>
       <a href="#faq" onclick="toggleMobileMenu()">❓ Frequently Asked Questions</a>
-      <a href="support.html">💬 Help & Support Desk</a>
       <a href="#download" class="btn-primary" onclick="toggleMobileMenu()" style="margin-top:14px; text-align:center; display:flex; justify-content:center;">📲 Download MoneyDiary</a>
+
+      <!-- Anirjan Collective Main Site Link in Mobile Drawer -->
+      <div style="margin-top:10px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08);">
+        <a href="../index.html" style="color:#F8FAFC; text-decoration:none; font-weight:700; background:linear-gradient(135deg, rgba(16,185,129,0.15), rgba(255,255,255,0.03)); border:1px solid rgba(16,185,129,0.3); border-radius:12px; padding:14px 18px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:20px;">🏢</span>
+            <div>
+              <div style="font-size:0.98rem; color:#F8FAFC;">Anirjan Collective</div>
+              <div style="font-size:0.8rem; color:#94A3B8; font-weight:500;">Parent Studio &amp; Ecosystem Home</div>
+            </div>
+          </div>
+          <span style="color:#10B981; font-weight:800; font-size:16px;">➔</span>
+        </a>
+      </div>
     </div>
   </header>
 
   <!-- Hero Section -->
   <main>
     <section class="hero">
-      <div class="hero-badge">✨ THE AI WEALTH & PRIVACY REVOLUTION</div>
+      <a href="../index.html" class="hero-badge" style="text-decoration:none; transition:all 0.2s ease; cursor:pointer;" title="Explore Anirjan Collective Ecosystem">
+        <span>✨ ANIRJAN COLLECTIVE VENTURE • THE AI WEALTH &amp; PRIVACY REVOLUTION ➔</span>
+      </a>
       <h1>Master Your Money.<br><span class="gradient-text">Guard Your Financial Privacy.</span></h1>
       <p>
         Speak naturally to log expenses in seconds, auto-pilot recurring EMIs, decode wealth with 50/30/20 rules, and protect sensitive figures with biometric Discreet Mode.
@@ -791,16 +851,17 @@
           <img src="./assets/moneydiary_icon.png" alt="MoneyDiary" style="width:36px; height:36px; border-radius:10px; object-fit:cover; box-shadow:0 4px 12px rgba(16,185,129,0.3);">
           <span style="font-weight:800; font-size:1.25rem; color:#F8FAFC; letter-spacing:-0.02em;">MoneyDiary</span>
         </div>
-        <p style="color:#94A3B8; font-size:0.9rem; line-height:1.6; max-width:340px;">Institutional-grade AI financial co-pilot and private wealth diary. Engineered by Anirjan Collective.</p>
-        <div style="margin-top:14px; font-size:0.82rem; color:#10B981; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;">
-          ANIRJAN COLLECTIVE • ITS ABOUT PEOPLE
-        </div>
+        <p style="color:#94A3B8; font-size:0.9rem; line-height:1.6; max-width:340px;">Institutional-grade AI financial co-pilot and private wealth diary. Engineered by <a href="../index.html" style="color:#F8FAFC; text-decoration:underline; text-decoration-color:rgba(16,185,129,0.5); font-weight:600;" title="Visit Anirjan Collective Studio">Anirjan Collective</a>.</p>
+        <a href="../index.html" style="display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:0.82rem; color:#10B981; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; text-decoration:none; padding:6px 14px; border-radius:999px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); transition:all 0.2s ease;" title="Visit Anirjan Collective Homepage">
+          <span>ANIRJAN COLLECTIVE • ITS ABOUT PEOPLE</span>
+          <span style="font-size:11px;">↗</span>
+        </a>
       </div>
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
-          <li><a href="javascript:void(0)" onclick="openVideoModal()" style="color:#10B981; font-weight:700; display:flex; align-items:center; gap:6px;"><span style="font-size:12px;">▶</span> Watch Demo</a>
-      <a href="#features">Features</a></li>
+          <li><a href="javascript:void(0)" onclick="openVideoModal()" style="color:#10B981; font-weight:700; display:flex; align-items:center; gap:6px;"><span style="font-size:12px;">▶</span> Watch Demo</a></li>
+          <li><a href="#features">Features</a></li>
           <li><a href="#privacy">Privacy Shield</a></li>
           <li><a href="#analytics">50/30/20 Rule</a></li>
           <li><a href="#languages">22 Languages</a></li>
@@ -811,20 +872,20 @@
         <ul>
           <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="terms.html">Terms of Service</a></li>
-          <li><a href="support.html">Data Deletion</a></li>
+          <li><a href="../support.html">Data Deletion Request</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Support & Studio</h4>
         <ul>
-          <li><a href="support.html">Contact Support</a></li>
-          <li><a href="support.html#feedback">Give Feedback</a></li>
-          <li><a href="https://anirjan.com">Anirjan Collective</a></li>
+          <li><a href="../support.html">Contact Support Desk</a></li>
+          <li><a href="../support.html#tab-feedback">Give Feedback</a></li>
+          <li><a href="../index.html" style="color:#F8FAFC; font-weight:600; display:inline-flex; align-items:center; gap:5px;"><span>Anirjan Collective</span> <span style="color:#10B981; font-size:11px;">↗</span></a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 MoneyDiary • Built by Anirjan Collective. All rights reserved.</p>
+      <p>© 2026 MoneyDiary • Built by <a href="../index.html" style="color:#94A3B8; text-decoration:underline; text-decoration-color:rgba(255,255,255,0.2);">Anirjan Collective</a>. All rights reserved.</p>
       <p>Zero commercial ads. 100% Zero-Knowledge encrypted vault.</p>
     </div>
   </footer>

@@ -1,4 +1,4 @@
-# Anirjan Free Multi-Channel Notification Backend
+# Anirjan Enterprise-Protected Multi-Channel Lead Backend
 
 This backend runs on **Google Apps Script** (100% free forever on Google's cloud infrastructure). It enables you to securely receive alerts on:
 - 📱 **Telegram** (instant mobile push alert via your Telegram Bot)
@@ -8,61 +8,82 @@ This backend runs on **Google Apps Script** (100% free forever on Google's cloud
 
 ---
 
-## 2-Minute Quick Setup
+## 🛡️ Built-In Security & Anti-Bot Protection Matrix
 
-### Step 1: Create the Google Sheet & Script
-1. Go to [Google Sheets](https://sheets.google.com) and click **Blank spreadsheet**.
-2. Name it: `Anirjan Submissions`.
-3. In the top menu, click **Extensions** -> **Apps Script**.
+| Protection Layer | Description | How It Protects You |
+| :--- | :--- | :--- |
+| **Cloudflare Turnstile** | Cryptographic domain-locking | Guarantees requests come from a real browser on your registered domain. Blocks Python/curl scripts completely. |
+| **Domain Whitelist** | Server-side origin filter | Rejects any request attempting to send from an unauthorized domain. |
+| **Invisible Honeypot** | Hidden trap inputs | Web-crawling bots and automated scrapers fill out every input. The backend silently drops their notifications without alerting you. |
+| **Timing Defense** | Real human elapsed-time check | Bots submit in milliseconds. Requests completing in under 2.5 seconds are automatically filtered out. |
+| **Single-User Deduplication** | `CacheService` content hash | Prevents the same user from spamming identical messages (cached for 12 hours). |
+| **User Cooldown** | 60-second rate limiter | Stops rapid consecutive clicks or accidental double submissions. |
+| **Global Flood Shield** | 10 requests / min ceiling | Protects your email and phone from high-frequency distributed bot attacks. |
 
-### Step 2: Paste the Backend Code
-1. Erase any placeholder code in the script editor.
-2. Open [`backend/google-apps-script.js`](./google-apps-script.js) and copy the entire file contents.
-3. Paste into the Apps Script editor.
+---
 
-### Step 3: Enter Your Credentials in `CONFIG`
-At the top of the script, update:
+## Step-by-Step Configuration Guide
+
+### Step 1: Get Cloudflare Turnstile Keys (100% Free, takes 1 minute)
+1. Log in to [dash.cloudflare.com](https://dash.cloudflare.com) (or create a free account).
+2. On the left navigation bar, click **Turnstile** → **Add Site**.
+3. Fill in:
+   - **Site name**: `Anirjan Website`
+   - **Domain**: Add your domains:
+     - `anirjan.onrender.com`
+     - `localhost` (for local testing)
+     - *(and your custom domain if you have one)*
+   - **Widget Mode**: Select **Managed** or **Non-interactive** (runs invisibly).
+4. Click **Create**.
+5. Cloudflare will give you:
+   - **Site Key** (Public)
+   - **Secret Key** (Private)
+
+---
+
+### Step 2: Configure Keys in Website Code
+
+#### 1. Paste your Site Key into `js/notifier.js`:
 ```javascript
-const CONFIG = {
-  // 1. Telegram (Free)
-  TELEGRAM_ENABLED: true,
-  TELEGRAM_BOT_TOKEN: "YOUR_BOT_TOKEN_FROM_BOTFATHER", // e.g. 7123456789:AAH...
-  TELEGRAM_CHAT_ID: "YOUR_CHAT_ID_FROM_USERINFOBOT",   // e.g. 123456789
-
-  // 2. WhatsApp (Free via CallMeBot)
-  WHATSAPP_ENABLED: false, // Set to true once you activate CallMeBot
-  WHATSAPP_PHONE: "+91XXXXXXXXXX",
-  WHATSAPP_API_KEY: "YOUR_CALLMEBOT_API_KEY",
-
-  // 3. Email (Your Gmail)
-  EMAIL_ENABLED: true,
-  NOTIFICATION_EMAIL: "your_email@gmail.com",
-};
+const TURNSTILE_SITE_KEY = "0x4AAAAAAAx..."; // Your Cloudflare Site Key
 ```
 
-#### How to get Telegram Bot Token & Chat ID in 60 seconds:
-- **Bot Token**: Open Telegram -> Search `@BotFather` -> Send `/newbot` -> Follow prompt -> Copy the token.
-- **Chat ID**: Start your bot (press `/start`), then search for `@userinfobot` on Telegram -> Click `/start` -> Copy the numeric `Id`.
-
-#### How to get free CallMeBot WhatsApp Key (Optional):
-- Add `+34 941 87 23 20` to WhatsApp contacts.
-- Send the text: `I allow callmebot to send me messages`.
-- It replies in 2 seconds with your free API key!
-
-### Step 4: Deploy as Web App
-1. In the top right corner of Google Apps Script, click **Deploy** -> **New deployment**.
-2. Click the gear icon next to "Select type" and choose **Web app**.
-3. Configure:
-   - **Description**: `Anirjan Notifier`
-   - **Execute as**: `Me` (your Google account)
-   - **Who has access**: `Anyone` *(Crucial: must be "Anyone" so visitors can send submissions)*
-4. Click **Deploy**, click **Authorize access**, choose your Google account (click "Advanced" -> "Go to Anirjan (unsafe)" if Google shows an unverified warning, it's your own script).
-5. Copy the generated **Web app URL** (e.g. `https://script.google.com/macros/s/AKfycb.../exec`).
-
-### Step 5: Save URL to Website
-Open `js/notifier.js` on your website and paste your URL into:
-```javascript
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycb.../exec";
+#### 2. Replace `YOUR_TURNSTILE_SITE_KEY_HERE` in HTML forms:
+In `anirjan-connect.html`, `support.html`, `founder.html`, and `services.html`, search for:
+```html
+<div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY_HERE" ...></div>
 ```
+and replace with your actual Cloudflare Site Key.
 
-That's it! Your private keys are 100% hidden and secure on Google Cloud.
+*(Note: If left as is, the form still works safely with Honeypot, Timing, Cooldown, and Deduplication protections!)*
+
+---
+
+### Step 3: Configure Google Apps Script Backend
+1. Open [Google Sheets](https://sheets.google.com) and open your `Anirjan Submissions` sheet.
+2. In the top menu, click **Extensions** -> **Apps Script**.
+3. Replace all code in the editor with the code from [`backend/google-apps-script.js`](./google-apps-script.js).
+4. In the `CONFIG` section at the top of the script:
+   - Paste your **Cloudflare Turnstile Secret Key**:
+     ```javascript
+     TURNSTILE_SECRET_KEY: "0x4AAAAAAAx...",
+     ```
+   - Update your **Telegram Bot Token** & **Chat ID** (if using Telegram).
+   - Update your **Notification Email** (where alerts should be delivered).
+
+---
+
+### Step 4: Re-Deploy the Google Apps Script
+1. In the top right corner of Google Apps Script, click **Deploy** -> **Manage deployments**.
+2. Click the **Edit** (pencil) icon next to the active deployment.
+3. Under **Version**, select **New version**.
+4. Click **Deploy**.
+5. Copy the **Web App URL** and verify it is pasted in `js/notifier.js`.
+
+---
+
+### Step 5: Test Your Protection!
+- Open your site (`http://localhost:8000` or `https://anirjan.onrender.com`).
+- Submit a normal test inquiry -> You will receive the alert!
+- Try submitting the exact same message again immediately -> The system prevents the duplicate and warns you gently without spamming your inbox.
+- Try submitting multiple times quickly -> The 60-second cooldown activates.

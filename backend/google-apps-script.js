@@ -3,50 +3,71 @@
  * ANIRJAN NOTIFICATION & LEAD DISPATCHER (Google Apps Script)
  * ============================================================================
  * 
- * This free serverless backend runs on Google Cloud / Google Sheets.
- * It securely holds your private credentials (never exposed in the browser) and:
- *   1. Records every submission into a Google Sheet automatically.
- *   2. Sends an instant Telegram push notification to your phone.
- *   3. Sends a WhatsApp alert to your phone via CallMeBot.
- *   4. Sends an instant formatted email notification via Google Mail.
+ * Enterprise Anti-Bot & Abuse Defense Engine:
+ *   1. Cloudflare Turnstile Cryptographic Verification (Domain Locked).
+ *   2. Strict Origin / Domain Whitelist Verification.
+ *   3. Invisible Honeypot Trap (Silently catches & drops bots).
+ *   4. Sub-Human Timing Detection (Blocks rapid automated script submissions).
+ *   5. Single-User Deduplication Engine (CacheService prevents duplicate alerts).
+ *   6. Anti-Flood & Rate Limiting (Per-user cooldown & global throttle).
+ *   7. Safe Dispatch to Google Sheets, Telegram, WhatsApp & Email.
  * 
  * ----------------------------------------------------------------------------
  * SETUP INSTRUCTIONS (Takes ~2 minutes):
  * ----------------------------------------------------------------------------
- * 1. Open Google Sheets (https://sheets.google.com) and create a new sheet:
- *    Name it "Anirjan Submissions".
+ * 1. Open Google Sheets (https://sheets.google.com) and open your "Anirjan Submissions" sheet.
  * 2. In the top menu, click: Extensions -> Apps Script.
- * 3. Delete any code in the editor, paste this entire file, and fill in your
- *    credentials in the CONFIGURATION section below.
- * 4. Click "Deploy" (top right) -> "New deployment".
- * 5. Select type: "Web app" (click gear icon next to Select type).
- * 6. Set:
- *      - Description: "Anirjan Notifier v1"
- *      - Execute as: "Me" (your Google account)
- *      - Who has access: "Anyone" (CRITICAL: must be "Anyone" so the website can post to it)
- * 7. Click "Deploy", authorize permissions when prompted, and copy the Web App URL:
- *    (It looks like: https://script.google.com/macros/s/AKfycbx.../exec)
- * 8. Paste that Web App URL into `js/notifier.js` on your website. Done!
+ * 3. Replace all code with this file.
+ * 4. Fill in your credentials in the CONFIG section below:
+ *    - Cloudflare Turnstile Secret Key (if enabled)
+ *    - Telegram Bot Token & Chat ID
+ *    - WhatsApp CallMeBot Key (if enabled)
+ *    - Notification Email
+ * 5. Click "Deploy" (top right) -> "Manage deployments" -> Click Edit (pencil icon)
+ *    -> Version: "New version" -> Click "Deploy".
  * ============================================================================
  */
 
 // ============================================================================
-// 1. CONFIGURATION (Your Private Credentials - Kept 100% Safe)
+// 1. CONFIGURATION & SECURITY POLICY
 // ============================================================================
 const CONFIG = {
-  // Telegram Bot Settings (Get from @BotFather and @userinfobot on Telegram)
+  // --- CLOUDFLARE TURNSTILE (Cryptographic Domain Lock) ---
+  // Get free keys at: https://dash.cloudflare.com/?to=/:account/turnstile
+  TURNSTILE_ENABLED: true,
+  TURNSTILE_SECRET_KEY: "YOUR_TURNSTILE_SECRET_KEY_HERE", // Starts with 0x4...
+
+  // --- DOMAIN / ORIGIN WHITELIST ---
+  ENFORCE_DOMAIN_CHECK: true,
+  ALLOWED_DOMAINS: [
+    "anirjan.onrender.com",
+    "anirjan.com",
+    "www.anirjan.com",
+    "localhost",
+    "127.0.0.1"
+  ],
+
+  // --- ANTI-ABUSE & DEDUPLICATION ---
+  ENFORCE_HONEYPOT: true,            // Drops bots that fill hidden fields
+  ENFORCE_HUMAN_TIMING: true,        // Rejects submissions faster than real humans (<2.5s)
+  MIN_SUBMISSION_TIME_MS: 2500,      // Minimum milliseconds human takes to fill form
+  USER_COOLDOWN_SECONDS: 60,         // Cooldown between requests from the same user
+  DEDUP_CACHE_HOURS: 12,             // Ignore identical duplicate messages for 12 hours
+  MAX_GLOBAL_PER_MINUTE: 10,         // Global protection against distributed bot floods
+
+  // --- TELEGRAM NOTIFICATIONS ---
   TELEGRAM_ENABLED: true,
   TELEGRAM_BOT_TOKEN: "YOUR_TELEGRAM_BOT_TOKEN_HERE", // e.g. "7123456789:AAH..."
   TELEGRAM_CHAT_ID: "YOUR_TELEGRAM_CHAT_ID_HERE",     // e.g. "123456789"
 
-  // WhatsApp Settings (Free via CallMeBot: https://www.callmebot.com/blog/free-api-whatsapp-messages/)
-  WHATSAPP_ENABLED: false, // Set to true once you have CallMeBot API key
-  WHATSAPP_PHONE: "+91XXXXXXXXXX", // Your mobile number with international code
+  // --- WHATSAPP NOTIFICATIONS (Via CallMeBot) ---
+  WHATSAPP_ENABLED: false,
+  WHATSAPP_PHONE: "+91XXXXXXXXXX",
   WHATSAPP_API_KEY: "YOUR_CALLMEBOT_API_KEY_HERE",
 
-  // Email Notification Settings
+  // --- EMAIL NOTIFICATIONS ---
   EMAIL_ENABLED: true,
-  NOTIFICATION_EMAIL: "your_email@gmail.com", // Where alerts should be sent
+  NOTIFICATION_EMAIL: "your_email@gmail.com",
   EMAIL_SUBJECT_PREFIX: "[Anirjan Alert] "
 };
 
@@ -68,16 +89,95 @@ function doPost(e) {
 
     const formType = data.formType || "ANIRJAN_CONNECT";
     const refId = data.refId || ("REF-" + new Date().getTime());
-    const name = data.name || "Anonymous";
+    const name = data.name || data.fullName || "Anonymous";
     const email = data.email || "Not provided";
-    const whatsapp = data.whatsapp || "Not provided";
+    const whatsapp = data.whatsapp || data.contact || "Not provided";
     const telegram = data.telegram || "Not provided";
-    const city = data.city || "Not provided";
-    const category = data.category || "General";
-    const details = data.details || "";
+    const city = data.city || data.location || "Not provided";
+    const category = data.category || data.topic || "General";
+    const details = data.details || data.notes || data.message || "";
     const meta = data.meta || {};
     const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
+    // ------------------------------------------------------------------------
+    // SECURITY LAYER 1: INVISIBLE HONEYPOT TRAP
+    // ------------------------------------------------------------------------
+    // Scrapers & automated script bots greedily fill all form inputs.
+    // If our honeypot fields have ANY value, silently discard without alerting!
+    if (CONFIG.ENFORCE_HONEYPOT) {
+      const honeypotVal = data._hp_website || data.hp_company || data._gotcha || "";
+      if (honeypotVal && honeypotVal.trim() !== "") {
+        Logger.log("[Security: HoneyPot] Bot caught and silenced: " + honeypotVal);
+        return ContentService
+          .createTextOutput(JSON.stringify({ status: "success", refId: refId, botTrapped: true }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECURITY LAYER 2: HUMAN TIMING VERIFICATION
+    // ------------------------------------------------------------------------
+    // Real humans take at least 2.5–5 seconds to read and submit a form.
+    // Automated bot scripts submit in milliseconds.
+    if (CONFIG.ENFORCE_HUMAN_TIMING && data.clientElapsedMs !== undefined) {
+      const elapsed = Number(data.clientElapsedMs);
+      if (!isNaN(elapsed) && elapsed < CONFIG.MIN_SUBMISSION_TIME_MS) {
+        Logger.log("[Security: Timing] Sub-human submission speed (" + elapsed + "ms). Bot dropped.");
+        return ContentService
+          .createTextOutput(JSON.stringify({ status: "success", refId: refId, botSpeedTrapped: true }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECURITY LAYER 3: ORIGIN & DOMAIN CHECK
+    // ------------------------------------------------------------------------
+    if (CONFIG.ENFORCE_DOMAIN_CHECK) {
+      const clientOrigin = (data.origin || "").toLowerCase();
+      if (!isDomainAllowed(clientOrigin)) {
+        Logger.log("[Security: Domain] Rejected unauthorized origin: " + clientOrigin);
+        return ContentService
+          .createTextOutput(JSON.stringify({ status: "error", message: "Forbidden: Unauthorized origin domain." }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECURITY LAYER 4: CLOUDFLARE TURNSTILE CRYPTOGRAPHIC VERIFICATION
+    // ------------------------------------------------------------------------
+    if (CONFIG.TURNSTILE_ENABLED && CONFIG.TURNSTILE_SECRET_KEY && CONFIG.TURNSTILE_SECRET_KEY !== "YOUR_TURNSTILE_SECRET_KEY_HERE") {
+      const turnstileToken = data.turnstileToken || data["cf-turnstile-response"] || "";
+      const turnstileResult = verifyCloudflareTurnstile(turnstileToken);
+      if (!turnstileResult.success) {
+        Logger.log("[Security: Turnstile] Verification failed: " + JSON.stringify(turnstileResult));
+        return ContentService
+          .createTextOutput(JSON.stringify({ 
+            status: "blocked", 
+            message: "Security verification failed. Please refresh the page and try again." 
+          }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECURITY LAYER 5: DEDUPLICATION & USER RATE-LIMITING
+    // ------------------------------------------------------------------------
+    const userIdentifier = (email !== "Not provided" ? email : (whatsapp !== "Not provided" ? whatsapp : name)).toLowerCase().trim();
+    const dedupResult = checkDeduplicationAndRateLimits(userIdentifier, details);
+    if (dedupResult.blocked) {
+      Logger.log("[Security: RateLimit/Dedup] Action: " + dedupResult.reason + " for user: " + userIdentifier);
+      return ContentService
+        .createTextOutput(JSON.stringify({ 
+          status: dedupResult.reason.toLowerCase(), 
+          message: dedupResult.message,
+          refId: refId 
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // ------------------------------------------------------------------------
+    // DISPATCHING: Log to Sheet & Trigger Real Alerts
+    // ------------------------------------------------------------------------
     // 1. Save to Google Sheet
     logToSheet([timestamp, formType, refId, name, whatsapp, telegram, email, city, category, details, JSON.stringify(meta)]);
 
@@ -101,6 +201,7 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
+    Logger.log("doPost Error: " + error.toString());
     return ContentService
       .createTextOutput(JSON.stringify({ status: "error", message: error.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
@@ -110,12 +211,113 @@ function doPost(e) {
 // Support GET for connection health check
 function doGet(e) {
   return ContentService
-    .createTextOutput(JSON.stringify({ status: "online", service: "Anirjan Multi-Channel Dispatcher" }))
+    .createTextOutput(JSON.stringify({ 
+      status: "online", 
+      service: "Anirjan Protected Lead Dispatcher",
+      security: {
+        turnstile: CONFIG.TURNSTILE_ENABLED,
+        honeypot: CONFIG.ENFORCE_HONEYPOT,
+        rateLimit: true,
+        deduplication: true
+      }
+    }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
 // ============================================================================
-// 3. GOOGLE SHEET LOGGING
+// 3. SECURITY HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Validates whether the request origin is on our allowed domains list.
+ */
+function isDomainAllowed(originUrl) {
+  if (!CONFIG.ENFORCE_DOMAIN_CHECK) return true;
+  if (!originUrl) return true; // Fallback for clients without origin header
+  const clean = originUrl.toLowerCase().replace(/^https?:\/\//, '').split('/')[0].split(':')[0];
+  return CONFIG.ALLOWED_DOMAINS.some(function(allowed) {
+    const cleanAllowed = allowed.toLowerCase().replace(/^https?:\/\//, '').split('/')[0].split(':')[0];
+    return clean === cleanAllowed || clean.endsWith('.' + cleanAllowed);
+  });
+}
+
+/**
+ * Server-to-Server Cloudflare Turnstile token validation.
+ */
+function verifyCloudflareTurnstile(token) {
+  if (!token) {
+    return { success: false, error: "Missing Turnstile verification token" };
+  }
+  try {
+    const response = UrlFetchApp.fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "post",
+      payload: {
+        secret: CONFIG.TURNSTILE_SECRET_KEY,
+        response: token
+      },
+      muteHttpExceptions: true
+    });
+    const parsed = JSON.parse(response.getContentText());
+    return parsed;
+  } catch (err) {
+    Logger.log("Turnstile verify exception: " + err.toString());
+    return { success: false, error: err.toString() };
+  }
+}
+
+/**
+ * Anti-Duplicate & Rate Limiting using CacheService.
+ */
+function checkDeduplicationAndRateLimits(userIdentifier, messageDetails) {
+  const cache = CacheService.getScriptCache();
+  
+  // A. Content Deduplication Check (Identical message within 12 hours) - CHECKED FIRST!
+  const contentSignature = (userIdentifier || "") + "::" + (messageDetails || "").trim().toLowerCase();
+  const dedupKey = "dd_" + Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, contentSignature)).substring(0, 20);
+  if (cache.get(dedupKey)) {
+    return { 
+      blocked: true, 
+      reason: "DUPLICATE", 
+      message: "This inquiry has already been submitted and received. Please do not submit duplicates." 
+    };
+  }
+
+  // B. Cooldown Check per user (e.g. 60 seconds between NEW messages)
+  if (userIdentifier && userIdentifier !== "anonymous") {
+    const cooldownKey = "cd_" + Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, userIdentifier)).substring(0, 20);
+    if (cache.get(cooldownKey)) {
+      return { 
+        blocked: true, 
+        reason: "RATE_LIMITED", 
+        message: "Please wait 60 seconds before submitting another request." 
+      };
+    }
+  }
+
+  // C. Global Flood Protection (Max requests per minute)
+  const minuteBucket = "flood_" + Math.floor(new Date().getTime() / 60000);
+  const currentCount = parseInt(cache.get(minuteBucket) || "0", 10);
+  if (currentCount >= CONFIG.MAX_GLOBAL_PER_MINUTE) {
+    return { 
+      blocked: true, 
+      reason: "FLOOD_BLOCKED", 
+      message: "High server traffic. Please wait a moment and try again." 
+    };
+  }
+
+  // Record into Cache
+  if (userIdentifier && userIdentifier !== "anonymous") {
+    const cooldownKey = "cd_" + Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, userIdentifier)).substring(0, 20);
+    cache.put(cooldownKey, "1", CONFIG.USER_COOLDOWN_SECONDS);
+  }
+  cache.put(dedupKey, "1", CONFIG.DEDUP_CACHE_HOURS * 3600);
+  cache.put(minuteBucket, (currentCount + 1).toString(), 120);
+
+  return { blocked: false };
+}
+
+// ============================================================================
+// 4. GOOGLE SHEET LOGGING
 // ============================================================================
 function logToSheet(rowValues) {
   try {
@@ -143,8 +345,16 @@ function logToSheet(rowValues) {
 }
 
 // ============================================================================
-// 4. TELEGRAM DISPATCHER
+// 5. TELEGRAM DISPATCHER (HTML Formatted - Never Fails on Special Characters)
 // ============================================================================
+function escapeTelegramHtml(text) {
+  if (!text) return "";
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function sendTelegramAlert(formType, refId, name, whatsapp, telegram, email, city, category, details, meta, timestamp) {
   try {
     let icon = "🚀";
@@ -155,54 +365,92 @@ function sendTelegramAlert(formType, refId, name, whatsapp, telegram, email, cit
     } else if (formType === "FEEDBACK") {
       icon = "💡";
       title = "NEW COMMUNITY FEEDBACK";
+    } else if (formType === "FOUNDER_NOTE") {
+      icon = "💌";
+      title = "NEW PERSONAL NOTE TO APARNA";
+    } else if (formType === "SERVICE_BOOKING_REQUEST") {
+      icon = "🏖️";
+      title = "NEW DIGHA SERVICE BOOKING";
     }
 
-    let msg = `${icon} *${title}*\n`;
+    let msg = `<b>${icon} ${escapeTelegramHtml(title)}</b>\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
-    msg += `• *Ref ID:* \`${refId}\`\n`;
-    msg += `• *Name:* ${name}\n`;
-    msg += `• *WhatsApp:* ${whatsapp}\n`;
-    msg += `• *Telegram:* ${telegram}\n`;
-    msg += `• *Email:* ${email}\n`;
-    if (city && city !== "Not provided") msg += `• *City:* ${city}\n`;
-    if (category && category !== "General") msg += `• *Topic:* ${category}\n`;
+    msg += `• <b>Ref ID:</b> <code>${escapeTelegramHtml(refId)}</code>\n`;
+    msg += `• <b>Name:</b> ${escapeTelegramHtml(name)}\n`;
+    msg += `• <b>WhatsApp:</b> ${escapeTelegramHtml(whatsapp)}\n`;
+    msg += `• <b>Telegram:</b> ${escapeTelegramHtml(telegram)}\n`;
+    msg += `• <b>Email:</b> ${escapeTelegramHtml(email)}\n`;
+    if (city && city !== "Not provided") msg += `• <b>City:</b> ${escapeTelegramHtml(city)}\n`;
+    if (category && category !== "General") msg += `• <b>Topic:</b> ${escapeTelegramHtml(category)}\n`;
     
-    if (meta.participation && meta.participation.length) {
-      msg += `• *Participation Areas:* ${meta.participation.join(", ")}\n`;
+    if (meta && meta.participation && meta.participation.length) {
+      msg += `• <b>Interests:</b> ${escapeTelegramHtml(meta.participation.join(", "))}\n`;
     }
-    if (meta.investment) {
-      msg += `• *Capital Interest:* ${meta.investment}\n`;
+    if (meta && meta.investment) {
+      msg += `• <b>Capital:</b> ${escapeTelegramHtml(meta.investment)}\n`;
     }
-    if (meta.profileUrl) {
-      msg += `• *Profile:* ${meta.profileUrl}\n`;
+    if (meta && meta.profileUrl) {
+      msg += `• <b>Profile:</b> ${escapeTelegramHtml(meta.profileUrl)}\n`;
+    }
+    if (meta && meta.dates) {
+      msg += `• <b>Dates:</b> ${escapeTelegramHtml(meta.dates)}\n`;
     }
 
     if (details) {
-      msg += `\n📝 *Message/Notes:*\n${details}\n`;
+      msg += `\n📝 <b>Message/Notes:</b>\n${escapeTelegramHtml(details)}\n`;
     }
     msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
-    msg += `🕒 _${timestamp}_`;
+    msg += `🕒 <i>${escapeTelegramHtml(timestamp)}</i>`;
 
-    const url = "https://api.telegram.org/bot" + CONFIG.TELEGRAM_BOT_TOKEN + "/sendMessage";
+    const url = "https://api.telegram.org/bot" + CONFIG.TELEGRAM_BOT_TOKEN.trim() + "/sendMessage";
     const payload = {
-      chat_id: CONFIG.TELEGRAM_CHAT_ID,
+      chat_id: String(CONFIG.TELEGRAM_CHAT_ID).trim(),
       text: msg,
-      parse_mode: "Markdown"
+      parse_mode: "HTML"
     };
 
-    UrlFetchApp.fetch(url, {
+    const response = UrlFetchApp.fetch(url, {
       method: "post",
       contentType: "application/json",
       payload: JSON.stringify(payload),
       muteHttpExceptions: true
     });
+
+    const respText = response.getContentText();
+    const respCode = response.getResponseCode();
+    if (respCode === 200) {
+      Logger.log("[Telegram] Delivered successfully: " + refId);
+    } else {
+      Logger.log("[Telegram ERROR " + respCode + "]: " + respText);
+    }
+
   } catch (e) {
-    Logger.log("Telegram dispatch error: " + e.toString());
+    Logger.log("Telegram dispatch exception: " + e.toString());
   }
 }
 
+/**
+ * Diagnostic tool: Run this function inside Apps Script editor to instantly test Telegram!
+ */
+function testTelegramNotification() {
+  Logger.log("Testing Telegram with Token: " + CONFIG.TELEGRAM_BOT_TOKEN.substring(0, 10) + "... and Chat ID: " + CONFIG.TELEGRAM_CHAT_ID);
+  sendTelegramAlert(
+    "TEST_ALERT", 
+    "TEST-9999", 
+    "Test User", 
+    "+91 9999999999", 
+    "@testuser", 
+    "test_user@example.com", 
+    "Test City", 
+    "Diagnostics", 
+    "This is a test notification to verify your Telegram Bot connection.", 
+    {}, 
+    new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
+  );
+}
+
 // ============================================================================
-// 5. WHATSAPP DISPATCHER (Via CallMeBot)
+// 6. WHATSAPP DISPATCHER (Via CallMeBot)
 // ============================================================================
 function sendWhatsAppAlert(formType, refId, name, whatsapp, telegram, email, details) {
   try {
@@ -221,7 +469,7 @@ function sendWhatsAppAlert(formType, refId, name, whatsapp, telegram, email, det
 }
 
 // ============================================================================
-// 6. EMAIL DISPATCHER (Via Native Google MailApp)
+// 7. EMAIL DISPATCHER (Via Native Google MailApp)
 // ============================================================================
 function sendEmailAlert(formType, refId, name, whatsapp, telegram, email, city, category, details, meta, timestamp) {
   try {

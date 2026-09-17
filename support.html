@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="./css/overhaul.css">
   <link rel="stylesheet" href="./css/responsive.css">
 
+  <!-- Cloudflare Turnstile Anti-Bot Security -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
     .support-hero {
       padding: 130px 0 60px 0;
@@ -302,8 +305,19 @@
               <textarea id="support-message" class="form-control" rows="5" placeholder="Please describe your inquiry or feedback in detail..." required></textarea>
             </div>
 
+            <!-- Anti-Bot Invisible Honeypot Trap (Silently catches bots) -->
+            <div style="position: absolute !important; left: -9999px !important; top: -9999px !important; opacity: 0 !important; pointer-events: none !important;" aria-hidden="true">
+              <label for="_hp_website">Leave empty</label>
+              <input type="text" id="_hp_website" name="_hp_website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Cloudflare Turnstile Widget (Domain Locked) -->
+            <div style="display: flex; justify-content: center; margin: 20px 0 10px 0;">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible"></div>
+            </div>
+
             <!-- Submit Button -->
-            <div style="text-align: center; margin-top: 28px;">
+            <div style="text-align: center; margin-top: 20px;">
               <button type="submit" class="btn btn-primary" id="support-submit-btn" style="min-width: 240px; font-size: 1.05rem;">
                 <span id="submit-btn-text">Submit Support Request</span>
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -546,9 +560,16 @@
         const hex = Math.random().toString(36).substring(2, 8).toUpperCase();
         const refId = `${prefix}-2026-${hex}`;
 
+        const submitBtn = document.getElementById('support-submit-btn');
+        const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>Verifying & Sending...</span>';
+        }
+
         // Dispatch via Multi-Channel Notifier
         if (window.AnirjanNotifier) {
-          window.AnirjanNotifier.dispatch({
+          const res = await window.AnirjanNotifier.dispatch({
             formType: currentMode,
             refId: refId,
             name: name,
@@ -557,14 +578,24 @@
             telegram: telegram || 'Not provided',
             category: product,
             details: `[${subject}]\n\n${message}`,
+            _hp_website: document.getElementById('_hp_website')?.value || '',
             meta: {
               product: product,
               subject: subject
             }
           });
+
+          if (res && (!res.success || res.duplicate || res.rateLimited)) {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnHtml;
+            }
+            showError(res.message || "This request has already been submitted. Duplicate blocked.");
+            return;
+          }
         }
 
-        // Display Thank You Card
+        // Display Thank You Card only on success
         form.style.display = 'none';
         refBadge.textContent = `Reference ID: ${refId}`;
         thankYouCard.style.display = 'block';

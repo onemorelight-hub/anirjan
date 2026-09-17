@@ -218,7 +218,7 @@ function initRegistrationForm() {
 
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     if (formError) formError.style.display = 'none';
@@ -316,6 +316,13 @@ function initRegistrationForm() {
       submittedAt: new Date().toISOString()
     };
 
+    const submitBtn = form.querySelector('#btn-submit-interest') || form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Verifying & Sending...</span>';
+    }
+
     // 7. Save in LocalStorage
     try {
       const existing = JSON.parse(localStorage.getItem('anirjan_connect_submissions') || '[]');
@@ -327,7 +334,7 @@ function initRegistrationForm() {
 
     // 8. Dispatch to Multi-Channel Backend (Telegram, WhatsApp, Email, Google Sheets)
     if (window.AnirjanNotifier) {
-      window.AnirjanNotifier.dispatch({
+      const res = await window.AnirjanNotifier.dispatch({
         formType: 'ANIRJAN_CONNECT',
         refId: refId,
         name: fullName,
@@ -337,6 +344,7 @@ function initRegistrationForm() {
         city: city,
         category: 'Connect Partner',
         details: bio,
+        _hp_website: form.querySelector('#_hp_website')?.value || '',
         meta: {
           participation: checkedAvenues,
           timeCommitment: timeRadio.value,
@@ -345,9 +353,18 @@ function initRegistrationForm() {
           profileUrl: formData.profileUrl
         }
       });
+
+      if (res && (!res.success || res.duplicate || res.rateLimited)) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+        showError(res.message || "This inquiry has already been submitted. Duplicate blocked.");
+        return;
+      }
     }
 
-    // 9. Transition to Thank You Card
+    // 9. Transition to Thank You Card only on success
     form.style.display = 'none';
     if (refCodeBadge) {
       refCodeBadge.textContent = `Reference ID: ${refId}`;
