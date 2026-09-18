@@ -205,6 +205,25 @@
     <section class="share-portal-section" id="my-share">
       <div class="container share-portal-container">
         
+        <!-- LIVE OPERATION OBSERVABILITY & LOADING OVERLAY -->
+        <div id="share-loading-overlay" class="share-loading-overlay" style="display: none;">
+          <div class="share-loading-card">
+            <div class="loading-spinner-ring">
+              <div class="ring-outer"></div>
+              <div class="ring-inner"></div>
+              <div class="ring-dot"></div>
+            </div>
+            <h3 class="loading-main-title" id="share-loading-title">Securing Authentication</h3>
+            <p class="loading-subtext" id="share-loading-subtext">Connecting to cryptographic identity provider...</p>
+            <div class="loading-steps-bar">
+              <div class="loading-step-segment active" id="loading-step-1"></div>
+              <div class="loading-step-segment" id="loading-step-2"></div>
+              <div class="loading-step-segment" id="loading-step-3"></div>
+            </div>
+            <button type="button" class="loading-cancel-btn" id="share-loading-cancel-btn">Dismiss</button>
+          </div>
+        </div>
+
         <!-- A. AUTHENTICATION / LOOKUP CARD -->
         <div class="share-auth-box reveal" id="share-auth-card">
           <div class="share-badge-pill">
@@ -284,6 +303,7 @@
                   <span class="port-tier-badge" id="port-badge">1% Club Participant Pool</span>
                   <span class="port-cert-id-badge" id="port-cert-id">ANR-2026-SHR-0000</span>
                   <span class="port-verified-badge" id="port-verified-badge">✓ Verified Shareholder</span>
+                  <span class="sync-status-badge live" id="port-sync-badge">🟢 Live Cloud Database</span>
                 </div>
               </div>
             </div>
@@ -1778,6 +1798,6 @@
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
   <script src="../js/notifier.js"></script>
   <script src="../js/connect.js"></script>
-  <script src="../js/share-portal.js?v=20260918c"></script>
+  <script src="../js/share-portal.js?v=20260918d"></script>
 </body>
 </html>

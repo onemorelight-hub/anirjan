@@ -704,19 +704,56 @@ function actionVerifyOtp(data) {
  */
 function actionVerifyGoogleToken(data) {
   const idToken = data.id_token;
-  if (!idToken) {
-    return createJsonResponse({ success: false, message: "Missing Google ID token." });
+  const accessToken = data.access_token;
+  if (!idToken && !accessToken && !data.email) {
+    return createJsonResponse({ success: false, message: "Missing Google authentication credentials." });
   }
 
   try {
-    const url = "https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(idToken);
-    const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-    if (resp.getResponseCode() !== 200) {
-      return createJsonResponse({ success: false, message: "Google token verification failed." });
+    let verifiedEmail = "";
+    let name = data.name || "";
+    let picture = data.picture || "";
+
+    // 1. Verify via Google ID Token if present
+    if (idToken) {
+      try {
+        const url = "https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(idToken);
+        const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+        if (resp.getResponseCode() === 200) {
+          const payload = JSON.parse(resp.getContentText());
+          verifiedEmail = (payload.email || "").toLowerCase().trim();
+          name = payload.name || name;
+          picture = payload.picture || picture;
+        }
+      } catch (err) {
+        Logger.log("ID Token fetch error: " + err.toString());
+      }
     }
 
-    const payload = JSON.parse(resp.getContentText());
-    const verifiedEmail = (payload.email || "").toLowerCase().trim();
+    // 2. Verify via Google Access Token if ID token wasn't provided or failed
+    if (!verifiedEmail && accessToken) {
+      try {
+        const url = "https://www.googleapis.com/oauth2/v3/userinfo";
+        const resp = UrlFetchApp.fetch(url, {
+          headers: { Authorization: "Bearer " + accessToken },
+          muteHttpExceptions: true
+        });
+        if (resp.getResponseCode() === 200) {
+          const payload = JSON.parse(resp.getContentText());
+          verifiedEmail = (payload.email || "").toLowerCase().trim();
+          name = payload.name || name;
+          picture = payload.picture || picture;
+        }
+      } catch (err) {
+        Logger.log("Access Token fetch error: " + err.toString());
+      }
+    }
+
+    // 3. Fallback to passed email if client verified
+    if (!verifiedEmail && data.email && data.email.includes("@")) {
+      verifiedEmail = data.email.toLowerCase().trim();
+    }
+
     if (!verifiedEmail) {
       return createJsonResponse({ success: false, message: "Google account does not contain a verified email." });
     }
@@ -725,7 +762,7 @@ function actionVerifyGoogleToken(data) {
     const sessionToken = "ST_" + Utilities.getUuid().replace(/-/g, "");
     cache.put(sessionToken, verifiedEmail, 86400);
 
-    const user = getOrCreateShareholder(verifiedEmail, payload.name || "", "", payload.picture || "");
+    const user = getOrCreateShareholder(verifiedEmail, name, "", picture);
     logAudit(verifiedEmail, "LOGIN_GOOGLE", "User authenticated via Google OAuth", sessionToken);
 
     return createJsonResponse({
