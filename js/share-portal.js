@@ -102,8 +102,8 @@
           name: 'Anjan Jana',
           email: 'anjan@anirjan.com',
           mobile: '+919800000001',
-          role: 'The Chief Guest — Strategy & Advisory',
-          tier: 'Strategic Advisory Seat',
+          role: 'Honorary Advisor & Founding Patron',
+          tier: 'Honorary Advisory Seat',
           core_equity_shares: 12000,
           callable_shares: 3000,
           shares: 15000,
@@ -407,7 +407,7 @@
         try {
           const res = await fetch(CONFIG.LIVE_BACKEND_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify({
               action: 'verify_google_token',
               id_token: response.credential
@@ -514,7 +514,7 @@
               if (CONFIG.LIVE_BACKEND_URL) {
                 const res = await fetch(CONFIG.LIVE_BACKEND_URL, {
                   method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
+                  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                   body: JSON.stringify({
                     action: 'verify_facebook_token',
                     access_token: response.authResponse.accessToken
@@ -634,7 +634,7 @@
         const turnstileToken = window.AnirjanNotifier ? window.AnirjanNotifier.getTurnstileToken() : '';
         const resp = await fetch(CONFIG.LIVE_BACKEND_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
             action: 'request_otp',
             email: pendingLookupIdentifier,
@@ -718,7 +718,7 @@
       try {
         const resp = await fetch(CONFIG.LIVE_BACKEND_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
             action: 'verify_otp',
             email: pendingLookupIdentifier,
@@ -1064,7 +1064,7 @@
       try {
         const resp = await fetch(CONFIG.LIVE_BACKEND_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
             action: 'submit_buyback',
             email: activeUser.email,
@@ -1319,7 +1319,7 @@
     if (CONFIG.LIVE_BACKEND_URL) {
       fetch(CONFIG.LIVE_BACKEND_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           action: 'admin_save_allocation',
           adminPin: CONFIG.ADMIN_PIN,

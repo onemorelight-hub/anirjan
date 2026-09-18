@@ -1204,7 +1204,7 @@ function getShareLedgerSheet() {
     ]);
     sheet.appendRow([
       "ANR-2026-SHR-1002", "Anjan Jana", "anjan@anirjan.com", "+919800000001",
-      "The Chief Guest — Strategy & Advisory", "Strategic Advisory Seat", 12000, 3000, 15000, 4.0, 60000.0,
+      "Honorary Advisor & Founding Patron", "Honorary Advisory Seat", 12000, 3000, 15000, 4.0, 60000.0,
       "Active & Vested", "March 2026", "./assets/anjan_jana.jpeg", timestamp, timestamp
     ]);
   }
