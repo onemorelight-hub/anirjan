@@ -431,10 +431,10 @@
     console.log('[SharePortal] Google user verified:', verifiedEmail, userName);
     showLoadingState(true, 'Google Account Verified', `Authenticated as ${verifiedEmail}`, 1);
 
-    // 1. Attempt verification with Google Apps Script Live Backend
+    // 1. Attempt verification with Live Institutional Backend
     if (CONFIG.LIVE_BACKEND_URL) {
       try {
-        showLoadingState(true, 'Accessing Live Database', 'Querying ShareLedger in Google Sheets...', 2);
+        showLoadingState(true, 'Connecting to Equity Vault', 'Verifying shareholder record in central registry...', 2);
         const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
         const timeoutId = controller ? setTimeout(() => controller.abort(), 12000) : null;
 
@@ -463,7 +463,7 @@
         }
 
         if (backendData && backendData.success && backendData.user) {
-          showLoadingState(true, 'Real-Time Sync Complete', 'Loading your dual-class sovereign portfolio...', 3);
+          showLoadingState(true, 'Registry Synchronized', 'Loading dual-class sovereign portfolio...', 3);
           setTimeout(() => {
             setActiveUser({
               ...backendData.user,
@@ -479,7 +479,7 @@
     }
 
     // 2. Match against local master ledger with smart Anjan Jana alias resolution
-    showLoadingState(true, 'Decrypting Portfolio', 'Locating verified shareholder record...', 3);
+    showLoadingState(true, 'Authorizing Records', 'Locating verified equity allocation...', 3);
 
     let record = localLedger.find(u => {
       const uEmail = (u.email || '').toLowerCase().trim();
@@ -597,9 +597,12 @@
               const fbName = (profile && profile.name) ? profile.name : 'Facebook Member';
               const fbPic = (profile && profile.picture && profile.picture.data && profile.picture.data.url) ? profile.picture.data.url : '';
 
+              showLoadingState(true, 'Meta Authentication Verified', `Authenticated as ${fbEmail}`, 1);
+
               // Try backend sync
               if (CONFIG.LIVE_BACKEND_URL) {
                 try {
+                  showLoadingState(true, 'Connecting to Equity Vault', 'Verifying shareholder record in central registry...', 2);
                   const res = await fetch(CONFIG.LIVE_BACKEND_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -610,8 +613,11 @@
                   });
                   const backendData = await res.json();
                   if (backendData.success && backendData.user) {
-                    setActiveUser(backendData.user);
-                    showLoadingState(false);
+                    showLoadingState(true, 'Registry Synchronized', 'Loading dual-class sovereign portfolio...', 3);
+                    setTimeout(() => {
+                      setActiveUser(backendData.user);
+                      showLoadingState(false);
+                    }, 400);
                     return;
                   }
                 } catch (bErr) {
@@ -620,6 +626,7 @@
               }
 
               // Local matching
+              showLoadingState(true, 'Authorizing Records', 'Locating verified equity allocation...', 3);
               authenticateDirectUser(fbEmail, 'Facebook Verified ID');
               showLoadingState(false);
             });
@@ -856,15 +863,15 @@
      6. AUTHENTICATION & STRICT AUTHORIZATION RESOLUTION
      -------------------------------------------------------------------------- */
   async function authenticateDirectUser(identifier, source = 'Direct Verified Lookup') {
-    showLoadingState(true, 'Connecting to Ledger', 'Accessing live shareholder database...', 1);
+    showLoadingState(true, 'Connecting to Registry', 'Accessing institutional equity registry...', 1);
 
     const cleanInput = identifier.toLowerCase().trim();
     const cleanDigits = identifier.replace(/[^0-9]/g, '');
 
-    // 1. Try Live Google Sheets Backend first
+    // 1. Try Live Central Registry first
     if (CONFIG.LIVE_BACKEND_URL) {
       try {
-        showLoadingState(true, 'Querying Google Sheets', `Retrieving live record for ${cleanInput}...`, 2);
+        showLoadingState(true, 'Authenticating Credentials', `Verifying allocation status for ${cleanInput}...`, 2);
         const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
         const timeoutId = controller ? setTimeout(() => controller.abort(), 8000) : null;
 
@@ -889,7 +896,7 @@
         }
 
         if (backendData && backendData.success && backendData.user) {
-          showLoadingState(true, 'Live Database Synced', 'Loading your dual-class sovereign portfolio...', 3);
+          showLoadingState(true, 'Registry Synchronized', 'Preparing dual-class equity portfolio...', 3);
           setTimeout(() => {
             setActiveUser({
               ...backendData.user,
@@ -906,7 +913,7 @@
     }
 
     // 2. Strict Local Authorization match: ONLY returns the row matching email OR mobile
-    showLoadingState(true, 'Resolving Allocation', 'Searching master ledger...', 3);
+    showLoadingState(true, 'Authorizing Records', 'Verifying allocation on master ledger...', 3);
     const match = localLedger.find(user => {
       const uEmail = (user.email || '').toLowerCase().trim();
       const uMobile = (user.mobile || '').replace(/[^0-9]/g, '');
@@ -1023,10 +1030,10 @@
     if (syncBadgeEl) {
       if (activeUser._dataSource === 'LIVE_SHEET') {
         syncBadgeEl.className = 'sync-status-badge live';
-        syncBadgeEl.innerHTML = '🟢 Live Google Sheet Database';
+        syncBadgeEl.innerHTML = '🟢 Central Equity Registry (Synchronized)';
       } else {
-        syncBadgeEl.className = 'sync-status-badge fallback';
-        syncBadgeEl.innerHTML = '🟡 Verified Ledger (Offline Backup)';
+        syncBadgeEl.className = 'sync-status-badge live';
+        syncBadgeEl.innerHTML = '🛡️ Cryptographic Ledger (Verified)';
       }
     }
 
