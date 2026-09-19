@@ -73,11 +73,11 @@ function renderProducts(category = 'all') {
               </ul>
             </div>
             <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-              <a href="./moneydiary/" class="btn btn-primary btn-sm">
+              <a href="./moneybook/" class="btn btn-primary btn-sm">
                 <span>Explore MoneyBook App</span>
                 ${ICONS.arrowRight}
               </a>
-              <a href="./moneydiary/privacy.html" class="btn btn-secondary btn-sm">
+              <a href="./moneybook/privacy.html" class="btn btn-secondary btn-sm">
                 <span>100% Privacy Promise</span>
               </a>
             </div>
@@ -308,7 +308,7 @@ window.openProductModal = function(id) {
     </div>
     <div style="display: flex; gap: 12px;">
       ${prod.id.includes('moneybook') || prod.id.includes('moneydiary') || prod.id.includes('findiary') ? `
-        <a href="./moneydiary/" class="btn btn-primary" style="flex: 1; text-align: center; text-decoration: none;">
+        <a href="./moneybook/" class="btn btn-primary" style="flex: 1; text-align: center; text-decoration: none;">
           Launch MoneyBook Product Page →
         </a>
       ` : `
