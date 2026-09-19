@@ -74,7 +74,7 @@ function renderProducts(category = 'all') {
             </div>
             <div style="display: flex; gap: 14px; flex-wrap: wrap;">
               <a href="./moneydiary/" class="btn btn-primary btn-sm">
-                <span>Explore MoneyDiary App</span>
+                <span>Explore MoneyBook App</span>
                 ${ICONS.arrowRight}
               </a>
               <a href="./moneydiary/privacy.html" class="btn btn-secondary btn-sm">
@@ -307,9 +307,9 @@ window.openProductModal = function(id) {
       <div style="font-size: 0.9rem; color: var(--text-secondary);">Every release undergoes exhaustive testing for human health, digital calmness, zero planned obsolescence, and ecological stewardship.</div>
     </div>
     <div style="display: flex; gap: 12px;">
-      ${prod.id.includes('moneydiary') || prod.id.includes('findiary') ? `
+      ${prod.id.includes('moneybook') || prod.id.includes('moneydiary') || prod.id.includes('findiary') ? `
         <a href="./moneydiary/" class="btn btn-primary" style="flex: 1; text-align: center; text-decoration: none;">
-          Launch MoneyDiary Product Page →
+          Launch MoneyBook Product Page →
         </a>
       ` : `
         <button class="btn btn-primary" style="flex: 1;" onclick="showToast('Thank you! Notification registered for ${prod.name}'); closeModal();">

@@ -20,7 +20,7 @@
   "genesisGoals": [
     {
       "id": "goal-1",
-      "target": "MoneyDiary v1.0 Production Launch",
+      "target": "MoneyBook v1.0 Production Launch",
       "category": "Software",
       "status": "Launched & Active",
       "progress": 100,
@@ -57,8 +57,8 @@
   ],
   "products": [
     {
-      "id": "moneydiary-app",
-      "name": "MoneyDiary",
+      "id": "moneybook-app",
+      "name": "MoneyBook",
       "category": "Mobile Application",
       "badge": "v1.0 Production Launch",
       "tagline": "Private AI Financial Co-Pilot & Wealth Tracker",
