@@ -395,6 +395,9 @@ function sendTelegramAlert(formType, refId, name, whatsapp, telegram, email, cit
     } else if (formType === "SERVICE_BOOKING_REQUEST") {
       icon = "🏖️";
       title = "NEW DIGHA SERVICE BOOKING";
+    } else if (formType === "JOB_DONE_REQUEST") {
+      icon = "⚡";
+      title = "NEW JOB DONE / WORK REQUEST";
     }
 
     let msg = `<b>${icon} ${escapeTelegramHtml(title)}</b>\n`;
@@ -405,8 +408,17 @@ function sendTelegramAlert(formType, refId, name, whatsapp, telegram, email, cit
     msg += `• <b>Telegram:</b> ${escapeTelegramHtml(telegram)}\n`;
     msg += `• <b>Email:</b> ${escapeTelegramHtml(email)}\n`;
     if (city && city !== "Not provided") msg += `• <b>City:</b> ${escapeTelegramHtml(city)}\n`;
-    if (category && category !== "General") msg += `• <b>Topic:</b> ${escapeTelegramHtml(category)}\n`;
+    if (category && category !== "General") msg += `• <b>Category / Topic:</b> ${escapeTelegramHtml(category)}\n`;
     
+    if (meta && meta.taskTitle) {
+      msg += `• <b>Task:</b> ${escapeTelegramHtml(meta.taskTitle)}\n`;
+    }
+    if (meta && meta.urgency) {
+      msg += `• <b>Timeline / Urgency:</b> ${escapeTelegramHtml(meta.urgency)}\n`;
+    }
+    if (meta && meta.budget) {
+      msg += `• <b>Budget:</b> ${escapeTelegramHtml(meta.budget)}\n`;
+    }
     if (meta && meta.participation && meta.participation.length) {
       msg += `• <b>Interests:</b> ${escapeTelegramHtml(meta.participation.join(", "))}\n`;
     }
@@ -421,7 +433,7 @@ function sendTelegramAlert(formType, refId, name, whatsapp, telegram, email, cit
     }
 
     if (details) {
-      msg += `\n📝 <b>Message/Notes:</b>\n${escapeTelegramHtml(details)}\n`;
+      msg += `\n📝 <b>Message / Work Scope:</b>\n${escapeTelegramHtml(details)}\n`;
     }
     msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
     msg += `🕒 <i>${escapeTelegramHtml(timestamp)}</i>`;

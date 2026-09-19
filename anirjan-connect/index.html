@@ -135,6 +135,7 @@
         <li><a href="../services.html" class="nav-link">Services</a></li>
         <li><a href="../founder.html" class="nav-link" style="color: var(--gold-light);">Founder ✦</a></li>
         <li><a href="#my-share" class="nav-link" style="color: var(--gold-primary); font-weight: 700;">View My Share ✦</a></li>
+        <li><a href="#get-job-done" class="nav-link" style="color: #6ee7b7; font-weight: 700;">Job Done ⚡</a></li>
         <li class="nav-item-mobile-only"><a href="#overview" class="nav-link">Overview</a></li>
         <li><a href="#valuation" class="nav-link">Valuation</a></li>
         <li><a href="#profit-model" class="nav-link">Profit Model</a></li>
@@ -184,6 +185,10 @@
             <a href="#register-form" class="btn btn-primary" id="hero-cta-interested">
               <span>I'm Interested</span>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="7 13 12 18 17 13"></polyline><line x1="12" y1="6" x2="12" y2="18"></line></svg>
+            </a>
+            <a href="#get-job-done" class="btn btn-outline-mint" id="hero-cta-job-done" style="border-color: #34d399; color: #6ee7b7; background: rgba(16, 185, 129, 0.08);">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              <span>Get Job Done ⚡</span>
             </a>
             <a href="#my-share" class="btn btn-outline-gold" id="hero-cta-view-share" style="border-color: var(--gold-primary); color: var(--gold-primary);">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -1420,6 +1425,242 @@
 
             <div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 14px;">
               * Pro-rata math illustration based on 40% Participant Pool (<span id="sim-metric-poolshare">₹40,000</span> total pool). Illustrative reference for transparency as we build together.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cosmic-divider"></div>
+
+    <!-- =========================================================================
+         13B. GET YOUR JOB DONE (Work Submission & Execution Engine)
+         ========================================================================= -->
+    <section class="job-done-section" id="get-job-done">
+      <div class="job-done-glow"></div>
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label" style="color: #6ee7b7; border-color: rgba(110, 231, 183, 0.3); background: rgba(110, 231, 183, 0.08);">⚡ Execution On-Demand</span>
+          <h2 class="section-title">Get Your Job Done</h2>
+          <p class="section-subtitle">
+            Need a task or project executed with excellence? Submit your requirements. Anirjan connects you with vetted, high-integrity talent and builders to deliver results on time.
+          </p>
+
+          <!-- Live Dispatch Desk Status Beacon -->
+          <div class="job-live-beacon-wrap">
+            <div class="job-live-beacon">
+              <span class="job-beacon-pulse"></span>
+              <span>Dispatch Desk Active • 14 Vetted Builders Online</span>
+            </div>
+            <button type="button" class="job-my-tasks-btn" onclick="window.openMyJobTasksModal()">
+              <span>📋 My Submitted Tasks</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-Step Process Flow -->
+        <div class="job-process-grid reveal">
+          <div class="job-process-card">
+            <span class="job-process-step">Step 01</span>
+            <div class="job-process-icon">📋</div>
+            <h3 class="job-process-title">Submit Title &amp; Details</h3>
+            <p class="job-process-desc">Simply describe what you want done. Whether it's coding, automation, digital marketing, creative design, or local Digha operations.</p>
+          </div>
+          <div class="job-process-card">
+            <span class="job-process-step">Step 02</span>
+            <div class="job-process-icon">🔍</div>
+            <h3 class="job-process-title">Team Scoping &amp; Match</h3>
+            <p class="job-process-desc">Our dedicated team identifies the nature of the task, defines execution milestones, and pairs verified talent from the Anirjan community.</p>
+          </div>
+          <div class="job-process-card">
+            <span class="job-process-step">Step 03</span>
+            <div class="job-process-icon">⚡</div>
+            <h3 class="job-process-title">Instant Coordination</h3>
+            <p class="job-process-desc">Our team notifies you immediately and coordinates milestones directly with you via WhatsApp, Telegram, and Email.</p>
+          </div>
+        </div>
+
+        <!-- Master Form Card Container — Intelligent Cosmic Dispatch Console -->
+        <div class="job-done-card reveal" id="job-done-form-wrapper">
+          <!-- Console Top Status Bar -->
+          <div class="job-console-top-bar">
+            <div class="job-console-brand">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);color:#34d399;font-size:17px;">⚡</span>
+              <div>
+                <div style="font-family:'Syne',sans-serif;font-size:1.02rem;font-weight:700;letter-spacing:0.5px;color:#ffffff;">ANIRJAN EXECUTION DISPATCH</div>
+                <div style="font-size:0.75rem;color:#94a3b8;font-weight:500;">AI Triaged • Vetted Community Talent • Free Dispatch</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="job-console-tag">● Live Queue Active</span>
+              <button type="button" class="job-my-tasks-btn" onclick="window.openMyJobTasksModal()" style="padding:6px 14px;font-size:0.75rem;border-radius:10px;">
+                <span>📋 My Tasks</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Submission Form -->
+          <form id="job-done-form" class="connect-form" novalidate>
+            <!-- Anti-spam Honeypot -->
+            <div style="display: none;" aria-hidden="true">
+              <input type="text" name="job_hp_website" id="job_hp_website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Real-Time Satisfaction & Clarity Meter -->
+            <div class="job-satisfaction-meter-wrap">
+              <div class="job-satisfaction-header">
+                <span class="job-satisfaction-label">
+                  <span>🎯 Task Specification &amp; Readiness</span>
+                </span>
+                <span id="job-satisfaction-badge" class="job-satisfaction-badge">25% • Enter Task Title</span>
+              </div>
+              <div class="job-satisfaction-track">
+                <div id="job-satisfaction-bar" class="job-satisfaction-bar" style="width: 25%;"></div>
+              </div>
+              <div class="job-satisfaction-hint">
+                <span id="job-satisfaction-hint-text">Give your task a clear headline or summary.</span>
+                <span style="color: #6ee7b7; font-weight: 600;">⚡ Team Triaged &amp; Guaranteed Follow-up</span>
+              </div>
+            </div>
+
+            <!-- Step 1: Task Title -->
+            <div class="job-input-group">
+              <label for="job-title" class="job-field-label">
+                <span>1. Task Title / What do you need accomplished? <span class="req">*</span></span>
+                <span class="opt">Clear headline</span>
+              </label>
+              <input type="text" id="job-title" name="job-title" class="job-input-control job-title-control" placeholder="e.g. Build modern website, automate spreadsheet workflows, design brand logo..." required autocomplete="off">
+            </div>
+
+            <!-- Step 2: Task Description -->
+            <div class="job-input-group">
+              <label for="job-description" class="job-field-label">
+                <span>2. Task Details &amp; Key Requirements <span class="req">*</span></span>
+                <span class="opt">Scope, deliverables &amp; timeline</span>
+              </label>
+              <textarea id="job-description" name="job-description" class="job-input-control job-textarea-control" rows="5" placeholder="Describe what you want accomplished, key deliverables, preferences, specific goals, or timeline..." required></textarea>
+            </div>
+
+            <!-- Step 3: Reference / Asset Links (Optional) -->
+            <div class="job-input-group">
+              <label for="job-asset-links" class="job-field-label">
+                <span>3. Reference / Project Links <span class="opt">(Optional)</span></span>
+                <span class="opt">Figma, Google Drive, Loom, GitHub</span>
+              </label>
+              <input type="url" id="job-asset-links" name="job-asset-links" class="job-input-control" placeholder="https://... Figma file, Google Drive doc, GitHub repo, or sample URL">
+            </div>
+
+            <!-- Client Contact Channels Box -->
+            <div class="job-contact-section">
+              <div class="job-contact-header">
+                <span>👤 Direct Team Coordination Channels</span>
+              </div>
+              <div class="job-contact-sub">
+                Our triage leads identify the exact scope and coordinate milestones directly with you via WhatsApp, Telegram, or Email.
+              </div>
+              <div class="job-contact-grid">
+                <div class="job-input-group" style="margin-bottom:0;">
+                  <label for="job-client-name" class="job-field-label">
+                    <span>Your Full Name / Business <span class="req">*</span></span>
+                  </label>
+                  <input type="text" id="job-client-name" name="job-client-name" class="job-input-control" placeholder="e.g. Rahul Sen / Coastal Ventures" required>
+                </div>
+                <div class="job-input-group" style="margin-bottom:0;">
+                  <label for="job-client-whatsapp" class="job-field-label">
+                    <span>WhatsApp Number <span class="req">*</span></span>
+                  </label>
+                  <input type="tel" id="job-client-whatsapp" name="job-client-whatsapp" class="job-input-control" placeholder="+91 98765 43210" required>
+                </div>
+                <div class="job-input-group" style="margin-bottom:0;">
+                  <label for="job-client-telegram" class="job-field-label">
+                    <span>Telegram Username <span class="opt">(Optional)</span></span>
+                  </label>
+                  <input type="text" id="job-client-telegram" name="job-client-telegram" class="job-input-control" placeholder="@username or mobile">
+                </div>
+                <div class="job-input-group" style="margin-bottom:0;">
+                  <label for="job-client-email" class="job-field-label">
+                    <span>Email Address <span class="opt">(Optional)</span></span>
+                  </label>
+                  <input type="email" id="job-client-email" name="job-client-email" class="job-input-control" placeholder="name@company.com">
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="job-form-error" class="form-error-banner" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 12px 16px; border-radius: 8px; margin-bottom: 18px; font-size: 0.85rem;"></div>
+
+            <!-- Cloudflare Turnstile Security Verification (Domain Locked & Anti-Bot Protection) -->
+            <div class="job-turnstile-wrap">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible" data-callback="onTurnstileJobSuccess"></div>
+              <div class="job-turnstile-notice">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Cryptographic Anti-Bot Protection • Verified by Cloudflare</span>
+              </div>
+            </div>
+
+            <!-- Submit Button Wrap -->
+            <div class="job-submit-btn-wrap">
+              <button type="submit" id="btn-submit-job" class="job-dispatch-btn">
+                <span>⚡ Dispatch Task • Mobilize Team</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+              <div class="job-dispatch-guarantee">
+                🔒 100% Free Submission • Immediate Team Outreach &amp; Milestone Scoping • No Spam Guarantee
+              </div>
+            </div>
+          </form>
+
+          <!-- Success / Digital Task Passport Confirmation Receipt -->
+          <div id="job-done-thankyou" class="job-success-box">
+            <div class="job-success-badge-top">
+              <span>⚡ Task Logged Into Execution Engine</span>
+            </div>
+
+            <h3 style="font-family: 'Syne', sans-serif; font-size: 1.85rem; color: #ffffff; margin: 18px 0 6px 0;">We're Mobilizing!</h3>
+            <p style="color: #94a3b8; font-size: 0.88rem; margin: 0 auto 16px auto;">
+              Your task scope is registered and queued for priority dispatch with verified community talent.
+            </p>
+
+            <div class="job-ref-badge-interactive">
+              <div>
+                <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Job Reference ID</div>
+                <div id="job-ref-code-badge" class="job-ref-code">JD-2026-XXXXX</div>
+              </div>
+              <button type="button" id="job-copy-btn" class="job-copy-btn" onclick="window.copyJobRefCode()">
+                📋 Copy
+              </button>
+            </div>
+
+            <!-- Visual Progress Stepper -->
+            <div class="job-success-stepper">
+              <div class="job-stepper-item completed">
+                <div class="job-stepper-title">✓ 1. Scope Logged</div>
+                <div class="job-stepper-sub">Encrypted &amp; queued in dispatch</div>
+              </div>
+              <div class="job-stepper-item active">
+                <div class="job-stepper-title">⚡ 2. Matching Talent</div>
+                <div class="job-stepper-sub">Vetted builders reviewing scope</div>
+              </div>
+              <div class="job-stepper-item">
+                <div class="job-stepper-title">💬 3. Direct Connect</div>
+                <div class="job-stepper-sub">Outreach via WhatsApp &lt; 4h</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px;">
+              <a href="#" id="job-whatsapp-direct-link" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: #25D366; border-color: #25D366; color: #ffffff; padding: 12px 20px;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.077-1.127-.061-.594-.191-1.365-.546-2.338-1.519-.973-.973-1.328-1.744-1.519-2.338-.138-.429-.106-.815-.061-1.127.05-.333.419-1.026.824-1.17.14-.05.28-.027.382.043.088.061.206.182.285.358.17.378.577 1.408.628 1.512.051.104.084.227.017.361-.067.134-.101.218-.201.336-.1.118-.21.263-.3.353-.101.101-.206.211-.088.414.118.203.524.862 1.124 1.396.772.688 1.423.9 1.626 1.002.203.101.321.088.439-.047.118-.135.507-.591.642-.794.135-.203.27-.169.456-.101.186.068 1.178.556 1.381.657.203.102.338.152.388.237.05.085.05.491-.094.896z"/></svg>
+                <span>Chat on WhatsApp</span>
+              </a>
+              <a href="https://t.me/anirjan_collective" id="job-telegram-direct-link" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="border-color: #38bdf8; color: #38bdf8; padding: 12px 20px;">
+                <span>✈️ Chat on Telegram</span>
+              </a>
+              <button type="button" onclick="window.openMyJobTasksModal()" class="btn btn-secondary" style="padding: 12px 18px;">
+                <span>📋 View My Tasks</span>
+              </button>
+              <button type="button" onclick="window.resetJobDoneForm()" class="btn btn-secondary" style="padding: 12px 18px;">
+                <span>Submit Another</span>
+              </button>
             </div>
           </div>
         </div>
