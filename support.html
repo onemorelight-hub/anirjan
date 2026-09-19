@@ -247,6 +247,7 @@
                   <option value="Anirjan Pure Bottle">Anirjan Pure Bottle</option>
                   <option value="Anirjan Flow App">Anirjan Flow (Mindfulness)</option>
                   <option value="Anirjan Connect">Anirjan Connect Platform</option>
+                  <option value="Legal & Data Privacy">Legal &amp; Data Privacy Inquiries</option>
                   <option value="General Inquiry">General Question / Other</option>
                 </select>
               </div>
@@ -344,6 +345,28 @@
               <button type="button" class="btn btn-outline-gold btn-sm" id="btn-send-another">
                 <span>Send Another Message</span>
               </button>
+            </div>
+          </div>
+
+          <!-- Verified Instant Channels -->
+          <div class="contact-channels-box" style="margin-top: 36px;">
+            <div class="contact-channel-item">
+              <div style="font-size: 1.8rem; margin-bottom: 6px;">💬</div>
+              <h4>WhatsApp Support</h4>
+              <p>Direct chat for urgent queries &amp; guidance</p>
+              <a href="https://wa.me/anirjan_collective" target="_blank" rel="noopener noreferrer">Chat on WhatsApp &rarr;</a>
+            </div>
+            <div class="contact-channel-item">
+              <div style="font-size: 1.8rem; margin-bottom: 6px;">✈️</div>
+              <h4>Telegram Channel</h4>
+              <p>Community desk &amp; real-time assistance</p>
+              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer">Open in Telegram &rarr;</a>
+            </div>
+            <div class="contact-channel-item">
+              <div style="font-size: 1.8rem; margin-bottom: 6px;">✉️</div>
+              <h4>Founder's Desk</h4>
+              <p>Confidential note directly to Aparna Dey</p>
+              <a href="./founder.html#send-note">Write to Aparna &rarr;</a>
             </div>
           </div>
 
@@ -503,6 +526,41 @@
 
       tabSupport.addEventListener('click', () => setMode('SUPPORT_REQUEST'));
       tabFeedback.addEventListener('click', () => setMode('FEEDBACK'));
+
+      // URL parameter detection to allow deep-linking from Terms/Privacy/App pages
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const reqMode = urlParams.get('mode');
+        if (reqMode && reqMode.toUpperCase() === 'FEEDBACK') {
+          setMode('FEEDBACK');
+        } else if (reqMode && reqMode.toUpperCase() === 'SUPPORT_REQUEST') {
+          setMode('SUPPORT_REQUEST');
+        }
+
+        const reqProduct = urlParams.get('product');
+        if (reqProduct) {
+          const productSelect = document.getElementById('support-product');
+          if (productSelect) {
+            const low = reqProduct.toLowerCase();
+            for (let opt of productSelect.options) {
+              if (opt.value.toLowerCase().includes(low) || low.includes(opt.value.toLowerCase().split(' ')[0])) {
+                productSelect.value = opt.value;
+                break;
+              }
+            }
+          }
+        }
+
+        const reqTopic = urlParams.get('topic');
+        if (reqTopic) {
+          const subjectEl = document.getElementById('support-subject');
+          if (subjectEl && !subjectEl.value) {
+            subjectEl.value = reqTopic;
+          }
+        }
+      } catch (e) {
+        console.warn('URL params parsing notice:', e);
+      }
 
       function showError(msg) {
         if (errorNotice) {
