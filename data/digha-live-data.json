@@ -1,0 +1,360 @@
+{
+  "last_updated": "2026-09-21T00:00:00+05:30",
+  "digha_station_coordinates": {
+    "lat": 21.6266,
+    "lon": 87.5074,
+    "town": "Digha, Purba Medinipur, West Bengal"
+  },
+  "trains": [
+    {
+      "train_no": "12858",
+      "name": "Tamralipta Express",
+      "route": "Digha (DGHA) ➔ Howrah (HWH)",
+      "departure": "10:35 AM",
+      "arrival_hwh": "01:55 PM",
+      "frequency": "Daily",
+      "type": "Superfast Express",
+      "distance": "185 km",
+      "platform": "Platform 1 or 2",
+      "status_tip": "Most popular morning express train to Kolkata."
+    },
+    {
+      "train_no": "12857",
+      "name": "Tamralipta Express (Inbound)",
+      "route": "Howrah (HWH) ➔ Digha (DGHA)",
+      "departure_hwh": "06:50 AM",
+      "arrival": "10:05 AM",
+      "frequency": "Daily",
+      "type": "Superfast Express",
+      "distance": "185 km",
+      "platform": "Platform 1",
+      "status_tip": "Brings morning tourist rush from Howrah."
+    },
+    {
+      "train_no": "18002",
+      "name": "Kandari Express",
+      "route": "Digha (DGHA) ➔ Howrah (HWH)",
+      "departure": "06:20 PM",
+      "arrival_hwh": "09:45 PM",
+      "frequency": "Daily",
+      "type": "Express",
+      "distance": "185 km",
+      "platform": "Platform 2",
+      "status_tip": "Ideal for evening return after a full day at the beach."
+    },
+    {
+      "train_no": "18001",
+      "name": "Kandari Express (Inbound)",
+      "route": "Howrah (HWH) ➔ Digha (DGHA)",
+      "departure_hwh": "02:25 PM",
+      "arrival": "05:50 PM",
+      "frequency": "Daily",
+      "type": "Express",
+      "distance": "185 km",
+      "platform": "Platform 1",
+      "status_tip": "Afternoon check-in crowd for weekend stays."
+    },
+    {
+      "train_no": "68686",
+      "name": "Digha - Panskura - Mecheda EMU",
+      "route": "Digha (DGHA) ➔ Panskura / Mecheda",
+      "departure": "01:40 PM",
+      "arrival_hwh": "04:30 PM (Connect EMU)",
+      "frequency": "Daily",
+      "type": "EMU Local Passenger",
+      "distance": "120 km",
+      "platform": "Platform 3",
+      "status_tip": "Budget travel for locals and connection to Kharagpur."
+    },
+    {
+      "train_no": "13418",
+      "name": "Malda Town - Digha Weekly Express",
+      "route": "Digha (DGHA) ➔ Malda Town",
+      "departure": "11:55 PM (Thursday)",
+      "arrival_hwh": "Direct via Kharagpur",
+      "frequency": "Weekly",
+      "type": "Express",
+      "distance": "580 km",
+      "platform": "Platform 2",
+      "status_tip": "Connects North Bengal tourists directly to Digha."
+    }
+  ],
+  "medical_roster": [
+    {
+      "facility": "Digha State General Hospital",
+      "location": "Alankarpur, Digha Main Road (2 km from Station)",
+      "type": "Government 24/7 Emergency",
+      "doctor": "Duty Medical Officer & Triage Team",
+      "timings": "24 Hours (Casualty & Ambulance)",
+      "phone": "+91 3220 266610",
+      "specialty": "Snakebite Anti-Venom, Drowning First Aid, Trauma & Emergency Casualty",
+      "is_emergency": true
+    },
+    {
+      "facility": "Dr. B. K. Jana (MBBS, DCH)",
+      "location": "Near Nehru Market, Old Digha",
+      "type": "Private Medical Chamber",
+      "doctor": "Dr. B. K. Jana",
+      "timings": "09:00 AM - 01:00 PM & 06:00 PM - 09:30 PM",
+      "phone": "+91 94341 22890",
+      "specialty": "Child Health, Gastric Infection, Dehydration & Sea Sunstroke",
+      "is_emergency": false
+    },
+    {
+      "facility": "Ramnagar Rural Hospital & Trauma Centre",
+      "location": "Ramnagar-1 Block Road (9 km from Digha)",
+      "type": "Government Sub-Divisional Hospital",
+      "doctor": "General Surgeons & Physicians on Duty",
+      "timings": "24 Hours",
+      "phone": "+91 3220 255222",
+      "specialty": "Emergency X-Ray, Blood Bank & Serious Casualty Transport",
+      "is_emergency": true
+    },
+    {
+      "facility": "Sagarika Chemist & 24/7 Medicine Store",
+      "location": "Foreshore Road, Opposite New Digha Helipad",
+      "type": "Pharmacy",
+      "doctor": "Licensed Pharmacist on Duty",
+      "timings": "Open 24 Hours",
+      "phone": "+91 98321 99887",
+      "specialty": "Emergency Injections, ORS, Water Purification & First Aid Supplies",
+      "is_emergency": true
+    }
+  ],
+  "hotels": [],
+  "toto_drivers": [],
+  "seafood_index": [
+    {
+      "name": "Digha Sea Hilsa (Ilish)",
+      "bengali": "দিঘা সমুদ্রের রুপোলি ইলিশ",
+      "weight_grade": "800g - 1.2kg Size",
+      "wholesale_range": "₹850 - ₹1,100 / kg",
+      "retail_fair_price": "₹950 - ₹1,350 / kg",
+      "best_season": "Monsoon to Early Winter (July - November)",
+      "taste_profile": "Extremely oily, rich seawater flavor, sweet melting roe",
+      "icon": "🐟"
+    },
+    {
+      "name": "Silver Pomfret (Chanda)",
+      "bengali": "সাদা পমফ্রেট",
+      "weight_grade": "300g - 500g Piece",
+      "wholesale_range": "₹420 - ₹500 / kg",
+      "retail_fair_price": "₹480 - ₹620 / kg",
+      "best_season": "Year Round (Peak Sept - March)",
+      "taste_profile": "Tender white meat, delicate single bone, perfect for tawa fry",
+      "icon": "🐠"
+    },
+    {
+      "name": "Jumbo Tiger Prawns (Bagda)",
+      "bengali": "গলদা ও বাগদা চিংড়ি",
+      "weight_grade": "6 - 8 pieces / kg",
+      "wholesale_range": "₹580 - ₹720 / kg",
+      "retail_fair_price": "₹650 - ₹850 / kg",
+      "best_season": "Year Round",
+      "taste_profile": "Crisp juicy bite, rich head butter for Chingri Malai Curry",
+      "icon": "🦐"
+    },
+    {
+      "name": "Live Blue Sea Crabs (Kankra)",
+      "bengali": "সমুদ্রের জ্যান্ত খাঁটি কাঁকড়া",
+      "weight_grade": "Heavy shell with orange roe",
+      "wholesale_range": "₹280 - ₹380 / kg",
+      "retail_fair_price": "₹340 - ₹480 / kg",
+      "best_season": "Winter & Post-Monsoon",
+      "taste_profile": "Sweet crab meat with fiery spicy Bengali Kankra Jhal",
+      "icon": "🦀"
+    },
+    {
+      "name": "Fresh Bay Bhetki (Barramundi)",
+      "bengali": "দিঘা সমুদ্রের ভেটকি মাছ",
+      "weight_grade": "1.5kg - 3.0kg Whole Fish",
+      "wholesale_range": "₹450 - ₹550 / kg",
+      "retail_fair_price": "₹520 - ₹660 / kg",
+      "best_season": "October - April",
+      "taste_profile": "Flaky white boneless fillets, gold standard for fish fry",
+      "icon": "🐡"
+    },
+    {
+      "name": "Tender Sea Squid (Calamari)",
+      "bengali": "সমুদ্রের স্কুইড",
+      "weight_grade": "Medium Fresh Catch",
+      "wholesale_range": "₹200 - ₹260 / kg",
+      "retail_fair_price": "₹260 - ₹340 / kg",
+      "best_season": "Autumn to Winter",
+      "taste_profile": "Chewy, high protein, incredible when stir-fried on beach shacks",
+      "icon": "🦑"
+    }
+  ],
+  "digha_facts_and_secrets": [
+    {
+      "title": "Warren Hastings Called It 'The Brighton of the East'",
+      "body": "In 1780, the first Governor-General of British India, Warren Hastings, was enchanted by Digha's vast flat beaches and wrote a famous letter to his wife praising its calm beauty. His beach retreat was historically called 'Beercool'.",
+      "tag": "Historical Trivia"
+    },
+    {
+      "title": "Why New Digha Beach Is So Flat & Safe",
+      "body": "Unlike Puri or Vizag where the continental shelf drops sharply creating violent dumping waves, New Digha's continental slope is among the shallowest in the world. You can safely walk out hundreds of meters during low tide without reaching deep water.",
+      "tag": "Oceanography"
+    },
+    {
+      "title": "The Mohona Sunrise Auction Ritual",
+      "body": "Between 5:30 AM and 8:30 AM every day, over 400 deep-sea trawlers anchor at Digha Mohona estuary. Hundreds of crates of freshly caught fish are auctioned within seconds in a high-speed rhyming chant by traditional auctioneers (Adatdars).",
+      "tag": "Local Culture"
+    },
+    {
+      "title": "Udaipur Beach: Two States on One Shoreline",
+      "body": "Just 3 kilometers from New Digha lies Udaipur Beach. The western edge is in Odisha (Baleswar district) while the eastern edge is in West Bengal (Purba Medinipur). You can literally stand with one foot in Bengal and the other in Odisha!",
+      "tag": "Geography"
+    },
+    {
+      "title": "Asia's Largest Marine Research Aquarium",
+      "body": "The Marine Aquarium and Regional Centre (MARC) at Digha, maintained by the Zoological Survey of India, possesses one of the largest closed-circulation marine aquarium display systems in Asia, showcasing over 50 marine species.",
+      "tag": "Hidden Gem"
+    },
+    {
+      "title": "The Famous Ramnagar Cashew (Kaju) Hub",
+      "body": "Most tourists don't know that Ramnagar (just 8 km before Digha) is one of Eastern India's primary cashew processing hubs. The coastal soil and salty sea air provide ideal conditions for local cashew plantations.",
+      "tag": "Local Industry"
+    }
+  ],
+  "fish_cooking_benchmarks": {
+    "disclaimer": "Standardized benchmark rates across Digha beach shacks and hotel kitchens. Never pay more than ₹90/kg for plain curry or ₹50/kg for frying.",
+    "fish_catalog": [
+      {
+        "id": "ilish",
+        "name": "Ilish (Hilsa)",
+        "avg_raw_rate_per_kg": 1100,
+        "raw_range": "₹900 - ₹1,400 / kg",
+        "icon": "🐟",
+        "prep_options": ["fry", "shorshe", "patla_jhol"]
+      },
+      {
+        "id": "pomfret",
+        "name": "Pomfret (White / Silver)",
+        "avg_raw_rate_per_kg": 550,
+        "raw_range": "₹450 - ₹650 / kg",
+        "icon": "🐠",
+        "prep_options": ["fry", "masala_tawa", "jhal"]
+      },
+      {
+        "id": "golda_chingri",
+        "name": "Golda Chingri (Giant Prawns)",
+        "avg_raw_rate_per_kg": 750,
+        "raw_range": "₹650 - ₹900 / kg",
+        "icon": "🦐",
+        "prep_options": ["fry", "malaikari", "butter_garlic"]
+      },
+      {
+        "id": "bhetki",
+        "name": "Bhetki (Barramundi)",
+        "avg_raw_rate_per_kg": 500,
+        "raw_range": "₹420 - ₹580 / kg",
+        "icon": "🐟",
+        "prep_options": ["fry", "paturi", "jhol"]
+      },
+      {
+        "id": "kankra",
+        "name": "Sea & Mud Crab (Kankra)",
+        "avg_raw_rate_per_kg": 400,
+        "raw_range": "₹320 - ₹480 / kg",
+        "icon": "🦀",
+        "prep_options": ["kankra_jhal", "masala_roast"]
+      },
+      {
+        "id": "parshe",
+        "name": "Parshe / Gurjali",
+        "avg_raw_rate_per_kg": 350,
+        "raw_range": "₹280 - ₹420 / kg",
+        "icon": "🐟",
+        "prep_options": ["fry", "shorshe_jhal"]
+      }
+    ],
+    "cooking_labor_rates": {
+      "fry": {
+        "title": "Crispy Deep Fry with Chilies & Onions",
+        "rate_per_kg": 50,
+        "description": "Oil, turmeric, salt, deep fry with fresh green chilies and onions. Standard: ₹40 - ₹50 / kg."
+      },
+      "shorshe": {
+        "title": "Shorshe Ilish / Mustard Paste Gravy",
+        "rate_per_kg": 80,
+        "description": "Ground yellow mustard paste, green chilies, kalonji, mustard oil. Standard: ₹70 - ₹90 / kg."
+      },
+      "malaikari": {
+        "title": "Chingri Malaikari (Coconut Cream Curry)",
+        "rate_per_kg": 90,
+        "description": "Rich coconut milk, whole garam masala, ghee gravy. Standard: ₹80 - ₹100 / kg."
+      },
+      "kankra_jhal": {
+        "title": "Spicy Coastal Crab Masala (Kankra Jhal)",
+        "rate_per_kg": 80,
+        "description": "Cracking crab shells, rich ginger-garlic and onion-tomato paste. Standard: ₹70 - ₹90 / kg."
+      },
+      "patla_jhol": {
+        "title": "Bengali Patla Macher Jhol (Potatoes & Cumin)",
+        "rate_per_kg": 60,
+        "description": "Light, digestive cumin and ginger broth with long potato wedges. Standard: ₹50 - ₹70 / kg."
+      }
+    }
+  },
+  "railway_cloakroom_guide": {
+    "location": "Digha Railway Station, Platform No. 1 (Near Station Master Office)",
+    "operational_hours": "24 Hours (Round the clock with round-up shifts)",
+    "rates": "₹20 for first 24 hours per bag, ₹30 for each subsequent 24 hours",
+    "mandatory_requirements": [
+      "Bags must be locked (padlock or built-in numerical lock mandatory; open luggage not accepted)",
+      "Valid Government Photo ID card (Aadhaar / Voter ID / Driving License / Passport)",
+      "Valid confirmed or waiting Indian Railways train ticket originating or arriving at Digha"
+    ],
+    "rest_spots": [
+      {
+        "name": "Digha Station Waiting Hall (Upper Class & General)",
+        "location": "Platform 1, Digha Station",
+        "type": "Railway Waiting Room",
+        "perk": "Free with valid train ticket, clean seating, fans & charging points"
+      },
+      {
+        "name": "Biswa Bangla Park & Promenade Shacks",
+        "location": "Old Digha Promenade",
+        "type": "Open Sea Breezy Rest Zone",
+        "perk": "Shaded concrete benches, fresh green coconuts, cool sea breeze"
+      },
+      {
+        "name": "Amrabati Park Shaded Lake Pavilions",
+        "location": "New Digha, Near Station Road",
+        "type": "Eco Park & Lake Garden",
+        "perk": "Peaceful garden, paddle boating, lush trees away from beach humidity"
+      }
+    ]
+  },
+  "scam_shield_routes": [
+    {
+      "destination": "New Digha Sea Beach (Helipad / Market)",
+      "distance": "2.2 km",
+      "shared_fare_per_head": "₹15",
+      "reserved_toto_max": "₹60 - ₹70",
+      "tout_warning": "Dalals ask for ₹150 - ₹200. Never pay more than ₹70 for full reserved Toto."
+    },
+    {
+      "destination": "Old Digha Biswa Bangla Ghat / Nehru Market",
+      "distance": "3.1 km",
+      "shared_fare_per_head": "₹20",
+      "reserved_toto_max": "₹80 - ₹90",
+      "tout_warning": "Dalals claim Old Digha is 10 km away. It is only 3 km. Never pay more than ₹90."
+    },
+    {
+      "destination": "Udaipur Beach (Bengal-Odisha Border)",
+      "distance": "5.4 km",
+      "shared_fare_per_head": "₹30",
+      "reserved_toto_max": "₹120 - ₹140",
+      "tout_warning": "Standard round-trip with 1 hour waiting is ₹250 max. Agree on wait time before boarding."
+    },
+    {
+      "destination": "Mohona Wholesale Fish Market",
+      "distance": "5.0 km",
+      "shared_fare_per_head": "₹25",
+      "reserved_toto_max": "₹100 - ₹120",
+      "tout_warning": "Best reached early morning (5:30 AM to 8:00 AM) for fresh fish auctions."
+    }
+  ]
+}

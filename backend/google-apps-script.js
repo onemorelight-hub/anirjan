@@ -398,6 +398,9 @@ function sendTelegramAlert(formType, refId, name, whatsapp, telegram, email, cit
     } else if (formType === "JOB_DONE_REQUEST") {
       icon = "⚡";
       title = "NEW JOB DONE / WORK REQUEST";
+    } else if (formType === "DIGHA_EVENT_ORGANIZER" || formType === "CUSTOM_EVENT_REQUEST") {
+      icon = "🎪";
+      title = "NEW DIGHA CUSTOM EVENT INQUIRY";
     }
 
     let msg = `<b>${icon} ${escapeTelegramHtml(title)}</b>\n`;
@@ -410,6 +413,18 @@ function sendTelegramAlert(formType, refId, name, whatsapp, telegram, email, cit
     if (city && city !== "Not provided") msg += `• <b>City:</b> ${escapeTelegramHtml(city)}\n`;
     if (category && category !== "General") msg += `• <b>Category / Topic:</b> ${escapeTelegramHtml(category)}\n`;
     
+    if (meta && meta.eventType) {
+      msg += `• <b>Event Type:</b> ${escapeTelegramHtml(meta.eventType)}\n`;
+    }
+    if (meta && meta.guestCount) {
+      msg += `• <b>Guests:</b> ${escapeTelegramHtml(meta.guestCount)}\n`;
+    }
+    if (meta && meta.venuePref) {
+      msg += `• <b>Venue:</b> ${escapeTelegramHtml(meta.venuePref)}\n`;
+    }
+    if (meta && meta.specialReqs && meta.specialReqs.length) {
+      msg += `• <b>Services:</b> ${escapeTelegramHtml(meta.specialReqs.join(", "))}\n`;
+    }
     if (meta && meta.taskTitle) {
       msg += `• <b>Task:</b> ${escapeTelegramHtml(meta.taskTitle)}\n`;
     }
@@ -594,6 +609,10 @@ function handleSharePortalAction(data) {
         return actionAdminSaveAllocation(data);
       case "get_all_shareholders":
         return actionGetAllShareholders(data);
+      case "register_digha_partner":
+        return actionRegisterDighaPartner(data);
+      case "get_digha_partners":
+        return actionGetDighaPartners(data);
       case "setup_database":
         return createJsonResponse({ success: true, message: setupDatabase() });
       default:
@@ -1297,3 +1316,139 @@ function logAudit(actorEmail, action, details, refId) {
     Logger.log("Audit log failed: " + e.toString());
   }
 }
+
+/**
+ * DIGHA CONNECT: Registers a local partner (Toto Driver, Hotel, Fish Vendor).
+ * Logs to Google Sheet as PENDING, dispatches instant Telegram alert to admin.
+ */
+function actionRegisterDighaPartner(data) {
+  const name = (data.name || "").trim();
+  const mobile = (data.mobile || data.phone || "").trim();
+  const category = (data.category || data.role || "TOTO").toUpperCase();
+  const area = (data.area || "Digha").trim();
+  const details = (data.details || "").trim();
+
+  if (!name || !mobile) {
+    return createJsonResponse({ success: false, message: "Name and Mobile number are required." });
+  }
+
+  // Cloudflare Turnstile Cryptographic Verification
+  if (data.turnstileToken && CONFIG.TURNSTILE_ENABLED && CONFIG.TURNSTILE_SECRET_KEY && CONFIG.TURNSTILE_SECRET_KEY !== "YOUR_TURNSTILE_SECRET_KEY_HERE") {
+    const cf = verifyCloudflareTurnstile(data.turnstileToken);
+    if (!cf.success) {
+      return createJsonResponse({ success: false, message: "Security check failed. Please refresh the page and try again." });
+    }
+  }
+
+  const rand = Math.floor(1000 + Math.random() * 9000);
+  const prefix = category.substring(0, 4);
+  const partnerId = "DGH-" + prefix + "-2026-" + rand;
+  const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+  // 1. Append to Google Sheet
+  const sheet = getDighaPartnersSheet();
+  sheet.appendRow([
+    timestamp,
+    partnerId,
+    name,
+    mobile,
+    category,
+    area,
+    details,
+    "PENDING" // Admin changes this to "ACTIVE" to display in UI!
+  ]);
+
+  // 2. Dispatch Instant Telegram Push Alert to Admin
+  const telegramMsg = "🚨 *NEW DIGHA PARTNER ONBOARDING*\n" +
+    "━━━━━━━━━━━━━━━━━━\n" +
+    "🆔 *ID:* `" + partnerId + "`\n" +
+    "👤 *Name:* " + name + "\n" +
+    "📞 *Mobile:* " + mobile + "\n" +
+    "🏷️ *Role:* " + category + "\n" +
+    "📍 *Stand/Area:* " + area + "\n" +
+    "📝 *Details:* " + details + "\n" +
+    "⏳ *Status:* PENDING VERIFICATION\n" +
+    "━━━━━━━━━━━━━━━━━━\n" +
+    "👉 *Action:* Open Google Sheet tab 'Digha_Partners' and change status to ACTIVE after verification.";
+
+  if (CONFIG.TELEGRAM_ENABLED) {
+    sendTelegramMessage(telegramMsg);
+  }
+
+  // 3. Dispatch Email Alert
+  if (CONFIG.EMAIL_ENABLED && CONFIG.NOTIFICATION_EMAIL) {
+    try {
+      MailApp.sendEmail({
+        to: CONFIG.NOTIFICATION_EMAIL,
+        subject: "[Digha Partner Registration] " + name + " (" + category + ") - " + partnerId,
+        htmlBody: "<div style='font-family: Arial, sans-serif; padding: 20px;'>" +
+          "<h2>New Digha Partner Verification Required</h2>" +
+          "<p><strong>Partner ID:</strong> " + partnerId + "</p>" +
+          "<p><strong>Name:</strong> " + name + "</p>" +
+          "<p><strong>Mobile:</strong> " + mobile + "</p>" +
+          "<p><strong>Category:</strong> " + category + "</p>" +
+          "<p><strong>Area:</strong> " + area + "</p>" +
+          "<p><strong>Details:</strong> " + details + "</p>" +
+          "<p><em>Open your Google Sheet 'Digha_Partners' tab to mark this partner as ACTIVE to display on website.</em></p>" +
+          "</div>"
+      });
+    } catch (mailErr) {
+      Logger.log("Digha partner email alert error: " + mailErr.toString());
+    }
+  }
+
+  logAudit(mobile, "DIGHA_PARTNER_REGISTRATION", "Submitted " + partnerId + " (" + category + ")", partnerId);
+
+  return createJsonResponse({
+    success: true,
+    partner_id: partnerId,
+    status: "PENDING",
+    message: "Application submitted successfully. Anirjan admin team will verify your Toto/Hotel details and activate your direct calling listing within 24 hours."
+  });
+}
+
+/**
+ * DIGHA CONNECT: Fetches all ACTIVE partners verified by admin in Google Sheet.
+ */
+function actionGetDighaPartners(data) {
+  const sheet = getDighaPartnersSheet();
+  const values = sheet.getDataRange().getValues();
+  if (values.length < 2) {
+    return createJsonResponse({ success: true, partners: [] });
+  }
+
+  const activePartners = [];
+  for (let i = 1; i < values.length; i++) {
+    const row = values[i];
+    const status = (row[7] || "").toString().trim().toUpperCase();
+
+    // STRICT: Only display partners verified and marked ACTIVE by admin!
+    if (status === "ACTIVE" || status === "VERIFIED") {
+      activePartners.push({
+        id: row[1],
+        name: row[2],
+        mobile: row[3],
+        category: row[4],
+        area: row[5],
+        details: row[6],
+        status: status
+      });
+    }
+  }
+
+  return createJsonResponse({ success: true, partners: activePartners });
+}
+
+function getDighaPartnersSheet() {
+  const ss = getActiveSpreadsheetSafe();
+  let sheet = ss.getSheetByName("Digha_Partners");
+  if (!sheet) {
+    sheet = ss.insertSheet("Digha_Partners");
+    const headers = ["Timestamp", "Partner ID", "Full Name", "Mobile / WhatsApp", "Category", "Operating Area", "Details", "Status"];
+    sheet.appendRow(headers);
+    sheet.getRange("A1:H1").setFontWeight("bold").setBackground("#0f172a").setFontColor("#38bdf8");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+

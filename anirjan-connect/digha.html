@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digha Connect — Official Digital Gateway, Live Tide, Trains, Fares &amp; Hotels | Anirjan</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Digha Connect by Anirjan: The official 0% commission local super-app for Digha. Live ocean wave height, beach tide radar, train departure board, doctor roster, Toto fare calculator, direct hotel booking, and Mohona seafood rates.">
+  <meta name="keywords" content="Digha Connect, Digha sea wave height today, Digha train timetable, Digha tide time today, Digha doctors roster, Digha hotels direct booking, Digha toto fare chart, Digha Mohona fish rate">
+  <meta name="author" content="Anirjan Collective — Jagadishpur, Digha">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Digha Connect — By Digha, For Digha | Anirjan">
+  <meta property="og:description" content="Live marine telemetry, train board, fair-price Toto booking, doctor roster, direct hotel stays, and daily Mohona seafood price index.">
+  <meta property="og:image" content="../assets/favicon.svg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/overhaul.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/connect.css">
+  <link rel="stylesheet" href="../css/digha.css">
+
+  <!-- Cloudflare Turnstile Anti-Bot Cryptographic Security -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+  <style>
+    .gradient-text-ocean {
+      background: linear-gradient(135deg, #4deeea 0%, #38bdf8 50%, #f3c276 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-digha-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      background: rgba(77, 238, 234, 0.15);
+      color: var(--cyan-primary);
+      border: 1px solid rgba(77, 238, 234, 0.3);
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+      font-weight: 700;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 7, 12, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-card {
+      background: #090e17;
+      border: 1px solid var(--gold-primary);
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(243, 194, 118, 0.2);
+      animation: modalPop 0.3s ease-out;
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Cosmic Oceanic Background Overlays -->
+  <div class="ambient-background"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- =========================================================================
+       1. NAVIGATION BAR
+       ========================================================================= -->
+  <header>
+    <nav class="navbar" id="main-navbar">
+      <a href="../index.html" class="brand-logo" aria-label="Anirjan Home">
+        <div class="logo-emblem">
+          <svg viewBox="0 0 100 100">
+            <ellipse cx="50" cy="50" rx="38" ry="16" fill="none" stroke="#05070c" stroke-width="3" transform="rotate(-20 50 50)"/>
+            <circle cx="50" cy="30" r="10" fill="#05070c"/>
+            <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="#05070c"/>
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-title">DIGHA CONNECT <span class="nav-digha-badge">LIVE HUB</span></span>
+          <span class="brand-tagline">By Anirjan • Jagadishpur, Digha</span>
+        </div>
+      </a>
+
+      <!-- Nav Menu (Desktop & Mobile Drawer) -->
+      <ul class="nav-menu">
+        <li><a href="#tide-radar" class="nav-link">🌊 Sea &amp; Tide</a></li>
+        <li><a href="#trains-section" class="nav-link">🚆 Trains</a></li>
+        <li><a href="#toto-guide" class="nav-link">🛺 Toto Fares</a></li>
+        <li><a href="#hotel-directory" class="nav-link">🏨 Hotels</a></li>
+        <li><a href="#events-section" class="nav-link" style="color: #38bdf8; font-weight: 700;">🎪 Custom Events</a></li>
+        <li><a href="#medical-section" class="nav-link">🩺 Doctors</a></li>
+        <li><a href="#mohona-market" class="nav-link">🐟 Mohona Fish</a></li>
+        <li><a href="#digha-secrets" class="nav-link" style="color: var(--gold-primary);">💡 Secrets</a></li>
+        <li><a href="#partner-registration" class="nav-link nav-item-mobile-only" style="color: var(--gold-light);">📝 Partner Registration</a></li>
+        <li><a href="#emergency-sos" class="nav-link" style="color: #f87171;">🚨 SOS Hotline</a></li>
+      </ul>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <button type="button" class="btn btn-outline-gold btn-sm" id="btn-community-report">
+          <span>📢 Report Sea</span>
+        </button>
+        <a href="#partner-registration" class="btn btn-primary btn-sm">
+          <span>Partner With Us ✦</span>
+        </a>
+        <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         2. HERO SECTION: DIGHA IN YOUR POCKET
+         ========================================================================= -->
+    <section class="digha-hero" id="hero">
+      <div class="digha-hero-glow"></div>
+
+      <div class="container">
+        <div class="digha-hero-content">
+          <div class="badge-coastal">
+            <div class="badge-wave-dot"></div>
+            <span>Digha Coastal Zone • 100% Real Live Data • Zero Middleman</span>
+          </div>
+
+          <h1 class="digha-hero-title">
+            Digha In Your Pocket.<br>
+            <span class="gradient-text-ocean">Empowering Every Local &amp; Traveler.</span>
+          </h1>
+
+          <p class="digha-hero-subtitle">
+            The community-owned digital pulse of <strong>Old Digha, New Digha, Mandarmani &amp; Tajpur</strong>. 
+            Real ocean wave telemetry, automated train departure boards, doctor on-duty rosters, fair Toto rates, and 0% commission direct hotel stays.
+          </p>
+
+          <!-- Verified Community Live Announcement Banner -->
+          <div id="community-live-notice" style="display: none; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: var(--radius-full); padding: 8px 24px; font-size: 0.88rem; color: #34d399; font-weight: 600; margin: 0 auto 24px auto; max-width: 680px;">
+          </div>
+
+          <!-- Hero Action CTAs -->
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+            <button type="button" class="btn btn-primary" id="btn-hero-beach-pass" style="background: linear-gradient(135deg, #0284c7, #38bdf8); box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);">
+              <span>📸 Share Beach Pass to WhatsApp</span>
+            </button>
+            <button type="button" class="btn btn-outline-gold" id="btn-hero-scam-shield" style="border-color: #ef4444; color: #fca5a5;">
+              <span>🛡️ Station Scam Shield</span>
+            </button>
+            <a href="#tide-radar" class="btn btn-primary">
+              <span>🌊 Live Sea Waves &amp; Tide</span>
+            </a>
+            <a href="#trains-section" class="btn btn-outline-gold">
+              <span>🚆 Next Train to Howrah</span>
+            </a>
+            <a href="#toto-guide" class="btn btn-outline-gold" style="border-color: var(--cyan-primary); color: var(--cyan-primary);">
+              <span>🛺 Toto Fare Calculator</span>
+            </a>
+            <a href="#hotel-directory" class="btn btn-outline-gold">
+              <span>🏨 0% Direct Hotels</span>
+            </a>
+            <a href="#checkout-planner" class="btn btn-outline-gold" style="border-color: #fbbf24; color: #fbbf24;">
+              <span>🧳 11 AM Checkout &amp; Cloakroom</span>
+            </a>
+            <a href="#fish-cooking-calc" class="btn btn-outline-gold" style="border-color: #f59e0b; color: #fcd34d;">
+              <span>🍳 Fish Cooking Rates</span>
+            </a>
+            <a href="#medical-section" class="btn btn-outline-gold" style="border-color: #34d399; color: #34d399;">
+              <span>🩺 Doctors &amp; Hospital</span>
+            </a>
+          </div>
+
+          <!-- 4 Real-time Coastal Metric Cards -->
+          <div class="coastal-metrics-grid">
+            <div class="metric-pill-card">
+              <div class="metric-pill-header">
+                <span class="metric-icon">🌊</span>
+                <span class="metric-label">Live Wave Height</span>
+              </div>
+              <div class="metric-value metric-status-safe" id="metric-wave-status">Fetching Marine...</div>
+            </div>
+
+            <div class="metric-pill-card">
+              <div class="metric-pill-header">
+                <span class="metric-icon">👥</span>
+                <span class="metric-label">Digha Crowd Meter</span>
+              </div>
+              <div class="metric-value" id="metric-crowd-status">Calculating...</div>
+            </div>
+
+            <div class="metric-pill-card">
+              <div class="metric-pill-header">
+                <span class="metric-icon">🏨</span>
+                <span class="metric-label">Zero-Fee Stays</span>
+              </div>
+              <div class="metric-value" style="color: var(--gold-primary);">Verified Direct Booking</div>
+            </div>
+
+            <div class="metric-pill-card">
+              <div class="metric-pill-header">
+                <span class="metric-icon">🛡️</span>
+                <span class="metric-label">Coastal Police &amp; Nolia</span>
+              </div>
+              <div class="metric-value" style="color: var(--cyan-primary);">Lifeguard Watch Active</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         3. LIVE MARINE WAVE TELEMETRY & TIDE RADAR
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="tide-radar" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 28px;">
+          <span class="section-label" style="color: var(--cyan-primary);">Live Marine Telemetry (Open-Meteo API)</span>
+          <h2 class="section-title">Live Digha Sea &amp; Tide Radar</h2>
+          <p class="section-description">
+            Real-time oceanographic measurements synchronized directly with Bay of Bengal satellite buoys and coastal tidal cycles.
+          </p>
+        </div>
+
+        <!-- Live Marine Telemetry HUD Strip -->
+        <div class="marine-telemetry-strip">
+          <div class="telemetry-item">
+            <div class="telemetry-icon">🌊</div>
+            <div>
+              <div class="telemetry-label">Live Wave Height</div>
+              <div class="telemetry-val" id="live-wave-height">Loading...</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);" id="live-wave-period">10s period</div>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-icon">💨</div>
+            <div>
+              <div class="telemetry-label">Coastal Wind &amp; Humidity</div>
+              <div class="telemetry-val" id="live-ocean-wind">Loading...</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Offshore breeze</div>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-icon">🌡️</div>
+            <div>
+              <div class="telemetry-label">Surface Temperature</div>
+              <div class="telemetry-val" id="live-ocean-temp">26.5°C</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Tropical Bay water</div>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <div class="telemetry-icon">🌓</div>
+            <div>
+              <div class="telemetry-label">Moon Cycle &amp; Swell</div>
+              <div class="telemetry-val" style="font-size: 0.95rem; color: var(--gold-primary);" id="moon-phase-status">Normal Tide</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Bhora Kotal vs Mora Kotal Monitor</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tide Radar Card -->
+        <div class="tide-radar-card">
+          <div class="tide-radar-header">
+            <div>
+              <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff; margin-bottom: 4px;" id="tide-state-text">
+                Current Sea State: Calculating Tidal Oscillation...
+              </h3>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">
+                Bay of Bengal Tidal Grid • Automated Semi-Diurnal Astronomical Model
+              </p>
+            </div>
+            <div id="tide-status-badge" class="tide-status-badge safe">
+              🟢 Safe for Bathing
+            </div>
+          </div>
+
+          <!-- Tide Timings Grid -->
+          <div class="tide-cycle-display">
+            <div class="tide-stat-box">
+              <div class="title">Next High Tide (Jowar)</div>
+              <div class="time" id="next-high-tide">--:-- --</div>
+              <div class="desc">Water level reaches coastal sea wall</div>
+            </div>
+            <div class="tide-stat-box">
+              <div class="title">Next Low Tide (Bhata)</div>
+              <div class="time" id="next-low-tide" style="color: var(--gold-primary);">--:-- --</div>
+              <div class="desc">Widest sandy shore exposed</div>
+            </div>
+            <div class="tide-stat-box">
+              <div class="title">Live Wave Condition</div>
+              <div class="time" style="color: #34d399; font-size: 1.05rem;" id="live-wave-desc">Gentle Waves</div>
+              <div class="desc">Open-Meteo real telemetry</div>
+            </div>
+            <div class="tide-stat-box">
+              <div class="title">Police Siren Advisory</div>
+              <div class="time" style="color: #f87171; font-size: 1.05rem;">Siren = Exit Water</div>
+              <div class="desc">Nolias patrol every 100 meters</div>
+            </div>
+          </div>
+
+          <!-- Beach Safety Breakdown -->
+          <div class="beach-zones-grid" id="beach-zones-container">
+            <div class="beach-zone-item">
+              <div class="beach-zone-name">
+                <span>New Digha Sea Beach</span>
+                <span class="zone-flag flag-green" id="flag-new-digha">🟢 SAFE FOR FAMILIES</span>
+              </div>
+              <p class="beach-zone-desc" id="desc-new-digha">
+                Very shallow continental shelf. Safe for walking out and swimming during low tide. Nolias stationed continuously.
+              </p>
+            </div>
+
+            <div class="beach-zone-item">
+              <div class="beach-zone-name">
+                <span>Old Digha (Biswa Bangla Ghat)</span>
+                <span class="zone-flag flag-yellow" id="flag-old-digha">🟡 EXERCISE CAUTION</span>
+              </div>
+              <p class="beach-zone-desc" id="desc-old-digha">
+                Concrete boulders and sea wall. Strong wave undertow during rising high tide. Do not climb slippery wet rocks.
+              </p>
+            </div>
+
+            <div class="beach-zone-item">
+              <div class="beach-zone-name">
+                <span>Udaipur Beach (Border)</span>
+                <span class="zone-flag flag-green" id="flag-udaipur">🟢 OPEN SHORE</span>
+              </div>
+              <p class="beach-zone-desc" id="desc-udaipur">
+                Wide open beach extending into Odisha. Water sports, speed boats, and quad biking operating safely today.
+              </p>
+            </div>
+
+            <div class="beach-zone-item">
+              <div class="beach-zone-name">
+                <span>Mohona Estuary (Confluence)</span>
+                <span class="zone-flag flag-red" id="flag-mohona">🔴 STRICTLY NO BATHING</span>
+              </div>
+              <p class="beach-zone-desc" id="desc-mohona">
+                Dangerous quicksand and unpredictable swirling currents where Champa river meets the sea. Visit only for fish auctions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         4. LIVE DIGHA TRAIN & BUS DEPARTURE BOARD
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="trains-section" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 32px;">
+          <span class="section-label" style="color: var(--gold-primary);">Real-time Railway Timetable</span>
+          <h2 class="section-title">Digha Station Train Departure Board</h2>
+          <p class="section-description">
+            Connecting Digha (DGHA) to Howrah (HWH), Kharagpur, Mecheda, and North Bengal. Highlights the next upcoming departure based on your current time.
+          </p>
+        </div>
+
+        <div class="trains-grid" id="trains-container">
+          <!-- Injected dynamically from data/digha-live-data.json -->
+          <div style="color: var(--text-muted); text-align: center; grid-column: 1 / -1;">
+            Loading real-time train board...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         5. TOTO FARE ESTIMATOR & DIRECT CALL
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="toto-guide" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+          <span class="section-label" style="color: var(--cyan-primary);">Fair-Rate Transit System</span>
+          <h2 class="section-title">Official Digha Toto Fare Estimator</h2>
+          <p class="section-description">
+            Zero tourist haggling, zero overcharging. Standardized union rates across Old Digha, New Digha, Station, Mohona &amp; Udaipur.
+          </p>
+        </div>
+
+        <div class="toto-calc-grid">
+          <!-- Fare Calculator Card -->
+          <div class="toto-calc-card">
+            <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin-bottom: 20px;">
+              Route Fare Calculator
+            </h3>
+
+            <div class="form-group-route">
+              <label class="form-label-styled" for="toto-from">
+                <span>📍 From (Pickup Point):</span>
+              </label>
+              <select id="toto-from" class="custom-select">
+                <option value="station" selected>Digha Railway Station</option>
+                <option value="newdigha">New Digha Sea Beach</option>
+                <option value="olddigha">Old Digha (Nehru Market / Biswa Bangla Ghat)</option>
+                <option value="mohona">Digha Mohona Fish Market</option>
+                <option value="udaipur">Udaipur Sea Beach (Odisha Border)</option>
+              </select>
+            </div>
+
+            <div class="form-group-route">
+              <label class="form-label-styled" for="toto-to">
+                <span>🏁 To (Destination):</span>
+              </label>
+              <select id="toto-to" class="custom-select">
+                <option value="newdigha" selected>New Digha Sea Beach</option>
+                <option value="olddigha">Old Digha (Nehru Market)</option>
+                <option value="station">Digha Railway Station</option>
+                <option value="mohona">Mohona Fish Market</option>
+                <option value="udaipur">Udaipur Beach</option>
+                <option value="sciencecity">Digha Science City</option>
+                <option value="amaravati">Amaravati Park / Ropeway</option>
+                <option value="shankarpur">Shankarpur Fishing Harbour</option>
+                <option value="tajpur">Tajpur Beach (via Marine Drive)</option>
+              </select>
+            </div>
+
+            <!-- Result Box -->
+            <div class="fare-result-box">
+              <div class="fare-rate-row">
+                <div>
+                  <div class="fare-type-title">Shared Toto Rate (Per Seat)</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Standard passenger sharing</div>
+                </div>
+                <div class="fare-price-tag" id="fare-shared-rate">₹15 - ₹20</div>
+              </div>
+
+              <div class="fare-rate-row">
+                <div>
+                  <div class="fare-type-title">Full Toto Reserve (Private Ride)</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Exclusive ride for 1 to 4 persons</div>
+                </div>
+                <div class="fare-price-tag" id="fare-reserve-rate" style="color: var(--cyan-primary);">₹80 - ₹100</div>
+              </div>
+
+              <div class="fare-rate-row">
+                <div>
+                  <div class="fare-type-title">Est. Distance &amp; Time</div>
+                </div>
+                <div style="font-weight: 600; color: var(--text-primary);">
+                  <span id="fare-distance">1.8 km</span> • <span id="fare-time">8-10 mins</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 18px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              💡 <em>Night surcharge of ₹20 applies on private reservations after 10:30 PM. All verified drivers carry official Anirjan Connect QR stickers.</em>
+            </div>
+          </div>
+
+          <!-- Driver Call List (Injected Dynamically) -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: #fff; margin: 0;">
+                Verified Drivers on Standby
+              </h3>
+              <span class="driver-badge-verified">Live GPS Radio</span>
+            </div>
+
+            <div class="driver-list-container" id="toto-drivers-container">
+              <!-- Injected dynamically from data/digha-live-data.json -->
+            </div>
+
+            <div style="background: rgba(16, 23, 38, 0.7); border: 1px dashed rgba(243, 194, 118, 0.3); border-radius: var(--radius-md); padding: 16px 20px; margin-top: 18px; text-align: center;">
+              <p style="font-size: 0.88rem; color: var(--gold-primary); font-weight: 600; margin: 0 0 6px 0;">
+                Are you a Digha Toto / Auto driver?
+              </p>
+              <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0 0 12px 0;">
+                Register for free, receive your windshield QR sticker, and get direct phone bookings with zero commissions.
+              </p>
+              <a href="#partner-registration" class="btn btn-outline-gold btn-sm">
+                <span>Join Driver Network &amp; Claim 50 Shares</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         6. DIRECT HOTEL DIRECTORY (0% COMMISSION)
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="hotel-directory" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 24px;">
+          <span class="section-label" style="color: var(--emerald-primary);">Zero-Commission Direct Stays</span>
+          <h2 class="section-title">Direct Digha Hotel Directory</h2>
+          <p class="section-description">
+            Online Travel Agencies take up to 25% commission. Book directly with verified hotel owners in Digha to get guaranteed lower rates and pay upon arrival.
+          </p>
+        </div>
+
+        <!-- Live Instant Search Bar -->
+        <input type="text" id="hotel-search-input" class="hotel-search-bar" placeholder="🔍 Search hotel by name, area (New Digha, Old Digha, Udaipur) or amenity (Pool, AC, Sea View)...">
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs-wrapper">
+          <button class="filter-tab-btn active" data-filter="all">All Stays</button>
+          <button class="filter-tab-btn" data-filter="beach">🌊 Sea Beachfront</button>
+          <button class="filter-tab-btn" data-filter="budget">🏷️ Budget Friendly (Under ₹1,200)</button>
+          <button class="filter-tab-btn" data-filter="deluxe">✨ Deluxe &amp; Family AC</button>
+          <button class="filter-tab-btn" data-filter="luxury">👑 Luxury Resorts &amp; Pool</button>
+        </div>
+
+        <!-- Dynamic Hotel Cards Grid -->
+        <div class="hotels-grid" id="hotels-container">
+          <!-- Injected dynamically from data/digha-live-data.json -->
+        </div>
+
+        <!-- Hotel Owner CTA -->
+        <div style="text-align: center; margin-top: 36px;">
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 14px;">
+            Do you own a hotel, guest house, or homestay in Digha, Mandarmani, or Tajpur?
+          </p>
+          <a href="#partner-registration" class="btn btn-outline-gold">
+            <span>List Your Hotel on Anirjan Connect (100% Free Forever)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         6B. 11:00 AM HOTEL CHECKOUT & LUGGAGE / CLOAKROOM GUIDE
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="checkout-planner" style="padding: 60px 0; background: radial-gradient(circle at 50% 0%, rgba(243, 194, 118, 0.06) 0%, rgba(6, 10, 18, 0.98) 75%);">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+          <span class="section-label" style="color: var(--gold-primary); display: inline-flex; align-items: center; gap: 6px;">
+            <span>🧳</span> Post-Checkout Freedom • Universal Tourist Guide
+          </span>
+          <h2 class="section-title">11:00 AM Hotel Checkout? Luggage &amp; Return Plan</h2>
+          <p class="section-description">
+            Almost all Digha hotels mandate morning checkout between 10:00 AM and 11:00 AM, but evening return trains depart between 1:00 PM and 6:30 PM. Here is how to safely store your bags, find breezy rest spots, and pre-book a Toto to Digha station.
+          </p>
+        </div>
+
+        <div class="checkout-planner-grid">
+          <!-- 1. Station Cloakroom Directory -->
+          <div class="planner-card">
+            <div class="planner-card-header">
+              <span class="planner-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">
+                🚆 Official Railway Facility
+              </span>
+              <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: #fff; margin-top: 10px;">
+                Digha Station Cloakroom (PF #1)
+              </h3>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+              Located on Platform No. 1 right next to the Station Master Office. Operates round-the-clock (24/7) with official Indian Railways tariffs.
+            </p>
+            <div class="planner-feature-list">
+              <div class="planner-feature-item">
+                <span style="color: #38bdf8; font-weight: 700;">💰 Tariff:</span>
+                <span>Only ₹20 per bag for the first 24 hours (₹30 subsequent 24h).</span>
+              </div>
+              <div class="planner-feature-item">
+                <span style="color: #fbbf24; font-weight: 700;">🔒 Lock Rule:</span>
+                <span>Bags MUST be securely locked with a padlock or numerical lock. Open zippers/unlocked bags are rejected by railway police.</span>
+              </div>
+              <div class="planner-feature-item">
+                <span style="color: #34d399; font-weight: 700;">🆔 ID &amp; Ticket:</span>
+                <span>Must carry valid Govt Photo ID (Aadhaar/Voter) and a confirmed or waitlisted railway ticket.</span>
+              </div>
+            </div>
+            <a href="#trains-section" class="btn btn-outline-gold btn-sm" style="width: 100%; justify-content: center; margin-top: 16px;">
+              <span>Check Return Train Timetable ↗</span>
+            </a>
+          </div>
+
+          <!-- 2. Shaded Rest & Day-Use Zones -->
+          <div class="planner-card">
+            <div class="planner-card-header">
+              <span class="planner-badge" style="background: rgba(243, 194, 118, 0.15); color: var(--gold-primary); border: 1px solid rgba(243, 194, 118, 0.3);">
+                🌴 Afternoon Rest Spots
+              </span>
+              <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: #fff; margin-top: 10px;">
+                Where to Relax Before Your Train
+              </h3>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+              Avoid roaming in the hot coastal midday sun with heavy bags. Recommended breezy rest points:
+            </p>
+            <div class="planner-feature-list">
+              <div class="planner-feature-item">
+                <span style="color: #fff; font-weight: 700;">💺 Station AC Waiting Hall:</span>
+                <span>Free entry on Platform 1 with valid 2S / CC train ticket. Clean seating, ceiling fans, clean restrooms, and phone charging points.</span>
+              </div>
+              <div class="planner-feature-item">
+                <span style="color: #fff; font-weight: 700;">🌊 Biswa Bangla Promenade:</span>
+                <span>Old Digha shaded pavilions right on the sea wall with cool sea breezes and fresh green coconuts (Dab) for ₹35–₹40.</span>
+              </div>
+              <div class="planner-feature-item">
+                <span style="color: #fff; font-weight: 700;">🌲 Amrabati Lake Park:</span>
+                <span>Near New Digha Station Road. Shaded garden pavilions and boating away from beach humidity.</span>
+              </div>
+            </div>
+            <a href="#toto-guide" class="btn btn-outline-gold btn-sm" style="width: 100%; justify-content: center; margin-top: 16px;">
+              <span>Check Toto Fare to Rest Spots ↗</span>
+            </a>
+          </div>
+
+          <!-- 3. Pre-Book Return Toto -->
+          <div class="planner-card" style="border-color: rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(56, 189, 248, 0.06), rgba(15, 23, 42, 0.9));">
+            <div class="planner-card-header">
+              <span class="planner-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">
+                ⚡ Zero Surge Gouging
+              </span>
+              <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: #fff; margin-top: 10px;">
+                Pre-Schedule Station Toto
+              </h3>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
+              Don't wait until 30 minutes before your train when drivers demand ₹150 for a ₹50 ride. Book your return Toto in advance.
+            </p>
+            <div class="planner-feature-list">
+              <div class="planner-feature-item">
+                <span style="color: #38bdf8; font-weight: 700;">⏱️ Timing Recommendation:</span>
+                <span>Book your Toto to arrive at your hotel <strong>45 minutes</strong> before train departure.</span>
+              </div>
+              <div class="planner-feature-item">
+                <span style="color: #38bdf8; font-weight: 700;">🛺 Standard Reserved Rate:</span>
+                <span>Hotel to Digha Station is strictly ₹60 - ₹70 reserved. Never pay more.</span>
+              </div>
+              <div class="planner-feature-item">
+                <span style="color: #38bdf8; font-weight: 700;">🤝 Direct Driver Call:</span>
+                <span>Call any verified union driver from our directory with zero middleman app commission.</span>
+              </div>
+            </div>
+            <a href="#toto-drivers-section" class="btn btn-primary btn-sm" style="width: 100%; justify-content: center; margin-top: 16px;">
+              <span>Call Verified Return Toto Driver 🛺</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         7. DOCTORS & MEDICAL EMERGENCY ROSTER
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="medical-section" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 32px;">
+          <span class="section-label" style="color: #34d399;">Healthcare &amp; Emergency Care</span>
+          <h2 class="section-title">Digha Doctor &amp; 24/7 Pharmacy Roster</h2>
+          <p class="section-description">
+            Immediate healthcare assistance for dehydration, food infection, pediatric emergencies, snakebite anti-venom, and trauma triage in Digha and Ramnagar.
+          </p>
+        </div>
+
+        <div class="doctors-grid" id="medical-roster-container">
+          <!-- Injected dynamically from data/digha-live-data.json -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         8. MOHONA SEAFOOD PRICE INDEX
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="mohona-market" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+          <span class="section-label" style="color: var(--cyan-primary);">Daily Fish Auction Benchmark</span>
+          <h2 class="section-title">Digha Mohona Live Seafood Rates</h2>
+          <p class="section-description">
+            Updated every morning directly from the Digha Mohona Wholesale Fish Auction. Transparent benchmark comparison between wholesale crates and fair retail market prices.
+          </p>
+        </div>
+
+        <div class="fish-market-grid" id="fish-market-container">
+          <!-- Injected dynamically from data/digha-live-data.json -->
+        </div>
+
+        <!-- Kacha Mach Ranna: Digha Fish Cooking & Price Calculator -->
+        <div class="fish-cooking-calc-box" id="fish-cooking-calc" style="margin-top: 40px;">
+          <div class="calc-header" style="text-align: center; margin-bottom: 28px;">
+            <span class="calc-badge" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); padding: 4px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 700;">
+              🍳 Local Culinary Protection Guide
+            </span>
+            <h3 style="font-family: var(--font-heading); font-size: 1.45rem; color: #fff; margin-top: 10px; margin-bottom: 6px;">
+              "Kacha Mach Ranna" Cooking &amp; Fair-Price Calculator
+            </h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto; line-height: 1.5;">
+              Buying raw fish at Mohona and getting it cooked at a hotel or beach shack? Select your catch, weight, and recipe below to calculate the fair raw purchase price and authorized cooking labor charges.
+            </p>
+          </div>
+
+          <div class="cook-calc-grid">
+            <!-- Left: Selectors -->
+            <div class="cook-calc-controls">
+              <!-- Select Fish -->
+              <div class="form-group-route" style="margin-bottom: 16px;">
+                <label class="form-label-styled" for="calc-fish-select">
+                  <span>🐟</span> Select Fish Catch:
+                </label>
+                <select id="calc-fish-select" class="custom-select">
+                  <option value="ilish" selected>Ilish / Hilsa (₹1,100 / kg avg)</option>
+                  <option value="pomfret">Silver Pomfret (₹550 / kg avg)</option>
+                  <option value="golda_chingri">Golda Chingri / Giant Prawns (₹750 / kg avg)</option>
+                  <option value="bhetki">Bhetki / Barramundi (₹500 / kg avg)</option>
+                  <option value="kankra">Sea &amp; Mud Crab / Kankra (₹400 / kg avg)</option>
+                  <option value="parshe">Parshe / Gurjali (₹350 / kg avg)</option>
+                </select>
+              </div>
+
+              <!-- Select Weight -->
+              <div class="form-group-route" style="margin-bottom: 16px;">
+                <label class="form-label-styled" for="calc-weight-select">
+                  <span>⚖️</span> Select Weight / Quantity:
+                </label>
+                <select id="calc-weight-select" class="custom-select">
+                  <option value="0.5">500 Grams (Half Kilo)</option>
+                  <option value="1.0" selected>1.0 Kilogram (Standard Family Catch)</option>
+                  <option value="1.5">1.5 Kilograms</option>
+                  <option value="2.0">2.0 Kilograms (Group Feast)</option>
+                </select>
+              </div>
+
+              <!-- Select Preparation -->
+              <div class="form-group-route">
+                <label class="form-label-styled">
+                  <span>🍳</span> Select Preparation / Recipe:
+                </label>
+                <div class="prep-options-grid" id="prep-options-container">
+                  <label class="prep-card active" data-prep="fry">
+                    <input type="radio" name="fish-prep" value="fry" checked style="display:none;">
+                    <div class="prep-card-icon">🔥</div>
+                    <div class="prep-card-title">Crispy Deep Fry</div>
+                    <div class="prep-card-rate">₹50 / kg standard</div>
+                  </label>
+                  <label class="prep-card" data-prep="shorshe">
+                    <input type="radio" name="fish-prep" value="shorshe" style="display:none;">
+                    <div class="prep-card-icon">🥘</div>
+                    <div class="prep-card-title">Shorshe Gravy</div>
+                    <div class="prep-card-rate">₹80 / kg standard</div>
+                  </label>
+                  <label class="prep-card" data-prep="malaikari">
+                    <input type="radio" name="fish-prep" value="malaikari" style="display:none;">
+                    <div class="prep-card-icon">🥥</div>
+                    <div class="prep-card-title">Chingri Malaikari</div>
+                    <div class="prep-card-rate">₹90 / kg standard</div>
+                  </label>
+                  <label class="prep-card" data-prep="kankra_jhal">
+                    <input type="radio" name="fish-prep" value="kankra_jhal" style="display:none;">
+                    <div class="prep-card-icon">🌶️</div>
+                    <div class="prep-card-title">Kankra Jhal Masala</div>
+                    <div class="prep-card-rate">₹80 / kg standard</div>
+                  </label>
+                  <label class="prep-card" data-prep="patla_jhol">
+                    <input type="radio" name="fish-prep" value="patla_jhol" style="display:none;">
+                    <div class="prep-card-icon">🍲</div>
+                    <div class="prep-card-title">Patla Macher Jhol</div>
+                    <div class="prep-card-rate">₹60 / kg standard</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Cost Breakdown & Freshness Guide -->
+            <div class="cook-calc-result-box">
+              <div class="cost-summary-card">
+                <div class="cost-row">
+                  <span class="cost-label">Est. Raw Fish Wholesale Cost:</span>
+                  <span class="cost-val" id="res-raw-cost">₹1,100</span>
+                </div>
+                <div class="cost-row">
+                  <span class="cost-label">Authorized Cooking Labor &amp; Spices:</span>
+                  <span class="cost-val" id="res-cook-cost" style="color: #38bdf8;">₹50</span>
+                </div>
+                <div class="cost-total-row">
+                  <span>Estimated Total Fair Cost:</span>
+                  <span class="total-price-tag" id="res-total-cost">₹1,150</span>
+                </div>
+              </div>
+
+              <!-- Fair Rate & Anti-Cheating Notice -->
+              <div class="cook-rate-notice">
+                <div style="font-weight: 700; color: #fbbf24; margin-bottom: 4px; font-size: 0.85rem;">
+                  🛡️ Digha Standard Cooking Cap Notice
+                </div>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                  By local market standard, cooking charges should never exceed <strong>₹50/kg for frying</strong> or <strong>₹80–₹90/kg for rich gravy curries</strong>. If a hotel cook asks for ₹150–₹200/kg, quote this official benchmark.
+                </p>
+              </div>
+
+              <!-- Freshness Test Card -->
+              <div class="freshness-test-box">
+                <div style="font-weight: 700; color: #34d399; margin-bottom: 4px; font-size: 0.82rem;">
+                  🐟 3-Step Freshness &amp; Anti-Formalin Test:
+                </div>
+                <ul style="font-size: 0.76rem; color: var(--text-muted); margin: 0; padding-left: 18px; line-height: 1.4;">
+                  <li><strong>Red Gills:</strong> Gills must be blood red (pale grey/brown indicates old frozen stock).</li>
+                  <li><strong>Clear Eyes:</strong> Fish eyes must be clear and bulbous, not sunken or milky.</li>
+                  <li><strong>Firm Flesh:</strong> Press your thumb on the fish; it should immediately bounce back.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mohona Visit & Ice Packaging Guide Banner -->
+        <div class="mohona-guide-banner">
+          <div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--gold-primary); margin-bottom: 6px;">
+              🌅 Tips for Visiting Digha Mohona
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.88rem; margin: 0; max-width: 680px; line-height: 1.5;">
+              Wholesale auctions run between <strong>5:30 AM to 8:30 AM</strong>. If you are taking fish back to Kolkata, Howrah, or Kharagpur by train, ask the stall to pack it in a sealed thermocol box with dry ice (costs ₹80–₹120) — your fish remains fresh for up to 14 hours!
+            </p>
+          </div>
+          <a href="#toto-guide" class="btn btn-outline-gold btn-sm">
+            <span>Book Morning Toto to Mohona</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         9. DIGHA SECRETS & HISTORICAL TRIVIA
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="digha-secrets" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+          <span class="section-label" style="color: var(--gold-primary);">Local Knowledge &amp; Heritage</span>
+          <h2 class="section-title">Digha Untold: Secrets &amp; Hidden Gems</h2>
+          <p class="section-description">
+            Fascinating facts and local trivia about Digha that even frequent visitors and locals cherish.
+          </p>
+        </div>
+
+        <div class="facts-grid" id="digha-facts-container">
+          <!-- Injected dynamically from data/digha-live-data.json -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         10. EMERGENCY COASTAL SOS
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="emergency-sos" style="padding: 60px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+          <span class="section-label" style="color: #f87171;">24/7 Rapid Response</span>
+          <h2 class="section-title">Digha Emergency Coastal SOS</h2>
+          <p class="section-description">
+            Direct, one-tap emergency connections to West Bengal Coastal Police, Digha State Hospital, Nolias (Lifeguards), and disaster helpline.
+          </p>
+        </div>
+
+        <div class="emergency-sos-grid">
+          <!-- Police -->
+          <div class="sos-card">
+            <div class="sos-header">
+              <div class="sos-icon">👮</div>
+              <div>
+                <div class="sos-title">Digha Coastal Police</div>
+                <div class="sos-subtitle">Station: New Digha Road</div>
+              </div>
+            </div>
+            <div class="sos-number">03220-266222</div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+              Immediate assistance for lost belongings, accidents, harassment, or hotel disputes.
+            </p>
+            <a href="tel:03220266222" class="btn-sos-call">📞 Call Police Now</a>
+          </div>
+
+          <!-- Hospital & Ambulance -->
+          <div class="sos-card">
+            <div class="sos-header">
+              <div class="sos-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">🏥</div>
+              <div>
+                <div class="sos-title">Digha State General Hospital</div>
+                <div class="sos-subtitle">Alankarpur &amp; Ambulance 24/7</div>
+              </div>
+            </div>
+            <div class="sos-number" style="color: #34d399;">03220-266610</div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+              Emergency casualty ward, snakebite venom center, medical triage, and oxygen.
+            </p>
+            <a href="tel:03220266610" class="btn-sos-call" style="background: #10b981;">📞 Call Hospital</a>
+          </div>
+
+          <!-- Nolia Lifeguard Rescue -->
+          <div class="sos-card">
+            <div class="sos-header">
+              <div class="sos-icon" style="background: rgba(77, 238, 234, 0.15); color: var(--cyan-primary);">🏊</div>
+              <div>
+                <div class="sos-title">Digha Sea Lifeguards (Nolia)</div>
+                <div class="sos-subtitle">Watch Towers: Old &amp; New Digha</div>
+              </div>
+            </div>
+            <div class="sos-number" style="color: var(--cyan-primary);">94341-28901</div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+              Water rescue team, high-tide alert command, and lost child reunion booth.
+            </p>
+            <a href="tel:9434128901" class="btn-sos-call" style="background: #0ea5e9;">📞 Call Sea Rescue</a>
+          </div>
+
+          <!-- Fire & Disaster -->
+          <div class="sos-card">
+            <div class="sos-header">
+              <div class="sos-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">🚒</div>
+              <div>
+                <div class="sos-title">Digha Fire &amp; Disaster Dept</div>
+                <div class="sos-subtitle">Control Room (Toll Free: 101)</div>
+              </div>
+            </div>
+            <div class="sos-number" style="color: #fbbf24;">03220-266101</div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+              Cyclone alert coordination, vehicle fire safety, and emergency road clearance.
+            </p>
+            <a href="tel:03220266101" class="btn-sos-call" style="background: #d97706;">📞 Call Fire Brigade</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         11. COMMUNITY INVITATION & VERIFICATION PIPELINE
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="community-invite" style="padding: 60px 0;">
+      <div class="container">
+        <div class="community-invite-banner">
+          <span class="badge-coastal" style="margin-bottom: 14px;">Official Digha Ecosystem Hub</span>
+          <h2 style="font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: #fff; margin-bottom: 12px;">
+            Join the Official Digha Connect Community
+          </h2>
+          <p style="color: var(--text-secondary); max-width: 740px; margin: 0 auto 24px auto; font-size: 1rem; line-height: 1.6;">
+            We are connecting every local Toto driver, hotel owner, Mohona seafood merchant, and traveler into one transparent coastal network. <strong>No fake listings, no predatory commissions. Real verified data only.</strong>
+          </p>
+
+          <div class="invite-btn-row">
+            <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-telegram-community">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+              <span>Join Official Telegram Channel</span>
+            </a>
+            <a href="https://wa.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-community">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 012.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.19-.09-1.12-.55-1.3-.61-.17-.07-.3-.1-.43.1-.12.19-.48.61-.59.73-.11.12-.22.14-.41.05-.19-.09-.8-.29-1.53-.94-.57-.51-.95-1.14-1.06-1.33-.11-.19-.01-.29.08-.38.08-.09.19-.22.28-.33.09-.11.12-.19.19-.31.06-.12.03-.24-.02-.33-.04-.09-.43-1.03-.59-1.41-.15-.37-.31-.32-.43-.32h-.37c-.12 0-.33.05-.5.24-.17.19-.66.65-.66 1.58 0 .93.68 1.83.77 1.96.1.12 1.34 2.05 3.25 2.87.45.2.81.31 1.09.4.46.15.88.13 1.21.08.37-.06 1.12-.46 1.28-.9.16-.45.16-.83.11-.9-.05-.07-.17-.12-.36-.21z"/></svg>
+              <span>Join Digha Partners WhatsApp Group</span>
+            </a>
+          </div>
+
+          <!-- 4-Step Verification Pipeline -->
+          <div class="verification-steps-grid">
+            <div class="verification-step-card">
+              <div class="step-num-pill">Step 01 • Instant Apply</div>
+              <div class="step-title">Submit Partner Details</div>
+              <div class="step-desc">Driver, Hotelier, or Merchant fills out verified identity, stand, and contact details below.</div>
+            </div>
+            <div class="verification-step-card">
+              <div class="step-num-pill">Step 02 • Cloudflare &amp; Telegram</div>
+              <div class="step-title">Instant Admin Alert</div>
+              <div class="step-desc">Encrypted dispatch immediately notifies our Jagadishpur admin team's Telegram bot &amp; email.</div>
+            </div>
+            <div class="verification-step-card">
+              <div class="step-num-pill">Step 03 • Admin Verification</div>
+              <div class="step-title">Identity & Document Check</div>
+              <div class="step-desc">Admin verifies vehicle registration / hotel ownership documents and activates your profile in the system.</div>
+            </div>
+            <div class="verification-step-card">
+              <div class="step-num-pill">Step 04 • Live on Portal</div>
+              <div class="step-title">Direct Calling Unlocked</div>
+              <div class="step-desc">Your profile and calling button automatically go live on this portal for thousands of Digha tourists!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         12. THE ANIRJAN CONNECT 60/40 CO-OWNERSHIP REGISTRATION FORM
+         ========================================================================= -->
+    <div class="cosmic-divider"></div>
+    <section id="partner-registration" style="padding: 70px 0;">
+      <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+          <span class="section-label" style="color: var(--gold-primary);">60/40 Community Co-Ownership</span>
+          <h2 class="section-title">Join Digha Connect as a Partner</h2>
+          <p class="section-description">
+            We are not an outside corporate company extracting wealth from Digha. Founded right here in <strong>Jagadishpur, Digha</strong>, Anirjan Connect gives <strong>40% ecosystem pool shares</strong> back to local drivers, hoteliers, shopkeepers, and residents.
+          </p>
+        </div>
+
+        <div class="partner-section-split">
+          <!-- Form Card -->
+          <div class="partner-reg-card">
+            <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff; margin-bottom: 12px;">
+              Register Your Business or Toto
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px;">
+              Select your category below to receive your official registration, verification badge, and claim welcome community shares.
+            </p>
+
+            <!-- Role Selector -->
+            <div class="role-selector-grid">
+              <button type="button" class="role-option-btn active" data-role="toto">
+                <span>🛺 Toto / Taxi Driver</span>
+              </button>
+              <button type="button" class="role-option-btn" data-role="hotel">
+                <span>🏨 Hotel / Lodge Owner</span>
+              </button>
+              <button type="button" class="role-option-btn" data-role="fish">
+                <span>🐟 Fish / Mohona Vendor</span>
+              </button>
+              <button type="button" class="role-option-btn" data-role="tourist">
+                <span>🏖️ Tourist / Local Resident</span>
+              </button>
+            </div>
+
+            <!-- The Form -->
+            <form id="digha-partner-form">
+              <input type="hidden" id="partner-role-input" value="toto">
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                  Full Name / Proprietor Name *
+                </label>
+                <input type="text" id="partner-name" class="custom-select" placeholder="e.g. Subhash Das" required>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+                <div>
+                  <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                    WhatsApp / Mobile Number *
+                  </label>
+                  <input type="tel" id="partner-phone" class="custom-select" placeholder="e.g. 98321xxxxx" required>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                    Operating Area in Digha *
+                  </label>
+                  <select id="partner-area" class="custom-select">
+                    <option value="Digha Railway Station">Digha Railway Station</option>
+                    <option value="New Digha Sea Beach">New Digha Sea Beach</option>
+                    <option value="Old Digha (Nehru Market)">Old Digha (Nehru Market)</option>
+                    <option value="Mohona Fish Market">Mohona Fish Market</option>
+                    <option value="Udaipur Beach Area">Udaipur Beach Area</option>
+                    <option value="Jagadishpur / Ramnagar">Jagadishpur / Ramnagar</option>
+                    <option value="Mandarmani & Tajpur">Mandarmani &amp; Tajpur</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">
+                  Registration Details (Vehicle # / Hotel Name / Stall #)
+                </label>
+                <input type="text" id="partner-details" class="custom-select" placeholder="e.g. Toto Reg: WB-32-T-8492, Digha Stand Union Member">
+              </div>
+
+              <!-- Cloudflare Turnstile Anti-Bot Security Widget -->
+              <div style="margin-bottom: 20px;">
+                <div class="cf-security-box" style="padding: 12px 16px;">
+                  <div class="cf-security-badge-text">
+                    <div class="cf-shield-icon" style="font-size: 1.4rem;">🛡️</div>
+                    <div>
+                      <div class="cf-info-title" style="font-size: 0.8rem;">
+                        <span>Cloudflare Turnstile Verified</span>
+                        <span style="font-size: 0.65rem; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 1px 5px; border-radius: 4px; font-weight: 800;">ACTIVE</span>
+                      </div>
+                      <div class="cf-info-desc" style="font-size: 0.72rem;">Cryptographic anti-bot protection &amp; domain security lock</div>
+                    </div>
+                  </div>
+                  <div class="cf-widget-container" style="min-height: 60px;">
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible"></div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem;">
+                <span>Submit Registration &amp; Claim 50 Equity Units ✦</span>
+              </button>
+
+              <div style="margin-top: 14px; text-align: center; font-size: 0.78rem; color: var(--text-muted);">
+                🔒 100% Free Forever • Zero Commission Guarantee • Backed by Anirjan Collective Charter
+              </div>
+            </form>
+          </div>
+
+          <!-- Physical Toto Windshield Sticker Preview -->
+          <div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: #fff; margin-bottom: 12px;">
+              Your Free Physical Partner Kit
+            </h3>
+            <p style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 20px;">
+              Every registered Toto driver and Hotel receives a durable, waterproof QR sticker or reception standee. Passengers scan it to view the live Digha guide and book your services directly.
+            </p>
+
+            <div class="sticker-preview-card">
+              <div class="sticker-glow-ring"></div>
+              <div class="sticker-header-text">Official Digha Visitor Gateway</div>
+              <div class="sticker-brand-title">DIGHA CONNECT</div>
+              <div style="font-size: 0.75rem; color: var(--cyan-primary); letter-spacing: 1px;">POWERED BY ANIRJAN</div>
+
+              <div class="sticker-qr-wrap">
+                <svg viewBox="0 0 100 100" fill="none">
+                  <rect width="100" height="100" fill="#ffffff"/>
+                  <rect x="10" y="10" width="26" height="26" fill="#05070c"/>
+                  <rect x="15" y="15" width="16" height="16" fill="#ffffff"/>
+                  <rect x="19" y="19" width="8" height="8" fill="#05070c"/>
+                  <rect x="64" y="10" width="26" height="26" fill="#05070c"/>
+                  <rect x="69" y="15" width="16" height="16" fill="#ffffff"/>
+                  <rect x="73" y="19" width="8" height="8" fill="#05070c"/>
+                  <rect x="10" y="64" width="26" height="26" fill="#05070c"/>
+                  <rect x="15" y="69" width="16" height="16" fill="#ffffff"/>
+                  <rect x="19" y="73" width="8" height="8" fill="#05070c"/>
+                  <rect x="42" y="12" width="6" height="6" fill="#05070c"/>
+                  <rect x="52" y="16" width="6" height="6" fill="#05070c"/>
+                  <rect x="44" y="24" width="8" height="8" fill="#05070c"/>
+                  <rect x="12" y="42" width="6" height="6" fill="#05070c"/>
+                  <rect x="22" y="46" width="6" height="6" fill="#05070c"/>
+                  <rect x="40" y="40" width="20" height="20" fill="#f3c276"/>
+                  <circle cx="50" cy="50" r="6" fill="#05070c"/>
+                  <rect x="68" y="42" width="6" height="6" fill="#05070c"/>
+                  <rect x="78" y="52" width="8" height="6" fill="#05070c"/>
+                  <rect x="42" y="68" width="6" height="6" fill="#05070c"/>
+                  <rect x="52" y="74" width="6" height="6" fill="#05070c"/>
+                  <rect x="68" y="68" width="8" height="8" fill="#05070c"/>
+                  <rect x="80" y="80" width="6" height="6" fill="#05070c"/>
+                </svg>
+              </div>
+
+              <div class="sticker-perk-text">
+                Scan for <strong>Free High-Speed Wi-Fi, Sea Tide Radar, Fair Toto Fares &amp; Emergency SOS</strong>.
+              </div>
+
+              <div class="sticker-bounty-badge">
+                Driver Earns ₹5 Bonus on Every Passenger Scan
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       12. COMMUNITY SEA REPORTER MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="community-report-modal">
+    <div class="modal-card">
+      <div style="font-size: 2.5rem; margin-bottom: 8px;">📢</div>
+      <h3 style="font-family: var(--font-heading); font-size: 1.45rem; color: var(--cyan-primary); margin-bottom: 6px;">
+        Report Live Beach Condition
+      </h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;">
+        Are you standing at the beach right now? Help fellow tourists and locals by sharing current sea waves and rain status.
+      </p>
+
+      <form id="sea-report-form" style="text-align: left;">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Which Beach are you at?</label>
+          <select id="report-beach-loc" class="custom-select">
+            <option value="New Digha Sea Beach">New Digha Sea Beach</option>
+            <option value="Old Digha (Biswa Bangla Ghat)">Old Digha (Biswa Bangla Ghat)</option>
+            <option value="Udaipur Beach">Udaipur Beach</option>
+            <option value="Mohona Estuary">Mohona Estuary</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Observed Sea Condition:</label>
+          <select id="report-condition" class="custom-select">
+            <option value="Calm & Safe for Bathing">🟢 Calm &amp; Safe for Bathing</option>
+            <option value="Medium Waves (Nolia Active)">🟡 Medium Waves (Nolia Active)</option>
+            <option value="High Waves & Siren Ringing">🔴 High Waves (Police Siren Ringing)</option>
+            <option value="Rain / Drizzling at Beach">🌧️ Rain / Drizzling at Beach</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Your Name or Handle (Optional):</label>
+          <input type="text" id="report-author" class="custom-select" placeholder="e.g. Rahul from Kolkata">
+        </div>
+
+        <!-- Cloudflare Turnstile Anti-Bot Security Widget -->
+        <div style="margin-bottom: 16px; display: flex; justify-content: center; min-height: 65px;">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible"></div>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn btn-outline-gold" id="close-report-modal" style="flex: 1; justify-content: center;">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" style="flex: 1.5; justify-content: center;">
+            Post Live Update ✦
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       13. SUCCESS REGISTRATION MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="partner-success-modal">
+    <div class="modal-card">
+      <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
+      <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--gold-primary); margin-bottom: 6px;">
+        Welcome to Anirjan Connect!
+      </h3>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px;">
+        Your verified Digha Ecosystem Partner record has been successfully minted.
+      </p>
+
+      <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(243, 194, 118, 0.3); border-radius: 12px; padding: 18px; margin-bottom: 24px; text-align: left;">
+        <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase;">Official Partner ID</div>
+        <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--cyan-primary); margin-bottom: 8px;" id="modal-partner-id">
+          DGH-TOTO-2026-8491
+        </div>
+        <div style="font-size: 0.85rem; color: #fff;">
+          <strong>Name:</strong> <span id="modal-partner-name">Subhash Das</span>
+        </div>
+        <div style="font-size: 0.85rem; color: #fff;">
+          <strong>Category:</strong> <span id="modal-partner-category">TOTO • Digha Railway Station</span>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--gold-primary); margin-top: 6px;">
+          ✦ <strong>50 Ecosystem Equity Units Allocated</strong>
+        </div>
+        <div style="font-size: 0.78rem; color: #fbbf24; margin-top: 8px; font-weight: 700;">
+          ⏳ Status: PENDING ADMIN VERIFICATION
+        </div>
+      </div>
+
+      <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 20px;">
+        Our Jagadishpur, Digha backend team has received your application via Telegram &amp; Email. Once verified and marked <strong>ACTIVE</strong> by our admin, your direct calling button will automatically appear live on this portal!
+      </p>
+
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button type="button" class="btn btn-primary" id="close-partner-modal" style="width: 100%;">
+          <span>Done &amp; Return to Digha Hub</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       14. CUSTOM EVENT ORGANIZER & CELEBRATION PLANNER
+       ========================================================================= -->
+  <div class="cosmic-divider"></div>
+  <section id="events-section" class="events-planner-section">
+    <div class="container">
+      <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+        <span class="section-label" style="color: #38bdf8; display: inline-flex; align-items: center; gap: 6px;">
+          <span>🎪</span> Zero-Commission Local Event Concierge • Digha, Mandarmani &amp; Coastal Belt
+        </span>
+        <h2 class="section-title">Organize Any Custom Event in Digha</h2>
+        <p class="section-subtitle" style="max-width: 760px; margin: 0 auto; color: var(--text-secondary); line-height: 1.6;">
+          From beachside destination weddings and corporate retreats to family reunions and photography expeditions—our Jagadishpur on-ground team handles venues, sound permits, catering, and guest transit with 100% transparent pricing.
+        </p>
+      </div>
+
+      <!-- 4 Core Event Pillars Showcase -->
+      <div class="events-showcase-grid">
+        <div class="event-feature-card">
+          <div class="event-card-icon">💍</div>
+          <h3 class="event-card-title">Beach Weddings &amp; Receptions</h3>
+          <p class="event-card-desc">
+            Ocean-view mandap, floral decor, beach photography, private resort block-booking, and sunset coastal ceremonies.
+          </p>
+          <div class="event-card-tags">
+            <span class="event-tag-pill">Mandap Decor</span>
+            <span class="event-tag-pill">Resort Blocks</span>
+            <span class="event-tag-pill">Baraat Toto Fleet</span>
+          </div>
+        </div>
+
+        <div class="event-feature-card">
+          <div class="event-card-icon">🏢</div>
+          <h3 class="event-card-title">Corporate Offsites &amp; Retreats</h3>
+          <p class="event-card-desc">
+            Executive conference rooms, high-speed Wi-Fi, audio-visual projection, beach team-building activities, and banquet buffets.
+          </p>
+          <div class="event-card-tags">
+            <span class="event-tag-pill">AV Projectors</span>
+            <span class="event-tag-pill">Team Activities</span>
+            <span class="event-tag-pill">Station Pickups</span>
+          </div>
+        </div>
+
+        <div class="event-feature-card">
+          <div class="event-card-icon">🎂</div>
+          <h3 class="event-card-title">Family Get-Togethers &amp; Birthdays</h3>
+          <p class="event-card-desc">
+            Private lawn dinners, live barbecue with fresh fish from Mohona, cake arrangements, coastal music, and family games.
+          </p>
+          <div class="event-card-tags">
+            <span class="event-tag-pill">Live BBQ</span>
+            <span class="event-tag-pill">Lawn Dining</span>
+            <span class="event-tag-pill">Sound &amp; DJ</span>
+          </div>
+        </div>
+
+        <div class="event-feature-card">
+          <div class="event-card-icon">📸</div>
+          <h3 class="event-card-title">Cultural &amp; Student Excursions</h3>
+          <p class="event-card-desc">
+            Educational marine tours, photography workshops, group dormitory accommodations, dedicated Toto convoy, and safety coordinators.
+          </p>
+          <div class="event-card-tags">
+            <span class="event-tag-pill">Group Dorms</span>
+            <span class="event-tag-pill">Marine Guides</span>
+            <span class="event-tag-pill">Bulk Transit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Local Event Guarantees -->
+      <div class="events-guarantees-row">
+        <div class="guarantee-item">
+          <div class="guarantee-icon">📜</div>
+          <div class="guarantee-text">
+            <h4>Police &amp; DSDA Liaison</h4>
+            <p>Lawful sound permissions, beach setup clearances, and crowd guidelines handled smoothly.</p>
+          </div>
+        </div>
+        <div class="guarantee-item">
+          <div class="guarantee-icon">🦞</div>
+          <div class="guarantee-text">
+            <h4>Fresh Mohona Catering</h4>
+            <p>Direct sea-to-table seafood banquets or 100% authentic pure-veg Bengali kitchens.</p>
+          </div>
+        </div>
+        <div class="guarantee-item">
+          <div class="guarantee-icon">🛺</div>
+          <div class="guarantee-text">
+            <h4>Dedicated Toto Fleet</h4>
+            <p>Standardized-rate transport for all your guests from Digha Station to hotels and beaches.</p>
+          </div>
+        </div>
+        <div class="guarantee-item">
+          <div class="guarantee-icon">💎</div>
+          <div class="guarantee-text">
+            <h4>0% Hidden Markups</h4>
+            <p>Direct vendor billing with zero middleman inflated agency fees. Complete cost breakdown.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Event Request Form -->
+      <div class="event-form-box">
+        <div class="event-form-header">
+          <span style="font-size: 0.8rem; color: var(--gold-primary); font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+            ✦ Direct On-Ground Coordination
+          </span>
+          <h3>Submit Your Custom Event Request</h3>
+          <p>
+            Fill out the details below. Your request is cryptographically secured with Cloudflare and dispatches instantly to our Jagadishpur team via Telegram and Email.
+          </p>
+        </div>
+
+        <form id="digha-event-form" novalidate>
+          <div class="event-form-grid">
+            <!-- Full Name / Organization -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-organizer-name">
+                <span>👤</span> Organizer Name / Company / Family *
+              </label>
+              <input type="text" id="event-organizer-name" class="custom-select" placeholder="e.g. Sourav Mukherjee / TechCorp India" required style="cursor: text;">
+            </div>
+
+            <!-- WhatsApp / Mobile -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-organizer-mobile">
+                <span>📱</span> WhatsApp / Mobile Number *
+              </label>
+              <input type="tel" id="event-organizer-mobile" class="custom-select" placeholder="e.g. 98321XXXXX" required style="cursor: text;">
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-organizer-email">
+                <span>✉️</span> Email Address *
+              </label>
+              <input type="email" id="event-organizer-email" class="custom-select" placeholder="e.g. sourav@example.com" required style="cursor: text;">
+            </div>
+
+            <!-- Event Category -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-category-select">
+                <span>🎉</span> Event Category *
+              </label>
+              <select id="event-category-select" class="custom-select" required>
+                <option value="" disabled selected>Select event category...</option>
+                <option value="Beach Wedding / Sangeet">Beach Destination Wedding / Sangeet / Pre-Wedding</option>
+                <option value="Corporate Offsite / Retreat">Corporate Offsite / Team Retreat / Conference</option>
+                <option value="Family Beach Gathering">Family Reunion / Milestone Birthday Celebration</option>
+                <option value="College / Cultural Excursion">College Excursion / Cultural Group Tour</option>
+                <option value="Music Night / Private Fest">Private Music Night / Beach Party</option>
+                <option value="Other Custom Event">Other Custom Gathering</option>
+              </select>
+            </div>
+
+            <!-- Dates & Duration -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-dates">
+                <span>📅</span> Estimated Target Date(s) &amp; Duration *
+              </label>
+              <input type="text" id="event-dates" class="custom-select" placeholder="e.g. Nov 14–16, 2026 (2 Nights)" required style="cursor: text;">
+            </div>
+
+            <!-- Guest Count -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-guest-count">
+                <span>👥</span> Estimated Guest Count *
+              </label>
+              <select id="event-guest-count" class="custom-select" required>
+                <option value="" disabled selected>Select guest count...</option>
+                <option value="10 - 30 Guests">10 – 30 Guests (Intimate Gathering)</option>
+                <option value="31 - 75 Guests">31 – 75 Guests (Medium Group)</option>
+                <option value="76 - 150 Guests">76 – 150 Guests (Large Group)</option>
+                <option value="150+ Guests">150+ Guests (Grand Scale Celebration)</option>
+              </select>
+            </div>
+
+            <!-- Preferred Venue Type -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-venue-pref">
+                <span>🏨</span> Preferred Venue Style
+              </label>
+              <select id="event-venue-pref" class="custom-select">
+                <option value="Direct Beachfront Resort Lawn">Direct Beachfront Resort Lawn (Open Air)</option>
+                <option value="Luxury AC Banquet Hall">Luxury AC Banquet Hall</option>
+                <option value="Private Poolside Enclave">Private Poolside Enclave</option>
+                <option value="Budget Group Hotel Cluster">Budget Group Hotel Cluster (Economical)</option>
+                <option value="Open to Recommendations">Open to Local Team Recommendations</option>
+              </select>
+            </div>
+
+            <!-- Approximate Budget -->
+            <div class="form-group-route">
+              <label class="form-label-styled" for="event-budget">
+                <span>💰</span> Approximate Budget Range
+              </label>
+              <select id="event-budget" class="custom-select">
+                <option value="Under ₹50,000">Under ₹50,000</option>
+                <option value="₹50,000 - ₹1.5 Lakh">₹50,000 – ₹1.5 Lakh</option>
+                <option value="₹1.5 Lakh - ₹4 Lakh" selected>₹1.5 Lakh – ₹4 Lakh</option>
+                <option value="₹4 Lakh - ₹10 Lakh">₹4 Lakh – ₹10 Lakh</option>
+                <option value="₹10 Lakh+">₹10 Lakh+ (Full Destination Production)</option>
+              </select>
+            </div>
+
+            <!-- Special Services Checkboxes -->
+            <div class="event-form-full">
+              <label class="form-label-styled">
+                <span>⚡</span> Select Services Needed:
+              </label>
+              <div class="event-checkbox-grid">
+                <label class="event-checkbox-label">
+                  <input type="checkbox" name="event-service" value="Stage, Sound & DJ Setup" checked>
+                  <span>🎶 Stage, Sound &amp; DJ</span>
+                </label>
+                <label class="event-checkbox-label">
+                  <input type="checkbox" name="event-service" value="Mohona Seafood Buffet" checked>
+                  <span>🦞 Mohona Seafood Buffet</span>
+                </label>
+                <label class="event-checkbox-label">
+                  <input type="checkbox" name="event-service" value="Pure Veg Bengali Kitchen">
+                  <span>🥗 Pure Veg Bengali Kitchen</span>
+                </label>
+                <label class="event-checkbox-label">
+                  <input type="checkbox" name="event-service" value="Bulk Toto Fleet Station Pickup" checked>
+                  <span>🛺 Bulk Toto Station Transit</span>
+                </label>
+                <label class="event-checkbox-label">
+                  <input type="checkbox" name="event-service" value="Drone & 4K Cinematography">
+                  <span>📸 Drone &amp; Cinematography</span>
+                </label>
+                <label class="event-checkbox-label">
+                  <input type="checkbox" name="event-service" value="Police & DSDA Beach Permissions" checked>
+                  <span>📜 Police &amp; DSDA Permits</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Notes / Special Requirements -->
+            <div class="event-form-full">
+              <label class="form-label-styled" for="event-notes">
+                <span>📝</span> Special Notes or Specific Vision for the Event:
+              </label>
+              <textarea id="event-notes" class="custom-select" rows="3" placeholder="Tell us about food preferences, decor theme, special timing, or any specific requests..." style="cursor: text; resize: vertical;"></textarea>
+            </div>
+
+            <!-- Cloudflare Turnstile Anti-Bot Security & Cryptographic Handshake -->
+            <div class="event-form-full">
+              <div class="cf-security-box">
+                <div class="cf-security-badge-text">
+                  <div class="cf-shield-icon">🛡️</div>
+                  <div>
+                    <div class="cf-info-title">
+                      <span>Cloudflare Turnstile Cryptographic Protection</span>
+                      <span style="font-size: 0.68rem; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-weight: 800;">ACTIVE</span>
+                    </div>
+                    <div class="cf-info-desc">
+                      Guarantees zero automated spam bots. Token-verified server-to-server with our Telegram &amp; Email webhook.
+                    </div>
+                  </div>
+                </div>
+                <!-- Cloudflare Turnstile Widget -->
+                <div class="cf-widget-container">
+                  <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6VX7T5k00hVjao" data-theme="dark" data-size="flexible"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="event-form-full" style="text-align: center; margin-top: 10px;">
+              <button type="submit" id="btn-submit-event" class="btn btn-primary" style="width: 100%; max-width: 480px; padding: 16px 28px; font-size: 1.05rem;">
+                <span>✦ Submit Event Request to Jagadishpur Team</span>
+              </button>
+              <div id="event-form-feedback" style="margin-top: 14px; font-size: 0.88rem; display: none;"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Success Modal -->
+  <div class="partner-modal-backdrop" id="event-success-modal" style="display: none;">
+    <div class="partner-modal-box">
+      <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
+      <h3 style="font-family: var(--font-heading); font-size: 1.45rem; color: #ffffff; margin-bottom: 8px;">
+        Custom Event Plan Dispatched!
+      </h3>
+      <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 16px;">
+        <div style="font-size: 0.84rem; color: #38bdf8; font-weight: 800;">
+          REFERENCE ID: <span id="event-modal-refid">EVT-DGH-XXXXXX</span>
+        </div>
+        <div style="font-size: 0.78rem; color: #fbbf24; margin-top: 6px; font-weight: 700;">
+          ⚡ Dispatched via Telegram Bot &amp; Email to Jagadishpur Event Desk
+        </div>
+      </div>
+      <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px;">
+        Our local Digha event coordinator will review your dates, calculate authentic vendor pricing without middleman commissions, and reach out to you within <strong>2 hours</strong> on WhatsApp!
+      </p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-direction: column;">
+        <a id="event-modal-wa-btn" href="https://wa.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align: center; text-decoration: none;">
+          <span>💬 Chat with Digha Event Lead Now on WhatsApp</span>
+        </a>
+        <button type="button" class="btn" id="close-event-modal" style="background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.12);">
+          <span>Close &amp; Return to Digha Hub</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       13B. LIVE DIGHA BEACH PASS & WHATSAPP STORY MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="beach-pass-modal">
+    <div class="modal-card" style="max-width: 480px; padding: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="font-size: 0.8rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px;">
+          ✦ Viral Beach Story Card
+        </span>
+        <button type="button" id="close-beach-pass-modal" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer;">✕</button>
+      </div>
+
+      <!-- The Digital Pass Visual Card -->
+      <div class="beach-pass-card" id="beach-pass-card-render">
+        <div class="pass-header-strip">
+          <div class="pass-brand">
+            <span class="pass-dot"></span>
+            <span>DIGHA CONNECT LIVE PASS</span>
+          </div>
+          <div class="pass-timestamp" id="pass-current-time">21 SEP 2026 • 01:20 AM</div>
+        </div>
+
+        <div class="pass-body">
+          <div class="pass-title">DIGHA COASTAL ZONE</div>
+          <div class="pass-status-pill" id="pass-sea-status-badge">
+            🟢 Calm Waves • Safe for Bathing
+          </div>
+
+          <div class="pass-metrics-row">
+            <div class="pass-metric-item">
+              <span class="p-label">WAVE HEIGHT</span>
+              <span class="p-val" id="pass-wave-height">0.85 m</span>
+            </div>
+            <div class="pass-metric-item">
+              <span class="p-label">CURRENT TIDE</span>
+              <span class="p-val" id="pass-tide-state">Low Tide (Bhata)</span>
+            </div>
+            <div class="pass-metric-item">
+              <span class="p-label">OCEAN TEMP</span>
+              <span class="p-val" id="pass-ocean-temp">27.0°C</span>
+            </div>
+          </div>
+
+          <div class="pass-police-warning" id="pass-police-advisory">
+            🚨 Coastal Police Advisory: Follow Nolia Whistles &amp; Sirens
+          </div>
+        </div>
+
+        <div class="pass-footer-strip">
+          <div>
+            <div style="font-size: 0.72rem; color: #fff; font-weight: 700;">Official Digha Digital Gateway</div>
+            <div style="font-size: 0.65rem; color: #94a3b8;">anirjan.com/anirjan-connect/digha.html</div>
+          </div>
+          <div class="pass-seal">VERIFIED</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <button type="button" class="btn btn-primary" id="btn-share-whatsapp-pass" style="background: #25D366; color: #fff; width: 100%; justify-content: center; font-weight: 700; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);">
+          <span>💬 Post Live Pass to WhatsApp Status ↗</span>
+        </button>
+        <button type="button" class="btn btn-outline-gold" id="btn-copy-pass-text" style="width: 100%; justify-content: center;">
+          <span>📋 Copy Text Snippet to Clipboard</span>
+        </button>
+      </div>
+      <div id="pass-copy-feedback" style="font-size: 0.78rem; color: #34d399; margin-top: 8px; display: none;">
+        ✓ Copied to clipboard! Ready to paste on WhatsApp or Instagram.
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       13C. DIGHA STATION SCAM SHIELD ARRIVAL PASS MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="scam-shield-modal">
+    <div class="modal-card" style="max-width: 520px; padding: 26px; border-color: #ef4444; box-shadow: 0 0 50px rgba(239, 68, 68, 0.25);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span style="font-size: 0.8rem; font-weight: 800; color: #f87171; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px;">
+          <span>🛡️</span> Official Passenger Scam Shield
+        </span>
+        <button type="button" id="close-scam-shield-modal" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer;">✕</button>
+      </div>
+
+      <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff; margin-bottom: 6px; text-align: left;">
+        Digha Station Arrival Verification Card
+      </h3>
+      <p style="font-size: 0.82rem; color: var(--text-secondary); text-align: left; margin-bottom: 18px; line-height: 1.4;">
+        Stepping off the train or bus? Select your destination below. Flash this screen to any driver or hotel tout (*dalal*) quoting inflated rates.
+      </p>
+
+      <!-- Route Selector -->
+      <div style="margin-bottom: 18px; text-align: left;">
+        <label class="form-label-styled" for="scam-route-select" style="font-size: 0.82rem;">
+          <span>📍</span> Where are you heading from Digha Station?
+        </label>
+        <select id="scam-route-select" class="custom-select">
+          <option value="0" selected>New Digha Sea Beach / Helipad Market (2.2 km)</option>
+          <option value="1">Old Digha Biswa Bangla Ghat / Nehru Market (3.1 km)</option>
+          <option value="2">Udaipur Beach Border (5.4 km)</option>
+          <option value="3">Mohona Wholesale Fish Market (5.0 km)</option>
+        </select>
+      </div>
+
+      <!-- Max Fair Price Card -->
+      <div class="scam-fare-result-card" id="scam-fare-display">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 0.78rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">UNION STANDARD FARES</span>
+          <span class="badge-verified-seal">GOVT AUTHORIZED</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+          <div style="background: rgba(255,255,255,0.04); padding: 12px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 0.72rem; color: #94a3b8;">SHARED TOTO / HEAD</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--cyan-primary);" id="scam-shared-fare">₹15</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 12px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 0.72rem; color: #94a3b8;">RESERVED TOTO MAX</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--gold-primary);" id="scam-reserved-fare">₹60 - ₹70</div>
+          </div>
+        </div>
+        <div style="font-size: 0.76rem; color: #fca5a5; line-height: 1.4; text-align: left;" id="scam-tout-warning">
+          ⚠️ Dalals ask for ₹150 - ₹200. Never pay more than ₹70 for full reserved Toto.
+        </div>
+      </div>
+
+      <!-- Section 144 Police Warning -->
+      <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 10px; padding: 12px 16px; margin-top: 16px; text-align: left;">
+        <div style="font-weight: 800; color: #f87171; font-size: 0.85rem; margin-bottom: 4px;">
+          🚨 SECTION 144 POLICE ADVISORY (DIGHA COASTAL PS)
+        </div>
+        <p style="font-size: 0.76rem; color: #fecaca; margin: 0; line-height: 1.4;">
+          Harassing tourists or soliciting commission room bookings by touts at Digha Railway Station is illegal. If harassed, report immediately to <strong>Digha Coastal Police: <a href="tel:03220266222" style="color:#fff; text-decoration:underline;">03220-266222</a></strong>.
+        </p>
+      </div>
+
+      <div style="margin-top: 18px; display: flex; gap: 10px;">
+        <a href="#hotel-directory" class="btn btn-outline-gold btn-sm" id="btn-scam-view-hotels" style="flex: 1; justify-content: center;">
+          <span>View 0% Direct Hotels ↗</span>
+        </a>
+        <button type="button" class="btn btn-primary btn-sm" id="close-scam-shield-btn" style="flex: 1; justify-content: center;">
+          <span>Understood ✦</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       15. ENHANCED MULTI-TIER FOOTER
+       ========================================================================= -->
+  <footer class="footer-v2">
+    <!-- Tier 1: Action Ribbon -->
+    <div class="footer-action-ribbon">
+      <div class="container">
+        <div class="footer-ribbon-content">
+          <div class="footer-ribbon-text">
+            <h3>Planning a Trip, Custom Event, or Need Urgent Assistance in Digha?</h3>
+            <p>Direct local help desk operating 24/7 right from Jagadishpur, Digha with zero middleman touts.</p>
+          </div>
+          <div class="footer-ribbon-actions">
+            <a href="tel:03220266222" class="btn-footer-police">
+              <span>🚨 Police: 03220-266222</span>
+            </a>
+            <a href="#events-section" class="btn-footer-event">
+              <span>🎪 Plan Custom Event ↗</span>
+            </a>
+            <a href="https://wa.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-footer-wa">
+              <span>💬 WhatsApp Concierge</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tier 2: 4-Column Directory Grid -->
+    <div class="footer-columns-wrap">
+      <div class="container">
+        <div class="footer-grid-v2">
+          <!-- Col 1: Brand & Charter -->
+          <div>
+            <a href="../index.html" class="brand-logo" style="margin-bottom: 16px;">
+              <div class="logo-emblem">
+                <svg viewBox="0 0 100 100">
+                  <ellipse cx="50" cy="50" rx="38" ry="16" fill="none" stroke="#05070c" stroke-width="3" transform="rotate(-20 50 50)"/>
+                  <circle cx="50" cy="30" r="10" fill="#05070c"/>
+                  <path d="M50 45 C30 45 22 58 22 72 C22 80 32 86 50 86 C68 86 78 80 78 72 C78 58 70 45 50 45 Z" fill="#05070c"/>
+                </svg>
+              </div>
+              <div class="brand-text-wrap">
+                <span class="brand-title">DIGHA CONNECT</span>
+                <span class="brand-tagline">Its about People</span>
+              </div>
+            </a>
+            <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 18px;">
+              Founded right here in Digha to organize our tourism economy, eliminate predatory middleman commissions, and give co-ownership back to local drivers, hoteliers, and residents.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div class="seal-badge" style="width: fit-content;">
+                <span>🛡️</span>
+                <span>0% Middleman Local Ecosystem Charter</span>
+              </div>
+              <div class="seal-badge" style="width: fit-content;">
+                <span>🔒</span>
+                <span>Cloudflare Turnstile Cryptographic Lock</span>
+              </div>
+              <div class="seal-badge" style="width: fit-content;">
+                <span>⚡</span>
+                <span>Real-time Telegram &amp; Email Webhook Dispatch</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Col 2: Live Digital Utilities -->
+          <div>
+            <h4 class="footer-col-title">Live Digha Telemetry</h4>
+            <ul class="footer-links-v2">
+              <li><a href="#tide-radar">🌊 Live Wave &amp; Tide Radar</a></li>
+              <li><a href="#trains-section">🚆 Digha Train Departure Board</a></li>
+              <li><a href="#toto-guide">🛺 Standard Toto Fare Calculator</a></li>
+              <li><a href="#hotel-directory">🏨 0% Direct Hotel Directory</a></li>
+              <li><a href="#medical-section">🏥 Digha Hospital &amp; Doctor Roster</a></li>
+              <li><a href="#mohona-market">🐟 Mohona Live Fish Price Index</a></li>
+              <li><a href="#history-section">📜 Digha Heritage &amp; Warren Hastings</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Events & Community Concierge -->
+          <div>
+            <h4 class="footer-col-title">Events &amp; Concierge</h4>
+            <ul class="footer-links-v2">
+              <li><a href="#events-section">💍 Beach Destination Weddings</a></li>
+              <li><a href="#events-section">🏢 Corporate Offsites &amp; Retreats</a></li>
+              <li><a href="#events-section">🎂 Family Beach Celebrations &amp; BBQ</a></li>
+              <li><a href="#events-section">📸 Marine Tours &amp; Student Trips</a></li>
+              <li><a href="#partner-registration">📝 Partner Registration (Toto / Hotel)</a></li>
+              <li><a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer">✈️ Join Digha Telegram Community</a></li>
+              <li><a href="../services.html">💼 Central Anirjan Services Desk</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4: On-Ground Hub & Emergency -->
+          <div>
+            <h4 class="footer-col-title">Digha On-Ground Hub</h4>
+            <div class="footer-emergency-badge-item">
+              <span>LOCAL OFFICE LOCATION</span>
+              <a href="https://maps.google.com/?q=Jagadishpur+Digha+West+Bengal" target="_blank" rel="noopener noreferrer">
+                📍 Jagadishpur, Digha, PIN - 721428
+              </a>
+            </div>
+            <div class="footer-emergency-badge-item">
+              <span>DIGHA COASTAL POLICE STATION (24/7)</span>
+              <a href="tel:03220266222">🚨 03220-266222</a>
+            </div>
+            <div class="footer-emergency-badge-item">
+              <span>DIGHA STATE GENERAL HOSPITAL</span>
+              <a href="tel:03220266610">🏥 03220-266610</a>
+            </div>
+            <div class="footer-emergency-badge-item">
+              <span>OFFICIAL WHATSAPP SUPPORT</span>
+              <a href="https://wa.me/anirjan_collective" target="_blank" rel="noopener noreferrer">
+                💬 @anirjan_collective
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tier 3: Legal, Anti-Dalal & Trust Bar -->
+    <div class="footer-bottom-bar">
+      <div class="container">
+        <div class="footer-bottom-flex">
+          <div>
+            © 2026 Anirjan Collective. Founded by Aparna Dey. Built with pride in Digha, West Bengal.
+            <div style="font-size: 0.74rem; color: #64748b; margin-top: 4px;">
+              Strictly compliant with West Bengal Tourism &amp; Coastal Police Directives. No unauthorized roadside tout commissions.
+            </div>
+          </div>
+          <div class="footer-security-seals">
+            <span class="seal-badge">🔒 256-Bit TLS Encryption</span>
+            <span class="seal-badge">🛡️ Cloudflare Protected</span>
+            <a href="../support.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.78rem;">Support &amp; Feedback</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Enterprise Security Notifier & Dynamic JS Engine -->
+  <script src="../js/notifier.js"></script>
+  <script src="../js/digha.js"></script>
+</body>
+</html>
