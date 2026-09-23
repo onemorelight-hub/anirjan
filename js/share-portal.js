@@ -19,7 +19,7 @@
     FOUNDER_POOL_SHARES: 60000,
     SURPLUS_POOL_PERCENT: 40,
     // Google Apps Script Live Web App URL (Central zero-cost backend)
-    LIVE_BACKEND_URL: (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' && GOOGLE_APPS_SCRIPT_URL) ? GOOGLE_APPS_SCRIPT_URL : 'https://script.google.com/macros/s/AKfycbwKZwWiGcIoOQ_m05HCd0wyiX1D2Lgp25uAlCVGf9yQ-dsOZI7wONUMyR302fXDcr89/exec',
+    LIVE_BACKEND_URL: (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' && GOOGLE_APPS_SCRIPT_URL) ? GOOGLE_APPS_SCRIPT_URL : 'https://script.google.com/macros/s/AKfycbwN2Q_Xw2lzA277ZgyeQ5Pv6HXIzZPsS8eMMMByHKteTSOAnFJbR6A5w7EySv8Gnpdp/exec',
     // Real OAuth Provider Credentials (can be configured in code or via localStorage)
     GOOGLE_CLIENT_ID: localStorage.getItem('anirjan_google_client_id') || '867444475898-1c6925mlercc603l8baomokd4aijqvri.apps.googleusercontent.com',
     FACEBOOK_APP_ID: localStorage.getItem('anirjan_facebook_app_id') || '970775592713398',

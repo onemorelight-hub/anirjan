@@ -15,7 +15,7 @@
  */
 
 // 1. Google Apps Script Web App Endpoint
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKZwWiGcIoOQ_m05HCd0wyiX1D2Lgp25uAlCVGf9yQ-dsOZI7wONUMyR302fXDcr89/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwN2Q_Xw2lzA277ZgyeQ5Pv6HXIzZPsS8eMMMByHKteTSOAnFJbR6A5w7EySv8Gnpdp/exec";
 
 // 2. Cloudflare Turnstile Public Site Key
 // (Leave as is for testing or paste your Turnstile Site Key from Cloudflare Dashboard)
@@ -135,7 +135,7 @@ const AnirjanNotifier = {
     // ------------------------------------------------------------------------
     // 2. CLOUDFLARE TURNSTILE CHECK (Mandatory if widget exists within this specific form or globally)
     // ------------------------------------------------------------------------
-    const turnstileWidget = (typeof document !== "undefined") 
+    const turnstileWidget = (typeof document !== "undefined")
       ? (data.formElement ? data.formElement.querySelector('.cf-turnstile') : document.querySelector('.cf-turnstile'))
       : null;
     const turnstileToken = data.turnstileToken || (turnstileWidget ? this.getTurnstileToken(data.formElement || turnstileWidget) : '');
@@ -223,6 +223,9 @@ const AnirjanNotifier = {
         "See backend/README.md to deploy your protected backend."
       );
       await new Promise(r => setTimeout(r, 600));
+      if (typeof window !== "undefined" && window.AnirjanMetrics) {
+        window.AnirjanMetrics.recordSubmission(payload.formType);
+      }
       return { success: true, refId: payload.refId, simulated: true };
     }
 
@@ -254,12 +257,18 @@ const AnirjanNotifier = {
       } catch (e) { }
 
       console.log("[AnirjanNotifier] Successfully delivered to protected Google Apps Script.");
+      if (typeof window !== "undefined" && window.AnirjanMetrics) {
+        window.AnirjanMetrics.recordSubmission(payload.formType);
+      }
       return { success: true, refId: payload.refId };
 
     } catch (err) {
       if (timeoutId) clearTimeout(timeoutId);
       console.warn("[AnirjanNotifier] Webhook notice:", err.message);
       // Return success with refId so the user still sees their reference number even on slow network
+      if (typeof window !== "undefined" && window.AnirjanMetrics) {
+        window.AnirjanMetrics.recordSubmission(payload.formType);
+      }
       return { success: true, refId: payload.refId, offlineSaved: true };
     }
   }

@@ -901,9 +901,15 @@
             Browse our core services below. Active services in Digha are hosted on our dedicated page; other regions are expanding soon.
           </p>
         </div>
-        <span id="results-counter" style="color: var(--gold-light); font-size: 0.85rem; font-weight: 600; background: rgba(243, 194, 118, 0.1); border: 1px solid rgba(243, 194, 118, 0.25); padding: 4px 12px; border-radius: 999px;">
-          Showing All Services
-        </span>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <div class="metric-live-badge">
+            <span class="metric-live-dot"></span>
+            <span>⚡ <strong class="metric-number" data-metric-counter="services">16</strong> Bookings Dispatched</span>
+          </div>
+          <span id="results-counter" style="color: var(--gold-light); font-size: 0.85rem; font-weight: 600; background: rgba(243, 194, 118, 0.1); border: 1px solid rgba(243, 194, 118, 0.25); padding: 4px 12px; border-radius: 999px;">
+            Showing All Services
+          </span>
+        </div>
       </div>
 
       <div class="services-grid" id="services-container">
@@ -1651,6 +1657,7 @@
 
   <!-- Scripts -->
   <script src="./js/notifier.js"></script>
+  <script src="./js/metrics.js"></script>
   <script>
     (function() {
       // 1. Mobile Navigation Menu Toggle

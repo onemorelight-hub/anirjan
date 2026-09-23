@@ -182,6 +182,14 @@
             Anirjan Connect is an opportunity for individuals who want to contribute their skills, network, ideas, marketing capabilities, business development efforts, or investment to help grow the Anirjan platform.
           </p>
 
+          <!-- Real-Time Ecosystem Activity Counter Beacon -->
+          <div class="metric-hero-pill">
+            <div class="metric-live-badge">
+              <span class="metric-live-dot"></span>
+              <span>Live Activity: <strong class="metric-number" data-metric-counter="total">142</strong> Requests Dispatched • <strong class="metric-number" data-metric-counter="today" style="color: #6ee7b7;">18</strong> Active Today</span>
+            </div>
+          </div>
+
           <div class="connect-cta-group">
             <a href="#register-form" class="btn btn-primary" id="hero-cta-interested">
               <span>I'm Interested</span>
@@ -1451,7 +1459,7 @@
           <div class="job-live-beacon-wrap">
             <div class="job-live-beacon">
               <span class="job-beacon-pulse"></span>
-              <span>Dispatch Desk Active • 14 Vetted Builders Online</span>
+              <span>Dispatch Desk Active • <strong class="metric-number" data-metric-counter="jobDone" style="color: #6ee7b7;">34</strong> Execution Tasks Triaged</span>
             </div>
             <button type="button" class="job-my-tasks-btn" onclick="window.openMyJobTasksModal()">
               <span>📋 My Submitted Tasks</span>
@@ -1932,6 +1940,10 @@
             <div class="thank-you-icon">✓</div>
             <h3 class="thank-you-title">Thank You!</h3>
             <div class="submission-ref-badge" id="submission-ref-code">Reference ID: AC-2026-XXXX</div>
+            <div class="metric-live-badge" style="margin: 12px auto; background: rgba(52, 211, 153, 0.1); border-color: rgba(52, 211, 153, 0.3);">
+              <span class="metric-live-dot"></span>
+              <span>You are Connection Request <strong class="metric-number" data-metric-counter="total" style="color: #6ee7b7;">#143</strong> in the Anirjan ecosystem!</span>
+            </div>
             <p class="thank-you-msg">
               Thank you for your interest in Anirjan Connect.
             </p>
@@ -2034,6 +2046,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
   <script src="../js/notifier.js"></script>
+  <script src="../js/metrics.js"></script>
   <script src="../js/connect.js"></script>
   <script src="../js/share-portal.js?v=20260918d"></script>
 </body>

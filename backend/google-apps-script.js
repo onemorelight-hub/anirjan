@@ -216,8 +216,15 @@ function doPost(e) {
       sendEmailAlert(formType, refId, name, whatsapp, telegram, email, city, category, details, meta, timestamp);
     }
 
+    // 5. Atomic Counter & Real-Time Metrics Tracking
+    const updatedMetrics = recordSubmissionMetric(formType);
+
     return ContentService
-      .createTextOutput(JSON.stringify({ status: "success", refId: refId }))
+      .createTextOutput(JSON.stringify({ 
+        status: "success", 
+        refId: refId,
+        metrics: updatedMetrics
+      }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -228,15 +235,17 @@ function doPost(e) {
   }
 }
 
-// Support GET for connection health check & public ledger query
+// Support GET for connection health check, public ledger query, & live metrics query
 function doGet(e) {
   if (e && e.parameter && e.parameter.action) {
     return handleSharePortalAction(e.parameter);
   }
+  const metrics = getRequestMetrics();
   return ContentService
     .createTextOutput(JSON.stringify({ 
       status: "online", 
       service: "Anirjan Protected Lead Dispatcher & Share Portal Backend",
+      metrics: metrics,
       security: {
         turnstile: CONFIG.TURNSTILE_ENABLED,
         honeypot: CONFIG.ENFORCE_HONEYPOT,
@@ -365,6 +374,148 @@ function logToSheet(rowValues) {
     sheet.appendRow(rowValues);
   } catch (e) {
     Logger.log("Error logging to sheet: " + e.toString());
+  }
+}
+
+// ============================================================================
+// 4B. REAL-TIME REQUEST METRICS & ATOMIC COUNTER ENGINE
+// ============================================================================
+
+/**
+ * Safely fetches or creates the Submissions sheet
+ */
+function getSubmissionsSheetSafe() {
+  try {
+    const ss = getActiveSpreadsheetSafe();
+    let sheet = ss.getSheetByName("Submissions");
+    if (!sheet) {
+      sheet = ss.getActiveSheet() || ss.getSheets()[0];
+    }
+    return sheet;
+  } catch (e) {
+    Logger.log("getSubmissionsSheetSafe error: " + e.toString());
+    return null;
+  }
+}
+
+/**
+ * Initializes or reads request metrics from PropertiesService with sheet count fallback
+ */
+function getOrInitRequestMetrics() {
+  const props = PropertiesService.getScriptProperties();
+  let total = props.getProperty("TOTAL_REQUESTS");
+  if (total === null) {
+    try {
+      const sheet = getSubmissionsSheetSafe();
+      const lastRow = sheet ? sheet.getLastRow() : 0;
+      total = Math.max(0, lastRow - 1); // exclude header row
+    } catch (e) {
+      total = 0;
+    }
+    props.setProperty("TOTAL_REQUESTS", String(total));
+  }
+  return props;
+}
+
+/**
+ * Atomically increments counter upon any request submission
+ */
+function recordSubmissionMetric(formType) {
+  try {
+    const props = getOrInitRequestMetrics();
+    const todayKey = "REQ_DATE_" + Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd");
+    const cleanType = (formType || "ANIRJAN_CONNECT").toUpperCase().replace(/[^A-Z0-9_]/g, "_");
+    const typeKey = "REQ_TYPE_" + cleanType;
+    
+    const currentTotal = parseInt(props.getProperty("TOTAL_REQUESTS") || "0", 10) + 1;
+    const currentToday = parseInt(props.getProperty(todayKey) || "0", 10) + 1;
+    const currentType = parseInt(props.getProperty(typeKey) || "0", 10) + 1;
+    
+    const updates = {
+      "TOTAL_REQUESTS": String(currentTotal),
+      [todayKey]: String(currentToday),
+      [typeKey]: String(currentType),
+      "LAST_SUBMITTED_AT": new Date().toISOString()
+    };
+    props.setProperties(updates);
+    
+    return {
+      totalRequests: currentTotal,
+      todayRequests: currentToday,
+      categoryRequests: currentType,
+      formType: formType,
+      lastSubmissionAt: updates.LAST_SUBMITTED_AT
+    };
+  } catch (e) {
+    Logger.log("recordSubmissionMetric error: " + e.toString());
+    return { totalRequests: 1, todayRequests: 1, formType: formType };
+  }
+}
+
+/**
+ * Returns aggregated request metrics for API responses
+ */
+function getRequestMetrics() {
+  try {
+    const props = getOrInitRequestMetrics();
+    const allProps = props.getProperties();
+    const todayKey = "REQ_DATE_" + Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd");
+    
+    let total = parseInt(allProps["TOTAL_REQUESTS"] || "0", 10);
+    try {
+      const sheet = getSubmissionsSheetSafe();
+      if (sheet) {
+        const lastRow = sheet.getLastRow();
+        const sheetCount = Math.max(0, lastRow - 1);
+        if (sheetCount > total) {
+          total = sheetCount;
+          props.setProperty("TOTAL_REQUESTS", String(total));
+        }
+      }
+    } catch (e) {}
+
+    const today = parseInt(allProps[todayKey] || "0", 10);
+    
+    const byType = {};
+    for (const key in allProps) {
+      if (key.startsWith("REQ_TYPE_")) {
+        const cleanType = key.replace("REQ_TYPE_", "");
+        byType[cleanType] = parseInt(allProps[key] || "0", 10);
+      }
+    }
+    
+    const jobDone = byType["JOB_DONE_REQUEST"] || byType["JOB_DONE"] || 0;
+    const anirjanConnect = byType["ANIRJAN_CONNECT"] || 0;
+    const services = byType["SERVICE_BOOKING_REQUEST"] || byType["SERVICES"] || 0;
+    const support = byType["SUPPORT_INQUIRY"] || byType["SUPPORT"] || 0;
+    const founder = byType["FOUNDER_NOTE"] || byType["FOUNDER"] || 0;
+    const digha = byType["DIGHA_INCIDENT"] || byType["DIGHA_PARTNER"] || 0;
+
+    return {
+      success: true,
+      totalRequests: total,
+      todayRequests: today,
+      byType: byType,
+      categories: {
+        connect: anirjanConnect,
+        jobDone: jobDone,
+        services: services,
+        support: support,
+        founder: founder,
+        digha: digha
+      },
+      lastSubmissionAt: allProps["LAST_SUBMITTED_AT"] || new Date().toISOString(),
+      timestamp: new Date().toISOString()
+    };
+  } catch (err) {
+    Logger.log("getRequestMetrics error: " + err.toString());
+    return {
+      success: true,
+      totalRequests: 0,
+      todayRequests: 0,
+      categories: {},
+      fallback: true
+    };
   }
 }
 
@@ -613,6 +764,10 @@ function handleSharePortalAction(data) {
         return actionRegisterDighaPartner(data);
       case "get_digha_partners":
         return actionGetDighaPartners(data);
+      case "get_request_metrics":
+      case "get_stats":
+      case "get_counters":
+        return createJsonResponse(getRequestMetrics());
       case "setup_database":
         return createJsonResponse({ success: true, message: setupDatabase() });
       default:

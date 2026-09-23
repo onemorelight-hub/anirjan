@@ -8,7 +8,7 @@ window._dighaPageLoadTime = Date.now();
 
 const DIGHA_APPS_SCRIPT_URL = (typeof GOOGLE_APPS_SCRIPT_URL !== "undefined")
   ? GOOGLE_APPS_SCRIPT_URL
-  : "https://script.google.com/macros/s/AKfycbwKZwWiGcIoOQ_m05HCd0wyiX1D2Lgp25uAlCVGf9yQ-dsOZI7wONUMyR302fXDcr89/exec";
+  : "https://script.google.com/macros/s/AKfycbwN2Q_Xw2lzA277ZgyeQ5Pv6HXIzZPsS8eMMMByHKteTSOAnFJbR6A5w7EySv8Gnpdp/exec";
 
 document.addEventListener('DOMContentLoaded', () => {
   initLanguageToggle();
@@ -151,8 +151,8 @@ function initTideAndMoonEngine() {
       badgeClass = "danger";
     } else if (Math.abs(currentDecimalHour - high1) < 1.4 || Math.abs(currentDecimalHour - high2) < 1.4) {
       isHighTide = true;
-      statusText = isSpringTide 
-        ? "🔴 Spring High Tide (Bhora Kotal) — Red Siren Warning" 
+      statusText = isSpringTide
+        ? "🔴 Spring High Tide (Bhora Kotal) — Red Siren Warning"
         : "🔴 High Tide (Jowar) — Exit Water Upon Siren";
       badgeClass = "danger";
     } else if (Math.abs(currentDecimalHour - high1) < 2.2 || Math.abs(currentDecimalHour - high2) < 2.2) {
@@ -169,8 +169,8 @@ function initTideAndMoonEngine() {
       if (isNightTime) {
         tideStateEl.textContent = "Night Sea Curfew Active • Zero Lifeguards (Nolias) on Duty • High Risk of Drowning";
       } else {
-        tideStateEl.textContent = isHighTide 
-          ? "Sea is at High Tide (Jowar) • Wave impact high on sea wall" 
+        tideStateEl.textContent = isHighTide
+          ? "Sea is at High Tide (Jowar) • Wave impact high on sea wall"
           : "Sea is Calm / Low Tide (Bhata) • Broad sandy beach exposed";
       }
     }
@@ -214,7 +214,7 @@ function initTideAndMoonEngine() {
         flagNewDigha.className = isHighTide ? "zone-flag flag-yellow" : "zone-flag flag-green";
         flagNewDigha.textContent = isHighTide ? "🟡 CAUTION (HIGH TIDE)" : "🟢 SAFE FOR FAMILIES";
       }
-      if (descNewDigha) descNewDigha.textContent = isHighTide 
+      if (descNewDigha) descNewDigha.textContent = isHighTide
         ? "High tide active. Bathing allowed only near the paved guard line under Nolia whistle supervision."
         : "Very shallow continental shelf. Safe for walking out and swimming during low tide. Nolias stationed continuously.";
 
@@ -1068,7 +1068,7 @@ function initBeachPassGenerator() {
 
   function updatePassData() {
     const now = new Date();
-    const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     const formattedDate = `${now.getDate().toString().padStart(2, '0')} ${months[now.getMonth()]} ${now.getFullYear()}`;
     const hours = now.getHours();
     const minutes = now.getMinutes().toString().padStart(2, '0');
@@ -1328,195 +1328,239 @@ function initScamShieldModal() {
 
 const DIGHA_TRANSLATIONS = {
   /* ---- NAVIGATION ---- */
-  'nav-link-tide':       { en: '🌊 Sea & Tide',        bn: '🌊 সমুদ্র ও জোয়ার' },
-  'nav-link-trains':     { en: '🚆 Trains',             bn: '🚆 ট্রেন' },
-  'nav-link-toto':       { en: '🛺 Toto Fares',         bn: '🛺 টোটো ভাড়া' },
-  'nav-link-hotels':     { en: '🏨 Hotels',             bn: '🏨 হোটেল' },
-  'nav-link-events':     { en: '🎪 Custom Events',      bn: '🎪 ইভেন্ট আয়োজন' },
-  'nav-link-doctors':    { en: '🩺 Doctors',             bn: '🩺 ডাক্তার' },
-  'nav-link-fish':       { en: '🐟 Mohona Fish',         bn: '🐟 মোহনা মাছ' },
-  'nav-link-secrets':    { en: '💡 Secrets',             bn: '💡 গোপন তথ্য' },
-  'nav-link-partner':    { en: '📝 Partner Registration', bn: '📝 পার্টনার রেজিস্ট্রেশন' },
-  'nav-link-sos':        { en: '🚨 SOS Hotline',         bn: '🚨 জরুরি হটলাইন' },
-  'nav-btn-report':      { en: '📢 Report Sea',          bn: '📢 সমুদ্র রিপোর্ট' },
-  'nav-btn-partner':     { en: 'Partner With Us ✦',      bn: 'পার্টনার হোন ✦' },
+  'nav-link-tide': { en: '🌊 Sea & Tide', bn: '🌊 সমুদ্র ও জোয়ার' },
+  'nav-link-trains': { en: '🚆 Trains', bn: '🚆 ট্রেন' },
+  'nav-link-toto': { en: '🛺 Toto Fares', bn: '🛺 টোটো ভাড়া' },
+  'nav-link-hotels': { en: '🏨 Hotels', bn: '🏨 হোটেল' },
+  'nav-link-events': { en: '🎪 Custom Events', bn: '🎪 ইভেন্ট আয়োজন' },
+  'nav-link-doctors': { en: '🩺 Doctors', bn: '🩺 ডাক্তার' },
+  'nav-link-fish': { en: '🐟 Mohona Fish', bn: '🐟 মোহনা মাছ' },
+  'nav-link-secrets': { en: '💡 Secrets', bn: '💡 গোপন তথ্য' },
+  'nav-link-partner': { en: '📝 Partner Registration', bn: '📝 পার্টনার রেজিস্ট্রেশন' },
+  'nav-link-sos': { en: '🚨 SOS Hotline', bn: '🚨 জরুরি হটলাইন' },
+  'nav-btn-report': { en: '📢 Report Sea', bn: '📢 সমুদ্র রিপোর্ট' },
+  'nav-btn-partner': { en: 'Partner With Us ✦', bn: 'পার্টনার হোন ✦' },
 
   /* ---- HERO ---- */
-  'hero-badge':          { en: 'Digha Coastal Zone • 100% Real Live Data • Zero Middleman',
-                           bn: 'দীঘা উপকূলীয় অঞ্চল • ১০০% সত্যিকারের লাইভ তথ্য • কোনো দালাল নেই' },
-  'hero-title':          { en: 'Digha In Your Pocket.',   bn: 'দীঘা আপনার পকেটে।' },
-  'hero-title-gradient': { en: 'Empowering Every Local & Traveler.',
-                           bn: 'প্রতিটি স্থানীয় ও পর্যটকের সেবায়।' },
-  'hero-subtitle':       { en: 'The community-owned digital pulse of Old Digha, New Digha, Mandarmani & Tajpur. Real ocean wave telemetry, automated train departure boards, doctor on-duty rosters, fair Toto rates, and 0% commission direct hotel stays.',
-                           bn: 'পুরানো দীঘা, নিউ দীঘা, মন্দারমণি ও তাজপুরের কমিউনিটি-পরিচালিত ডিজিটাল প্ল্যাটফর্ম। সরাসরি সমুদ্রের ঢেউ পরিমাপ, স্বয়ংক্রিয় ট্রেন বোর্ড, ডিউটি ডাক্তার তালিকা, ন্যায্য টোটো ভাড়া, এবং ০% কমিশনে সরাসরি হোটেল বুকিং।' },
-  'hero-btn-beach-pass': { en: '📸 Share Beach Pass to WhatsApp',   bn: '📸 বীচ পাস হোয়াটসঅ্যাপে শেয়ার' },
-  'hero-btn-scam':       { en: '🛡️ Station Scam Shield',           bn: '🛡️ স্টেশন প্রতারণা রক্ষাকবচ' },
-  'hero-btn-tide':       { en: '🌊 Live Sea Waves & Tide',          bn: '🌊 লাইভ সমুদ্রের ঢেউ ও জোয়ার' },
-  'hero-btn-train':      { en: '🚆 Next Train to Howrah',           bn: '🚆 হাওড়ার পরবর্তী ট্রেন' },
-  'hero-btn-toto':       { en: '🛺 Toto Fare Calculator',           bn: '🛺 টোটো ভাড়া ক্যালকুলেটর' },
-  'hero-btn-hotel':      { en: '🏨 0% Direct Hotels',               bn: '🏨 ০% কমিশন সরাসরি হোটেল' },
-  'hero-btn-checkout':   { en: '🧳 11 AM Checkout & Cloakroom',     bn: '🧳 ১১টায় চেকআউট ও ক্লোকরুম' },
-  'hero-btn-fish':       { en: '🍳 Fish Cooking Rates',             bn: '🍳 মাছ রান্নার খরচ' },
-  'hero-btn-doctors':    { en: '🩺 Doctors & Hospital',             bn: '🩺 ডাক্তার ও হাসপাতাল' },
+  'hero-badge': {
+    en: 'Digha Coastal Zone • 100% Real Live Data • Zero Middleman',
+    bn: 'দীঘা উপকূলীয় অঞ্চল • ১০০% সত্যিকারের লাইভ তথ্য • কোনো দালাল নেই'
+  },
+  'hero-title': { en: 'Digha In Your Pocket.', bn: 'দীঘা আপনার পকেটে।' },
+  'hero-title-gradient': {
+    en: 'Empowering Every Local & Traveler.',
+    bn: 'প্রতিটি স্থানীয় ও পর্যটকের সেবায়।'
+  },
+  'hero-subtitle': {
+    en: 'The community-owned digital pulse of Old Digha, New Digha, Mandarmani & Tajpur. Real ocean wave telemetry, automated train departure boards, doctor on-duty rosters, fair Toto rates, and 0% commission direct hotel stays.',
+    bn: 'পুরানো দীঘা, নিউ দীঘা, মন্দারমণি ও তাজপুরের কমিউনিটি-পরিচালিত ডিজিটাল প্ল্যাটফর্ম। সরাসরি সমুদ্রের ঢেউ পরিমাপ, স্বয়ংক্রিয় ট্রেন বোর্ড, ডিউটি ডাক্তার তালিকা, ন্যায্য টোটো ভাড়া, এবং ০% কমিশনে সরাসরি হোটেল বুকিং।'
+  },
+  'hero-btn-beach-pass': { en: '📸 Share Beach Pass to WhatsApp', bn: '📸 বীচ পাস হোয়াটসঅ্যাপে শেয়ার' },
+  'hero-btn-scam': { en: '🛡️ Station Scam Shield', bn: '🛡️ স্টেশন প্রতারণা রক্ষাকবচ' },
+  'hero-btn-tide': { en: '🌊 Live Sea Waves & Tide', bn: '🌊 লাইভ সমুদ্রের ঢেউ ও জোয়ার' },
+  'hero-btn-train': { en: '🚆 Next Train to Howrah', bn: '🚆 হাওড়ার পরবর্তী ট্রেন' },
+  'hero-btn-toto': { en: '🛺 Toto Fare Calculator', bn: '🛺 টোটো ভাড়া ক্যালকুলেটর' },
+  'hero-btn-hotel': { en: '🏨 0% Direct Hotels', bn: '🏨 ০% কমিশন সরাসরি হোটেল' },
+  'hero-btn-checkout': { en: '🧳 11 AM Checkout & Cloakroom', bn: '🧳 ১১টায় চেকআউট ও ক্লোকরুম' },
+  'hero-btn-fish': { en: '🍳 Fish Cooking Rates', bn: '🍳 মাছ রান্নার খরচ' },
+  'hero-btn-doctors': { en: '🩺 Doctors & Hospital', bn: '🩺 ডাক্তার ও হাসপাতাল' },
 
   /* ---- METRIC CARDS ---- */
-  'metric-wave-label':   { en: 'Live Wave Height',       bn: 'লাইভ ঢেউয়ের উচ্চতা' },
-  'metric-crowd-label':  { en: 'Digha Crowd Meter',      bn: 'দীঘা ভিড় মিটার' },
-  'metric-hotel-label':  { en: 'Zero-Fee Stays',         bn: 'শূন্য-ফি থাকা' },
-  'metric-hotel-val':    { en: 'Verified Direct Booking', bn: 'যাচাইকৃত সরাসরি বুকিং' },
-  'metric-police-label': { en: 'Coastal Police & Nolia',  bn: 'উপকূলীয় পুলিশ ও নোলিয়া' },
-  'metric-police-val':   { en: 'Lifeguard Watch Active',  bn: 'লাইফগার্ড পাহারায় সক্রিয়' },
+  'metric-wave-label': { en: 'Live Wave Height', bn: 'লাইভ ঢেউয়ের উচ্চতা' },
+  'metric-crowd-label': { en: 'Digha Crowd Meter', bn: 'দীঘা ভিড় মিটার' },
+  'metric-hotel-label': { en: 'Zero-Fee Stays', bn: 'শূন্য-ফি থাকা' },
+  'metric-hotel-val': { en: 'Verified Direct Booking', bn: 'যাচাইকৃত সরাসরি বুকিং' },
+  'metric-police-label': { en: 'Coastal Police & Nolia', bn: 'উপকূলীয় পুলিশ ও নোলিয়া' },
+  'metric-police-val': { en: 'Lifeguard Watch Active', bn: 'লাইফগার্ড পাহারায় সক্রিয়' },
 
   /* ---- SECTION 3: MARINE TELEMETRY ---- */
-  'tide-section-label':  { en: 'Live Marine Telemetry (Open-Meteo API)', bn: 'লাইভ সামুদ্রিক পরিমাপ (Open-Meteo API)' },
-  'tide-section-title':  { en: 'Live Digha Sea & Tide Radar',            bn: 'লাইভ দীঘা সমুদ্র ও জোয়ার রাডার' },
-  'tide-section-desc':   { en: 'Real-time oceanographic measurements synchronized directly with Bay of Bengal satellite buoys and coastal tidal cycles.',
-                           bn: 'বঙ্গোপসাগরের স্যাটেলাইট বয় ও উপকূলীয় জোয়ারভাটা চক্রের সাথে সরাসরি সিঙ্ক্রোনাইজড সামুদ্রিক পরিমাপ।' },
-  'tele-wave-label':     { en: 'Live Wave Height',        bn: 'লাইভ ঢেউয়ের উচ্চতা' },
-  'tele-wind-label':     { en: 'Coastal Wind & Humidity',  bn: 'উপকূলীয় বাতাস ও আর্দ্রতা' },
-  'tele-temp-label':     { en: 'Surface Temperature',     bn: 'সমুদ্র পৃষ্ঠের তাপমাত্রা' },
-  'tele-moon-label':     { en: 'Moon Cycle & Swell',       bn: 'চাঁদের চক্র ও স্ফীতি' },
-  'tide-high-title':     { en: 'Next High Tide (Jowar)',   bn: 'পরবর্তী জোয়ার' },
-  'tide-high-desc':      { en: 'Water level reaches coastal sea wall', bn: 'জল উপকূলীয় সমুদ্র প্রাচীর পর্যন্ত ওঠে' },
-  'tide-low-title':      { en: 'Next Low Tide (Bhata)',    bn: 'পরবর্তী ভাটা' },
-  'tide-low-desc':       { en: 'Widest sandy shore exposed', bn: 'সবচেয়ে চওড়া বালুকাবেলা উন্মুক্ত' },
-  'tide-wave-title':     { en: 'Live Wave Condition',      bn: 'লাইভ ঢেউয়ের অবস্থা' },
-  'tide-wave-desc':      { en: 'Open-Meteo real telemetry', bn: 'Open-Meteo সরাসরি পরিমাপ' },
-  'tide-police-title':   { en: 'Police Siren Advisory',   bn: 'পুলিশ সাইরেন পরামর্শ' },
-  'tide-police-val':     { en: 'Siren = Exit Water',      bn: 'সাইরেন = জল থেকে বেরিয়ে আসুন' },
-  'tide-police-desc':    { en: 'Nolias patrol every 100 meters', bn: 'নোলিয়ারা প্রতি ১০০ মিটারে টহল দেয়' },
-  'beach-new-digha':     { en: 'New Digha Sea Beach',       bn: 'নিউ দীঘা সী বীচ' },
-  'beach-old-digha':     { en: 'Old Digha (Biswa Bangla Ghat)', bn: 'পুরানো দীঘা (বিশ্ব বাংলা ঘাট)' },
-  'beach-udaipur':       { en: 'Udaipur Beach (Border)',    bn: 'উদয়পুর বীচ (সীমান্ত)' },
-  'beach-mohona':        { en: 'Mohona Estuary (Confluence)', bn: 'মোহনা মোহনা (সঙ্গম)' },
-  'flag-safe':           { en: '🟢 SAFE FOR FAMILIES',      bn: '🟢 পরিবারের জন্য নিরাপদ' },
-  'flag-caution':        { en: '🟡 EXERCISE CAUTION',       bn: '🟡 সতর্কতা অবলম্বন করুন' },
-  'flag-open':           { en: '🟢 OPEN SHORE',             bn: '🟢 উন্মুক্ত তীর' },
-  'flag-no-bath':        { en: '🔴 STRICTLY NO BATHING',    bn: '🔴 স্নান সম্পূর্ণ নিষিদ্ধ' },
+  'tide-section-label': { en: 'Live Marine Telemetry (Open-Meteo API)', bn: 'লাইভ সামুদ্রিক পরিমাপ (Open-Meteo API)' },
+  'tide-section-title': { en: 'Live Digha Sea & Tide Radar', bn: 'লাইভ দীঘা সমুদ্র ও জোয়ার রাডার' },
+  'tide-section-desc': {
+    en: 'Real-time oceanographic measurements synchronized directly with Bay of Bengal satellite buoys and coastal tidal cycles.',
+    bn: 'বঙ্গোপসাগরের স্যাটেলাইট বয় ও উপকূলীয় জোয়ারভাটা চক্রের সাথে সরাসরি সিঙ্ক্রোনাইজড সামুদ্রিক পরিমাপ।'
+  },
+  'tele-wave-label': { en: 'Live Wave Height', bn: 'লাইভ ঢেউয়ের উচ্চতা' },
+  'tele-wind-label': { en: 'Coastal Wind & Humidity', bn: 'উপকূলীয় বাতাস ও আর্দ্রতা' },
+  'tele-temp-label': { en: 'Surface Temperature', bn: 'সমুদ্র পৃষ্ঠের তাপমাত্রা' },
+  'tele-moon-label': { en: 'Moon Cycle & Swell', bn: 'চাঁদের চক্র ও স্ফীতি' },
+  'tide-high-title': { en: 'Next High Tide (Jowar)', bn: 'পরবর্তী জোয়ার' },
+  'tide-high-desc': { en: 'Water level reaches coastal sea wall', bn: 'জল উপকূলীয় সমুদ্র প্রাচীর পর্যন্ত ওঠে' },
+  'tide-low-title': { en: 'Next Low Tide (Bhata)', bn: 'পরবর্তী ভাটা' },
+  'tide-low-desc': { en: 'Widest sandy shore exposed', bn: 'সবচেয়ে চওড়া বালুকাবেলা উন্মুক্ত' },
+  'tide-wave-title': { en: 'Live Wave Condition', bn: 'লাইভ ঢেউয়ের অবস্থা' },
+  'tide-wave-desc': { en: 'Open-Meteo real telemetry', bn: 'Open-Meteo সরাসরি পরিমাপ' },
+  'tide-police-title': { en: 'Police Siren Advisory', bn: 'পুলিশ সাইরেন পরামর্শ' },
+  'tide-police-val': { en: 'Siren = Exit Water', bn: 'সাইরেন = জল থেকে বেরিয়ে আসুন' },
+  'tide-police-desc': { en: 'Nolias patrol every 100 meters', bn: 'নোলিয়ারা প্রতি ১০০ মিটারে টহল দেয়' },
+  'beach-new-digha': { en: 'New Digha Sea Beach', bn: 'নিউ দীঘা সী বীচ' },
+  'beach-old-digha': { en: 'Old Digha (Biswa Bangla Ghat)', bn: 'পুরানো দীঘা (বিশ্ব বাংলা ঘাট)' },
+  'beach-udaipur': { en: 'Udaipur Beach (Border)', bn: 'উদয়পুর বীচ (সীমান্ত)' },
+  'beach-mohona': { en: 'Mohona Estuary (Confluence)', bn: 'মোহনা মোহনা (সঙ্গম)' },
+  'flag-safe': { en: '🟢 SAFE FOR FAMILIES', bn: '🟢 পরিবারের জন্য নিরাপদ' },
+  'flag-caution': { en: '🟡 EXERCISE CAUTION', bn: '🟡 সতর্কতা অবলম্বন করুন' },
+  'flag-open': { en: '🟢 OPEN SHORE', bn: '🟢 উন্মুক্ত তীর' },
+  'flag-no-bath': { en: '🔴 STRICTLY NO BATHING', bn: '🔴 স্নান সম্পূর্ণ নিষিদ্ধ' },
 
   /* ---- SECTION 4: TRAINS ---- */
   'train-section-label': { en: 'Real-time Railway Timetable', bn: 'রিয়েল-টাইম রেলওয়ে সময়সূচি' },
   'train-section-title': { en: 'Digha Station Train Departure Board', bn: 'দীঘা স্টেশন ট্রেন ছাড়ার বোর্ড' },
-  'train-section-desc':  { en: 'Connecting Digha (DGHA) to Howrah (HWH), Kharagpur, Mecheda, and North Bengal. Highlights the next upcoming departure based on your current time.',
-                           bn: 'দীঘা (DGHA) থেকে হাওড়া (HWH), খড়গপুর, মেচেদা ও উত্তরবঙ্গের সংযোগ। আপনার বর্তমান সময় অনুসারে পরবর্তী ট্রেন হাইলাইট করা হয়।' },
+  'train-section-desc': {
+    en: 'Connecting Digha (DGHA) to Howrah (HWH), Kharagpur, Mecheda, and North Bengal. Highlights the next upcoming departure based on your current time.',
+    bn: 'দীঘা (DGHA) থেকে হাওড়া (HWH), খড়গপুর, মেচেদা ও উত্তরবঙ্গের সংযোগ। আপনার বর্তমান সময় অনুসারে পরবর্তী ট্রেন হাইলাইট করা হয়।'
+  },
 
   /* ---- SECTION 5: TOTO ---- */
-  'toto-section-label':  { en: 'Fair-Rate Transit System', bn: 'ন্যায্য-ভাড়া পরিবহন ব্যবস্থা' },
-  'toto-section-title':  { en: 'Official Digha Toto Fare Estimator', bn: 'দীঘা টোটো ভাড়া ক্যালকুলেটর' },
-  'toto-section-desc':   { en: 'Zero tourist haggling, zero overcharging. Standardized union rates across Old Digha, New Digha, Station, Mohona & Udaipur.',
-                           bn: 'কোনো দরাদরি নেই, কোনো অতিরিক্ত ভাড়া নেই। পুরানো দীঘা, নিউ দীঘা, স্টেশন, মোহনা ও উদয়পুরে ইউনিয়ন নির্ধারিত ভাড়া।' },
-  'toto-calc-title':     { en: 'Route Fare Calculator',    bn: 'রুট ভাড়া ক্যালকুলেটর' },
-  'toto-from-label':     { en: '📍 From (Pickup Point):',  bn: '📍 কোথা থেকে (পিকআপ পয়েন্ট):' },
-  'toto-to-label':       { en: '🏁 To (Destination):',     bn: '🏁 কোথায় যাবেন (গন্তব্য):' },
-  'toto-shared-title':   { en: 'Shared Toto Rate (Per Seat)', bn: 'শেয়ার টোটো ভাড়া (প্রতি সিট)' },
-  'toto-shared-desc':    { en: 'Standard passenger sharing',  bn: 'সাধারণ যাত্রী শেয়ারিং' },
-  'toto-reserve-title':  { en: 'Full Toto Reserve (Private Ride)', bn: 'রিজার্ভ টোটো (প্রাইভেট রাইড)' },
-  'toto-reserve-desc':   { en: 'Exclusive ride for 1 to 4 persons', bn: '১ থেকে ৪ জনের জন্য একচেটিয়া রাইড' },
-  'toto-dist-title':     { en: 'Est. Distance & Time',     bn: 'আনুমানিক দূরত্ব ও সময়' },
-  'toto-drivers-title':  { en: 'Verified Drivers on Standby', bn: 'যাচাইকৃত ড্রাইভার প্রস্তুত' },
-  'toto-driver-badge':   { en: 'Live GPS Radio',           bn: 'লাইভ GPS রেডিও' },
-  'toto-driver-cta':     { en: 'Are you a Digha Toto / Auto driver?', bn: 'আপনি কি দীঘার টোটো / অটো চালক?' },
-  'toto-driver-desc':    { en: 'Register for free, receive your windshield QR sticker, and get direct phone bookings with zero commissions.',
-                           bn: 'বিনামূল্যে রেজিস্টার করুন, উইন্ডশিল্ড QR স্টিকার পান, এবং শূন্য কমিশনে সরাসরি ফোন বুকিং পান।' },
-  'toto-driver-join':    { en: 'Join Driver Network & Claim 50 Shares', bn: 'ড্রাইভার নেটওয়ার্কে যোগ দিন ও ৫০ শেয়ার দাবি করুন' },
+  'toto-section-label': { en: 'Fair-Rate Transit System', bn: 'ন্যায্য-ভাড়া পরিবহন ব্যবস্থা' },
+  'toto-section-title': { en: 'Official Digha Toto Fare Estimator', bn: 'দীঘা টোটো ভাড়া ক্যালকুলেটর' },
+  'toto-section-desc': {
+    en: 'Zero tourist haggling, zero overcharging. Standardized union rates across Old Digha, New Digha, Station, Mohona & Udaipur.',
+    bn: 'কোনো দরাদরি নেই, কোনো অতিরিক্ত ভাড়া নেই। পুরানো দীঘা, নিউ দীঘা, স্টেশন, মোহনা ও উদয়পুরে ইউনিয়ন নির্ধারিত ভাড়া।'
+  },
+  'toto-calc-title': { en: 'Route Fare Calculator', bn: 'রুট ভাড়া ক্যালকুলেটর' },
+  'toto-from-label': { en: '📍 From (Pickup Point):', bn: '📍 কোথা থেকে (পিকআপ পয়েন্ট):' },
+  'toto-to-label': { en: '🏁 To (Destination):', bn: '🏁 কোথায় যাবেন (গন্তব্য):' },
+  'toto-shared-title': { en: 'Shared Toto Rate (Per Seat)', bn: 'শেয়ার টোটো ভাড়া (প্রতি সিট)' },
+  'toto-shared-desc': { en: 'Standard passenger sharing', bn: 'সাধারণ যাত্রী শেয়ারিং' },
+  'toto-reserve-title': { en: 'Full Toto Reserve (Private Ride)', bn: 'রিজার্ভ টোটো (প্রাইভেট রাইড)' },
+  'toto-reserve-desc': { en: 'Exclusive ride for 1 to 4 persons', bn: '১ থেকে ৪ জনের জন্য একচেটিয়া রাইড' },
+  'toto-dist-title': { en: 'Est. Distance & Time', bn: 'আনুমানিক দূরত্ব ও সময়' },
+  'toto-drivers-title': { en: 'Verified Drivers on Standby', bn: 'যাচাইকৃত ড্রাইভার প্রস্তুত' },
+  'toto-driver-badge': { en: 'Live GPS Radio', bn: 'লাইভ GPS রেডিও' },
+  'toto-driver-cta': { en: 'Are you a Digha Toto / Auto driver?', bn: 'আপনি কি দীঘার টোটো / অটো চালক?' },
+  'toto-driver-desc': {
+    en: 'Register for free, receive your windshield QR sticker, and get direct phone bookings with zero commissions.',
+    bn: 'বিনামূল্যে রেজিস্টার করুন, উইন্ডশিল্ড QR স্টিকার পান, এবং শূন্য কমিশনে সরাসরি ফোন বুকিং পান।'
+  },
+  'toto-driver-join': { en: 'Join Driver Network & Claim 50 Shares', bn: 'ড্রাইভার নেটওয়ার্কে যোগ দিন ও ৫০ শেয়ার দাবি করুন' },
 
   /* ---- SECTION 6: HOTELS ---- */
   'hotel-section-label': { en: 'Zero-Commission Direct Stays', bn: 'শূন্য-কমিশন সরাসরি থাকা' },
   'hotel-section-title': { en: 'Direct Digha Hotel Directory', bn: 'সরাসরি দীঘা হোটেল ডিরেক্টরি' },
-  'hotel-section-desc':  { en: 'Online Travel Agencies take up to 25% commission. Book directly with verified hotel owners in Digha to get guaranteed lower rates and pay upon arrival.',
-                           bn: 'অনলাইন ট্রাভেল এজেন্সি ২৫% পর্যন্ত কমিশন নেয়। দীঘার যাচাইকৃত হোটেল মালিকদের সাথে সরাসরি বুক করুন, নিশ্চিত কম দামে এবং পৌঁছে পেমেন্ট করুন।' },
-  'hotel-filter-all':    { en: 'All Stays',               bn: 'সব থাকা' },
-  'hotel-filter-beach':  { en: '🌊 Sea Beachfront',        bn: '🌊 সী বীচ' },
+  'hotel-section-desc': {
+    en: 'Online Travel Agencies take up to 25% commission. Book directly with verified hotel owners in Digha to get guaranteed lower rates and pay upon arrival.',
+    bn: 'অনলাইন ট্রাভেল এজেন্সি ২৫% পর্যন্ত কমিশন নেয়। দীঘার যাচাইকৃত হোটেল মালিকদের সাথে সরাসরি বুক করুন, নিশ্চিত কম দামে এবং পৌঁছে পেমেন্ট করুন।'
+  },
+  'hotel-filter-all': { en: 'All Stays', bn: 'সব থাকা' },
+  'hotel-filter-beach': { en: '🌊 Sea Beachfront', bn: '🌊 সী বীচ' },
   'hotel-filter-budget': { en: '🏷️ Budget Friendly (Under ₹1,200)', bn: '🏷️ বাজেট (₹১,২০০ এর নিচে)' },
-  'hotel-filter-deluxe': { en: '✨ Deluxe & Family AC',    bn: '✨ ডিলাক্স ও ফ্যামিলি AC' },
-  'hotel-filter-luxury': { en: '👑 Luxury Resorts & Pool',  bn: '👑 লাক্সারি রিসোর্ট ও পুল' },
-  'hotel-owner-cta':     { en: 'Do you own a hotel, guest house, or homestay in Digha, Mandarmani, or Tajpur?',
-                           bn: 'আপনি কি দীঘা, মন্দারমণি বা তাজপুরে হোটেল, গেস্ট হাউস বা হোমস্টে-র মালিক?' },
-  'hotel-list-btn':      { en: 'List Your Hotel on Anirjan Connect (100% Free Forever)', bn: 'আপনার হোটেল অনিরজন কানেক্টে তালিকাভুক্ত করুন (চিরকাল ১০০% বিনামূল্যে)' },
+  'hotel-filter-deluxe': { en: '✨ Deluxe & Family AC', bn: '✨ ডিলাক্স ও ফ্যামিলি AC' },
+  'hotel-filter-luxury': { en: '👑 Luxury Resorts & Pool', bn: '👑 লাক্সারি রিসোর্ট ও পুল' },
+  'hotel-owner-cta': {
+    en: 'Do you own a hotel, guest house, or homestay in Digha, Mandarmani, or Tajpur?',
+    bn: 'আপনি কি দীঘা, মন্দারমণি বা তাজপুরে হোটেল, গেস্ট হাউস বা হোমস্টে-র মালিক?'
+  },
+  'hotel-list-btn': { en: 'List Your Hotel on Anirjan Connect (100% Free Forever)', bn: 'আপনার হোটেল অনিরজন কানেক্টে তালিকাভুক্ত করুন (চিরকাল ১০০% বিনামূল্যে)' },
 
   /* ---- SECTION 6B: CHECKOUT PLANNER ---- */
-  'checkout-label':      { en: '🧳 Post-Checkout Freedom • Universal Tourist Guide', bn: '🧳 চেকআউটের পরে • সার্বজনীন পর্যটক গাইড' },
-  'checkout-title':      { en: '11:00 AM Hotel Checkout? Luggage & Return Plan', bn: '১১:০০টায় হোটেল চেকআউট? লাগেজ ও ফেরার পরিকল্পনা' },
-  'checkout-desc':       { en: 'Almost all Digha hotels mandate morning checkout between 10:00 AM and 11:00 AM, but evening return trains depart between 1:00 PM and 6:30 PM. Here is how to safely store your bags, find breezy rest spots, and pre-book a Toto to Digha station.',
-                           bn: 'দীঘার প্রায় সব হোটেলে সকাল ১০:০০ থেকে ১১:০০টার মধ্যে চেকআউট বাধ্যতামূলক, কিন্তু সন্ধ্যার ফেরার ট্রেন ১:০০ থেকে ৬:৩০-এর মধ্যে ছাড়ে। এখানে দেখুন কীভাবে নিরাপদে ব্যাগ রাখবেন, আরামদায়ক বিশ্রামের জায়গা পাবেন, এবং স্টেশনে টোটো আগে থেকে বুক করবেন।' },
+  'checkout-label': { en: '🧳 Post-Checkout Freedom • Universal Tourist Guide', bn: '🧳 চেকআউটের পরে • সার্বজনীন পর্যটক গাইড' },
+  'checkout-title': { en: '11:00 AM Hotel Checkout? Luggage & Return Plan', bn: '১১:০০টায় হোটেল চেকআউট? লাগেজ ও ফেরার পরিকল্পনা' },
+  'checkout-desc': {
+    en: 'Almost all Digha hotels mandate morning checkout between 10:00 AM and 11:00 AM, but evening return trains depart between 1:00 PM and 6:30 PM. Here is how to safely store your bags, find breezy rest spots, and pre-book a Toto to Digha station.',
+    bn: 'দীঘার প্রায় সব হোটেলে সকাল ১০:০০ থেকে ১১:০০টার মধ্যে চেকআউট বাধ্যতামূলক, কিন্তু সন্ধ্যার ফেরার ট্রেন ১:০০ থেকে ৬:৩০-এর মধ্যে ছাড়ে। এখানে দেখুন কীভাবে নিরাপদে ব্যাগ রাখবেন, আরামদায়ক বিশ্রামের জায়গা পাবেন, এবং স্টেশনে টোটো আগে থেকে বুক করবেন।'
+  },
 
   /* ---- SECTION 7: DOCTORS ---- */
-  'medical-label':       { en: 'Healthcare & Emergency Care', bn: 'স্বাস্থ্যসেবা ও জরুরি চিকিৎসা' },
-  'medical-title':       { en: 'Digha Doctor & 24/7 Pharmacy Roster', bn: 'দীঘা ডাক্তার ও ২৪/৭ ফার্মেসি তালিকা' },
-  'medical-desc':        { en: 'Immediate healthcare assistance for dehydration, food infection, pediatric emergencies, snakebite anti-venom, and trauma triage in Digha and Ramnagar.',
-                           bn: 'ডিহাইড্রেশন, ফুড পয়জনিং, শিশু জরুরি অবস্থা, সাপের কামড়ের অ্যান্টি-ভেনম এবং ট্রমা চিকিৎসার জন্য দীঘা ও রামনগরে তাৎক্ষণিক স্বাস্থ্যসেবা।' },
+  'medical-label': { en: 'Healthcare & Emergency Care', bn: 'স্বাস্থ্যসেবা ও জরুরি চিকিৎসা' },
+  'medical-title': { en: 'Digha Doctor & 24/7 Pharmacy Roster', bn: 'দীঘা ডাক্তার ও ২৪/৭ ফার্মেসি তালিকা' },
+  'medical-desc': {
+    en: 'Immediate healthcare assistance for dehydration, food infection, pediatric emergencies, snakebite anti-venom, and trauma triage in Digha and Ramnagar.',
+    bn: 'ডিহাইড্রেশন, ফুড পয়জনিং, শিশু জরুরি অবস্থা, সাপের কামড়ের অ্যান্টি-ভেনম এবং ট্রমা চিকিৎসার জন্য দীঘা ও রামনগরে তাৎক্ষণিক স্বাস্থ্যসেবা।'
+  },
 
   /* ---- SECTION 8: MOHONA FISH ---- */
-  'fish-section-title':  { en: 'Digha Mohona Wholesale Fish Market', bn: 'দীঘা মোহনা পাইকারি মাছ বাজার' },
-  'fish-calc-badge':     { en: '🍳 Kacha Mach Ranna Fair-Price Calculator', bn: '🍳 কাঁচা মাছ রান্না ন্যায্য-মূল্য ক্যালকুলেটর' },
-  'fish-select-label':   { en: '🐟 Select Your Catch (Today\'s Market Price):', bn: '🐟 আপনার মাছ বাছুন (আজকের বাজার দর):' },
-  'fish-weight-label':   { en: '⚖️ Select Weight / Quantity:', bn: '⚖️ ওজন / পরিমাণ নির্বাচন করুন:' },
-  'fish-prep-label':     { en: '🍳 Select Preparation / Recipe:', bn: '🍳 রান্নার ধরন নির্বাচন করুন:' },
-  'prep-fry':            { en: 'Crispy Deep Fry',    bn: 'মুচমুচে ভাজা' },
-  'prep-shorshe':        { en: 'Shorshe Gravy',      bn: 'সর্ষে ঝাল' },
-  'prep-malaikari':      { en: 'Chingri Malaikari',   bn: 'চিংড়ি মালাইকারি' },
-  'prep-kankra':         { en: 'Kankra Jhal Masala',  bn: 'কাঁকড়া ঝাল মশলা' },
-  'prep-jhol':           { en: 'Patla Macher Jhol',   bn: 'পাতলা মাছের ঝোল' },
-  'fish-raw-label':      { en: 'Est. Raw Fish Wholesale Cost:', bn: 'আনুমানিক কাঁচা মাছের পাইকারি মূল্য:' },
-  'fish-cook-label':     { en: 'Authorized Cooking Labor & Spices:', bn: 'অনুমোদিত রান্নার শ্রম ও মশলা:' },
-  'fish-total-label':    { en: 'Estimated Total Fair Cost:', bn: 'আনুমানিক মোট ন্যায্য মূল্য:' },
-  'fish-cap-title':      { en: '🛡️ Digha Standard Cooking Cap Notice', bn: '🛡️ দীঘা স্ট্যান্ডার্ড রান্নার সর্বোচ্চ খরচ বিজ্ঞপ্তি' },
-  'fish-freshness':      { en: '🐟 3-Step Freshness & Anti-Formalin Test:', bn: '🐟 ৩-ধাপে তাজা মাছ ও ফরমালিন পরীক্ষা:' },
-  'mohona-tips-title':   { en: '🌅 Tips for Visiting Digha Mohona', bn: '🌅 দীঘা মোহনা ভ্রমণের টিপস' },
+  'fish-section-title': { en: 'Digha Mohona Wholesale Fish Market', bn: 'দীঘা মোহনা পাইকারি মাছ বাজার' },
+  'fish-calc-badge': { en: '🍳 Kacha Mach Ranna Fair-Price Calculator', bn: '🍳 কাঁচা মাছ রান্না ন্যায্য-মূল্য ক্যালকুলেটর' },
+  'fish-select-label': { en: '🐟 Select Your Catch (Today\'s Market Price):', bn: '🐟 আপনার মাছ বাছুন (আজকের বাজার দর):' },
+  'fish-weight-label': { en: '⚖️ Select Weight / Quantity:', bn: '⚖️ ওজন / পরিমাণ নির্বাচন করুন:' },
+  'fish-prep-label': { en: '🍳 Select Preparation / Recipe:', bn: '🍳 রান্নার ধরন নির্বাচন করুন:' },
+  'prep-fry': { en: 'Crispy Deep Fry', bn: 'মুচমুচে ভাজা' },
+  'prep-shorshe': { en: 'Shorshe Gravy', bn: 'সর্ষে ঝাল' },
+  'prep-malaikari': { en: 'Chingri Malaikari', bn: 'চিংড়ি মালাইকারি' },
+  'prep-kankra': { en: 'Kankra Jhal Masala', bn: 'কাঁকড়া ঝাল মশলা' },
+  'prep-jhol': { en: 'Patla Macher Jhol', bn: 'পাতলা মাছের ঝোল' },
+  'fish-raw-label': { en: 'Est. Raw Fish Wholesale Cost:', bn: 'আনুমানিক কাঁচা মাছের পাইকারি মূল্য:' },
+  'fish-cook-label': { en: 'Authorized Cooking Labor & Spices:', bn: 'অনুমোদিত রান্নার শ্রম ও মশলা:' },
+  'fish-total-label': { en: 'Estimated Total Fair Cost:', bn: 'আনুমানিক মোট ন্যায্য মূল্য:' },
+  'fish-cap-title': { en: '🛡️ Digha Standard Cooking Cap Notice', bn: '🛡️ দীঘা স্ট্যান্ডার্ড রান্নার সর্বোচ্চ খরচ বিজ্ঞপ্তি' },
+  'fish-freshness': { en: '🐟 3-Step Freshness & Anti-Formalin Test:', bn: '🐟 ৩-ধাপে তাজা মাছ ও ফরমালিন পরীক্ষা:' },
+  'mohona-tips-title': { en: '🌅 Tips for Visiting Digha Mohona', bn: '🌅 দীঘা মোহনা ভ্রমণের টিপস' },
 
   /* ---- SECTION 9: SECRETS ---- */
-  'secrets-label':       { en: 'Local Knowledge & Heritage', bn: 'স্থানীয় জ্ঞান ও ঐতিহ্য' },
-  'secrets-title':       { en: 'Digha Untold: Secrets & Hidden Gems', bn: 'দীঘার অজানা: গোপন তথ্য ও লুকানো রত্ন' },
-  'secrets-desc':        { en: 'Fascinating facts and local trivia about Digha that even frequent visitors and locals cherish.',
-                           bn: 'দীঘা সম্পর্কে চমকপ্রদ তথ্য ও স্থানীয় গল্প যা নিয়মিত দর্শনার্থী ও স্থানীয়রাও লালন করে।' },
+  'secrets-label': { en: 'Local Knowledge & Heritage', bn: 'স্থানীয় জ্ঞান ও ঐতিহ্য' },
+  'secrets-title': { en: 'Digha Untold: Secrets & Hidden Gems', bn: 'দীঘার অজানা: গোপন তথ্য ও লুকানো রত্ন' },
+  'secrets-desc': {
+    en: 'Fascinating facts and local trivia about Digha that even frequent visitors and locals cherish.',
+    bn: 'দীঘা সম্পর্কে চমকপ্রদ তথ্য ও স্থানীয় গল্প যা নিয়মিত দর্শনার্থী ও স্থানীয়রাও লালন করে।'
+  },
 
   /* ---- SECTION 10: SOS ---- */
-  'sos-label':           { en: '24/7 Rapid Response',  bn: '২৪/৭ দ্রুত সাড়া' },
-  'sos-title':           { en: 'Digha Emergency Coastal SOS', bn: 'দীঘা জরুরি উপকূলীয় SOS' },
-  'sos-desc':            { en: 'Direct, one-tap emergency connections to West Bengal Coastal Police, Digha State Hospital, Nolias (Lifeguards), and disaster helpline.',
-                           bn: 'পশ্চিমবঙ্গ উপকূলীয় পুলিশ, দীঘা রাজ্য হাসপাতাল, নোলিয়া (লাইফগার্ড), এবং দুর্যোগ হেল্পলাইনে এক-ট্যাপ জরুরি সংযোগ।' },
-  'sos-police-title':    { en: 'Digha Coastal Police',    bn: 'দীঘা উপকূলীয় পুলিশ' },
-  'sos-police-sub':      { en: 'Station: New Digha Road', bn: 'থানা: নিউ দীঘা রোড' },
-  'sos-police-desc':     { en: 'Immediate assistance for lost belongings, accidents, harassment, or hotel disputes.',
-                           bn: 'হারিয়ে যাওয়া জিনিসপত্র, দুর্ঘটনা, হয়রানি বা হোটেল বিবাদে তাৎক্ষণিক সহায়তা।' },
-  'sos-police-btn':      { en: '📞 Call Police Now',      bn: '📞 এখনই পুলিশে ফোন করুন' },
-  'sos-hospital-title':  { en: 'Digha State General Hospital', bn: 'দীঘা রাজ্য সাধারণ হাসপাতাল' },
-  'sos-hospital-sub':    { en: 'Alankarpur & Ambulance 24/7',  bn: 'অলংকারপুর ও অ্যাম্বুলেন্স ২৪/৭' },
-  'sos-hospital-desc':   { en: 'Emergency casualty ward, snakebite venom center, medical triage, and oxygen.',
-                           bn: 'জরুরি ক্যাজুয়ালটি ওয়ার্ড, সাপের কামড়ের অ্যান্টি-ভেনম কেন্দ্র, মেডিকেল ট্রায়াজ ও অক্সিজেন।' },
-  'sos-hospital-btn':    { en: '📞 Call Hospital',         bn: '📞 হাসপাতালে ফোন করুন' },
-  'sos-nolia-title':     { en: 'Digha Sea Lifeguards (Nolia)', bn: 'দীঘা সমুদ্র লাইফগার্ড (নোলিয়া)' },
-  'sos-nolia-sub':       { en: 'Watch Towers: Old & New Digha', bn: 'ওয়াচ টাওয়ার: পুরানো ও নিউ দীঘা' },
-  'sos-nolia-desc':      { en: 'Water rescue team, high-tide alert command, and lost child reunion booth.',
-                           bn: 'জল উদ্ধার দল, জোয়ার সতর্কতা কমান্ড, এবং হারিয়ে যাওয়া শিশু পুনর্মিলন বুথ।' },
-  'sos-nolia-btn':       { en: '📞 Call Sea Rescue',       bn: '📞 সমুদ্র উদ্ধারে ফোন করুন' },
-  'sos-fire-title':      { en: 'Digha Fire & Disaster Dept', bn: 'দীঘা ফায়ার ও দুর্যোগ বিভাগ' },
-  'sos-fire-sub':        { en: 'Control Room (Toll Free: 101)', bn: 'কন্ট্রোল রুম (টোল ফ্রি: ১০১)' },
-  'sos-fire-desc':       { en: 'Cyclone alert coordination, vehicle fire safety, and emergency road clearance.',
-                           bn: 'ঘূর্ণিঝড় সতর্কতা সমন্বয়, যানবাহন অগ্নি নিরাপত্তা, এবং জরুরি রাস্তা পরিষ্কার।' },
-  'sos-fire-btn':        { en: '📞 Call Fire Brigade',     bn: '📞 ফায়ার ব্রিগেডে ফোন করুন' },
+  'sos-label': { en: '24/7 Rapid Response', bn: '২৪/৭ দ্রুত সাড়া' },
+  'sos-title': { en: 'Digha Emergency Coastal SOS', bn: 'দীঘা জরুরি উপকূলীয় SOS' },
+  'sos-desc': {
+    en: 'Direct, one-tap emergency connections to West Bengal Coastal Police, Digha State Hospital, Nolias (Lifeguards), and disaster helpline.',
+    bn: 'পশ্চিমবঙ্গ উপকূলীয় পুলিশ, দীঘা রাজ্য হাসপাতাল, নোলিয়া (লাইফগার্ড), এবং দুর্যোগ হেল্পলাইনে এক-ট্যাপ জরুরি সংযোগ।'
+  },
+  'sos-police-title': { en: 'Digha Coastal Police', bn: 'দীঘা উপকূলীয় পুলিশ' },
+  'sos-police-sub': { en: 'Station: New Digha Road', bn: 'থানা: নিউ দীঘা রোড' },
+  'sos-police-desc': {
+    en: 'Immediate assistance for lost belongings, accidents, harassment, or hotel disputes.',
+    bn: 'হারিয়ে যাওয়া জিনিসপত্র, দুর্ঘটনা, হয়রানি বা হোটেল বিবাদে তাৎক্ষণিক সহায়তা।'
+  },
+  'sos-police-btn': { en: '📞 Call Police Now', bn: '📞 এখনই পুলিশে ফোন করুন' },
+  'sos-hospital-title': { en: 'Digha State General Hospital', bn: 'দীঘা রাজ্য সাধারণ হাসপাতাল' },
+  'sos-hospital-sub': { en: 'Alankarpur & Ambulance 24/7', bn: 'অলংকারপুর ও অ্যাম্বুলেন্স ২৪/৭' },
+  'sos-hospital-desc': {
+    en: 'Emergency casualty ward, snakebite venom center, medical triage, and oxygen.',
+    bn: 'জরুরি ক্যাজুয়ালটি ওয়ার্ড, সাপের কামড়ের অ্যান্টি-ভেনম কেন্দ্র, মেডিকেল ট্রায়াজ ও অক্সিজেন।'
+  },
+  'sos-hospital-btn': { en: '📞 Call Hospital', bn: '📞 হাসপাতালে ফোন করুন' },
+  'sos-nolia-title': { en: 'Digha Sea Lifeguards (Nolia)', bn: 'দীঘা সমুদ্র লাইফগার্ড (নোলিয়া)' },
+  'sos-nolia-sub': { en: 'Watch Towers: Old & New Digha', bn: 'ওয়াচ টাওয়ার: পুরানো ও নিউ দীঘা' },
+  'sos-nolia-desc': {
+    en: 'Water rescue team, high-tide alert command, and lost child reunion booth.',
+    bn: 'জল উদ্ধার দল, জোয়ার সতর্কতা কমান্ড, এবং হারিয়ে যাওয়া শিশু পুনর্মিলন বুথ।'
+  },
+  'sos-nolia-btn': { en: '📞 Call Sea Rescue', bn: '📞 সমুদ্র উদ্ধারে ফোন করুন' },
+  'sos-fire-title': { en: 'Digha Fire & Disaster Dept', bn: 'দীঘা ফায়ার ও দুর্যোগ বিভাগ' },
+  'sos-fire-sub': { en: 'Control Room (Toll Free: 101)', bn: 'কন্ট্রোল রুম (টোল ফ্রি: ১০১)' },
+  'sos-fire-desc': {
+    en: 'Cyclone alert coordination, vehicle fire safety, and emergency road clearance.',
+    bn: 'ঘূর্ণিঝড় সতর্কতা সমন্বয়, যানবাহন অগ্নি নিরাপত্তা, এবং জরুরি রাস্তা পরিষ্কার।'
+  },
+  'sos-fire-btn': { en: '📞 Call Fire Brigade', bn: '📞 ফায়ার ব্রিগেডে ফোন করুন' },
 
   /* ---- SECTION 11: COMMUNITY ---- */
-  'community-badge':     { en: 'Official Digha Ecosystem Hub', bn: 'অফিসিয়াল দীঘা ইকোসিস্টেম হাব' },
-  'community-title':     { en: 'Join the Official Digha Connect Community', bn: 'অফিসিয়াল দীঘা কানেক্ট কমিউনিটিতে যোগ দিন' },
-  'community-desc':      { en: 'We are connecting every local Toto driver, hotel owner, Mohona seafood merchant, and traveler into one transparent coastal network.',
-                           bn: 'আমরা প্রতিটি স্থানীয় টোটো চালক, হোটেল মালিক, মোহনা মাছের ব্যবসায়ী ও পর্যটককে একটি স্বচ্ছ উপকূলীয় নেটওয়ার্কে সংযুক্ত করছি।' },
-  'community-telegram':  { en: 'Join Official Telegram Channel', bn: 'অফিসিয়াল টেলিগ্রাম চ্যানেলে যোগ দিন' },
-  'community-whatsapp':  { en: 'Join Digha Partners WhatsApp Group', bn: 'দীঘা পার্টনার্স হোয়াটসঅ্যাপ গ্রুপে যোগ দিন' },
+  'community-badge': { en: 'Official Digha Ecosystem Hub', bn: 'অফিসিয়াল দীঘা ইকোসিস্টেম হাব' },
+  'community-title': { en: 'Join the Official Digha Connect Community', bn: 'অফিসিয়াল দীঘা কানেক্ট কমিউনিটিতে যোগ দিন' },
+  'community-desc': {
+    en: 'We are connecting every local Toto driver, hotel owner, Mohona seafood merchant, and traveler into one transparent coastal network.',
+    bn: 'আমরা প্রতিটি স্থানীয় টোটো চালক, হোটেল মালিক, মোহনা মাছের ব্যবসায়ী ও পর্যটককে একটি স্বচ্ছ উপকূলীয় নেটওয়ার্কে সংযুক্ত করছি।'
+  },
+  'community-telegram': { en: 'Join Official Telegram Channel', bn: 'অফিসিয়াল টেলিগ্রাম চ্যানেলে যোগ দিন' },
+  'community-whatsapp': { en: 'Join Digha Partners WhatsApp Group', bn: 'দীঘা পার্টনার্স হোয়াটসঅ্যাপ গ্রুপে যোগ দিন' },
 
   /* ---- EVENTS SECTION ---- */
-  'events-label':        { en: '🎪 Zero-Commission Local Event Concierge • Digha, Mandarmani & Coastal Belt',
-                           bn: '🎪 শূন্য-কমিশন স্থানীয় ইভেন্ট কনসিয়ার্জ • দীঘা, মন্দারমণি ও উপকূলীয় অঞ্চল' },
-  'events-title':        { en: 'Organize Any Custom Event in Digha', bn: 'দীঘায় যেকোনো কাস্টম ইভেন্ট আয়োজন করুন' },
-  'events-desc':         { en: 'From beachside destination weddings and corporate retreats to family reunions and photography expeditions—our Jagadishpur on-ground team handles venues, sound permits, catering, and guest transit with 100% transparent pricing.',
-                           bn: 'বীচসাইড ডেস্টিনেশন বিয়ে ও কর্পোরেট রিট্রিট থেকে পারিবারিক মিলন ও ফটোগ্রাফি অভিযান পর্যন্ত—আমাদের জগদীশপুরের অন-গ্রাউন্ড দল ভেন্যু, সাউন্ড পারমিট, ক্যাটারিং ও অতিথি পরিবহন সামলায় ১০০% স্বচ্ছ মূল্যে।' },
-  'event-form-title':    { en: 'Submit Your Custom Event Request', bn: 'আপনার কাস্টম ইভেন্ট অনুরোধ জমা দিন' },
+  'events-label': {
+    en: '🎪 Zero-Commission Local Event Concierge • Digha, Mandarmani & Coastal Belt',
+    bn: '🎪 শূন্য-কমিশন স্থানীয় ইভেন্ট কনসিয়ার্জ • দীঘা, মন্দারমণি ও উপকূলীয় অঞ্চল'
+  },
+  'events-title': { en: 'Organize Any Custom Event in Digha', bn: 'দীঘায় যেকোনো কাস্টম ইভেন্ট আয়োজন করুন' },
+  'events-desc': {
+    en: 'From beachside destination weddings and corporate retreats to family reunions and photography expeditions—our Jagadishpur on-ground team handles venues, sound permits, catering, and guest transit with 100% transparent pricing.',
+    bn: 'বীচসাইড ডেস্টিনেশন বিয়ে ও কর্পোরেট রিট্রিট থেকে পারিবারিক মিলন ও ফটোগ্রাফি অভিযান পর্যন্ত—আমাদের জগদীশপুরের অন-গ্রাউন্ড দল ভেন্যু, সাউন্ড পারমিট, ক্যাটারিং ও অতিথি পরিবহন সামলায় ১০০% স্বচ্ছ মূল্যে।'
+  },
+  'event-form-title': { en: 'Submit Your Custom Event Request', bn: 'আপনার কাস্টম ইভেন্ট অনুরোধ জমা দিন' },
 
   /* ---- FOOTER ---- */
-  'footer-cta-title':    { en: 'Planning a Trip, Custom Event, or Need Urgent Assistance in Digha?',
-                           bn: 'দীঘায় ভ্রমণ পরিকল্পনা, কাস্টম ইভেন্ট, বা জরুরি সহায়তা দরকার?' },
-  'footer-cta-desc':     { en: 'Direct local help desk operating 24/7 right from Jagadishpur, Digha with zero middleman touts.',
-                           bn: 'জগদীশপুর, দীঘা থেকে ২৪/৭ সরাসরি স্থানীয় হেল্প ডেস্ক, কোনো দালাল নেই।' }
+  'footer-cta-title': {
+    en: 'Planning a Trip, Custom Event, or Need Urgent Assistance in Digha?',
+    bn: 'দীঘায় ভ্রমণ পরিকল্পনা, কাস্টম ইভেন্ট, বা জরুরি সহায়তা দরকার?'
+  },
+  'footer-cta-desc': {
+    en: 'Direct local help desk operating 24/7 right from Jagadishpur, Digha with zero middleman touts.',
+    bn: 'জগদীশপুর, দীঘা থেকে ২৪/৭ সরাসরি স্থানীয় হেল্প ডেস্ক, কোনো দালাল নেই।'
+  }
 };
 
 /**
@@ -1526,112 +1570,112 @@ const DIGHA_TRANSLATIONS = {
  */
 const TRANSLATION_MAP = [
   /* Nav Links */
-  { key: 'nav-link-tide',    selector: '.nav-menu a[href="#tide-radar"]',       prop: 'text' },
-  { key: 'nav-link-trains',  selector: '.nav-menu a[href="#trains-section"]',   prop: 'text' },
-  { key: 'nav-link-toto',    selector: '.nav-menu a[href="#toto-guide"]',       prop: 'text' },
-  { key: 'nav-link-hotels',  selector: '.nav-menu a[href="#hotel-directory"]',  prop: 'text' },
-  { key: 'nav-link-events',  selector: '.nav-menu a[href="#events-section"]',   prop: 'text' },
-  { key: 'nav-link-doctors', selector: '.nav-menu a[href="#medical-section"]',  prop: 'text' },
-  { key: 'nav-link-fish',    selector: '.nav-menu a[href="#mohona-market"]',    prop: 'text' },
-  { key: 'nav-link-secrets', selector: '.nav-menu a[href="#digha-secrets"]',    prop: 'text' },
+  { key: 'nav-link-tide', selector: '.nav-menu a[href="#tide-radar"]', prop: 'text' },
+  { key: 'nav-link-trains', selector: '.nav-menu a[href="#trains-section"]', prop: 'text' },
+  { key: 'nav-link-toto', selector: '.nav-menu a[href="#toto-guide"]', prop: 'text' },
+  { key: 'nav-link-hotels', selector: '.nav-menu a[href="#hotel-directory"]', prop: 'text' },
+  { key: 'nav-link-events', selector: '.nav-menu a[href="#events-section"]', prop: 'text' },
+  { key: 'nav-link-doctors', selector: '.nav-menu a[href="#medical-section"]', prop: 'text' },
+  { key: 'nav-link-fish', selector: '.nav-menu a[href="#mohona-market"]', prop: 'text' },
+  { key: 'nav-link-secrets', selector: '.nav-menu a[href="#digha-secrets"]', prop: 'text' },
   { key: 'nav-link-partner', selector: '.nav-menu a[href="#partner-registration"]', prop: 'text' },
-  { key: 'nav-link-sos',     selector: '.nav-menu a[href="#emergency-sos"]',    prop: 'text' },
-  { key: 'nav-btn-report',   selector: '#btn-community-report span',           prop: 'text' },
-  { key: 'nav-btn-partner',  selector: 'a[href="#partner-registration"].btn-primary span', prop: 'text' },
+  { key: 'nav-link-sos', selector: '.nav-menu a[href="#emergency-sos"]', prop: 'text' },
+  { key: 'nav-btn-report', selector: '#btn-community-report span', prop: 'text' },
+  { key: 'nav-btn-partner', selector: 'a[href="#partner-registration"].btn-primary span', prop: 'text' },
 
   /* Hero */
-  { key: 'hero-badge',          selector: '.badge-coastal span:last-child',        prop: 'text' },
-  { key: 'hero-btn-beach-pass', selector: '#btn-hero-beach-pass span',             prop: 'text' },
-  { key: 'hero-btn-scam',       selector: '#btn-hero-scam-shield span',            prop: 'text' },
-  { key: 'hero-btn-tide',       selector: 'a[href="#tide-radar"].btn-primary span', prop: 'text' },
-  { key: 'hero-btn-train',      selector: 'a[href="#trains-section"].btn-outline-gold span', prop: 'text' },
-  { key: 'hero-btn-toto',       selector: 'a[href="#toto-guide"] span',            prop: 'text' },
-  { key: 'hero-btn-hotel',      selector: 'a[href="#hotel-directory"].btn-outline-gold span', prop: 'text' },
-  { key: 'hero-btn-checkout',   selector: 'a[href="#checkout-planner"] span',      prop: 'text' },
-  { key: 'hero-btn-fish',       selector: 'a[href="#fish-cooking-calc"] span',     prop: 'text' },
-  { key: 'hero-btn-doctors',    selector: 'a[href="#medical-section"].btn-outline-gold span', prop: 'text' },
+  { key: 'hero-badge', selector: '.badge-coastal span:last-child', prop: 'text' },
+  { key: 'hero-btn-beach-pass', selector: '#btn-hero-beach-pass span', prop: 'text' },
+  { key: 'hero-btn-scam', selector: '#btn-hero-scam-shield span', prop: 'text' },
+  { key: 'hero-btn-tide', selector: 'a[href="#tide-radar"].btn-primary span', prop: 'text' },
+  { key: 'hero-btn-train', selector: 'a[href="#trains-section"].btn-outline-gold span', prop: 'text' },
+  { key: 'hero-btn-toto', selector: 'a[href="#toto-guide"] span', prop: 'text' },
+  { key: 'hero-btn-hotel', selector: 'a[href="#hotel-directory"].btn-outline-gold span', prop: 'text' },
+  { key: 'hero-btn-checkout', selector: 'a[href="#checkout-planner"] span', prop: 'text' },
+  { key: 'hero-btn-fish', selector: 'a[href="#fish-cooking-calc"] span', prop: 'text' },
+  { key: 'hero-btn-doctors', selector: 'a[href="#medical-section"].btn-outline-gold span', prop: 'text' },
 
   /* Metric Cards */
-  { key: 'metric-wave-label',   selector: '.coastal-metrics-grid .metric-pill-card:nth-child(1) .metric-label', prop: 'text' },
-  { key: 'metric-crowd-label',  selector: '.coastal-metrics-grid .metric-pill-card:nth-child(2) .metric-label', prop: 'text' },
-  { key: 'metric-hotel-label',  selector: '.coastal-metrics-grid .metric-pill-card:nth-child(3) .metric-label', prop: 'text' },
-  { key: 'metric-hotel-val',    selector: '.coastal-metrics-grid .metric-pill-card:nth-child(3) .metric-value', prop: 'text' },
+  { key: 'metric-wave-label', selector: '.coastal-metrics-grid .metric-pill-card:nth-child(1) .metric-label', prop: 'text' },
+  { key: 'metric-crowd-label', selector: '.coastal-metrics-grid .metric-pill-card:nth-child(2) .metric-label', prop: 'text' },
+  { key: 'metric-hotel-label', selector: '.coastal-metrics-grid .metric-pill-card:nth-child(3) .metric-label', prop: 'text' },
+  { key: 'metric-hotel-val', selector: '.coastal-metrics-grid .metric-pill-card:nth-child(3) .metric-value', prop: 'text' },
   { key: 'metric-police-label', selector: '.coastal-metrics-grid .metric-pill-card:nth-child(4) .metric-label', prop: 'text' },
-  { key: 'metric-police-val',   selector: '.coastal-metrics-grid .metric-pill-card:nth-child(4) .metric-value', prop: 'text' },
+  { key: 'metric-police-val', selector: '.coastal-metrics-grid .metric-pill-card:nth-child(4) .metric-value', prop: 'text' },
 
   /* Section 3: Tide Radar */
-  { key: 'tide-section-label',  selector: '#tide-radar .section-label',         prop: 'text' },
-  { key: 'tide-section-title',  selector: '#tide-radar .section-title',         prop: 'text' },
-  { key: 'tide-section-desc',   selector: '#tide-radar .section-description',   prop: 'text' },
-  { key: 'tele-wave-label',     selector: '.marine-telemetry-strip .telemetry-item:nth-child(1) .telemetry-label', prop: 'text' },
-  { key: 'tele-wind-label',     selector: '.marine-telemetry-strip .telemetry-item:nth-child(2) .telemetry-label', prop: 'text' },
-  { key: 'tele-temp-label',     selector: '.marine-telemetry-strip .telemetry-item:nth-child(3) .telemetry-label', prop: 'text' },
-  { key: 'tele-moon-label',     selector: '.marine-telemetry-strip .telemetry-item:nth-child(4) .telemetry-label', prop: 'text' },
-  { key: 'tide-high-title',     selector: '.tide-cycle-display .tide-stat-box:nth-child(1) .title', prop: 'text' },
-  { key: 'tide-high-desc',      selector: '.tide-cycle-display .tide-stat-box:nth-child(1) .desc',  prop: 'text' },
-  { key: 'tide-low-title',      selector: '.tide-cycle-display .tide-stat-box:nth-child(2) .title', prop: 'text' },
-  { key: 'tide-low-desc',       selector: '.tide-cycle-display .tide-stat-box:nth-child(2) .desc',  prop: 'text' },
-  { key: 'tide-wave-title',     selector: '.tide-cycle-display .tide-stat-box:nth-child(3) .title', prop: 'text' },
-  { key: 'tide-wave-desc',      selector: '.tide-cycle-display .tide-stat-box:nth-child(3) .desc',  prop: 'text' },
-  { key: 'tide-police-title',   selector: '.tide-cycle-display .tide-stat-box:nth-child(4) .title', prop: 'text' },
-  { key: 'tide-police-val',     selector: '.tide-cycle-display .tide-stat-box:nth-child(4) .time',  prop: 'text' },
-  { key: 'tide-police-desc',    selector: '.tide-cycle-display .tide-stat-box:nth-child(4) .desc',  prop: 'text' },
+  { key: 'tide-section-label', selector: '#tide-radar .section-label', prop: 'text' },
+  { key: 'tide-section-title', selector: '#tide-radar .section-title', prop: 'text' },
+  { key: 'tide-section-desc', selector: '#tide-radar .section-description', prop: 'text' },
+  { key: 'tele-wave-label', selector: '.marine-telemetry-strip .telemetry-item:nth-child(1) .telemetry-label', prop: 'text' },
+  { key: 'tele-wind-label', selector: '.marine-telemetry-strip .telemetry-item:nth-child(2) .telemetry-label', prop: 'text' },
+  { key: 'tele-temp-label', selector: '.marine-telemetry-strip .telemetry-item:nth-child(3) .telemetry-label', prop: 'text' },
+  { key: 'tele-moon-label', selector: '.marine-telemetry-strip .telemetry-item:nth-child(4) .telemetry-label', prop: 'text' },
+  { key: 'tide-high-title', selector: '.tide-cycle-display .tide-stat-box:nth-child(1) .title', prop: 'text' },
+  { key: 'tide-high-desc', selector: '.tide-cycle-display .tide-stat-box:nth-child(1) .desc', prop: 'text' },
+  { key: 'tide-low-title', selector: '.tide-cycle-display .tide-stat-box:nth-child(2) .title', prop: 'text' },
+  { key: 'tide-low-desc', selector: '.tide-cycle-display .tide-stat-box:nth-child(2) .desc', prop: 'text' },
+  { key: 'tide-wave-title', selector: '.tide-cycle-display .tide-stat-box:nth-child(3) .title', prop: 'text' },
+  { key: 'tide-wave-desc', selector: '.tide-cycle-display .tide-stat-box:nth-child(3) .desc', prop: 'text' },
+  { key: 'tide-police-title', selector: '.tide-cycle-display .tide-stat-box:nth-child(4) .title', prop: 'text' },
+  { key: 'tide-police-val', selector: '.tide-cycle-display .tide-stat-box:nth-child(4) .time', prop: 'text' },
+  { key: 'tide-police-desc', selector: '.tide-cycle-display .tide-stat-box:nth-child(4) .desc', prop: 'text' },
 
   /* Section 4: Trains */
-  { key: 'train-section-label', selector: '#trains-section .section-label',       prop: 'text' },
-  { key: 'train-section-title', selector: '#trains-section .section-title',       prop: 'text' },
-  { key: 'train-section-desc',  selector: '#trains-section .section-description', prop: 'text' },
+  { key: 'train-section-label', selector: '#trains-section .section-label', prop: 'text' },
+  { key: 'train-section-title', selector: '#trains-section .section-title', prop: 'text' },
+  { key: 'train-section-desc', selector: '#trains-section .section-description', prop: 'text' },
 
   /* Section 5: Toto */
-  { key: 'toto-section-label',  selector: '#toto-guide .section-label',          prop: 'text' },
-  { key: 'toto-section-title',  selector: '#toto-guide .section-title',          prop: 'text' },
-  { key: 'toto-section-desc',   selector: '#toto-guide .section-description',    prop: 'text' },
+  { key: 'toto-section-label', selector: '#toto-guide .section-label', prop: 'text' },
+  { key: 'toto-section-title', selector: '#toto-guide .section-title', prop: 'text' },
+  { key: 'toto-section-desc', selector: '#toto-guide .section-description', prop: 'text' },
 
   /* Section 6: Hotels */
-  { key: 'hotel-section-label', selector: '#hotel-directory .section-label',      prop: 'text' },
-  { key: 'hotel-section-title', selector: '#hotel-directory .section-title',      prop: 'text' },
-  { key: 'hotel-section-desc',  selector: '#hotel-directory .section-description', prop: 'text' },
+  { key: 'hotel-section-label', selector: '#hotel-directory .section-label', prop: 'text' },
+  { key: 'hotel-section-title', selector: '#hotel-directory .section-title', prop: 'text' },
+  { key: 'hotel-section-desc', selector: '#hotel-directory .section-description', prop: 'text' },
 
   /* Section 6B: Checkout */
-  { key: 'checkout-title',      selector: '#checkout-planner .section-title',       prop: 'html' },
-  { key: 'checkout-desc',       selector: '#checkout-planner .section-description', prop: 'text' },
+  { key: 'checkout-title', selector: '#checkout-planner .section-title', prop: 'html' },
+  { key: 'checkout-desc', selector: '#checkout-planner .section-description', prop: 'text' },
 
   /* Section 7: Medical */
-  { key: 'medical-label',       selector: '#medical-section .section-label',      prop: 'text' },
-  { key: 'medical-title',       selector: '#medical-section .section-title',      prop: 'text' },
-  { key: 'medical-desc',        selector: '#medical-section .section-description', prop: 'text' },
+  { key: 'medical-label', selector: '#medical-section .section-label', prop: 'text' },
+  { key: 'medical-title', selector: '#medical-section .section-title', prop: 'text' },
+  { key: 'medical-desc', selector: '#medical-section .section-description', prop: 'text' },
 
   /* Section 9: Secrets */
-  { key: 'secrets-label',       selector: '#digha-secrets .section-label',        prop: 'text' },
-  { key: 'secrets-title',       selector: '#digha-secrets .section-title',        prop: 'text' },
-  { key: 'secrets-desc',        selector: '#digha-secrets .section-description',  prop: 'text' },
+  { key: 'secrets-label', selector: '#digha-secrets .section-label', prop: 'text' },
+  { key: 'secrets-title', selector: '#digha-secrets .section-title', prop: 'text' },
+  { key: 'secrets-desc', selector: '#digha-secrets .section-description', prop: 'text' },
 
   /* Section 10: SOS */
-  { key: 'sos-label',           selector: '#emergency-sos .section-label',        prop: 'text' },
-  { key: 'sos-title',           selector: '#emergency-sos .section-title',        prop: 'text' },
-  { key: 'sos-desc',            selector: '#emergency-sos .section-description',  prop: 'text' },
-  { key: 'sos-police-title',    selector: '.emergency-sos-grid .sos-card:nth-child(1) .sos-title', prop: 'text' },
-  { key: 'sos-police-sub',      selector: '.emergency-sos-grid .sos-card:nth-child(1) .sos-subtitle', prop: 'text' },
-  { key: 'sos-police-btn',      selector: '.emergency-sos-grid .sos-card:nth-child(1) .btn-sos-call', prop: 'text' },
-  { key: 'sos-hospital-title',  selector: '.emergency-sos-grid .sos-card:nth-child(2) .sos-title', prop: 'text' },
-  { key: 'sos-hospital-sub',    selector: '.emergency-sos-grid .sos-card:nth-child(2) .sos-subtitle', prop: 'text' },
-  { key: 'sos-hospital-btn',    selector: '.emergency-sos-grid .sos-card:nth-child(2) .btn-sos-call', prop: 'text' },
-  { key: 'sos-nolia-title',     selector: '.emergency-sos-grid .sos-card:nth-child(3) .sos-title', prop: 'text' },
-  { key: 'sos-nolia-sub',       selector: '.emergency-sos-grid .sos-card:nth-child(3) .sos-subtitle', prop: 'text' },
-  { key: 'sos-nolia-btn',       selector: '.emergency-sos-grid .sos-card:nth-child(3) .btn-sos-call', prop: 'text' },
-  { key: 'sos-fire-title',      selector: '.emergency-sos-grid .sos-card:nth-child(4) .sos-title', prop: 'text' },
-  { key: 'sos-fire-sub',        selector: '.emergency-sos-grid .sos-card:nth-child(4) .sos-subtitle', prop: 'text' },
-  { key: 'sos-fire-btn',        selector: '.emergency-sos-grid .sos-card:nth-child(4) .btn-sos-call', prop: 'text' },
+  { key: 'sos-label', selector: '#emergency-sos .section-label', prop: 'text' },
+  { key: 'sos-title', selector: '#emergency-sos .section-title', prop: 'text' },
+  { key: 'sos-desc', selector: '#emergency-sos .section-description', prop: 'text' },
+  { key: 'sos-police-title', selector: '.emergency-sos-grid .sos-card:nth-child(1) .sos-title', prop: 'text' },
+  { key: 'sos-police-sub', selector: '.emergency-sos-grid .sos-card:nth-child(1) .sos-subtitle', prop: 'text' },
+  { key: 'sos-police-btn', selector: '.emergency-sos-grid .sos-card:nth-child(1) .btn-sos-call', prop: 'text' },
+  { key: 'sos-hospital-title', selector: '.emergency-sos-grid .sos-card:nth-child(2) .sos-title', prop: 'text' },
+  { key: 'sos-hospital-sub', selector: '.emergency-sos-grid .sos-card:nth-child(2) .sos-subtitle', prop: 'text' },
+  { key: 'sos-hospital-btn', selector: '.emergency-sos-grid .sos-card:nth-child(2) .btn-sos-call', prop: 'text' },
+  { key: 'sos-nolia-title', selector: '.emergency-sos-grid .sos-card:nth-child(3) .sos-title', prop: 'text' },
+  { key: 'sos-nolia-sub', selector: '.emergency-sos-grid .sos-card:nth-child(3) .sos-subtitle', prop: 'text' },
+  { key: 'sos-nolia-btn', selector: '.emergency-sos-grid .sos-card:nth-child(3) .btn-sos-call', prop: 'text' },
+  { key: 'sos-fire-title', selector: '.emergency-sos-grid .sos-card:nth-child(4) .sos-title', prop: 'text' },
+  { key: 'sos-fire-sub', selector: '.emergency-sos-grid .sos-card:nth-child(4) .sos-subtitle', prop: 'text' },
+  { key: 'sos-fire-btn', selector: '.emergency-sos-grid .sos-card:nth-child(4) .btn-sos-call', prop: 'text' },
 
   /* Section 11: Community */
-  { key: 'community-title',     selector: '#community-invite h2',                 prop: 'text' },
+  { key: 'community-title', selector: '#community-invite h2', prop: 'text' },
 
   /* Events Section */
-  { key: 'events-title',        selector: '#events-section .section-title',        prop: 'text' },
+  { key: 'events-title', selector: '#events-section .section-title', prop: 'text' },
 
   /* Footer */
-  { key: 'footer-cta-title',    selector: '.footer-ribbon-text h3',               prop: 'text' },
-  { key: 'footer-cta-desc',     selector: '.footer-ribbon-text p',                prop: 'text' }
+  { key: 'footer-cta-title', selector: '.footer-ribbon-text h3', prop: 'text' },
+  { key: 'footer-cta-desc', selector: '.footer-ribbon-text p', prop: 'text' }
 ];
 
 /**
