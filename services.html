@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anirjan Services &amp; Concierge — Digha &amp; Coastal Bengal</title>
-  <meta name="description" content="Verified local services in Digha: Hotel bookings with Google Maps, personal booking concierge, seafood restaurants, event organizers, academic tutors, repair technicians, and Toto transit.">
+  <title>Anirjan Services Directory — Regional Portals &amp; Services Menu</title>
+  <meta name="description" content="Explore Anirjan's localized services directory. Access our dedicated live super-app for Digha services, and preview upcoming services across coastal Bengal and beyond.">
   <meta name="theme-color" content="#05070c">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Anirjan Services &amp; Concierge — Digha &amp; Coastal Bengal">
-  <meta property="og:description" content="Discover verified hotels, dedicated booking assistance, dining, tutors, Toto transit, and maintenance services in Digha.">
+  <meta property="og:title" content="Anirjan Services Directory — Regional Portals &amp; Services Menu">
+  <meta property="og:description" content="Discover Anirjan's service directory with our dedicated live portal for Digha and previews for upcoming regional services.">
   <meta property="og:image" content="./assets/favicon.svg">
   <meta property="og:type" content="website">
 
@@ -361,6 +361,67 @@
       color: #ffffff;
       transform: translateY(-2px);
       box-shadow: 0 4px 16px rgba(34, 158, 217, 0.35);
+    }
+
+    /* Regional Coverage Pill Badges & Strip */
+    .coverage-strip {
+      background: rgba(14, 20, 36, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 14px 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.83rem;
+    }
+    .coverage-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .coverage-city {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    .badge-status-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-status-soon {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+    }
+    .portal-link-text {
+      color: var(--gold-light);
+      text-decoration: underline;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .portal-link-text:hover {
+      color: #ffffff;
     }
 
     /* Featured Concierge Banner Card */
@@ -724,21 +785,21 @@
         </div>
 
         <h1 style="font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; color: #ffffff; line-height: 1.15; margin-bottom: 16px;">
-          Verified Local Services <br>
+          Anirjan Services Directory <br>
           <span style="background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-            &amp; Concierge in Digha
+            &amp; Regional Portals Menu
           </span>
         </h1>
 
-        <p style="max-width: 720px; margin: 0 auto; color: var(--text-secondary); font-size: 1.08rem; line-height: 1.6;">
-          Connecting travelers, homeowners, and local businesses with trusted hotel bookings, dedicated human concierges, authentic dining, verified tutors, technicians, and local transit.
+        <p style="max-width: 760px; margin: 0 auto; color: var(--text-secondary); font-size: 1.08rem; line-height: 1.6;">
+          Explore verified community, hospitality, and local concierge services. Our dedicated super-app is live for Digha with full booking and local telemetry, while other coastal and urban destinations are in active development.
         </p>
 
         <!-- Real-Time Smart Search Bar -->
         <div class="search-filter-wrap">
           <div class="search-box-inner">
             <span style="font-size: 1.2rem; margin-right: 12px;">🔍</span>
-            <input type="text" id="service-search" class="search-input" placeholder="Search hotels, tutors, Toto transit, repair specialists, dining in Digha...">
+            <input type="text" id="service-search" class="search-input" placeholder="Search services: hotels, booking concierge, toto transit, events, tutors, repairs...">
             <button class="search-btn" id="btn-search-trigger">
               <span>Find Services</span>
             </button>
@@ -748,14 +809,16 @@
         <!-- Interactive Category Pills -->
         <div class="category-pills-row" id="category-tabs">
           <button class="cat-btn active" data-filter="all">🌟 All Services</button>
-          <button class="cat-btn" data-filter="hotels">🏨 Hotels &amp; Stays</button>
+          <button class="cat-btn" data-filter="active">🌊 Active in Digha (Dedicated Portal)</button>
+          <button class="cat-btn" data-filter="upcoming">⏳ Other Regions (Coming Soon)</button>
+          <button class="cat-btn" data-filter="hotels">🏨 Stays &amp; Hotels</button>
           <button class="cat-btn" data-filter="concierge">🎧 Booking Concierge</button>
+          <button class="cat-btn" data-filter="transit">🛺 Toto &amp; Transit</button>
           <button class="cat-btn" data-filter="dining">🍽️ Dining &amp; Seafood</button>
-          <button class="cat-btn" data-filter="events">🎪 Event Organizers</button>
+          <button class="cat-btn" data-filter="events">🎪 Events &amp; Weddings</button>
           <button class="cat-btn" data-filter="tutors">📚 Academic Tutors</button>
-          <button class="cat-btn" data-filter="repairs">🔧 Repair &amp; Maintenance</button>
-          <button class="cat-btn" data-filter="transit">🛺 Toto &amp; Local Transit</button>
-          <button class="cat-btn" data-filter="advisory">💼 Advisory &amp; Consultations</button>
+          <button class="cat-btn" data-filter="repairs">🔧 Repairs &amp; Maintenance</button>
+          <button class="cat-btn" data-filter="advisory">💼 Advisory &amp; Ventures</button>
           <a href="#unsupported-activities" class="cat-btn" style="border-color: rgba(239, 68, 68, 0.45); color: #fca5a5; text-decoration: none;">🛡️ Zero-Tolerance Policy</a>
         </div>
 
@@ -763,49 +826,61 @@
     </section>
 
     <!-- =========================================================================
-         3. DEDICATED CONCIERGE SPOTLIGHT
+         3. DEDICATED DIGHA CONNECT GATEWAY SHOWCASE
          ========================================================================= -->
     <section class="container" style="margin-bottom: 50px;">
-      <div class="concierge-spotlight-card">
+      <div class="concierge-spotlight-card" style="border-color: rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(14, 25, 45, 0.95), rgba(7, 12, 24, 0.95));">
         <div class="concierge-grid">
           <div>
-            <span class="section-label">Dedicated Personal Desk</span>
-            <h2 style="font-family: var(--font-display); font-size: 1.85rem; font-weight: 800; color: #ffffff; margin: 8px 0 12px 0;">
-              Need a Dedicated Person to Book Your Hotel in Digha?
+            <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <span class="badge-status-live" style="font-size: 0.76rem; padding: 4px 12px;">
+                🌊 Live Dedicated Portal
+              </span>
+              <span style="color: var(--text-muted); font-size: 0.82rem;">• Direct Booking &amp; Telemetry</span>
+            </div>
+            <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.2rem); font-weight: 800; color: #ffffff; margin: 4px 0 14px 0; line-height: 1.2;">
+              Looking for Digha Hotels &amp; Local Services? <br>
+              <span style="background: linear-gradient(135deg, #4deeea, #38bdf8, #f3c276); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Visit the Dedicated Digha Connect Page
+              </span>
             </h2>
-            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
-              Skip middleman apps and surprise surge pricing. Our on-ground Digha coordinator personally inspects verified sea-view rooms, negotiates authentic off-market group rates, and coordinates your seamless arrival at Old or New Digha.
+            <p style="color: var(--text-secondary); font-size: 0.96rem; line-height: 1.65; margin-bottom: 22px;">
+              To provide a seamless on-ground experience, all verified Digha hotel bookings, 0% commission room inquiries, live Bay of Bengal ocean wave height, beach tide radar, local train schedules, Toto fare chart, and daily Mohona seafood rates are centralized on our <strong>dedicated Digha Connect Super-App</strong>.
             </p>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan%20Concierge,%20I%20need%20personal%20assistance%20to%20book%20a%20hotel%20in%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa" style="padding: 12px 22px; font-size: 0.92rem;">
-                <span>💬 Chat with Digha Concierge on WhatsApp</span>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+              <a href="./anirjan-connect/digha.html" class="btn-action" style="padding: 13px 26px; font-size: 0.96rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; color: #ffffff; box-shadow: 0 4px 20px rgba(56, 189, 248, 0.35);">
+                <span>🌊 Open Dedicated Digha Portal ↗</span>
               </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg" style="padding: 12px 22px; font-size: 0.92rem;">
-                <span>✈️ Telegram Concierge</span>
+              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20am%20looking%20for%20assistance%20with%20Digha%20hotels%20and%20services." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa" style="padding: 13px 22px; font-size: 0.94rem;">
+                <span>💬 WhatsApp Digha Desk</span>
               </a>
             </div>
           </div>
 
-          <div style="background: rgba(14, 20, 36, 0.7); border: 1px solid rgba(243, 194, 118, 0.2); border-radius: 16px; padding: 24px;">
-            <div style="color: var(--gold-light); font-weight: 700; font-size: 0.95rem; margin-bottom: 12px;">
-              ✦ Why Use Anirjan Local Concierge?
+          <div style="background: rgba(11, 16, 30, 0.85); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 18px; padding: 24px; box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.05);">
+            <div style="color: var(--cyan-light); font-weight: 700; font-size: 0.95rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <span>✦ Centralized on Dedicated Digha Page:</span>
             </div>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--text-secondary);">
-              <li style="display: flex; gap: 8px;">
-                <span style="color: #4ade80;">✓</span>
-                <span><strong>Physically Verified Rooms:</strong> No fake photos or misleading descriptions.</span>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem; color: #cbd5e1;">
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: #38bdf8; font-size: 1rem;">🏨</span>
+                <span><strong>Verified Digha Hotels &amp; Stays:</strong> Direct room reservations, maps, and photo-verified amenities with zero middleman touts.</span>
               </li>
-              <li style="display: flex; gap: 8px;">
-                <span style="color: #4ade80;">✓</span>
-                <span><strong>Direct Owner Access:</strong> Best rates for families, weekenders, and corporate teams.</span>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: #38bdf8; font-size: 1rem;">🌊</span>
+                <span><strong>Live Tide &amp; Wave Telemetry:</strong> Real-time high/low tide predictions and ocean wave meters for safe swimming.</span>
               </li>
-              <li style="display: flex; gap: 8px;">
-                <span style="color: #4ade80;">✓</span>
-                <span><strong>Station Pickup Coordination:</strong> Toto / e-rickshaw waiting when your train arrives.</span>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: #38bdf8; font-size: 1rem;">🚆</span>
+                <span><strong>Train Departure Board:</strong> Live departure schedules for EMU locals and express trains leaving Digha Station.</span>
               </li>
-              <li style="display: flex; gap: 8px;">
-                <span style="color: #4ade80;">✓</span>
-                <span><strong>Local Food &amp; Beach Tips:</strong> Direct recommendations from native Digha residents.</span>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: #38bdf8; font-size: 1rem;">🛺</span>
+                <span><strong>Regulated Toto Fares &amp; Booking:</strong> Transparent price chart across Old Digha, New Digha, and Udaipur.</span>
+              </li>
+              <li style="display: flex; gap: 10px; align-items: flex-start;">
+                <span style="color: #38bdf8; font-size: 1rem;">🐟</span>
+                <span><strong>Daily Mohona Fish Rate Index:</strong> Real-time wholesale and retail seafood price benchmarks.</span>
               </li>
             </ul>
           </div>
@@ -814,280 +889,355 @@
     </section>
 
     <!-- =========================================================================
-         4. COMPREHENSIVE SERVICES DIRECTORY
+         4. COMPREHENSIVE SERVICES & REGIONAL DIRECTORY MENU
          ========================================================================= -->
     <section class="container">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
-        <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: #ffffff;">
-          Verified Offerings in Digha &amp; Coastal Zone
-        </h2>
-        <span id="results-counter" style="color: var(--gold-light); font-size: 0.85rem; font-weight: 600;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: #ffffff; margin-bottom: 4px;">
+            Anirjan Services Menu &amp; Regional Coverage
+          </h2>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">
+            Browse our core services below. Active services in Digha are hosted on our dedicated page; other regions are expanding soon.
+          </p>
+        </div>
+        <span id="results-counter" style="color: var(--gold-light); font-size: 0.85rem; font-weight: 600; background: rgba(243, 194, 118, 0.1); border: 1px solid rgba(243, 194, 118, 0.25); padding: 4px 12px; border-radius: 999px;">
           Showing All Services
         </span>
       </div>
 
       <div class="services-grid" id="services-container">
 
-        <!-- 1. HOTEL: Sea Falcon Luxury Retreat -->
-        <div class="service-card featured" data-category="hotels">
+        <!-- 1. SERVICE: Hotels, Resorts & Coastal Accommodations -->
+        <div class="service-card featured" data-category="hotels" data-status="active">
           <div>
             <div class="card-top-badge-row">
-              <span class="card-type-tag">Hotel &amp; Stay</span>
-              <span class="card-rating-tag">★ 4.8 (Verified)</span>
+              <span class="card-type-tag">Accommodations &amp; Stays</span>
+              <span class="badge-status-live">🟢 Active in Digha</span>
             </div>
-            <h3 class="card-title">Sea Falcon Grand Coastal Stay</h3>
+            <h3 class="card-title">Verified Hotels, Resorts &amp; Coastal Stays</h3>
             <div class="card-subtitle">
-              <span>📍 Foreshore Sea Beach Road, New Digha</span>
+              <span>📍 Dedicated Live Portal: Digha Connect</span>
             </div>
             <p class="card-desc">
-              Premier seaside hotel facing the Bay of Bengal. Steps away from the shoreline with panoramic sunrise balconies, 24/7 generator backup, and in-house multi-cuisine dining.
+              We connect travelers with verified beachside hotels, family-friendly holiday homes, and luxury suites. All room listings and direct reservation channels for Digha are hosted on our dedicated super-app with 0% middleman commission.
             </p>
             <div class="card-amenities-pills">
-              <span class="amenity-pill">Sea View Balcony</span>
-              <span class="amenity-pill">AC Deluxe Rooms</span>
-              <span class="amenity-pill">Free High-Speed Wi-Fi</span>
-              <span class="amenity-pill">24h Kitchen</span>
+              <span class="amenity-pill">Physically Verified Rooms</span>
+              <span class="amenity-pill">Direct Owner Pricing</span>
+              <span class="amenity-pill">Zero Commission Touts</span>
+              <span class="amenity-pill">Station Transit Assist</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Digha, West Bengal</span>
+                <span class="badge-status-live">Dedicated Page Active</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏖️ Mandarmani, Puri, Kolkata</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
             </div>
           </div>
           <div>
             <div class="card-price-row">
-              <span class="price-num">₹2,200 – ₹3,800</span>
-              <span class="price-sub">/ night (approx.)</span>
+              <span class="price-num">Direct Booking</span>
+              <span class="price-sub">via Dedicated Digha Portal</span>
             </div>
             <div class="card-actions-row">
-              <a href="https://maps.google.com/?q=New+Digha+Sea+Beach+Road+Digha" target="_blank" rel="noopener noreferrer" class="btn-action btn-maps">
-                <span>📍 Google Maps</span>
+              <a href="./anirjan-connect/digha.html#hotels-section" class="btn-action btn-maps" style="border-color: #38bdf8; color: #38bdf8; font-weight: 700;">
+                <span>🏨 Open Digha Hotels Portal ↗</span>
               </a>
-              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20want%20to%20book%20Sea%20Falcon%20Grand%20in%20New%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
-                <span>💬 WhatsApp</span>
-              </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
+              <a href="#inquiry-form" class="btn-action btn-wa">
+                <span>Request Custom Stay</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- 2. HOTEL: Heritage Bay Inn Old Digha -->
-        <div class="service-card" data-category="hotels">
-          <div>
-            <div class="card-top-badge-row">
-              <span class="card-type-tag">Hotel &amp; Stay</span>
-              <span class="card-rating-tag">★ 4.6 (Family Pick)</span>
-            </div>
-            <h3 class="card-title">Heritage Bay Comfort Inn</h3>
-            <div class="card-subtitle">
-              <span>📍 Barrister Colony, Old Digha</span>
-            </div>
-            <p class="card-desc">
-              Peaceful green enclave in Old Digha ideal for families. Spacious rooms, secure car parking, authentic Bengali homestyle kitchen, and quick 3-minute stroll to the sea waves.
-            </p>
-            <div class="card-amenities-pills">
-              <span class="amenity-pill">Family Suites</span>
-              <span class="amenity-pill">Car Parking</span>
-              <span class="amenity-pill">Homestyle Thalis</span>
-              <span class="amenity-pill">Power Backup</span>
-            </div>
-          </div>
-          <div>
-            <div class="card-price-row">
-              <span class="price-num">₹1,400 – ₹2,400</span>
-              <span class="price-sub">/ night (approx.)</span>
-            </div>
-            <div class="card-actions-row">
-              <a href="https://maps.google.com/?q=Barrister+Colony+Old+Digha" target="_blank" rel="noopener noreferrer" class="btn-action btn-maps">
-                <span>📍 Google Maps</span>
-              </a>
-              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20want%20to%20inquire%20about%20Heritage%20Bay%20Comfort%20Inn%20Old%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
-                <span>💬 WhatsApp</span>
-              </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. PERSONAL CONCIERGE -->
-        <div class="service-card featured" data-category="concierge">
+        <!-- 2. SERVICE: Personal Booking Concierge -->
+        <div class="service-card featured" data-category="concierge" data-status="active">
           <div>
             <div class="card-top-badge-row">
               <span class="card-type-tag" style="background: rgba(56, 189, 248, 0.15); color: var(--cyan-light); border-color: rgba(56, 189, 248, 0.3);">
                 Personal Concierge
               </span>
-              <span class="card-rating-tag">★ 5.0 (Dedicated Desk)</span>
+              <span class="badge-status-live">🟢 Active in Digha</span>
             </div>
-            <h3 class="card-title">Dedicated Digha Hotel Booking Assistant</h3>
+            <h3 class="card-title">Dedicated Human Booking Concierge</h3>
             <div class="card-subtitle">
-              <span>📍 Anirjan Collective Desk, Jagadishpur, Digha</span>
+              <span>📍 Anirjan On-Ground Desk, Digha</span>
             </div>
             <p class="card-desc">
-              Have a dedicated person coordinate your entire stay. Tell us your budget, dates, and preferences. We physically verify room cleanliness, negotiate best off-market rates, and keep everything ready before arrival.
+              Have a real human coordinator handle room inspection, negotiate authentic off-market group rates, and ensure everything is set before arrival. Skip middleman apps, surprise fees, and tout harassment.
             </p>
             <div class="card-amenities-pills">
               <span class="amenity-pill">1-on-1 WhatsApp Support</span>
-              <span class="amenity-pill">Negotiated Rates</span>
-              <span class="amenity-pill">Zero Commission Friction</span>
-              <span class="amenity-pill">Hassle-free Check-in</span>
+              <span class="amenity-pill">Room Cleanliness Check</span>
+              <span class="amenity-pill">Station Pickup Assist</span>
+              <span class="amenity-pill">Off-Market Rates</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Digha, West Bengal</span>
+                <span class="badge-status-live">Dedicated Desk Active</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏖️ Mandarmani, Puri, Kolkata</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
             </div>
           </div>
           <div>
             <div class="card-price-row">
-              <span class="price-num">Direct Assistance</span>
-              <span class="price-sub">Free Coordination</span>
+              <span class="price-num">Direct Support</span>
+              <span class="price-sub">Free 1-on-1 Coordination</span>
             </div>
             <div class="card-actions-row">
-              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan%20Care,%20I%20need%20a%20dedicated%20assistant%20to%20find%20a%20hotel%20for%20my%20trip%20to%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
-                <span>💬 Connect on WhatsApp</span>
+              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan%20Care,%20I%20need%20a%20dedicated%20assistant%20for%20my%20trip%20to%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
+                <span>💬 WhatsApp Concierge</span>
               </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
+              <a href="./anirjan-connect/digha.html" class="btn-action btn-tg">
+                <span>🌊 Digha Portal ↗</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- 4. RESTAURANT: Sagar Kanya Seafood -->
-        <div class="service-card" data-category="dining">
+        <!-- 3. SERVICE: Toto & Local Transit Desk -->
+        <div class="service-card" data-category="transit" data-status="active">
+          <div>
+            <div class="card-top-badge-row">
+              <span class="card-type-tag" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3);">
+                Local Transit
+              </span>
+              <span class="badge-status-live">🟢 Active in Digha</span>
+            </div>
+            <h3 class="card-title">E-Rickshaw (Toto) Station &amp; Sightseeing</h3>
+            <div class="card-subtitle">
+              <span>📍 Digha Railway Station &amp; Beach Corridors</span>
+            </div>
+            <p class="card-desc">
+              Pre-book clean battery-operated Toto rides with polite local drivers. Station arrivals, beach hops between Old and New Digha, and half-day sightseeing tours to Udaipur Beach and Marine Aquarium with honest regulated tariffs.
+            </p>
+            <div class="card-amenities-pills">
+              <span class="amenity-pill">Station Arrival Pickups</span>
+              <span class="amenity-pill">Regulated Price Chart</span>
+              <span class="amenity-pill">Udaipur Beach Tour</span>
+              <span class="amenity-pill">Polite Local Drivers</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Digha, West Bengal</span>
+                <span class="badge-status-live">Fare Chart Active on Digha Portal</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏖️ Other Coastal Towns</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card-price-row">
+              <span class="price-num">Regulated Tariffs</span>
+              <span class="price-sub">Zero Station Surge</span>
+            </div>
+            <div class="card-actions-row">
+              <a href="./anirjan-connect/digha.html#toto-fare" class="btn-action btn-maps">
+                <span>🛺 Digha Toto Fare Chart ↗</span>
+              </a>
+              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20want%20to%20book%20a%20Toto/E-Rickshaw%20for%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
+                <span>💬 Book Toto</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SERVICE: Dining & Seafood Guides -->
+        <div class="service-card" data-category="dining" data-status="active">
           <div>
             <div class="card-top-badge-row">
               <span class="card-type-tag" style="background: rgba(239, 68, 68, 0.12); color: #f87171; border-color: rgba(239, 68, 68, 0.25);">
                 Dining &amp; Seafood
               </span>
-              <span class="card-rating-tag">★ 4.7 (Foodie Choice)</span>
+              <span class="badge-status-live">🟢 Active in Digha</span>
             </div>
-            <h3 class="card-title">Sagar Kanya Coastal Feast</h3>
+            <h3 class="card-title">Authentic Coastal Dining &amp; Mohona Guides</h3>
             <div class="card-subtitle">
-              <span>📍 Main Market Road, Old Digha Beach</span>
+              <span>📍 Digha Mohona &amp; Coastal Eateries</span>
             </div>
             <p class="card-desc">
-              Famous for authentic Bengali coastal seafood. Fresh Bay of Bengal catch served daily: Ilish paturi, butter-fried pomfret, jumbo prawn malaikari, and vegetarian thalis.
+              Direct recommendations for genuine coastal Bengal cuisine, fresh daily catch (Ilish, Pomfret, Jumbo Prawns), and real-time wholesale and retail seafood price tracking at the famous Digha Mohona fish market.
             </p>
             <div class="card-amenities-pills">
+              <span class="amenity-pill">Daily Mohona Seafood Index</span>
               <span class="amenity-pill">Fresh Daily Catch</span>
-              <span class="amenity-pill">Bengali Thali</span>
+              <span class="amenity-pill">Bengali Thali Guides</span>
               <span class="amenity-pill">Family AC Seating</span>
-              <span class="amenity-pill">Takeaway</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Digha, West Bengal</span>
+                <span class="badge-status-live">Mohona Index Live on Dedicated Page</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏖️ Other Coastal Zones</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
             </div>
           </div>
           <div>
             <div class="card-price-row">
-              <span class="price-num">₹400 – ₹900</span>
-              <span class="price-sub">for two persons</span>
+              <span class="price-num">Market Guidance</span>
+              <span class="price-sub">Authentic Local Recommendations</span>
             </div>
             <div class="card-actions-row">
-              <a href="https://maps.google.com/?q=Old+Digha+Seafood+Market+Digha" target="_blank" rel="noopener noreferrer" class="btn-action btn-maps">
-                <span>📍 Google Maps Route</span>
+              <a href="./anirjan-connect/digha.html#fish-rates" class="btn-action btn-maps">
+                <span>🐟 Digha Seafood Rates ↗</span>
               </a>
-              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20please%20share%20menu%20and%20table%20guidance%20for%20seafood%20dining%20in%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
-                <span>💬 WhatsApp</span>
+              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20please%20share%20food%20and%20dining%20guidance%20for%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
+                <span>💬 Dining Assistance</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- 5. EVENT ORGANIZER: Coastal Waves Events -->
-        <div class="service-card featured" data-category="events">
+        <!-- 5. SERVICE: Events & Weddings -->
+        <div class="service-card featured" data-category="events" data-status="active">
           <div>
             <div class="card-top-badge-row">
               <span class="card-type-tag" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(168, 85, 247, 0.3);">
                 Event Planning
               </span>
-              <span class="card-rating-tag">★ 4.9 (Top Rated)</span>
+              <span class="badge-status-live">🟢 Active in Coastal Belt</span>
             </div>
-            <h3 class="card-title">Coastal Breeze Event Management</h3>
+            <h3 class="card-title">Beach Weddings, Corporate &amp; Private Events</h3>
             <div class="card-subtitle">
               <span>📍 Serving Digha, Mandarmani &amp; Shankarpur</span>
             </div>
             <p class="card-desc">
-              End-to-end management for beach destination weddings, corporate retreats, birthday celebrations, sound &amp; stage lighting, coastal decor, and custom catering.
+              End-to-end event production for beachfront destination weddings, corporate leadership retreats, birthday galas, beachside stage lighting, sound, coastal decor, and authentic banquet catering.
             </p>
             <div class="card-amenities-pills">
-              <span class="amenity-pill">Beach Weddings</span>
+              <span class="amenity-pill">Beachfront Venues</span>
               <span class="amenity-pill">Corporate Offsites</span>
               <span class="amenity-pill">Stage &amp; Lighting</span>
-              <span class="amenity-pill">Catering Setup</span>
+              <span class="amenity-pill">Coastal Catering Setup</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Digha &amp; Coastal Belt</span>
+                <span class="badge-status-live">Dedicated Form Active</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏖️ Other Regions</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
             </div>
           </div>
           <div>
             <div class="card-price-row">
               <span class="price-num">Custom Packages</span>
-              <span class="price-sub">from ₹25,000</span>
+              <span class="price-sub">tailored to your vision</span>
             </div>
             <div class="card-actions-row">
-              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20want%20to%20plan%20an%20event/wedding%20in%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
-                <span>💬 Discuss on WhatsApp</span>
+              <a href="./anirjan-connect/digha.html#events-section" class="btn-action btn-maps">
+                <span>🎪 Digha Event Form ↗</span>
               </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
-              </a>
-              <a href="./anirjan-connect/digha.html#events-section" class="btn-action" style="grid-column: 1 / -1; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; text-align: center; justify-content: center; font-weight: 700;">
-                <span>🎪 Open Digha Custom Event Planner &amp; Form ↗</span>
+              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20want%20to%20plan%20an%20event%20in%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
+                <span>💬 Event Inquiries</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- 6. ACADEMIC TUTORS: Ramnagar & Digha Academic Circle -->
-        <div class="service-card" data-category="tutors">
+        <!-- 6. SERVICE: Academic Tutors Network -->
+        <div class="service-card" data-category="tutors" data-status="active">
           <div>
             <div class="card-top-badge-row">
               <span class="card-type-tag" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">
-                Education &amp; Tuition
+                Education &amp; Mentorship
               </span>
-              <span class="card-rating-tag">★ 4.8 (Verified Tutors)</span>
+              <span class="badge-status-live">🟢 Active in Digha Zone</span>
             </div>
-            <h3 class="card-title">Verified Academic Tutors Network</h3>
+            <h3 class="card-title">Verified Academic Home &amp; Online Tutors</h3>
             <div class="card-subtitle">
               <span>📍 Digha, Ramnagar &amp; Contai Vicinity</span>
             </div>
             <p class="card-desc">
-              Connect with qualified private home tutors and subject mentors. Mathematics, Physics, Chemistry, English, and Geography Honours assistance for school &amp; college students.
+              Connect with vetted private educators and subject mentors for CBSE, ICSE, and WBBSE school boards (Class 8–12) as well as college degree tutoring in Mathematics, Science, and Humanities.
             </p>
             <div class="card-amenities-pills">
-              <span class="amenity-pill">Class 8–12 CBSE/ICSE/WBBSE</span>
+              <span class="amenity-pill">Class 8–12 Boards</span>
               <span class="amenity-pill">College Degree Mentors</span>
-              <span class="amenity-pill">Home &amp; Online</span>
+              <span class="amenity-pill">Home &amp; Online Sessions</span>
               <span class="amenity-pill">Verified Credentials</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Digha, Ramnagar &amp; Contai</span>
+                <span class="badge-status-live">Active Local Network</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏙️ Other Districts</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
             </div>
           </div>
           <div>
             <div class="card-price-row">
-              <span class="price-num">₹1,500 – ₹4,000</span>
-              <span class="price-sub">/ month / subject</span>
+              <span class="price-num">Direct Mentorship</span>
+              <span class="price-sub">Verified Academic Circle</span>
             </div>
             <div class="card-actions-row">
               <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20am%20looking%20for%20a%20tutor%20in%20Digha/Ramnagar%20area." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
                 <span>💬 Find a Tutor</span>
               </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
+              <a href="#inquiry-form" class="btn-action btn-tg">
+                <span>Request Tutor In-App</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- 7. REPAIR & MAINTENANCE: Verified Home Technicians -->
-        <div class="service-card featured" data-category="repairs">
+        <!-- 7. SERVICE: Repair & Maintenance Specialists -->
+        <div class="service-card featured" data-category="repairs" data-status="active">
           <div>
             <div class="card-top-badge-row">
               <span class="card-type-tag" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3);">
                 Maintenance &amp; Repairs
               </span>
-              <span class="card-rating-tag">★ 4.7 (Verified Local Pros)</span>
+              <span class="badge-status-live">🟢 Active in Digha Zone</span>
             </div>
             <h3 class="card-title">Trusted Property &amp; Home Repair Specialists</h3>
             <div class="card-subtitle">
               <span>📍 Fast Dispatch Across Digha, Jagadishpur &amp; Padima</span>
             </div>
             <p class="card-desc">
-              Professional on-call repair workers for homes, resorts, and vacation villas. Certified electricians, master plumbers, inverter/generator technicians, and AC servicing mechanics.
+              Professional on-call repair technicians for homes, vacation cottages, and resort properties. Certified emergency electricians, master plumbers, generator technicians, and AC servicing mechanics.
             </p>
             <div class="card-amenities-pills">
               <span class="amenity-pill">Emergency Electricians</span>
               <span class="amenity-pill">Plumbing Leakage Fix</span>
               <span class="amenity-pill">AC Gas &amp; Servicing</span>
               <span class="amenity-pill">Appliance Repairs</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Digha, Jagadishpur &amp; Padima</span>
+                <span class="badge-status-live">Active On-Call Dispatch</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏙️ Other Cities</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
             </div>
           </div>
           <div>
@@ -1099,73 +1249,45 @@
               <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20need%20an%20electrician/plumber/repair%20technician%20in%20Digha." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
                 <span>💬 Request Technician</span>
               </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
+              <a href="#inquiry-form" class="btn-action btn-tg">
+                <span>Book In-App</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- 8. TRANSIT: Digha Toto & E-Rickshaw Desk -->
-        <div class="service-card" data-category="transit">
-          <div>
-            <div class="card-top-badge-row">
-              <span class="card-type-tag" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3);">
-                Local Transit
-              </span>
-              <span class="card-rating-tag">★ 4.9 (Trusted Drivers)</span>
-            </div>
-            <h3 class="card-title">Digha E-Rickshaw (Toto) Booking Desk</h3>
-            <div class="card-subtitle">
-              <span>📍 Digha Railway Station &amp; Beach Corridors</span>
-            </div>
-            <p class="card-desc">
-              Pre-book clean, battery-operated Toto rides with polite local drivers. Station arrivals, half-day sightseeing (Marine Aquarium, Amaravati Park, Science Centre, Udaipur Beach) and coastal hops.
-            </p>
-            <div class="card-amenities-pills">
-              <span class="amenity-pill">Railway Station Pickup</span>
-              <span class="amenity-pill">Udaipur Beach Tour</span>
-              <span class="amenity-pill">Fixed Honest Rates</span>
-              <span class="amenity-pill">Family Friendly</span>
-            </div>
-          </div>
-          <div>
-            <div class="card-price-row">
-              <span class="price-num">₹350 – ₹800</span>
-              <span class="price-sub">/ sightseeing package</span>
-            </div>
-            <div class="card-actions-row">
-              <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20want%20to%20book%20a%20Toto/E-Rickshaw%20for%20Digha%20sightseeing." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
-                <span>💬 Book Toto on WhatsApp</span>
-              </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- 9. ADVISORY & CONSULTATION: Coastal Business & Land Advisory -->
-        <div class="service-card" data-category="advisory">
+        <!-- 8. SERVICE: Advisory Desk -->
+        <div class="service-card" data-category="advisory" data-status="active">
           <div>
             <div class="card-top-badge-row">
               <span class="card-type-tag" style="background: rgba(243, 194, 118, 0.15); color: var(--gold-light); border-color: rgba(243, 194, 118, 0.3);">
                 Advisory Desk
               </span>
-              <span class="card-rating-tag">★ 5.0 (Executive)</span>
+              <span class="badge-status-live">🟢 Active in Purba Medinipur</span>
             </div>
             <h3 class="card-title">Coastal Ventures &amp; Property Advisory</h3>
             <div class="card-subtitle">
               <span>📍 Anirjan Executive Hub, Jagadishpur, Digha</span>
             </div>
             <p class="card-desc">
-              Strategic consultation for entrepreneurs and investors in the Purba Medinipur coastal belt. Hospitality business setup, property due diligence, local government documentation, and community partnerships.
+              Strategic and confidential consulting for entrepreneurs and property investors in coastal Bengal. Hospitality feasibility studies, property due diligence, municipal documentation, and local community partnerships.
             </p>
             <div class="card-amenities-pills">
               <span class="amenity-pill">Property Title Due Diligence</span>
               <span class="amenity-pill">Hospitality Feasibility</span>
               <span class="amenity-pill">Local Partnerships</span>
               <span class="amenity-pill">Legal Consultation</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Purba Medinipur Coastal Belt</span>
+                <span class="badge-status-live">Executive Desk Active</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏙️ Other Districts</span>
+                <span class="badge-status-soon">Currently Not Available</span>
+              </div>
             </div>
           </div>
           <div>
@@ -1177,8 +1299,59 @@
               <a href="https://wa.me/anirjan_collective?text=Hello%20Anirjan,%20I%20would%20like%20to%20schedule%20a%20strategic%20consultation%20regarding%20coastal%20business/property." target="_blank" rel="noopener noreferrer" class="btn-action btn-wa">
                 <span>💬 WhatsApp Appointment</span>
               </a>
-              <a href="https://t.me/anirjan_collective" target="_blank" rel="noopener noreferrer" class="btn-action btn-tg">
-                <span>✈️ Telegram</span>
+              <a href="#inquiry-form" class="btn-action btn-tg">
+                <span>Inquire In-App</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. SERVICE: Upcoming Regional Expansions -->
+        <div class="service-card" data-category="hotels transit dining upcoming" data-status="upcoming">
+          <div>
+            <div class="card-top-badge-row">
+              <span class="card-type-tag" style="background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border-color: rgba(148, 163, 184, 0.3);">
+                Regional Expansions
+              </span>
+              <span class="badge-status-soon">⏳ In Preparation</span>
+            </div>
+            <h3 class="card-title">Mandarmani, Tajpur &amp; Puri Regional Portals</h3>
+            <div class="card-subtitle">
+              <span>📍 Expanding Coastal &amp; Urban Hubs</span>
+            </div>
+            <p class="card-desc">
+              Following the success of our dedicated Digha Connect super-app, we are vetting local homestay operators, responsible drivers, and verified guides to bring zero-commission services to other popular destinations.
+            </p>
+            <div class="card-amenities-pills">
+              <span class="amenity-pill">0% Commission Model</span>
+              <span class="amenity-pill">Dedicated Regional Apps</span>
+              <span class="amenity-pill">Vetted Stays &amp; Drivers</span>
+              <span class="amenity-pill">Community First</span>
+            </div>
+
+            <div class="coverage-strip">
+              <div class="coverage-row">
+                <span class="coverage-city">🏖️ Mandarmani &amp; Tajpur</span>
+                <span class="badge-status-soon">Currently Not Available (Soon)</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🌊 Puri &amp; Bakkhali</span>
+                <span class="badge-status-soon">Currently Not Available (In Dev)</span>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-city">🏙️ Kolkata Metro Hub</span>
+                <span class="badge-status-soon">Waitlist Open</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card-price-row">
+              <span class="price-num">Early Access</span>
+              <span class="price-sub">Register for Launch Notifications</span>
+            </div>
+            <div class="card-actions-row">
+              <a href="#inquiry-form" class="btn-action btn-maps" style="width: 100%; justify-content: center; border-color: rgba(243, 194, 118, 0.4); color: var(--gold-light);">
+                <span>🔔 Register for Regional Launch Updates →</span>
               </a>
             </div>
           </div>
@@ -1314,10 +1487,10 @@
         <div style="text-align: center; margin-bottom: 28px;">
           <span class="section-label">Fast In-App Dispatch</span>
           <h2 style="font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: #ffffff; margin: 8px 0;">
-            Book or Request Any Service
+            Book or Inquire About Any Service
           </h2>
           <p style="color: var(--text-secondary); font-size: 0.95rem;">
-            Prefer not to use WhatsApp right now? Submit your request below. Our local team in Digha will review and reach out within 2 hours.
+            Need personal assistance in Digha or want to inquire about upcoming regional coverage? Submit your request below and our team will get back to you directly.
           </p>
         </div>
 
@@ -1335,16 +1508,20 @@
 
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-label" for="srv-category">Service Type *</label>
+              <label class="form-label" for="srv-category">Service / Regional Selection *</label>
               <select id="srv-category" class="form-control" required style="background: rgba(14, 20, 36, 0.9); color: #ffffff;">
-                <option value="HOTEL_BOOKING">🏨 Hotel Stay &amp; Room Booking Assistance</option>
-                <option value="PERSONAL_CONCIERGE">🎧 Dedicated Personal Concierge</option>
-                <option value="DINING_RESERVATION">🍽️ Restaurant &amp; Seafood Dining</option>
-                <option value="EVENT_ORGANIZER">🎪 Event Planning &amp; Celebrations</option>
-                <option value="ACADEMIC_TUTOR">📚 Academic Tutor / Tuition Search</option>
-                <option value="REPAIR_WORKER">🔧 Home &amp; Property Maintenance / Repair</option>
-                <option value="TOTO_TRANSIT">🛺 Toto / E-Rickshaw Sightseeing &amp; Station Transit</option>
-                <option value="STRATEGIC_ADVISORY">💼 Business &amp; Property Consultation</option>
+                <option value="DIGHA_HOTEL_BOOKING">🏨 Hotel Stay Assistance (Digha — Active)</option>
+                <option value="DIGHA_CONCIERGE">🎧 Personal Booking Concierge (Digha — Active)</option>
+                <option value="DIGHA_TOTO_TRANSIT">🛺 Toto / E-Rickshaw Station Transit (Digha — Active)</option>
+                <option value="DIGHA_DINING">🍽️ Seafood &amp; Dining Guidance (Digha — Active)</option>
+                <option value="DIGHA_EVENT_PLANNER">🎪 Event Planning &amp; Celebrations (Digha / Coast — Active)</option>
+                <option value="DIGHA_TUTORS">📚 Academic Tutor Network (Digha / Ramnagar — Active)</option>
+                <option value="DIGHA_REPAIRS">🔧 Home &amp; Property Maintenance / Repairs (Digha — Active)</option>
+                <option value="DIGHA_ADVISORY">💼 Coastal Ventures &amp; Property Advisory (Digha / Coast — Active)</option>
+                <option value="UPCOMING_MANDARMANI">🏖️ Mandarmani Services (Join Early Waitlist)</option>
+                <option value="UPCOMING_PURI">🌊 Puri Coastal Services (Join Early Waitlist)</option>
+                <option value="UPCOMING_KOLKATA">🏙️ Kolkata Services (Join Early Waitlist)</option>
+                <option value="OTHER_REGIONAL_INQUIRY">✦ Other Region / General Service Inquiry</option>
               </select>
             </div>
             <div class="form-group">
@@ -1435,12 +1612,11 @@
         <div class="footer-col">
           <h4>Services Directory</h4>
           <ul class="footer-links">
-            <li><a href="./services.html">Digha Hotels &amp; Stays</a></li>
-            <li><a href="./services.html">Dedicated Booking Concierge</a></li>
-            <li><a href="./services.html">Seafood Dining &amp; Cafes</a></li>
-            <li><a href="./services.html">Event Organizers in Digha</a></li>
-            <li><a href="./services.html">Toto / E-Rickshaw Booking</a></li>
-            <li><a href="./services.html">Academic Tutors Network</a></li>
+            <li><a href="./anirjan-connect/digha.html" style="color: #38bdf8; font-weight: 700;">🌊 Dedicated Digha Portal ↗</a></li>
+            <li><a href="./anirjan-connect/digha.html#hotels-section">Digha Hotels &amp; Stays</a></li>
+            <li><a href="./anirjan-connect/digha.html#toto-fare">Digha Toto &amp; Transit</a></li>
+            <li><a href="./anirjan-connect/digha.html#fish-rates">Daily Mohona Seafood Index</a></li>
+            <li><a href="./services.html">All Regional Services Menu</a></li>
             <li><a href="#unsupported-activities" style="color: #fca5a5; font-weight: 600;">🛡️ Ethical Policy &amp; Prohibited Acts</a></li>
           </ul>
         </div>
@@ -1537,17 +1713,23 @@
         });
       }
 
-      function applyFilter(category, searchTerm) {
+      function applyFilter(filterValue, searchTerm) {
         let visibleCount = 0;
 
         serviceCards.forEach(card => {
-          const cardCat = card.getAttribute('data-category');
+          const cardCat = card.getAttribute('data-category') || '';
+          const cardStatus = card.getAttribute('data-status') || '';
           const cardText = card.innerText.toLowerCase();
 
-          const matchesCat = (category === 'all' || cardCat === category);
+          const matchesFilter = (
+            filterValue === 'all' || 
+            cardCat === filterValue || 
+            cardCat.split(' ').includes(filterValue) ||
+            cardStatus === filterValue
+          );
           const matchesSearch = (!searchTerm || cardText.includes(searchTerm));
 
-          if (matchesCat && matchesSearch) {
+          if (matchesFilter && matchesSearch) {
             card.style.display = 'flex';
             visibleCount++;
           } else {
@@ -1556,7 +1738,7 @@
         });
 
         if (counterEl) {
-          counterEl.textContent = `Showing ${visibleCount} verified service${visibleCount === 1 ? '' : 's'}`;
+          counterEl.textContent = `Showing ${visibleCount} service${visibleCount === 1 ? '' : 's'}`;
         }
       }
 
