@@ -1,37 +1,37 @@
 /**
  * ============================================================================
- * ANIRJAN METRICS ENGINE (js/metrics.js) - REAL-TIME REQUEST COUNTERS
+ * ANIRJAN METRICS ENGINE (js/metrics.js) - 100% REAL BACKEND DATA
  * ============================================================================
- * Provides synchronized real-time request counts and live ecosystem data
- * across Anirjan Connect, Job Done, Services, Support, and Founder portals.
+ * Connects directly to your live Google Apps Script & Google Sheet backend.
+ * Displays real-time request counts and live ecosystem data across all pages.
  * 
- * Features:
- *   1. Zero-latency instant cache in LocalStorage.
- *   2. Smooth easing count-up animation on initial load and increments.
- *   3. Optimistic + server-confirmed real-time incrementing on form dispatch.
- *   4. Multi-page reactive updates via DOM CustomEvents.
+ * Behavior:
+ *   1. Displays "--" while awaiting initial backend synchronization.
+ *   2. Smoothly animates into exact real count fetched from Google Sheets.
+ *   3. Instant optimistic +1 increment with glowing pulse upon any form submission.
+ *   4. Broadcasts DOM CustomEvents for reactive UI components.
  * ============================================================================
  */
 
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "anirjan_live_metrics_cache_v2";
+  const STORAGE_KEY = "anirjan_live_metrics_cache_v3";
   const DEFAULT_BACKEND_URL = "https://script.google.com/macros/s/AKfycbwN2Q_Xw2lzA277ZgyeQ5Pv6HXIzZPsS8eMMMByHKteTSOAnFJbR6A5w7EySv8Gnpdp/exec";
 
-  // Baseline initial state (realist genesis seed, overwritten by live server values)
-  const DEFAULT_METRICS = {
-    totalRequests: 142,
-    todayRequests: 18,
+  // Clean initial state: null values render as "--" until real data arrives
+  const INITIAL_METRICS = {
+    totalRequests: null,
+    todayRequests: null,
     categories: {
-      connect: 78,
-      jobDone: 34,
-      services: 16,
-      support: 11,
-      founder: 3,
-      digha: 0
+      connect: null,
+      jobDone: null,
+      services: null,
+      support: null,
+      founder: null,
+      digha: null
     },
-    lastUpdated: new Date().toISOString()
+    lastUpdated: null
   };
 
   class AnirjanMetricsManager {
@@ -39,7 +39,6 @@
       this.metrics = this.loadCachedMetrics();
       this.isSyncing = false;
       this.initialized = false;
-      this.boundElements = new Set();
       this.init();
     }
 
@@ -57,26 +56,26 @@
           const parsed = JSON.parse(raw);
           if (parsed && typeof parsed.totalRequests === "number") {
             return {
-              ...DEFAULT_METRICS,
+              ...INITIAL_METRICS,
               ...parsed,
               categories: {
-                ...DEFAULT_METRICS.categories,
+                ...INITIAL_METRICS.categories,
                 ...(parsed.categories || {})
               }
             };
           }
         }
       } catch (e) {
-        console.warn("[AnirjanMetrics] Storage cache read warning:", e);
+        console.warn("[AnirjanMetrics] Storage cache read notice:", e);
       }
-      return { ...DEFAULT_METRICS };
+      return { ...INITIAL_METRICS };
     }
 
     saveCachedMetrics() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(this.metrics));
       } catch (e) {
-        // Storage quota / private mode guard
+        // Safe private mode fallback
       }
     }
 
@@ -98,18 +97,17 @@
     }
 
     listenForEvents() {
-      // Listen for cross-component submission signals
       window.addEventListener("anirjan:submission-success", (evt) => {
         const detail = evt.detail || {};
         this.recordSubmission(detail.formType, detail.metrics);
       });
 
-      // Periodic gentle sync (every 60s while active tab)
+      // Periodic gentle sync (every 45s while tab is active)
       setInterval(() => {
         if (!document.hidden) {
           this.syncWithBackend(false);
         }
-      }, 60000);
+      }, 45000);
     }
 
     /**
@@ -138,23 +136,19 @@
             const serverTotal = Number(data.totalRequests || 0);
             const serverToday = Number(data.todayRequests || 0);
 
-            // Keep whichever is higher to prevent optimistic rollback
-            const newTotal = Math.max(serverTotal, this.metrics.totalRequests);
-            const newToday = Math.max(serverToday, this.metrics.todayRequests);
-
             const serverCats = data.categories || {};
             const mergedCategories = {
-              connect: Math.max(Number(serverCats.connect || 0), this.metrics.categories.connect || 0),
-              jobDone: Math.max(Number(serverCats.jobDone || 0), this.metrics.categories.jobDone || 0),
-              services: Math.max(Number(serverCats.services || 0), this.metrics.categories.services || 0),
-              support: Math.max(Number(serverCats.support || 0), this.metrics.categories.support || 0),
-              founder: Math.max(Number(serverCats.founder || 0), this.metrics.categories.founder || 0),
-              digha: Math.max(Number(serverCats.digha || 0), this.metrics.categories.digha || 0)
+              connect: Number(serverCats.connect || 0),
+              jobDone: Number(serverCats.jobDone || 0),
+              services: Number(serverCats.services || 0),
+              support: Number(serverCats.support || 0),
+              founder: Number(serverCats.founder || 0),
+              digha: Number(serverCats.digha || 0)
             };
 
             this.metrics = {
-              totalRequests: newTotal,
-              todayRequests: newToday,
+              totalRequests: serverTotal,
+              todayRequests: serverToday,
               categories: mergedCategories,
               lastUpdated: new Date().toISOString()
             };
@@ -178,21 +172,22 @@
     recordSubmission(formType, serverMetrics = null) {
       const normalizedType = this.normalizeFormType(formType);
 
+      // Initialize if null
+      if (this.metrics.totalRequests === null) this.metrics.totalRequests = 0;
+      if (this.metrics.todayRequests === null) this.metrics.todayRequests = 0;
+      if (!this.metrics.categories[normalizedType]) this.metrics.categories[normalizedType] = 0;
+
       // Optimistic bump
       this.metrics.totalRequests += 1;
       this.metrics.todayRequests += 1;
-
-      if (!this.metrics.categories[normalizedType]) {
-        this.metrics.categories[normalizedType] = 0;
-      }
       this.metrics.categories[normalizedType] += 1;
 
-      // If server returned updated metrics in POST response, incorporate them
+      // Incorporate server payload if present
       if (serverMetrics) {
-        if (serverMetrics.totalRequests) {
+        if (serverMetrics.totalRequests !== undefined) {
           this.metrics.totalRequests = Math.max(this.metrics.totalRequests, Number(serverMetrics.totalRequests));
         }
-        if (serverMetrics.todayRequests) {
+        if (serverMetrics.todayRequests !== undefined) {
           this.metrics.todayRequests = Math.max(this.metrics.todayRequests, Number(serverMetrics.todayRequests));
         }
       }
@@ -200,7 +195,6 @@
       this.metrics.lastUpdated = new Date().toISOString();
       this.saveCachedMetrics();
 
-      // Trigger celebratory micro-pulse and render
       this.renderAll(true, true);
       this.dispatchIncrementEvent(normalizedType);
       this.dispatchUpdateEvent();
@@ -246,25 +240,22 @@
           return this.metrics.todayRequests;
         case "jobDone":
         case "jobs":
-          return this.metrics.categories.jobDone || 0;
+          return this.metrics.categories.jobDone;
         case "services":
-          return this.metrics.categories.services || 0;
+          return this.metrics.categories.services;
         case "support":
-          return this.metrics.categories.support || 0;
+          return this.metrics.categories.support;
         case "founder":
-          return this.metrics.categories.founder || 0;
+          return this.metrics.categories.founder;
         case "connect":
-          return this.metrics.categories.connect || 0;
+          return this.metrics.categories.connect;
         case "digha":
-          return this.metrics.categories.digha || 0;
+          return this.metrics.categories.digha;
         default:
           return this.metrics.categories[key] !== undefined ? this.metrics.categories[key] : this.metrics.totalRequests;
       }
     }
 
-    /**
-     * Renders values to all registered and marked DOM elements.
-     */
     renderAll(animate = true, isPulse = false) {
       const selector = "[data-metric-counter], [data-metric], [data-metric-text]";
       const elements = document.querySelectorAll(selector);
@@ -274,7 +265,9 @@
         const isTextSummary = el.hasAttribute("data-metric-text");
 
         if (isTextSummary) {
-          el.textContent = `${this.formatNumber(this.metrics.totalRequests)} Requests Dispatched • ${this.formatNumber(this.metrics.todayRequests)} Active Today`;
+          const totStr = this.formatNumber(this.metrics.totalRequests);
+          const todStr = this.formatNumber(this.metrics.todayRequests);
+          el.textContent = `${totStr} Requests Dispatched • ${todStr} Active Today`;
           return;
         }
 
@@ -289,28 +282,33 @@
           setTimeout(() => el.classList.remove("metric-counter-pulse"), 1000);
         }
 
-        if (!animate) {
+        // If data is still null, render --
+        if (targetVal === null || targetVal === undefined) {
+          el.textContent = `${prefix}--${suffix}`;
+          el.setAttribute("data-current-value", "--");
+          return;
+        }
+
+        const currentAttr = el.getAttribute("data-current-value");
+        const currentVal = (currentAttr === "--" || currentAttr === null) ? null : parseInt(currentAttr, 10);
+
+        if (!animate || currentVal === null) {
           el.textContent = `${prefix}${this.formatNumber(targetVal)}${suffix}`;
           el.setAttribute("data-current-value", String(targetVal));
           return;
         }
 
-        const currentVal = parseInt(el.getAttribute("data-current-value") || "0", 10);
         if (currentVal !== targetVal) {
           this.animateCounter(el, currentVal, targetVal, prefix, suffix);
-        } else if (!el.textContent) {
+        } else if (!el.textContent || el.textContent.includes("--")) {
           el.textContent = `${prefix}${this.formatNumber(targetVal)}${suffix}`;
         }
       });
     }
 
-    /**
-     * Smooth count-up animation using requestAnimationFrame
-     */
-    animateCounter(el, start, end, prefix = "", suffix = "", duration = 1200) {
+    animateCounter(el, start, end, prefix = "", suffix = "", duration = 1000) {
       const startTime = performance.now();
       const change = end - start;
-
       const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
 
       const updateFrame = (currentTime) => {
@@ -333,7 +331,9 @@
     }
 
     formatNumber(num) {
-      if (isNaN(num)) return "0";
+      if (num === null || num === undefined || num === "" || isNaN(num)) {
+        return "--";
+      }
       return Number(num).toLocaleString("en-IN");
     }
 
@@ -342,6 +342,5 @@
     }
   }
 
-  // Export singleton to window
   window.AnirjanMetrics = new AnirjanMetricsManager();
 })();
